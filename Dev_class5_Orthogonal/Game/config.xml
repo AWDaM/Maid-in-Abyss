@@ -30,4 +30,8 @@
     <map_name name="sewers.tmx"></map_name>
   </scene>
 
+  <scene_two>
+    <map_name name="boi.tmx"></map_name>
+  </scene_two>
+
 </config>

@@ -68,7 +68,23 @@ public:
 	{
 		return true;
 	}
-
+	
+	void Enable()
+	{
+		if (!active)
+		{
+			active = true;
+			Start();
+		}
+}
+	void Disable()
+	{
+		if (active)
+		{
+			active = false;
+			CleanUp();
+		}
+	}
 public:
 
 	p2SString	name;

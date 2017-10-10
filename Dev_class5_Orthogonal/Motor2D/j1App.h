@@ -12,6 +12,7 @@ class j1Render;
 class j1Textures;
 class j1Audio;
 class j1Scene;
+class j1Scene_two;
 class j1Map;
 class j1SceneChange;
 
@@ -83,6 +84,7 @@ public:
 	j1Textures*			tex;
 	j1Audio*				audio;
 	j1Scene*				scene;
+	j1Scene_two*		scene_two;
 	j1Map*					map;
 	j1SceneChange*	scenechange;
 
