@@ -37,8 +37,7 @@ private:
 	uint start_time = 0;
 	uint total_time = 0;
 	SDL_Rect screen;
-	j1Module* to_enable = nullptr;
-	j1Module* to_disable = nullptr;
+
 
 };
 #endif // ! _MODULE_SCENECHANGE_

@@ -58,7 +58,8 @@ iPoint j1Map::MapToWorld(int x, int y) const
 
 	return ret;
 }
-
+
+
 
 SDL_Rect TileSet::GetTileRect(int id) const
 {
@@ -356,7 +357,7 @@ bool j1Map::SwitchMaps()
 		map1active = false;
 		Load_map(App->scene->map2_name.GetString());
 	}
-	else
+	else if(!map1active)
 	{
 		CleanUp();
 		map1active = true;
