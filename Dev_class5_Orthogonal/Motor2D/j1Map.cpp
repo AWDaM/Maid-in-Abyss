@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Scene.h"
 #include "j1Map.h"
 #include <math.h>
 
@@ -57,6 +58,7 @@ iPoint j1Map::MapToWorld(int x, int y) const
 
 	return ret;
 }
+
 
 SDL_Rect TileSet::GetTileRect(int id) const
 {
@@ -343,6 +345,23 @@ bool j1Map::LoadLayer(pugi::xml_node & node, MapLayer * layer)
 	
 	}
 
+	return true;
+}
+
+bool j1Map::SwitchMaps()
+{
+	if (map1active)
+	{
+		CleanUp();
+		map1active = false;
+		Load_map(App->scene->map2_name.GetString());
+	}
+	else
+	{
+		CleanUp();
+		map1active = true;
+		Load_map(App->scene->map1_name.GetString());
+	}
 	return true;
 }
 

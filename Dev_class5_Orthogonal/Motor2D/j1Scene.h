@@ -32,9 +32,10 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
+public:
 
-	p2SString map_name;
+	p2SString map1_name;
+	p2SString map2_name;
 };
 
 #endif // __j1SCENE_H__

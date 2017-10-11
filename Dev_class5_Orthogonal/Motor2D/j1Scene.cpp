@@ -8,7 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-#include "j1Scene_two.h"
+#include "j1SceneChange.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -24,7 +24,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 
-	map_name = config.child("map_name").attribute("name").as_string();
+	map1_name = config.child("map1_name").attribute("name").as_string();
+	map2_name = config.child("map2_name").attribute("name").as_string();
 
 	
 
@@ -38,8 +39,12 @@ bool j1Scene::Start()
 {
 	
 
-	bool ret = App->map->Load_map(map_name.GetString());
-	LOG("Boi: %s", map_name.GetString());
+	bool ret = App->map->Load_map(map1_name.GetString());
+	if (ret)
+	{
+		App->map->map1active = true;
+	}
+	LOG("Boi: %s", map1_name.GetString());
 	return ret;
 }
 
@@ -69,6 +74,9 @@ bool j1Scene::Update(float dt)
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 1;
+
+	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
+		App->scenechange->ChangeScene(1.0f);
 
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();

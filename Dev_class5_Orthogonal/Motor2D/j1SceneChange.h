@@ -14,8 +14,8 @@ public:
 
 	bool Awake(pugi::xml_node&);
 	bool Start();
-	bool Update();
-	bool ChangeScene(j1Module* module_off, j1Module* module_on, float time = 1.0f);
+	bool Update(float dt);
+	bool ChangeScene(float time = 1.0f);
 
 
 	bool IsFading() const;

@@ -95,6 +95,8 @@ public:
 	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
 
+	bool SwitchMaps();
+
 private:
 
 	bool LoadMap();
@@ -107,12 +109,14 @@ private:
 public:
 
 	MapData data;
+	bool				map1active = false;
 
 private:
 
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+	
 };
 
 #endif // __j1MAP_H__
