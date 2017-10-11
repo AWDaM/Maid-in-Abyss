@@ -38,14 +38,10 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	
+	bool ret = App->map->Load_map(map_name.GetString());
+	LOG("Boi: %s", map_name.GetString());
+	return true;
 
-	bool ret = App->map->Load_map(map1_name.GetString());
-	if (ret)
-	{
-		App->map->map1active = true;
-	}
-	LOG("Boi: %s", map1_name.GetString());
-	return ret;
 }
 
 // Called each loop iteration
