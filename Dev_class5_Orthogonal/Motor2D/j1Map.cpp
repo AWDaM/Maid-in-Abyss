@@ -83,7 +83,9 @@ bool j1Map::CleanUp()
 
 	while(item != NULL)
 	{
+		//SDL_DestroyTexture(item->data->texture);
 		RELEASE(item->data);
+		
 		item = item->next;
 	}
 	data.tilesets.clear();
@@ -93,8 +95,10 @@ bool j1Map::CleanUp()
 	p2List_item<MapLayer*>* item2;
 	item2 = data.layers.start;
 
+	
 	while (item != NULL)
 	{
+		//RELEASE(item2->data->data);
 		RELEASE(item2->data);
 		item2 = item2->next;
 	}
@@ -154,6 +158,7 @@ bool j1Map::Load_map(const char* file_name)
 		if (ret == true)
 		{
 			ret = LoadLayer(tileset, set);
+			LOG("loadinglayer");
 		}
 
 	 

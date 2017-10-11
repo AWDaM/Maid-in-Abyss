@@ -109,7 +109,7 @@ private:
 public:
 
 	MapData data;
-	bool				map1active = false;
+	bool				map1active;
 
 private:
 
