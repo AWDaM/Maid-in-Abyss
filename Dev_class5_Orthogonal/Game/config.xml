@@ -27,11 +27,11 @@
   </map>
 
   <scene>
-    <map_name name="sewers.tmx"></map_name>
+    <map_name name="MaidInAbyss.tmx"></map_name>
   </scene>
 
   <scene_two>
-    <map_name name="boi.tmx"></map_name>
+    <map_name name="DepthsOfTheAbyss.tmx"></map_name>
   </scene_two>
 
 </config>

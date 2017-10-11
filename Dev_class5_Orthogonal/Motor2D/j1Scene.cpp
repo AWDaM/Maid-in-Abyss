@@ -40,7 +40,7 @@ bool j1Scene::Start()
 
 	bool ret = App->map->Load_map(map_name.GetString());
 	LOG("Boi: %s", map_name.GetString());
-	return ret;
+	return true;
 }
 
 // Called each loop iteration
