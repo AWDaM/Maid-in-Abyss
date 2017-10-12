@@ -151,13 +151,14 @@ bool j1Map::Load_map(const char* file_name)
 
 	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
-	for (tileset = map_file.child("map").child("layer"); tileset && ret; tileset = tileset.next_sibling("tile"))
+	pugi::xml_node layer;
+	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
 	{
 		MapLayer* set = new MapLayer();
 
 		if (ret == true)
 		{
-			ret = LoadLayer(tileset, set);
+			ret = LoadLayer(layer, set);
 			LOG("loadinglayer");
 		}
 
@@ -347,7 +348,7 @@ bool j1Map::LoadLayer(pugi::xml_node & node, MapLayer * layer)
 	{
 		
 		layer->data[i++] = layer_node.attribute("gid").as_uint(0);
-		LOG("%i ->%i", i-1, layer->data[i-1]);
+		LOG("%s: %i ->%i", layer->name.GetString(), i-1, layer->data[i-1]);
 	
 	}
 
