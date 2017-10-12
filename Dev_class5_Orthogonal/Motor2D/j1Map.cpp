@@ -151,9 +151,7 @@ bool j1Map::Load_map(const char* file_name)
 		{
 			ret = LoadLayer(layer, set);
 			LOG("loadinglayer");
-		}
-
-	 
+		} 
 		data.layers.add(set);
 	}
 
