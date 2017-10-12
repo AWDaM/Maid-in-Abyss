@@ -4,15 +4,22 @@
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
 #include "p2Point.h"
+#include "p2Animation.h"
 #include "j1Module.h"
+
+struct SDL_Texture;
 
 struct PlayerData
 {
-	iPoint speed;
-	iPoint accel;
-	iPoint position;
-	SDL_Rect collider;
-
+	iPoint			speed;
+	iPoint			accel;
+	iPoint			position;
+	SDL_Rect		collider;
+	Animation		idle;
+	Animation		running;
+	Animation		jumping;
+	Animation		dashing;
+	SDL_Texture*	Marisa;
 };
 
 class j1Player : public j1Module
@@ -41,6 +48,10 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+private:
+	
+	PlayerData Player;
 
 };
 

@@ -26,6 +26,10 @@
     <folder>maps/</folder>
   </map>
 
+  <player>
+    <sprite_sheet source="textures/MC_MarisaKirisame.png"/>
+  </player>
+
   <scene>
     <map1_name name="MaidInAbyss.tmx"></map1_name>
     <map2_name name="DepthsOfTheAbyss.tmx"></map2_name>
