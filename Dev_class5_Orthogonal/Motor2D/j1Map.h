@@ -66,7 +66,7 @@ struct MapData
 	SDL_Color			background_color;
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
-	p2List<MapLayer*> layers;
+	p2List<MapLayer*>	layers;
 	// TODO 2: Add a list/array of layers to the map!
 };
 
