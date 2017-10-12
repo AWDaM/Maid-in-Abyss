@@ -37,9 +37,9 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	
-	bool ret = App->map->Load_map(map_name.GetString());
-	LOG("Boi: %s", map_name.GetString());
+	App->map->map1active = true;
+	bool ret = App->map->Load_map(map1_name.GetString());
+	LOG("Boi: %s", map1_name.GetString());
 	return true;
 
 }
