@@ -34,8 +34,7 @@ public:
 
 public:
 
-	p2SString map1_name;
-	p2SString map2_name;
+	p2List<p2SString*> map_names;
 };
 
 #endif // __j1SCENE_H__

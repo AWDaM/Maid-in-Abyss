@@ -15,11 +15,14 @@ struct PlayerData
 	iPoint			accel;
 	iPoint			position;
 	SDL_Rect		collider;
+	Animation*		current_animation;
 	Animation		idle;
 	Animation		running;
 	Animation		jumping;
 	Animation		dashing;
 	SDL_Texture*	Marisa;
+
+	void LoadPushbacks();
 };
 
 class j1Player : public j1Module
@@ -51,8 +54,9 @@ public:
 
 private:
 	
+	p2SString folder;
 	PlayerData Player;
-
+	p2SString texture_path;
 };
 
 #endif // __j1MAP_H__

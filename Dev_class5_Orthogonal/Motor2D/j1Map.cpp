@@ -155,6 +155,19 @@ bool j1Map::Load_map(const char* file_name)
 		data.layers.add(set);
 	}
 
+	pugi::xml_node group;
+	for (group = map_file.child("map").child("objectgroup"); group && ret; group = group.next_sibling("objectgroup"))
+	{
+		ObjectsGroup* set = new ObjectsGroup();
+
+		if (ret == true)
+		{
+			ret = LoadObjectLayers(group, set);
+			LOG("loadingobjlayer");
+		}
+		data.objLayers.add(set);
+	}
+
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -183,6 +196,20 @@ bool j1Map::Load_map(const char* file_name)
 			LOG("name: %s", l->name.GetString());
 			LOG("layer width: %d layer height: %d", l->width, l->height);
 			item_layer = item_layer->next;
+		}
+		p2List_item<ObjectsGroup*>* obj_layer = data.objLayers.start;
+		while (obj_layer != NULL)
+		{
+			ObjectsGroup* o = obj_layer->data;
+			LOG("Group ----");
+			LOG("Gname: %s", o->name.GetString());
+			p2List_item<ObjectsData*>* d = o->objects.start;
+			while (d != NULL)
+			{
+				LOG("object name: %s object x: %d object y: %d object width: %d object height: %d", d->data->name.GetString(), d->data->x, d->data->y, d->data->width, d->data->height);
+				d = d->next;
+			}
+			obj_layer = obj_layer->next;
 		}
 	}
 
@@ -319,8 +346,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 }
 
 bool j1Map::LoadLayer(pugi::xml_node & node, MapLayer * layer)
-{
-	
+{	
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_uint();
 	layer->height = node.attribute("height").as_uint();
@@ -344,19 +370,41 @@ bool j1Map::LoadLayer(pugi::xml_node & node, MapLayer * layer)
 	return true;
 }
 
-bool j1Map::SwitchMaps()
+bool j1Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroup * group)
+{
+	bool ret = true;
+
+	group->name = node.attribute("name").as_string();
+
+	for (pugi::xml_node& obj = node.child("object"); obj && ret; obj = obj.next_sibling("object"))
+	{
+		ObjectsData* data = new ObjectsData;
+
+		data->height	= obj.attribute("height").as_uint();
+		data->width		= obj.attribute("width").as_uint();
+		data->x			= obj.attribute("x").as_uint();
+		data->y			= obj.attribute("y").as_uint();
+		data->name		= obj.attribute("name").as_string();
+
+		group->objects.add(data);
+	}
+
+	return ret;
+}
+
+bool j1Map::SwitchMaps(p2SString* new_map)
 {
 	if (map1active)
 	{
 		CleanUp();
 		map1active = false;
-		Load_map(App->scene->map2_name.GetString());
+		Load_map(new_map->GetString());
 	}
 	else if(!map1active)
 	{
 		CleanUp();
 		map1active = true;
-		Load_map(App->scene->map1_name.GetString());
+		Load_map(new_map->GetString());
 	}
 	return true;
 }

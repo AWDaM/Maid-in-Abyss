@@ -166,7 +166,7 @@ bool ModulePlayer::CleanUp()
 	return true;
 }
 
-// Update: draw background
+// Update: background
 update_status ModulePlayer::Update()
 {
 	if (App->scene_village->ending)

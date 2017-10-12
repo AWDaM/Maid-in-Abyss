@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "j1Player.h"
 #include "j1Scene.h"
 #include "j1SceneChange.h"
 
@@ -24,10 +25,14 @@ bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 
-	map1_name = config.child("map1_name").attribute("name").as_string();
-	map2_name = config.child("map2_name").attribute("name").as_string();
 
-	
+	for (pugi::xml_node map = config.child("map_name"); map; map = map.next_sibling("map_name"))
+	{
+		p2SString* data = new p2SString;
+
+		data->create(map.attribute("name").as_string());
+		map_names.add(data);
+	}
 
 	bool ret = true;
 
@@ -38,8 +43,8 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	App->map->map1active = true;
-	bool ret = App->map->Load_map(map1_name.GetString());
-	LOG("Boi: %s", map1_name.GetString());
+	bool ret = App->map->Load_map(map_names.start->data->GetString());
+	LOG("Boi: %s", map_names.start->data->GetString());
 	return true;
 
 }
@@ -72,11 +77,14 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x += 10;
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
-		App->scenechange->ChangeScene(1.0f);
+		App->scenechange->ChangeScene(map_names[1], 1.0f);
 
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
+		App->scenechange->ChangeScene(map_names[0], 1.0f);
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 
+	App->player->Draw();
 	// TODO 7: Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Layers:%d",

@@ -3,10 +3,12 @@
 #include "j1App.h"
 #include "j1Player.h"
 #include "j1Textures.h"
+#include "j1Map.h"
+#include "j1Render.h"
 
 j1Player::j1Player() : j1Module()
 {
-	
+	name.create("player");
 }
 
 // Destructor
@@ -18,8 +20,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 {
 	bool ret = true;
 
-	Player.Marisa = App->tex->Load(config.child("sprite_sheet").attribute("source").as_string());
-
+	folder.create(config.child("folder").child_value());
+	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 
 	return ret;
 }
@@ -27,6 +29,35 @@ bool j1Player::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Player::Start()
 {
+	Player.LoadPushbacks();
+
+	Player.speed = { 0,0 };
+	Player.accel = { 0,0 };
+	Player.current_animation = &Player.idle;
+	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
+	{
+		if (obj->data->name == ("Collisions"))
+		{
+			p2List_item<ObjectsData*>* objdata = obj->data->objects.start;
+			while (objdata)
+			{
+				if (objdata->data->name == ("Player"))
+				{
+					Player.collider.h = objdata->data->height;
+					Player.collider.w = objdata->data->width;
+					Player.collider.x = objdata->data->x;
+					Player.collider.y = objdata->data->y;
+				}
+				else if (objdata->data->name == ("Start"))
+				{
+					Player.position = { objdata->data->x, objdata->data->y };
+				}
+
+				objdata = objdata->next;
+			}
+		}
+	}
+	Player.Marisa = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
 	return true;
 }
 
@@ -38,6 +69,7 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update(float dt)
 {
+	
 	return true;
 }
 
@@ -48,7 +80,7 @@ bool j1Player::PostUpdate()
 
 void j1Player::Draw()
 {
-	
+	App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()));
 }
 
 
@@ -77,4 +109,9 @@ bool j1Player::Save(pugi::xml_node& data) const
 	cam.append_attribute("y") = camera.y;
 */
 	return true;
+}
+
+void PlayerData::LoadPushbacks()
+{
+	idle.PushBack({ 5, 18, 51, 72 });
 }

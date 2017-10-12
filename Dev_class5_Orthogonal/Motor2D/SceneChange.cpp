@@ -49,7 +49,7 @@ bool j1SceneChange::Update(float dt)
 		{
 			if (now >= total_time)
 			{
-				App->map->SwitchMaps();
+				App->map->SwitchMaps(new_map);
 				total_time += total_time;
 				start_time = SDL_GetTicks();
 				fading = false;
@@ -75,9 +75,11 @@ bool j1SceneChange::Update(float dt)
 	return true;
 }
 
-bool j1SceneChange::ChangeScene(float time)
+bool j1SceneChange::ChangeScene(p2SString* map, float time)
 {
 	bool ret = false;
+
+	new_map = map;
 
 	if (current_step == fade_step::none)
 	{
