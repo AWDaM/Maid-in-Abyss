@@ -29,23 +29,14 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
-	if(map_loaded == false)
+	if (map_loaded == false)
 		return;
-	for (int x = 0; x < data.tilesets.count(); x++)
-	{
-		// TODO 5: Prepare the loop to draw all tilesets + Blit
-		for (uint i = 0; i < data.height; i++)
-		{
-			for (uint j = 0; j < data.width; j++)
-			{
-				
-				App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[x]->data[data.layers[x]->Get(j, i)]));
 
-			}
-		}
-	}
-		// TODO 9: Complete the draw function
-
+	for (uint y = 0; y < data.layers.count(); y++)
+		for (uint x = 0; x < data.tilesets.count(); x++)
+			for (uint i = 0; i < data.height; i++)
+				for (uint j = 0; j < data.width; j++)
+					App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]));
 }
 
 
@@ -96,13 +87,13 @@ bool j1Map::CleanUp()
 	item2 = data.layers.start;
 
 	
-	while (item != NULL)
+	while (item2 != NULL)
 	{
 		//RELEASE(item2->data->data);
 		RELEASE(item2->data);
 		item2 = item2->next;
 	}
-	data.tilesets.clear();
+	data.layers.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
