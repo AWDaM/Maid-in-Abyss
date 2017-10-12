@@ -79,14 +79,14 @@ public:
 
 	// Modules
 	j1Window*			win;
-	j1Input*				input;
-	j1Render*				render;
+	j1Input*			input;
+	j1Render*			render;
 	j1Textures*			tex;
-	j1Audio*				audio;
-	j1Scene*				scene;
-	j1Player*				player;
-	j1Map*					map;
-	j1SceneChange*	scenechange;
+	j1Audio*			audio;
+	j1Scene*			scene;
+	j1Player*			player;
+	j1Map*				map;
+	j1SceneChange*		scenechange;
 
 private:
 

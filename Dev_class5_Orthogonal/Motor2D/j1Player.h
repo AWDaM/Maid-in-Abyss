@@ -6,6 +6,15 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+struct PlayerData
+{
+	iPoint speed;
+	iPoint accel;
+	iPoint position;
+	SDL_Rect collider;
+
+};
+
 class j1Player : public j1Module
 {
 public:
