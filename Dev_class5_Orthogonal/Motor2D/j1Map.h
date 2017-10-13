@@ -39,6 +39,7 @@ struct ObjectsGroup
 {
 	p2SString				name;
 	p2List<ObjectsData*>	objects;
+	~ObjectsGroup();
 };
 
 // ----------------------------------------------------

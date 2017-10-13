@@ -74,27 +74,32 @@ bool j1Map::CleanUp()
 
 	while(item != NULL)
 	{
-		//SDL_DestroyTexture(item->data->texture);
-		RELEASE(item->data);
-		
+		RELEASE(item->data);	
 		item = item->next;
 	}
 	data.tilesets.clear();
 
-	// TODO 2: clean up all layer data
-	// Remove all layers
+	//Remove all layers
 	p2List_item<MapLayer*>* item2;
 	item2 = data.layers.start;
-
 	
 	while (item2 != NULL)
 	{
-		//RELEASE(item2->data->data);
 		RELEASE(item2->data);
 		item2 = item2->next;
 	}
 	data.layers.clear();
 
+	//Remove all object layers
+	p2List_item<ObjectsGroup*>* item3;
+	item3 = data.objLayers.start;
+
+	while (item3 != NULL)
+	{
+		RELEASE(item3->data);
+		item3 = item3->next;
+	}
+	data.objLayers.clear();
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -417,4 +422,9 @@ SDL_Rect j1Map::id_to_rect(uint id)
 MapLayer::~MapLayer()
 {
 	delete[] data;
+}
+
+ObjectsGroup::~ObjectsGroup()
+{
+	objects.clear();
 }
