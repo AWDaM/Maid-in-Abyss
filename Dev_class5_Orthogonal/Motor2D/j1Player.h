@@ -7,7 +7,9 @@
 #include "p2Animation.h"
 #include "j1Module.h"
 
+
 struct SDL_Texture;
+struct ObjectsData;
 
 struct PlayerData
 {

@@ -24,6 +24,13 @@ bool j1Player::Awake(pugi::xml_node& config)
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 	node = config;
 
+	LOG("Gone throught that");
+	Player.maxSpeed.x = node.child("maxSpeed").attribute("x").as_int();
+	Player.maxSpeed.y = node.child("maxSpeed").attribute("y").as_int();
+	LOG("Trough that too");
+	Player.accel.x = node.child("accel").attribute("x").as_int();
+	Player.accel.y = node.child("accel").attribute("y").as_int();
+
 	return ret;
 }
 
@@ -33,12 +40,7 @@ bool j1Player::Start()
 	Player.LoadPushbacks();
 
 	Player.speed = { 0,0 };
-
-	Player.maxSpeed.x = node.child("maxSpeed").attribute("x").as_int();
-	Player.maxSpeed.y = node.child("maxSpeed").attribute("y").as_int();
-
-	Player.accel.x = node.child("accel").attribute("x").as_int();
-	Player.accel.y = node.child("accel").attribute("y").as_int();
+	
 
 	Player.current_animation = &Player.idle;
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
