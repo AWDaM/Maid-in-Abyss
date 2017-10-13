@@ -5,6 +5,12 @@
 
 struct SDL_Texture;
 
+enum ListOfMapNames
+{
+	OuterWorld = 0,
+	DepthsOfTheAbyss
+};
+
 class j1Scene : public j1Module
 {
 public:

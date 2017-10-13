@@ -77,10 +77,10 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x += 10;
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
-		App->scenechange->ChangeScene(map_names[1], 1.0f);
+		App->scenechange->ChangeScene(map_names[DepthsOfTheAbyss], 1.0f);
 
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
-		App->scenechange->ChangeScene(map_names[0], 1.0f);
+		App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
 	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
 
