@@ -14,7 +14,7 @@ struct PlayerData
 {
 	bool			flip;
 	int				direction_x;
-	bool				grounded;
+	bool			grounded;
 	iPoint			colOffset;
 	iPoint			speed;
 	iPoint			maxSpeed;

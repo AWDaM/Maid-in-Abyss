@@ -81956,7 +81956,7 @@
  </layer>
  <layer name="DeepestWall" width="320" height="64">
   <properties>
-   <property name="ParallaxSpeed" type="float" value="0.9"/>
+   <property name="ParallaxSpeed" type="float" value="1"/>
   </properties>
   <data>
    <tile gid="0"/>

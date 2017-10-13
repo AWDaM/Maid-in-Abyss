@@ -86,16 +86,14 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		Player.direction_x = 1, AddSpeed();
-
 	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		Player.direction_x = -1, AddSpeed();
-	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-	{
-		Player.speed.y = -20;
-		Player.grounded = false;
-	}
 	else
-		ReduceSpeed();
+		ReduceSpeed();	
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		Player.speed.y = -20, Player.grounded = false;
+
 
 	Player.speed = ApplyGravity(Player.speed);
 	Player.speed = Overlay_avoid(Player.speed);
@@ -164,22 +162,62 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 					{
-						if (Player.speed.x > 0)
-							newvec.x -= result.w;
-						else if (Player.speed.x < 0)
-							newvec.x += result.w;
-						if (Player.speed.y < 0)
+						if (Player.speed.y > 0)
 						{
-							newvec.y += result.h;
+							if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
+							{
+								if (result.h <= result.w)
+									newvec.y -= result.h;
+								else
+								{
+									if (Player.speed.x < 0)
+										newvec.x += result.w;
+									else if (Player.speed.x > 0)
+										newvec.x -= result.w;
+								}
+							}
+							else
+							{
+								if (Player.speed.x > 0)
+									newvec.x -= result.w;
+								else
+									newvec.x += result.w;
+							}
+
 						}
-						else if (Player.speed.y > 0)
+						else if (Player.speed.y < 0)
 						{
-							newvec.y -= result.h;
+							if (Player.position.y <= objdata->data->y + objdata->data->height)
+							{
+								if (result.h <= result.w)
+									newvec.y += result.h;
+								else
+								{
+									if (Player.speed.x < 0)
+										newvec.x += result.w;
+									else if (CastCollider.x > 0)
+										newvec.x -= result.w;
+								}
+							}
+							else
+							{
+								if (Player.speed.x > 0)
+									newvec.x -= result.w;
+								else if (Player.speed.x < 0)
+									newvec.x += result.w;
+							}
+						}
+						else
+						{
+							if (Player.speed.x > 0)
+								newvec.x -= result.w;
+							else if (Player.speed.x < 0)
+								newvec.x += result.w;
 						}
 					}
 				}
 				else if (objdata->data->name == ("BGFloor"))
-					if (Player.position.y + Player.collider.y + Player.colOffset.y < objdata->data->y)
+					if (Player.position.y + Player.collider.y + Player.colOffset.y <= objdata->data->y)
 						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 							newvec.y -= result.h;
 
@@ -257,11 +295,7 @@ void j1Player::PositionCameraOnPlayer(SDL_Rect& camera)
 }
 iPoint j1Player::ApplyGravity(iPoint originalvec)
 {
-	if (Player.speed.y != 0)
-	{
 		originalvec.y += Player.accel.y;
-	}
-
 	return originalvec;
 }
 
