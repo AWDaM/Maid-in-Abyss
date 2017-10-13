@@ -26,7 +26,7 @@ struct PlayerData
 	Animation		running;
 	Animation		jumping;
 	Animation		dashing;
-	SDL_Texture*	Marisa;
+	SDL_Texture*	Player_tex;
 
 	void LoadPushbacks();
 };

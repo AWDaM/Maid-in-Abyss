@@ -70,7 +70,7 @@ bool j1Player::Start()
 			}
 		}
 	}
-	Player.Marisa = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
+	Player.Player_tex = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
 	return true;
 }
 
@@ -114,16 +114,17 @@ bool j1Player::PostUpdate()
 void j1Player::Draw()
 {
 	if(Player.flip)
-		App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
+		App->render->Blit(Player.Player_tex, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
 	else
-		App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
+		App->render->Blit(Player.Player_tex, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
 
 }
 
 // Called before quitting
 bool j1Player::CleanUp()
 {
-	
+	LOG("Deleting player");
+	App->tex->UnLoad(Player.Player_tex);
 	return true;
 }
 
