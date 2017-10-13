@@ -50,6 +50,10 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
+	iPoint Overlay_avoid(iPoint originalvec);
+
+	SDL_Rect CreateRect_FromObjData(ObjectsData* data);
+
 	// Called before quitting
 	bool CleanUp();
 

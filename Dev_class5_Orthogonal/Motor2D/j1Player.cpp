@@ -45,8 +45,8 @@ bool j1Player::Start()
 	{
 		if (obj->data->name == ("Collisions"))
 		{
-			p2List_item<ObjectsData*>* objdata = obj->data->objects.start;
-			while (objdata)
+			
+			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start;objdata;objdata = objdata->next)
 			{
 				if (objdata->data->name == ("Player"))
 				{
@@ -59,8 +59,6 @@ bool j1Player::Start()
 				{
 					Player.position = { objdata->data->x, objdata->data->y };
 				}
-
-				objdata = objdata->next;
 			}
 		}
 	}
@@ -119,6 +117,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
+
 void j1Player::AddSpeed(int direction)
 {
 	Player.speed.x += Player.accel.x * direction;
@@ -141,6 +140,48 @@ void j1Player::AddSpeed(int direction)
 		if (Player.speed.y < direction*Player.maxSpeed.y)
 			Player.speed.y = direction*Player.maxSpeed.y;
 	}
+}
+
+iPoint j1Player::Overlay_avoid(iPoint originalvec)
+{
+	SDL_Rect CastCollider;
+	CastCollider = Player.collider;
+	CastCollider.x += Player.speed.x;
+	CastCollider.y += Player.speed.y;
+
+	SDL_Rect result;
+
+	iPoint newvec = originalvec;
+	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
+	{
+		if (obj->data->name == ("Collisions"))
+		{
+
+			for(p2List_item<ObjectsData*>* objdata = obj->data->objects.start;objdata;objdata = objdata->next)
+			{
+				if(objdata->data->name == ("Floor"))
+				{
+					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
+					{
+						newvec.x -= result.x - 1;
+						newvec.y -= result.y - 1;
+					}
+				}
+			}
+		}
+	}
+	
+	return newvec;
+}
+
+SDL_Rect j1Player::CreateRect_FromObjData(ObjectsData* data)
+{
+	SDL_Rect ret;
+	ret.x = data->x;
+	ret.y = data->y;
+	ret.h = data->height;
+	ret.w = data->width;
+	return ret;
 }
 
 void PlayerData::LoadPushbacks()
