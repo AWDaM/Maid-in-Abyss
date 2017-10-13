@@ -46,7 +46,6 @@ bool j1Player::Start()
 
 	Player.speed = { 0,0 };
 	
-
 	Player.current_animation = &Player.idle;
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 	{
@@ -90,10 +89,15 @@ bool j1Player::Update(float dt)
 
 	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		Player.direction_x = -1, AddSpeed();
-
+	else if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		Player.speed.y = -20;
+		Player.grounded = false;
+	}
 	else
 		ReduceSpeed();
 
+	Player.speed = ApplyGravity(Player.speed);
 	Player.speed = Overlay_avoid(Player.speed);
 
 	ChangeAnimation();
@@ -159,10 +163,20 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 				if (objdata->data->name == ("Floor"))
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
+					{
 						if (Player.speed.x > 0)
 							newvec.x -= result.w;
 						else if (Player.speed.x < 0)
 							newvec.x += result.w;
+						if (Player.speed.y < 0)
+						{
+							newvec.y += result.h;
+						}
+						else if (Player.speed.y > 0)
+						{
+							newvec.y -= result.h;
+						}
+					}
 				}
 				else if (objdata->data->name == ("BGFloor"))
 					if (Player.position.y + Player.collider.y + Player.colOffset.y < objdata->data->y)
@@ -193,24 +207,18 @@ void j1Player::FlipImage()
 void j1Player::AddSpeed()
 {
 	Player.speed.x += Player.accel.x * Player.direction_x;
-	Player.speed.y += Player.accel.y * Player.direction_x;
+
 
 	if (Player.direction_x > 0)
 	{
 		if (Player.speed.x > Player.maxSpeed.x)
 			Player.speed.x = Player.maxSpeed.x;
-
-		if (Player.speed.y > Player.maxSpeed.y)
-			Player.speed.y = Player.maxSpeed.y;
 	}
 
 	else
 	{
 		if (Player.speed.x < Player.direction_x*Player.maxSpeed.x)
 			Player.speed.x = Player.direction_x*Player.maxSpeed.x;
-
-		if (Player.speed.y < Player.direction_x*Player.maxSpeed.y)
-			Player.speed.y = Player.direction_x*Player.maxSpeed.y;
 	}
 }
 
@@ -218,8 +226,6 @@ void j1Player::ReduceSpeed()
 {
 	if(Player.speed.x != 0)
 	Player.speed.x -= Player.accel.x * Player.direction_x;
-	if (Player.speed.y != 0)
-	Player.speed.y -= Player.accel.y * Player.direction_x;
 }
 
 void j1Player::ChangeAnimation()
@@ -231,8 +237,6 @@ void j1Player::ChangeAnimation()
 			Player.current_animation = &Player.running;
 	else
 		Player.current_animation = &Player.jumping;
-
-
 }
 
 void j1Player::PlayerMovement()
@@ -243,12 +247,22 @@ void j1Player::PlayerMovement()
 	Player.collider.y = Player.position.y + Player.colOffset.y;
 }
 
+
 void j1Player::PositionCameraOnPlayer(SDL_Rect& camera)
 {
 	/*camera.x = Player.position.x - 100;
 	if (camera.x < 0)camera.x = 0;
 	camera.y = Player.position.y - 50;
 	if (camera.y > 2048)camera.y = 2048 - 768;*/
+}
+iPoint j1Player::ApplyGravity(iPoint originalvec)
+{
+	if (Player.speed.y != 0)
+	{
+		originalvec.y += Player.accel.y;
+	}
+
+	return originalvec;
 }
 
 void PlayerData::LoadPushbacks()
@@ -263,5 +277,6 @@ void PlayerData::LoadPushbacks()
 	running.PushBack({ 565, 17, 60, 73 });
 	running.loop = true;
 	running.speed = 0.1f;
-}
 
+	jumping.PushBack({ 5, 17, 56, 73 });
+}
