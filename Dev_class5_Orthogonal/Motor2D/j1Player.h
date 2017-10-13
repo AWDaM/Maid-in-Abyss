@@ -14,6 +14,7 @@ struct PlayerData
 {
 	bool			flip;
 	int				direction_x;
+	bool				grounded;
 	iPoint			colOffset;
 	iPoint			speed;
 	iPoint			maxSpeed;
@@ -68,6 +69,7 @@ public:
 	void ReduceSpeed();
 	void ChangeAnimation();
 	void PlayerMovement();
+	iPoint ApplyGravity(iPoint originalvec);
 
 private:
 
