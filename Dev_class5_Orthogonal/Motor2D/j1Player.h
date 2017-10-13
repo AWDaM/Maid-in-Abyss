@@ -12,6 +12,7 @@ struct SDL_Texture;
 struct PlayerData
 {
 	iPoint			speed;
+	iPoint			maxSpeed;
 	iPoint			accel;
 	iPoint			position;
 	SDL_Rect		collider;
@@ -52,11 +53,14 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
+	void AddSpeed(int direction);
 	
-	p2SString folder;
-	PlayerData Player;
-	p2SString texture_path;
+private:
+
+	PlayerData		Player;
+	p2SString		folder;
+	p2SString		texture_path;
+	pugi::xml_node	node;
 };
 
 #endif // __j1MAP_H__

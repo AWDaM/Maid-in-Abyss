@@ -29,7 +29,8 @@
   <player>
     <folder>textures/</folder>
     <sprite_sheet source="MC_MarisaKirisame.png"/>
-    
+    <accel x="2" y="0"/>
+    <maxSpeed x="10" y="5"/>
   </player>
 
   <scene>

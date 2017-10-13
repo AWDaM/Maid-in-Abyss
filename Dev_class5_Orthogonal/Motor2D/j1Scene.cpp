@@ -65,32 +65,28 @@ bool j1Scene::Update(float dt)
 		App->SaveGame();
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y -= 10;
+		
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		App->render->camera.y += 10;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x -= 10;
+	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+		App->player->AddSpeed(-1);
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x += 10;
+	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+		App->player->AddSpeed(1);
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
 		App->scenechange->ChangeScene(map_names[DepthsOfTheAbyss], 1.0f);
 
 	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
 		App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
-	//App->render->Blit(img, 0, 0);
-	App->map->Draw();
 
+
+	App->map->Draw();
 	App->player->Draw();
-	// TODO 7: Set the window title like
-	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Layers:%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count(), App->map->data.layers.count());
+
+	p2SString title("Maid in Abyss");
 
 	App->win->SetTitle(title.GetString());
 	return true;

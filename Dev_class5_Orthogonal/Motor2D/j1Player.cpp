@@ -22,6 +22,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
+	node = config;
 
 	return ret;
 }
@@ -32,7 +33,13 @@ bool j1Player::Start()
 	Player.LoadPushbacks();
 
 	Player.speed = { 0,0 };
-	Player.accel = { 0,0 };
+
+	Player.maxSpeed.x = node.child("maxSpeed").attribute("x").as_int();
+	Player.maxSpeed.y = node.child("maxSpeed").attribute("y").as_int();
+
+	Player.accel.x = node.child("accel").attribute("x").as_int();
+	Player.accel.y = node.child("accel").attribute("y").as_int();
+
 	Player.current_animation = &Player.idle;
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 	{
@@ -84,6 +91,7 @@ void j1Player::Draw()
 }
 
 
+
 // Called before quitting
 bool j1Player::CleanUp()
 {
@@ -109,6 +117,30 @@ bool j1Player::Save(pugi::xml_node& data) const
 	cam.append_attribute("y") = camera.y;
 */
 	return true;
+}
+
+void j1Player::AddSpeed(int direction)
+{
+	Player.speed.x += Player.accel.x * direction;
+	Player.speed.y += Player.accel.y * direction;
+
+	if (direction > 0)
+	{
+		if (Player.speed.x > Player.maxSpeed.x)
+			Player.speed.x = Player.maxSpeed.x;
+
+		if (Player.speed.y > Player.maxSpeed.y)
+			Player.speed.y = Player.maxSpeed.y;
+	}
+
+	else
+	{
+		if (Player.speed.x < direction*Player.maxSpeed.x)
+			Player.speed.x = direction*Player.maxSpeed.x;
+
+		if (Player.speed.y < direction*Player.maxSpeed.y)
+			Player.speed.y = direction*Player.maxSpeed.y;
+	}
 }
 
 void PlayerData::LoadPushbacks()
