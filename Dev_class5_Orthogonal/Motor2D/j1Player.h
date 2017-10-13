@@ -14,6 +14,7 @@ struct ObjectsData;
 struct PlayerData
 {
 	int				direction_x;
+	bool				goingright;
 	iPoint			colOffset;
 	iPoint			speed;
 	iPoint			maxSpeed;

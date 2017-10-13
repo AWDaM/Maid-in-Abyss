@@ -104,6 +104,7 @@ bool j1Player::PostUpdate()
 {
 	//LOG("%i", Player.speed.x);
 	//LOG("%i", Player.position.x);
+
 	return true;
 }
 
@@ -191,10 +192,10 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 					{
 						
-						if(Player.direction_x > 0)
-							newvec.x -= result.w -1;
-						else if (Player.direction_x < 0)
-							newvec.x += result.w +1;
+						if(Player.speed.x > 0)
+							newvec.x -= result.w;
+						else if (Player.speed.x < 0)
+							newvec.x += result.w;
 						
 					}
 				}
