@@ -70,11 +70,7 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		App->render->camera.y += 10;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-		App->player->AddSpeed(-1);
-
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
-		App->player->AddSpeed(1);
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
 		App->scenechange->ChangeScene(map_names[DepthsOfTheAbyss], 1.0f);

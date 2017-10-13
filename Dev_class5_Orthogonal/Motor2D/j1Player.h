@@ -13,6 +13,8 @@ struct ObjectsData;
 
 struct PlayerData
 {
+	int				direction;
+	iPoint			colOffset;
 	iPoint			speed;
 	iPoint			maxSpeed;
 	iPoint			accel;
@@ -56,17 +58,18 @@ public:
 
 	SDL_Rect CreateRect_FromObjData(ObjectsData* data);
 
+	void PlayerMovement();
+
 	// Called before quitting
 	bool CleanUp();
 
-	void AddSpeed(int direction);
+	void AddSpeed();
 	
 private:
 
 	PlayerData		Player;
 	p2SString		folder;
 	p2SString		texture_path;
-	pugi::xml_node	node;
 };
 
 #endif // __j1MAP_H__

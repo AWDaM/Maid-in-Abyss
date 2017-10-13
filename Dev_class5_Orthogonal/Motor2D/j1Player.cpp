@@ -4,6 +4,7 @@
 #include "j1Player.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Input.h"
 #include "j1Render.h"
 
 j1Player::j1Player() : j1Module()
@@ -22,14 +23,18 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
-	node = config;
+
+	Player.direction = 1;
 
 	LOG("Gone throught that");
-	Player.maxSpeed.x = node.child("maxSpeed").attribute("x").as_int();
-	Player.maxSpeed.y = node.child("maxSpeed").attribute("y").as_int();
+	Player.maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
+	Player.maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
 	LOG("Trough that too");
-	Player.accel.x = node.child("accel").attribute("x").as_int();
-	Player.accel.y = node.child("accel").attribute("y").as_int();
+	Player.accel.x = config.child("accel").attribute("x").as_int();
+	Player.accel.y = config.child("accel").attribute("y").as_int();
+
+	Player.colOffset.x = config.child("colOffset").attribute("x").as_int();
+	Player.colOffset.y = config.child("colOffset").attribute("y").as_int();
 
 	return ret;
 }
@@ -60,6 +65,8 @@ bool j1Player::Start()
 				else if (objdata->data->name == ("Start"))
 				{
 					Player.position = { objdata->data->x, objdata->data->y };
+					Player.collider.x = Player.position.x + Player.colOffset.x;
+					Player.collider.y = Player.position.y + Player.colOffset.y;
 				}
 			}
 		}
@@ -76,7 +83,20 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update(float dt)
 {
-	
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		Player.direction = 1;
+		AddSpeed();
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		Player.direction = -1;
+		AddSpeed();
+	}
+
+	Player.speed = Overlay_avoid(Player.speed);
+
+	PlayerMovement();
 	return true;
 }
 
@@ -87,7 +107,10 @@ bool j1Player::PostUpdate()
 
 void j1Player::Draw()
 {
+	if(Player.direction > 0)
 	App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()));
+	else
+	App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), 1.0F, 0.0, SDL_FLIP_HORIZONTAL);
 }
 
 
@@ -120,12 +143,12 @@ bool j1Player::Save(pugi::xml_node& data) const
 }
 
 
-void j1Player::AddSpeed(int direction)
+void j1Player::AddSpeed()
 {
-	Player.speed.x += Player.accel.x * direction;
-	Player.speed.y += Player.accel.y * direction;
+	Player.speed.x += Player.accel.x * Player.direction;
+	Player.speed.y += Player.accel.y * Player.direction;
 
-	if (direction > 0)
+	if (Player.direction > 0)
 	{
 		if (Player.speed.x > Player.maxSpeed.x)
 			Player.speed.x = Player.maxSpeed.x;
@@ -136,11 +159,11 @@ void j1Player::AddSpeed(int direction)
 
 	else
 	{
-		if (Player.speed.x < direction*Player.maxSpeed.x)
-			Player.speed.x = direction*Player.maxSpeed.x;
+		if (Player.speed.x < Player.direction*Player.maxSpeed.x)
+			Player.speed.x = Player.direction*Player.maxSpeed.x;
 
-		if (Player.speed.y < direction*Player.maxSpeed.y)
-			Player.speed.y = direction*Player.maxSpeed.y;
+		if (Player.speed.y < Player.direction*Player.maxSpeed.y)
+			Player.speed.y = Player.direction*Player.maxSpeed.y;
 	}
 }
 
@@ -184,6 +207,14 @@ SDL_Rect j1Player::CreateRect_FromObjData(ObjectsData* data)
 	ret.h = data->height;
 	ret.w = data->width;
 	return ret;
+}
+
+void j1Player::PlayerMovement()
+{
+	Player.position += Player.speed;
+
+	Player.collider.x = Player.position.x + Player.colOffset.x;
+	Player.collider.y = Player.position.y + Player.colOffset.y;
 }
 
 void PlayerData::LoadPushbacks()

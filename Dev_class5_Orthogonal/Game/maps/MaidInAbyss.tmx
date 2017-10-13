@@ -40071,7 +40071,7 @@
   <object id="56" name="BGFloor" x="4064" y="1280" width="256" height="256"/>
   <object id="57" name="BGFloor" x="4256" y="1184" width="160" height="352"/>
   <object id="58" name="BGFloor" x="4416" y="928" width="256" height="608"/>
-  <object id="59" name="Start" x="320" y="1440" width="32" height="32"/>
+  <object id="59" name="Start" x="320" y="1432" width="32" height="32"/>
   <object id="60" name="BGFloor" x="1408" y="1408" width="224" height="128"/>
  </objectgroup>
 </map>
