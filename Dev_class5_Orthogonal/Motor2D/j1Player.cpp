@@ -167,15 +167,22 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 						{
 							if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
 							{
-								if (result.h <= result.w)
-									newvec.y -= result.h;
-								else
+								if (Player.speed.x > 0)
 								{
-									if (Player.speed.x < 0)
-										newvec.x += result.w;
-									else if (Player.speed.x > 0)
+									if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x <= objdata->data->x)
+										newvec.y -= result.h;
+									else
 										newvec.x -= result.w;
 								}
+								else if (Player.speed.x < 0)
+								{
+									if (result.h <= result.w || Player.position.x >= objdata->data->x + objdata->data->width)
+										newvec.y -= result.h;
+									else
+										newvec.x += result.w;
+								}
+								else
+									newvec.y -= result.h;
 							}
 							else
 							{
