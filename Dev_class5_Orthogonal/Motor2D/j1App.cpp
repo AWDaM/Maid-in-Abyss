@@ -10,9 +10,9 @@
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
-#include "j1Scene_two.h"
 #include "j1Map.h"
 #include "j1App.h"
+#include "j1Player.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -26,7 +26,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	scene = new j1Scene();
-	scene_two = new j1Scene_two();
+
+	player = new j1Player();
 	map = new j1Map();
 	scenechange = new j1SceneChange();
 	
@@ -38,7 +39,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
-	AddModule(scene_two);
+	AddModule(player);
 	AddModule(scenechange);
 
 	// render last to swap buffer

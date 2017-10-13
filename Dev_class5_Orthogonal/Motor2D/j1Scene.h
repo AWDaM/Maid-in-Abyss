@@ -5,6 +5,12 @@
 
 struct SDL_Texture;
 
+enum ListOfMapNames
+{
+	OuterWorld = 0,
+	DepthsOfTheAbyss
+};
+
 class j1Scene : public j1Module
 {
 public:
@@ -32,9 +38,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
+public:
 
-	p2SString map_name;
+	p2List<p2SString*> map_names;
 };
 
 #endif // __j1SCENE_H__

@@ -14,8 +14,8 @@ public:
 
 	bool Awake(pugi::xml_node&);
 	bool Start();
-	bool Update();
-	bool ChangeScene(j1Module* module_off, j1Module* module_on, float time = 1.0f);
+	bool Update(float dt);
+	bool ChangeScene(p2SString* map, float time = 1.0f);
 
 
 	bool IsFading() const;
@@ -34,11 +34,11 @@ private:
 		fade_from_black
 	} current_step = fade_step::none;
 
+	p2SString* new_map;
 	uint start_time = 0;
 	uint total_time = 0;
 	SDL_Rect screen;
-	j1Module* to_enable = nullptr;
-	j1Module* to_disable = nullptr;
+
 
 };
 #endif // ! _MODULE_SCENECHANGE_

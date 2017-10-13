@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Scene.h"
 #include "j1Window.h"
+#include "j1Map.h"
 
 #include "SDL\include\SDL_render.h"
 #include "SDL\include\SDL_timer.h"
@@ -31,7 +32,7 @@ bool j1SceneChange::Start()
 	return true;
 }
 
-bool j1SceneChange::Update()
+bool j1SceneChange::Update(float dt)
 {
 	if (current_step == fade_step::none)
 	{
@@ -48,8 +49,7 @@ bool j1SceneChange::Update()
 		{
 			if (now >= total_time)
 			{
-				to_disable->Disable();
-				to_enable->Enable();
+				App->map->SwitchMaps(new_map);
 				total_time += total_time;
 				start_time = SDL_GetTicks();
 				fading = false;
@@ -71,19 +71,21 @@ bool j1SceneChange::Update()
 	
 	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
 	SDL_RenderFillRect(App->render->renderer, &screen);
+
+	return true;
 }
 
-bool j1SceneChange::ChangeScene(j1Module* module_off, j1Module* module_on, float time)
+bool j1SceneChange::ChangeScene(p2SString* map, float time)
 {
 	bool ret = false;
+
+	new_map = map;
 
 	if (current_step == fade_step::none)
 	{
 		current_step = fade_step::fade_to_black;
 		start_time = SDL_GetTicks();
 		total_time = (Uint32)(time*0.5f*1000.0f);
-		to_enable = module_on;
-		to_disable = module_off;
 		fading = true;
 		ret = true;
 	}

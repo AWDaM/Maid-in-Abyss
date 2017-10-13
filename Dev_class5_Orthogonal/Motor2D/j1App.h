@@ -12,7 +12,7 @@ class j1Render;
 class j1Textures;
 class j1Audio;
 class j1Scene;
-class j1Scene_two;
+class j1Player;
 class j1Map;
 class j1SceneChange;
 
@@ -79,14 +79,14 @@ public:
 
 	// Modules
 	j1Window*			win;
-	j1Input*				input;
-	j1Render*				render;
+	j1Input*			input;
+	j1Render*			render;
 	j1Textures*			tex;
-	j1Audio*				audio;
-	j1Scene*				scene;
-	j1Scene_two*		scene_two;
-	j1Map*					map;
-	j1SceneChange*	scenechange;
+	j1Audio*			audio;
+	j1Scene*			scene;
+	j1Player*			player;
+	j1Map*				map;
+	j1SceneChange*		scenechange;
 
 private:
 

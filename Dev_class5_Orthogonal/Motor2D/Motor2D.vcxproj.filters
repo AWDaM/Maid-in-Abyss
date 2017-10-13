@@ -37,8 +37,8 @@
     <ClCompile Include="SceneChange.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Scene_two.cpp">
-      <Filter>Desenvolupament  ========\Scenes</Filter>
+    <ClCompile Include="j1Player.cpp">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,8 +99,11 @@
     <ClInclude Include="j1SceneChange.h">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="j1Scene_two.h">
-      <Filter>Desenvolupament  ========\Scenes</Filter>
+    <ClInclude Include="p2Animation.h">
+      <Filter>Programacio 2 ===========</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Player.h">
+      <Filter>Desenvolupament  ========\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\hello2.tmx">
+      <Filter>Desenvolupament  ========\Files</Filter>
+    </None>
+    <None Include="..\Game\maps\MaidInAbyss.tmx">
       <Filter>Desenvolupament  ========\Files</Filter>
     </None>
   </ItemGroup>

@@ -25,8 +25,21 @@ struct MapLayer
 };
 	// TODO 6: Short function to get the value of x,y
 
+struct ObjectsData
+{
+	p2SString	name;
+	int			x;
+	int			y;
+	uint		width;
+	uint		height;
 
+};
 
+struct ObjectsGroup
+{
+	p2SString				name;
+	p2List<ObjectsData*>	objects;
+};
 
 // ----------------------------------------------------
 struct TileSet
@@ -59,14 +72,15 @@ enum MapTypes
 // ----------------------------------------------------
 struct MapData
 {
-	int					width;
-	int					height;
-	int					tile_width;
-	int					tile_height;
-	SDL_Color			background_color;
-	MapTypes			type;
-	p2List<TileSet*>	tilesets;
-	p2List<MapLayer*> layers;
+	int						width;
+	int						height;
+	int						tile_width;
+	int						tile_height;
+	SDL_Color				background_color;
+	MapTypes				type;
+	p2List<TileSet*>		tilesets;
+	p2List<MapLayer*>		layers;
+	p2List<ObjectsGroup*>	objLayers;
 	// TODO 2: Add a list/array of layers to the map!
 };
 
@@ -95,24 +109,28 @@ public:
 	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
 
+	bool SwitchMaps(p2SString* new_map);
+
 private:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	// TODO 3: Create a method that loads a single laye
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadObjectLayers(pugi::xml_node& node, ObjectsGroup* group);
 	SDL_Rect id_to_rect(uint id);
 
 public:
 
-	MapData data;
+	MapData				data;
+	bool				map1active;
 
 private:
 
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+	
 };
 
 #endif // __j1MAP_H__

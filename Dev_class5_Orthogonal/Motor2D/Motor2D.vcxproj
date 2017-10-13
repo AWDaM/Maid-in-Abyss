@@ -81,8 +81,8 @@
     <ClCompile Include="j1Audio.cpp" />
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Map.cpp" />
+    <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Scene.cpp" />
-    <ClCompile Include="j1Scene_two.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
@@ -93,9 +93,10 @@
   <ItemGroup>
     <ClInclude Include="j1Animation.h" />
     <ClInclude Include="j1Map.h" />
+    <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1SceneChange.h" />
-    <ClInclude Include="j1Scene_two.h" />
+    <ClInclude Include="p2Animation.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Input.h" />
@@ -114,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\hello2.tmx" />
+    <None Include="..\Game\maps\MaidInAbyss.tmx" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
