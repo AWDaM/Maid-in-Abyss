@@ -13,7 +13,7 @@ struct ObjectsData;
 
 struct PlayerData
 {
-	int				direction;
+	int				direction_x;
 	iPoint			colOffset;
 	iPoint			speed;
 	iPoint			maxSpeed;

@@ -24,7 +24,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 
-	Player.direction = 1;
+	Player.direction_x = 1;
 
 	LOG("Gone throught that");
 	Player.maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
@@ -85,12 +85,12 @@ bool j1Player::Update(float dt)
 {
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		Player.direction = 1;
+		Player.direction_x = 1;
 		AddSpeed();
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		Player.direction = -1;
+		Player.direction_x = -1;
 		AddSpeed();
 	}
 
@@ -102,12 +102,14 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
+	//LOG("%i", Player.speed.x);
+	//LOG("%i", Player.position.x);
 	return true;
 }
 
 void j1Player::Draw()
 {
-	if(Player.direction > 0)
+	if(Player.direction_x > 0)
 	App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()));
 	else
 	App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), 1.0F, 0.0, SDL_FLIP_HORIZONTAL);
@@ -145,10 +147,10 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 void j1Player::AddSpeed()
 {
-	Player.speed.x += Player.accel.x * Player.direction;
-	Player.speed.y += Player.accel.y * Player.direction;
+	Player.speed.x += Player.accel.x * Player.direction_x;
+	Player.speed.y += Player.accel.y * Player.direction_x;
 
-	if (Player.direction > 0)
+	if (Player.direction_x > 0)
 	{
 		if (Player.speed.x > Player.maxSpeed.x)
 			Player.speed.x = Player.maxSpeed.x;
@@ -159,11 +161,11 @@ void j1Player::AddSpeed()
 
 	else
 	{
-		if (Player.speed.x < Player.direction*Player.maxSpeed.x)
-			Player.speed.x = Player.direction*Player.maxSpeed.x;
+		if (Player.speed.x < Player.direction_x*Player.maxSpeed.x)
+			Player.speed.x = Player.direction_x*Player.maxSpeed.x;
 
-		if (Player.speed.y < Player.direction*Player.maxSpeed.y)
-			Player.speed.y = Player.direction*Player.maxSpeed.y;
+		if (Player.speed.y < Player.direction_x*Player.maxSpeed.y)
+			Player.speed.y = Player.direction_x*Player.maxSpeed.y;
 	}
 }
 
@@ -188,8 +190,12 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 					{
-						newvec.x -= result.x - 1;
-						newvec.y -= result.y - 1;
+						
+						if(Player.direction_x > 0)
+							newvec.x -= result.w -1;
+						else if (Player.direction_x < 0)
+							newvec.x += result.w +1;
+						
 					}
 				}
 			}
