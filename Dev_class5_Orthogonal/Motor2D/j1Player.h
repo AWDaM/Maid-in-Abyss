@@ -7,14 +7,13 @@
 #include "p2Animation.h"
 #include "j1Module.h"
 
-
 struct SDL_Texture;
 struct ObjectsData;
 
 struct PlayerData
 {
+	bool			flip;
 	int				direction_x;
-	bool				goingright;
 	iPoint			colOffset;
 	iPoint			speed;
 	iPoint			maxSpeed;
@@ -59,13 +58,17 @@ public:
 
 	SDL_Rect CreateRect_FromObjData(ObjectsData* data);
 
-	void PlayerMovement();
 
 	// Called before quitting
 	bool CleanUp();
 
+	void FlipImage();
+
 	void AddSpeed();
-	
+	void ReduceSpeed();
+	void ChangeAnimation();
+	void PlayerMovement();
+
 private:
 
 	PlayerData		Player;

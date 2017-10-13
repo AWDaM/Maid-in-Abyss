@@ -83,18 +83,20 @@ bool j1Player::PreUpdate()
 
 bool j1Player::Update(float dt)
 {
+	FlipImage();
+
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		Player.direction_x = 1;
-		AddSpeed();
-	}
+		Player.direction_x = 1, AddSpeed();
+
 	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-		Player.direction_x = -1;
-		AddSpeed();
-	}
+		Player.direction_x = -1, AddSpeed();
+
+	else
+		ReduceSpeed();
 
 	Player.speed = Overlay_avoid(Player.speed);
+
+	ChangeAnimation();
 
 	PlayerMovement();
 	return true;
@@ -102,21 +104,17 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
-	//LOG("%i", Player.speed.x);
-	//LOG("%i", Player.position.x);
-
 	return true;
 }
 
 void j1Player::Draw()
 {
-	if(Player.direction_x > 0)
-	App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()));
+	if(Player.flip)
+		App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL);
 	else
-	App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), 1.0F, 0.0, SDL_FLIP_HORIZONTAL);
+		App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()));
+
 }
-
-
 
 // Called before quitting
 bool j1Player::CleanUp()
@@ -145,6 +143,52 @@ bool j1Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
+iPoint j1Player::Overlay_avoid(iPoint originalvec)
+{
+	SDL_Rect CastCollider;
+	CastCollider = Player.collider;
+	CastCollider.x += Player.speed.x;
+	CastCollider.y += Player.speed.y;
+
+	SDL_Rect result;
+
+	iPoint newvec = originalvec;
+	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
+		if (obj->data->name == ("Collisions"))
+			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
+				if (objdata->data->name == ("Floor"))
+				{
+					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
+						if (Player.speed.x > 0)
+							newvec.x -= result.w;
+						else if (Player.speed.x < 0)
+							newvec.x += result.w;
+				}
+				else if (objdata->data->name == ("BGFloor"))
+					if (Player.position.y + Player.collider.y + Player.colOffset.y < objdata->data->y)
+						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
+							newvec.y -= result.h;
+
+	return newvec;
+}
+
+SDL_Rect j1Player::CreateRect_FromObjData(ObjectsData* data)
+{
+	SDL_Rect ret;
+	ret.x = data->x;
+	ret.y = data->y;
+	ret.h = data->height;
+	ret.w = data->width;
+	return ret;
+}
+
+void j1Player::FlipImage()
+{
+	if (Player.speed.x < 0)
+		Player.flip = true;
+	else if(Player.speed.x > 0)
+		Player.flip = false;
+}
 
 void j1Player::AddSpeed()
 {
@@ -170,50 +214,25 @@ void j1Player::AddSpeed()
 	}
 }
 
-iPoint j1Player::Overlay_avoid(iPoint originalvec)
+void j1Player::ReduceSpeed()
 {
-	SDL_Rect CastCollider;
-	CastCollider = Player.collider;
-	CastCollider.x += Player.speed.x;
-	CastCollider.y += Player.speed.y;
-
-	SDL_Rect result;
-
-	iPoint newvec = originalvec;
-	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
-	{
-		if (obj->data->name == ("Collisions"))
-		{
-
-			for(p2List_item<ObjectsData*>* objdata = obj->data->objects.start;objdata;objdata = objdata->next)
-			{
-				if(objdata->data->name == ("Floor"))
-				{
-					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
-					{
-						
-						if(Player.speed.x > 0)
-							newvec.x -= result.w;
-						else if (Player.speed.x < 0)
-							newvec.x += result.w;
-						
-					}
-				}
-			}
-		}
-	}
-	
-	return newvec;
+	if(Player.speed.x != 0)
+	Player.speed.x -= Player.accel.x * Player.direction_x;
+	if (Player.speed.y != 0)
+	Player.speed.y -= Player.accel.y * Player.direction_x;
 }
 
-SDL_Rect j1Player::CreateRect_FromObjData(ObjectsData* data)
+void j1Player::ChangeAnimation()
 {
-	SDL_Rect ret;
-	ret.x = data->x;
-	ret.y = data->y;
-	ret.h = data->height;
-	ret.w = data->width;
-	return ret;
+	if (Player.speed.y == 0)
+		if (Player.speed.x == 0)
+			Player.current_animation = &Player.idle;
+		else
+			Player.current_animation = &Player.running;
+	else
+		Player.current_animation = &Player.jumping;
+
+
 }
 
 void j1Player::PlayerMovement()
@@ -226,5 +245,14 @@ void j1Player::PlayerMovement()
 
 void PlayerData::LoadPushbacks()
 {
-	idle.PushBack({ 5, 18, 51, 72 });
+	idle.PushBack({ 5, 17, 56, 73 });
+
+	running.PushBack({ 89, 17, 60, 73 });
+	running.PushBack({ 180, 17, 60, 73 });
+	running.PushBack({ 277, 17, 60, 73 });
+	running.PushBack({ 375, 17, 60, 73 });
+	running.PushBack({ 470, 17, 60, 73 });
+	running.PushBack({ 565, 17, 60, 73 });
+	running.loop = true;
+	running.speed = 0.1f;
 }
