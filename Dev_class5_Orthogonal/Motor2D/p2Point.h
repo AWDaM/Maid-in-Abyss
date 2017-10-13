@@ -114,7 +114,15 @@ public:
 	{
 		return (TYPE)atan2(y, x);
 	}
+	//Function used only for our overlay avoid function. 
+	void GetXYfrom_Module_Angle()
+	{
+		TYPE temp_x = GetModule()*cos(GetAngle());
+		TYPE temp_y = GetModule()*sin(GetAngle());
 
+		x = temp_x;
+		y = temp_y;
+	}
 	// Distances ---------------------------------------------
 	TYPE DistanceTo(const p2Point& v) const
 	{

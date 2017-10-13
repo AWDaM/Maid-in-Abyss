@@ -106,6 +106,8 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
+	App->render->camera.x = Player.position.x - App->render->camera.w / 2;
+	App->render->camera.y = Player.position.y - App->render->camera.h / 2;
 	return true;
 }
 
@@ -150,9 +152,9 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 {
 	SDL_Rect CastCollider;
 	CastCollider = Player.collider;
-	CastCollider.x += Player.speed.x;
-	CastCollider.y += Player.speed.y;
-
+	CastCollider.x += originalvec.x;
+	CastCollider.y += originalvec.y;
+	 
 	SDL_Rect result;
 
 	iPoint newvec = originalvec;
@@ -163,6 +165,13 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 					{
+						/*int module = newvec.GetModule();
+						module -= 1;
+						newvec.GetXYfrom_Module_Angle();
+						CastCollider.x = Player.collider.x + newvec.x;
+						CastCollider.x += Player.collider.x + newvec.y;*/
+
+						
 						if (Player.speed.y > 0)
 						{
 							if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
@@ -186,7 +195,7 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 							}
 
 						}
-						else if (Player.speed.y < 0)
+					else if (Player.speed.y < 0)
 						{
 							if (Player.position.y <= objdata->data->y + objdata->data->height)
 							{
@@ -208,7 +217,7 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 									newvec.x += result.w;
 							}
 						}
-						else
+					else
 						{
 							if (Player.speed.x > 0)
 								newvec.x -= result.w;
