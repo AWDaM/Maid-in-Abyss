@@ -110,9 +110,9 @@ bool j1Player::PostUpdate()
 void j1Player::Draw()
 {
 	if(Player.flip)
-		App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL);
+		App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
 	else
-		App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()));
+		App->render->Blit(Player.Marisa, Player.position.x, Player.position.y, &(Player.current_animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
 
 }
 
@@ -243,6 +243,14 @@ void j1Player::PlayerMovement()
 	Player.collider.y = Player.position.y + Player.colOffset.y;
 }
 
+void j1Player::PositionCameraOnPlayer(SDL_Rect& camera)
+{
+	/*camera.x = Player.position.x - 100;
+	if (camera.x < 0)camera.x = 0;
+	camera.y = Player.position.y - 50;
+	if (camera.y > 2048)camera.y = 2048 - 768;*/
+}
+
 void PlayerData::LoadPushbacks()
 {
 	idle.PushBack({ 5, 17, 56, 73 });
@@ -256,3 +264,4 @@ void PlayerData::LoadPushbacks()
 	running.loop = true;
 	running.speed = 0.1f;
 }
+

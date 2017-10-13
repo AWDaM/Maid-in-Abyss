@@ -15,6 +15,7 @@ struct MapLayer
 	uint height = 0;
 	uint* data = nullptr;
 	uint size = 0;
+	float parallaxSpeed;
 
 	~MapLayer();
 

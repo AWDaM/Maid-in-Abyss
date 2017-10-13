@@ -69,6 +69,8 @@ public:
 	void ChangeAnimation();
 	void PlayerMovement();
 
+	void PositionCameraOnPlayer(SDL_Rect& camera);
+
 private:
 
 	PlayerData		Player;

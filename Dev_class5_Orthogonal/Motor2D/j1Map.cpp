@@ -36,7 +36,7 @@ void j1Map::Draw()
 		for (uint x = 0; x < data.tilesets.count(); x++)
 			for (uint i = 0; i < data.height; i++)
 				for (uint j = 0; j < data.width; j++)
-					App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]));
+					App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]),SDL_FLIP_NONE,-data.layers[y]->parallaxSpeed);
 }
 
 
@@ -357,6 +357,8 @@ bool j1Map::LoadLayer(pugi::xml_node & node, MapLayer * layer)
 	layer->height = node.attribute("height").as_uint();
 
 	layer->size = layer->width * layer->height;
+
+	layer->parallaxSpeed = node.child("properties").child("property").attribute("value").as_float(0.0f);
 
 	layer->data = new uint[layer->size];
 

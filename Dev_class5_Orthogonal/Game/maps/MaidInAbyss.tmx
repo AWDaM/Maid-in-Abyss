@@ -7,6 +7,9 @@
   <image source="Parallax Tileset.png" width="704" height="384"/>
  </tileset>
  <layer name="Parallax4" width="320" height="64">
+  <properties>
+   <property name="ParallaxSpeed" type="float" value="0"/>
+  </properties>
   <data>
    <tile gid="65"/>
    <tile gid="0"/>
@@ -51869,6 +51872,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -52177,7 +52184,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="66"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -53138,11 +53145,11 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -53457,7 +53464,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="66"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -54738,11 +54745,11 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -55054,10 +55061,6 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="66"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -81953,7 +81956,7 @@
  </layer>
  <layer name="DeepestWall" width="320" height="64">
   <properties>
-   <property name="ParallaxSpeed" type="float" value="0"/>
+   <property name="ParallaxSpeed" type="float" value="0.9"/>
   </properties>
   <data>
    <tile gid="0"/>
@@ -102440,7 +102443,7 @@
  </layer>
  <layer name="Background2" width="320" height="64">
   <properties>
-   <property name="ParallaxSpeed" type="float" value="0"/>
+   <property name="ParallaxSpeed" type="float" value="1"/>
   </properties>
   <data>
    <tile gid="0"/>
@@ -122927,7 +122930,7 @@
  </layer>
  <layer name="Background1" width="320" height="64">
   <properties>
-   <property name="ParallaxSpeed" type="float" value="0"/>
+   <property name="ParallaxSpeed" type="float" value="1"/>
   </properties>
   <data>
    <tile gid="0"/>
@@ -143414,7 +143417,7 @@
  </layer>
  <layer name="MainGround" width="320" height="64">
   <properties>
-   <property name="ParallaxSpeed" type="float" value="0"/>
+   <property name="ParallaxSpeed" type="float" value="1"/>
   </properties>
   <data>
    <tile gid="10"/>
