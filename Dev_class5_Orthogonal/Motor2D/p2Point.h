@@ -104,7 +104,25 @@ public:
 
 		return(*this);
 	}
+	 //Module and angle, recommended to use with fpoints or ipoints
+	TYPE GetModule() const
+	{
+		return (TYPE)sqrtf((x*x) + (y*y));
+	}
 
+	TYPE GetAngle() const
+	{
+		return (TYPE)atan2(y, x);
+	}
+	//Function used only for our overlay avoid function. 
+	void GetXYfrom_Module_Angle()
+	{
+		TYPE temp_x = GetModule()*cos(GetAngle());
+		TYPE temp_y = GetModule()*sin(GetAngle());
+
+		x = temp_x;
+		y = temp_y;
+	}
 	// Distances ---------------------------------------------
 	TYPE DistanceTo(const p2Point& v) const
 	{
@@ -126,6 +144,8 @@ public:
 	{
 		return abs(v.x - x) + abs(v.y - y);
 	}
+
+
 };
 
 typedef p2Point<int> iPoint;
