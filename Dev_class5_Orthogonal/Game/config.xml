@@ -22,6 +22,15 @@
     <path>data.zip</path>
   </file_system>
 
+  <audio>
+    <music> 
+      <folder>audio/music/</folder>
+    </music>
+   <sfx> 
+      <folder>audio/fx/</folder>
+    </sfx>
+  </audio>
+  
   <map>
     <folder>maps/</folder>
   </map>
@@ -30,7 +39,7 @@
     <folder>textures/</folder>
     <sprite_sheet source="MC_MarisaKirisame.png"/>
     <accel x="1" y="1"/>
-    <jumpForce value ="-10"/>
+    <jumpForce value ="-15"/>
     <maxSpeed x="4" y="5"/>
     <dashingSpeed x="10" y="0"/>
     <dashingColliderDifference value="25"/>

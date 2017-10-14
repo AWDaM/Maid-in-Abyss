@@ -114,7 +114,6 @@
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\maps\hello2.tmx" />
     <None Include="..\Game\maps\MaidInAbyss.tmx" />
   </ItemGroup>
   <ItemGroup>
