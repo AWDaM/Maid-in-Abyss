@@ -64,8 +64,7 @@ bool j1Player::Start()
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 	{
 		if (obj->data->name == ("Collisions"))
-		{
-			
+		{		
 			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start;objdata;objdata = objdata->next)
 			{
 				if (objdata->data->name == ("Player"))

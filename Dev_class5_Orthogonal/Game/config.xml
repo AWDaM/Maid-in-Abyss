@@ -22,6 +22,15 @@
     <path>data.zip</path>
   </file_system>
 
+  <audio>
+    <music> 
+      <folder>audio/music/</folder>
+    </music>
+   <sfx> 
+      <folder>audio/fx/</folder>
+    </sfx>
+  </audio>
+  
   <map>
     <folder>maps/</folder>
   </map>

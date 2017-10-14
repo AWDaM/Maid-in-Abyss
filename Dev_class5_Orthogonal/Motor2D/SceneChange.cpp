@@ -6,6 +6,7 @@
 #include "j1Scene.h"
 #include "j1Window.h"
 #include "j1Player.h"
+#include "j1Audio.h"
 #include "j1Map.h"
 
 #include "SDL\include\SDL_render.h"
@@ -53,6 +54,7 @@ bool j1SceneChange::Update(float dt)
 				if (!App->player->isPlayerAlive)App->player->YouDied();
 				App->scene->currentMap = nextMap;
 				App->map->SwitchMaps(new_map);
+				App->audio->PlayMusic(App->map->data.musicFile.GetString());
 				total_time += total_time;
 				start_time = SDL_GetTicks();
 				fading = false;

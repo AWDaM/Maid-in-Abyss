@@ -8,6 +8,8 @@
 
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
+
+
 struct MapLayer
 {
 	p2SString name;
@@ -83,7 +85,7 @@ struct MapData
 	p2List<TileSet*>		tilesets;
 	p2List<MapLayer*>		layers;
 	p2List<ObjectsGroup*>	objLayers;
-	// TODO 2: Add a list/array of layers to the map!
+	p2SString				musicFile;
 };
 
 // ----------------------------------------------------
