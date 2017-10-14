@@ -159,6 +159,8 @@ bool j1Player::Load(pugi::xml_node& data)
 	/*camera.x = data.child("camera").attribute("x").as_int();
 	camera.y = data.child("camera").attribute("y").as_int();*/
 
+	/*Player.position.x = */
+
 	return true;
 }
 
@@ -167,8 +169,12 @@ bool j1Player::Save(pugi::xml_node& data) const
 {
 	pugi::xml_node player = data.append_child("position");
 
-	player.append_attribute("x") = Player.position.x;
-	player.append_attribute("y") = Player.position.y;
+	player.child("position").append_attribute("x") = Player.position.x;
+	player.child("position").append_attribute("y") = Player.position.y;
+	player.append_child("speed").append_attribute("x") = Player.speed.x;
+	player.child("position").append_attribute("y") = Player.speed.y;
+	player.append_child("grounded").append_attribute("value") = Player.grounded;
+	//player.append_child("dashing").append_attribute("value") = Player.isdashing;
 	/*player.append_attribute()*/
 
 	return true;
