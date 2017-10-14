@@ -25,6 +25,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 
+	
 
 	for (pugi::xml_node map = config.child("map_name"); map; map = map.next_sibling("map_name"))
 	{
@@ -64,11 +65,11 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
-		App->scenechange->ChangeScene(map_names[DepthsOfTheAbyss], 1.0f);
+	//if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
+		//App->scenechange->ChangeScene(map_names[currentMap], 1.0f);
 
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
-		App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
+	//if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
+		//App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
 
 
 	App->map->Draw();

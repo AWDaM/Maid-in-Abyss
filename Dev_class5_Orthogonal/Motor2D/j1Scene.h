@@ -9,7 +9,7 @@ enum ListOfMapNames
 {
 	OuterWorld = 0,
 	DepthsOfTheAbyss
-};
+}; 
 
 class j1Scene : public j1Module
 {
@@ -40,6 +40,7 @@ public:
 
 public:
 
+	ListOfMapNames currentMap;
 	p2List<p2SString*> map_names;
 };
 

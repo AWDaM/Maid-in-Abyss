@@ -5,6 +5,8 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Input.h"
+#include "j1SceneChange.h"
+#include "j1Scene.h"
 #include "j1Render.h"
 #include "j1Window.h"
 
@@ -27,10 +29,15 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	Player.direction_x = 1;
 
-	LOG("Gone throught that");
+
 	Player.maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
 	Player.maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
-	LOG("Trough that too");
+
+	Player.dashingSpeed.x = config.child("dashingSpeed").attribute("x").as_int();
+	Player.dashingSpeed.y = config.child("dashingSpeed").attribute("y").as_int();
+
+	Player.dashingColliderDifference = config.child("dashingColliderDifference").attribute("value").as_int();
+
 	Player.accel.x = config.child("accel").attribute("x").as_int();
 	Player.accel.y = config.child("accel").attribute("y").as_int();
 
@@ -47,6 +54,10 @@ bool j1Player::Start()
 
 	Player.speed = { 0,0 };
 	
+	isPlayerAlive = true;
+	
+	Player.isDashing = false;
+
 	Player.current_animation = &Player.idle;
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 	{
@@ -85,18 +96,29 @@ bool j1Player::Update(float dt)
 {
 	FlipImage();
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		Player.direction_x = 1, AddSpeed();
-	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		Player.direction_x = -1, AddSpeed();
+	if (!Player.isDashing)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+			StartDashing();
+	}
 	else
-		ReduceSpeed();	
+		if (DashingTimer() > 1)StopDashing();
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		Player.speed.y = -20, Player.grounded = false;
+	if (!Player.isDashing)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			Player.direction_x = 1, AddSpeed();
+		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			Player.direction_x = -1, AddSpeed();
+		else
+			ReduceSpeed();
 
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+			Player.speed.y = -20, Player.grounded = false;
 
-	Player.speed = ApplyGravity(Player.speed);
+		Player.speed = ApplyGravity(Player.speed);
+	}
+
 	Player.speed = Overlay_avoid(Player.speed);
 
 	ChangeAnimation();
@@ -107,6 +129,8 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
+	if (!isPlayerAlive) App->scenechange->ChangeScene(App->scene->map_names[App->scene->currentMap], App->scene->currentMap);
+
 	PositionCameraOnPlayer();
 	return true;
 }
@@ -195,7 +219,7 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 							}
 
 						}
-					else if (Player.speed.y < 0)
+						else if (Player.speed.y < 0)
 						{
 							if (Player.position.y <= objdata->data->y + objdata->data->height)
 							{
@@ -217,7 +241,7 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 									newvec.x += result.w;
 							}
 						}
-					else
+						else
 						{
 							if (Player.speed.x > 0)
 								newvec.x -= result.w;
@@ -227,11 +251,15 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 					}
 				}
 				else if (objdata->data->name == ("BGFloor"))
+				{
 					if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
 						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 							if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
 								newvec.y -= result.h;
-
+				}
+				else if (objdata->data->name == ("Dead"))
+					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
+						isPlayerAlive = false;
 	return newvec;
 }
 
@@ -256,6 +284,24 @@ void j1Player::FlipImage()
 void j1Player::BecomeGrounded()
 {
 	Player.grounded = true;
+}
+
+void j1Player::StartDashing()
+{
+	Player.isDashing = true;
+	Player.speed.x = Player.dashingSpeed.x;
+	Player.speed.y = Player.dashingSpeed.y;
+	Player.collider.w += Player.dashingColliderDifference;
+}
+
+void j1Player::StopDashing()
+{
+	Player.isDashing = false;
+	Player.collider.w -= Player.dashingColliderDifference;
+}
+uint j1Player::DashingTimer()
+{
+	return 0;
 }
 
 void j1Player::AddSpeed()
@@ -284,13 +330,20 @@ void j1Player::ReduceSpeed()
 
 void j1Player::ChangeAnimation()
 {
-	if (Player.speed.y == 0)
-		if (Player.speed.x == 0)
-			Player.current_animation = &Player.idle;
+	if (!Player.isDashing)
+	{
+		if (Player.speed.y == 0)
+			if (Player.speed.x == 0)
+				Player.current_animation = &Player.idle;
+			else
+				Player.current_animation = &Player.running;
 		else
-			Player.current_animation = &Player.dashing;
+			Player.current_animation = &Player.jumping_up;
+	}
 	else
-		Player.current_animation = &Player.jumping_up;
+		Player.current_animation = &Player.dashing;
+
+
 }
 
 void j1Player::PlayerMovement()
@@ -301,6 +354,25 @@ void j1Player::PlayerMovement()
 	Player.collider.y = Player.position.y + Player.colOffset.y;
 }
 
+iPoint j1Player::ApplyGravity(iPoint originalvec)
+{
+	originalvec.y += Player.accel.y;
+	return originalvec;
+}
+
+void j1Player::YouDied()
+{
+	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
+		if (obj->data->name == ("Collisions"))
+			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
+				if (objdata->data->name == ("Start"))
+				{
+					Player.position = { objdata->data->x, objdata->data->y };
+					Player.collider.x = Player.position.x + Player.colOffset.x;
+					Player.collider.y = Player.position.y + Player.colOffset.y;
+				}
+	isPlayerAlive = true;
+}
 
 void j1Player::PositionCameraOnPlayer()
 {
@@ -308,11 +380,6 @@ void j1Player::PositionCameraOnPlayer()
 	if (App->render->camera.x < 0)App->render->camera.x = 0;
 	App->render->camera.y = Player.position.y - App->render->camera.h / 2;
 	if (App->render->camera.y + App->win->height > App->map->data.height*App->map->data.tile_height)App->render->camera.y = App->map->data.height*App->map->data.tile_height - App->win->height;
-}
-iPoint j1Player::ApplyGravity(iPoint originalvec)
-{
-		originalvec.y += Player.accel.y;
-	return originalvec;
 }
 
 void PlayerData::LoadPushbacks()
@@ -335,13 +402,14 @@ void PlayerData::LoadPushbacks()
 
 	falling.PushBack({ 861, 17, 53, 73 });
 
-	dashing.PushBack({ 294, 228, 82, 67 });
-	dashing.PushBack({ 390, 223, 73, 72 });
-	dashing.PushBack({ 468, 219, 76, 69 }); 
-	dashing.PushBack({ 548, 219, 76, 69 });
+	//dashing.PushBack({ 294, 228, 82, 67 });
 	dashing.PushBack({ 635, 224, 79, 71 });
 	dashing.PushBack({ 741, 226, 81, 69 });
 	dashing.PushBack({ 834, 227, 82, 68 });
 	dashing.PushBack({ 929, 228, 82, 67 });
-	dashing.speed = 0.15f;
+	dashing.PushBack({ 390, 223, 73, 72 });
+	dashing.PushBack({ 468, 219, 76, 69 }); 
+	dashing.PushBack({ 548, 219, 76, 69 });
+	dashing.loop = false;
+	dashing.speed = 0.3f;
 }

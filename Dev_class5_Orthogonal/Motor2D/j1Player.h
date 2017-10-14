@@ -12,12 +12,15 @@ struct ObjectsData;
 
 struct PlayerData
 {
+	bool			isDashing;
 	bool			flip;
 	int				direction_x;
 	bool			grounded;
 	iPoint			colOffset;
 	iPoint			speed;
 	iPoint			maxSpeed;
+	iPoint			dashingSpeed;
+	int				dashingColliderDifference;
 	iPoint			accel;
 	iPoint			position;
 	SDL_Rect		collider;
@@ -68,19 +71,30 @@ public:
 
 	void BecomeGrounded();
 
+	void StartDashing();
+	uint DashingTimer();
+	void StopDashing();
+
 	void AddSpeed();
 	void ReduceSpeed();
 	void ChangeAnimation();
 	void PlayerMovement();
 	iPoint ApplyGravity(iPoint originalvec);
 
+	void YouDied();
+
 	void PositionCameraOnPlayer();
 
+	
 private:
 
 	PlayerData		Player;
 	p2SString		folder;
 	p2SString		texture_path;
+
+public:
+
+	bool			isPlayerAlive;
 };
 
 #endif // __j1MAP_H__

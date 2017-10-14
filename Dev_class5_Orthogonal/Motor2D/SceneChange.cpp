@@ -5,6 +5,7 @@
 #include "j1Render.h"
 #include "j1Scene.h"
 #include "j1Window.h"
+#include "j1Player.h"
 #include "j1Map.h"
 
 #include "SDL\include\SDL_render.h"
@@ -49,6 +50,8 @@ bool j1SceneChange::Update(float dt)
 		{
 			if (now >= total_time)
 			{
+				if (!App->player->isPlayerAlive)App->player->YouDied();
+				App->scene->currentMap = nextMap;
 				App->map->SwitchMaps(new_map);
 				total_time += total_time;
 				start_time = SDL_GetTicks();
@@ -75,11 +78,13 @@ bool j1SceneChange::Update(float dt)
 	return true;
 }
 
-bool j1SceneChange::ChangeScene(p2SString* map, float time)
+bool j1SceneChange::ChangeScene(p2SString* map, ListOfMapNames newMap, float time)
 {
 	bool ret = false;
 
 	new_map = map;
+
+	nextMap = newMap;
 
 	if (current_step == fade_step::none)
 	{

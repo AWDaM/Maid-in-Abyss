@@ -4,7 +4,7 @@
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
 
-
+enum ListOfMapNames;
 
 class j1SceneChange : public j1Module
 {
@@ -15,8 +15,7 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool Update(float dt);
-	bool ChangeScene(p2SString* map, float time = 1.0f);
-
+	bool ChangeScene(p2SString* map, ListOfMapNames newMap, float time = 1.0f);
 
 	bool IsFading() const;
 
@@ -34,6 +33,8 @@ private:
 		fade_from_black
 	} current_step = fade_step::none;
 
+	
+	ListOfMapNames nextMap;
 	p2SString* new_map;
 	uint start_time = 0;
 	uint total_time = 0;

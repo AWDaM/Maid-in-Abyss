@@ -163956,10 +163956,10 @@
   <object id="58" name="BGFloor" x="4416" y="1376" width="256" height="608"/>
   <object id="59" name="Start" x="320" y="1880" width="32" height="32"/>
   <object id="60" name="BGFloor" x="1408" y="1856" width="224" height="128"/>
-  <object id="63" name="Dead" x="928" y="2016" width="320" height="32"/>
-  <object id="64" name="Dead" x="1888" y="2016" width="128" height="32"/>
-  <object id="65" name="Dead" x="2304" y="2016" width="288" height="32"/>
-  <object id="66" name="Dead" x="2784" y="2016" width="704" height="32"/>
+  <object id="63" name="Dead" x="928" y="2047" width="320" height="32"/>
+  <object id="64" name="Dead" x="1888" y="2047" width="128" height="32"/>
+  <object id="65" name="Dead" x="2304" y="2047" width="288" height="32"/>
+  <object id="66" name="Dead" x="2784" y="2047" width="704" height="32"/>
   <object id="67" name="End" x="5312" y="1568" width="768" height="32"/>
  </objectgroup>
 </map>
