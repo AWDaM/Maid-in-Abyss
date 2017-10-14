@@ -38,6 +38,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 	Player.dashingSpeed.y = config.child("dashingSpeed").attribute("y").as_int();
 
 	Player.dashingColliderDifference = config.child("dashingColliderDifference").attribute("value").as_int();
+	Player.Dashtime = config.child("dashtime").attribute("value").as_int();
 
 	Player.accel.x = config.child("accel").attribute("x").as_int();
 	Player.accel.y = config.child("accel").attribute("y").as_int();
@@ -101,9 +102,16 @@ bool j1Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 			StartDashing();
 	}
-	else
-		if (DashingTimer() > 1)StopDashing();
+	else if (Player.isDashing)
+	{
+		Player.currentDashtime = SDL_GetTicks();
 
+		if (Player.currentDashtime >= Player.initialDashtime + Player.Dashtime)
+		{
+			StopDashing();
+		}
+			
+	}
 	if (!Player.isDashing)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
@@ -158,7 +166,15 @@ bool j1Player::Load(pugi::xml_node& data)
 	/*camera.x = data.child("camera").attribute("x").as_int();
 	camera.y = data.child("camera").attribute("y").as_int();*/
 
-	/*Player.position.x = */
+	Player.position.x = data.child("position").attribute("x").as_int();
+	Player.position.y = data.child("position").attribute("y").as_int();
+	Player.speed.x = data.child("speed").attribute("x").as_int();
+	Player.speed.y = data.child("speed").attribute("y").as_int();
+	Player.collider.w = data.child("collider").attribute("width").as_int();
+	Player.collider.h = data.child("collider").attribute("height").as_int();
+	Player.grounded = data.child("grounded").attribute("value").as_bool();
+	Player.isDashing = data.child("dashing").attribute("value").as_bool();
+	Player.currentDashtime = data.child("dashtime").attribute("value").as_float();
 
 	return true;
 }
@@ -166,15 +182,18 @@ bool j1Player::Load(pugi::xml_node& data)
 // Save Game State
 bool j1Player::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node player = data.append_child("position");
+	pugi::xml_node player = data;
 
-	player.child("position").append_attribute("x") = Player.position.x;
+	player.append_child("position").append_attribute("x") = Player.position.x;
 	player.child("position").append_attribute("y") = Player.position.y;
 	player.append_child("speed").append_attribute("x") = Player.speed.x;
-	player.child("position").append_attribute("y") = Player.speed.y;
+	player.child("speed").append_attribute("y") = Player.speed.y;
+	player.append_child("collider").append_attribute("width") = Player.collider.w;
+	player.append_child("collider").append_attribute("heigth") = Player.collider.h;
 	player.append_child("grounded").append_attribute("value") = Player.grounded;
-	//player.append_child("dashing").append_attribute("value") = Player.isdashing;
-	/*player.append_attribute()*/
+	player.append_child("dashing").append_attribute("value") = Player.isDashing;
+	player.append_child("currentDashtime").append_attribute("value") = Player.currentDashtime;
+
 
 	return true;
 }
@@ -299,6 +318,7 @@ void j1Player::StartDashing()
 	Player.speed.x = Player.dashingSpeed.x;
 	Player.speed.y = Player.dashingSpeed.y;
 	Player.collider.w += Player.dashingColliderDifference;
+	Player.initialDashtime = SDL_GetTicks();
 }
 
 void j1Player::StopDashing()
@@ -308,6 +328,7 @@ void j1Player::StopDashing()
 }
 uint j1Player::DashingTimer()
 {
+
 	return 0;
 }
 
@@ -364,6 +385,10 @@ void j1Player::PlayerMovement()
 iPoint j1Player::ApplyGravity(iPoint originalvec)
 {
 	originalvec.y += Player.accel.y;
+	if (originalvec.y > Player.maxSpeed.y)
+	{
+		originalvec.y = Player.maxSpeed.y;
+	}
 	return originalvec;
 }
 

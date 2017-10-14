@@ -39,11 +39,12 @@
     <folder>textures/</folder>
     <sprite_sheet source="MC_MarisaKirisame.png"/>
     <accel x="1" y="1"/>
-    <jumpForce value ="-15"/>
-    <maxSpeed x="4" y="5"/>
+    <jumpForce value ="-17"/>
+    <maxSpeed x="6" y="10"/>
     <dashingSpeed x="10" y="0"/>
     <dashingColliderDifference value="25"/>
     <colOffset x="11" y="8"/>
+    <dashtime value="500"/>
   </player>
 
   <scene>
@@ -51,7 +52,5 @@
     <map_name name="DepthsOfTheAbyss.tmx"></map_name>
     <fade_time value="1"/>
   </scene>
-
-
 
 </config>

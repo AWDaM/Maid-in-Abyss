@@ -117,7 +117,9 @@
     <None Include="..\Game\maps\MaidInAbyss.tmx" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\Game\config.xml" />
+    <Xml Include="..\Game\config.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
