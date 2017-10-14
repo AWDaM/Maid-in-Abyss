@@ -12,14 +12,15 @@ struct ObjectsData;
 
 struct PlayerData
 {
+	bool			isJumping;
 	bool			isDashing;
 	bool			flip;
 	int				direction_x;
-	int				jumpForce;
-	bool				grounded;
-	float				Dashtime;
-	float				currentDashtime;
-	float				initialDashtime;
+	iPoint			jumpForce;
+	bool			grounded;
+	float			Dashtime;
+	float			currentDashtime;
+	float			initialDashtime;
 	iPoint			colOffset;
 	iPoint			speed;
 	iPoint			maxSpeed;

@@ -39,7 +39,7 @@
     <folder>textures/</folder>
     <sprite_sheet source="MC_MarisaKirisame.png"/>
     <accel x="1" y="1"/>
-    <jumpForce value ="-17"/>
+    <jumpForce x="2" y="-17"/>
     <maxSpeed x="6" y="10"/>
     <dashingSpeed x="10" y="0"/>
     <dashingColliderDifference value="25"/>

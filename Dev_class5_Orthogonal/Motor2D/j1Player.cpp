@@ -29,7 +29,8 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	Player.direction_x = 1;
 
-	Player.jumpForce = config.child("jumpForce").attribute("value").as_int();
+	Player.jumpForce.x = config.child("jumpForce").attribute("x").as_int();
+	Player.jumpForce.y = config.child("jumpForce").attribute("y").as_int();
 
 	Player.maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
 	Player.maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
@@ -58,6 +59,7 @@ bool j1Player::Start()
 	
 	isPlayerAlive = true;
 	
+	Player.isJumping = false;
 	Player.isDashing = false;
 
 	Player.current_animation = &Player.idle;
@@ -122,7 +124,13 @@ bool j1Player::Update(float dt)
 			ReduceSpeed();
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && Player.grounded)
-			Player.speed.y = Player.jumpForce, Player.grounded = false;
+		{
+			Player.isJumping = true;
+			Player.maxSpeed.x += Player.jumpForce.x;
+			Player.speed.x = Player.jumpForce.x*Player.direction_x; 
+			Player.speed.y = Player.jumpForce.y;
+		}
+
 
 		Player.speed = ApplyGravity(Player.speed);
 	}
@@ -200,6 +208,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 iPoint j1Player::Overlay_avoid(iPoint originalvec)
 {
+	Player.grounded = false;
+
 	SDL_Rect CastCollider;
 	CastCollider = Player.collider;
 	CastCollider.x += originalvec.x;
@@ -295,6 +305,9 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 				else if (objdata->data->name == ("Dead"))
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 						isPlayerAlive = false;
+
+
+
 	return newvec;
 }
 
@@ -318,6 +331,9 @@ void j1Player::FlipImage()
 
 void j1Player::BecomeGrounded()
 {
+	if (Player.isJumping)
+		Player.isJumping = false, Player.maxSpeed.x -= Player.jumpForce.x;
+
 	Player.grounded = true;
 }
 
