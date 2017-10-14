@@ -99,3 +99,19 @@ bool j1Scene::CleanUp()
 
 	return true;
 }
+
+bool j1Scene::Load(pugi::xml_node& data)
+{
+	if (currentMap != data.child("currentMap").attribute("num").as_int())
+	{
+		currentMap = data.child("currentMap").attribute("num").as_int();
+		App->map->SwitchMaps(map_names[data.child("currentMap").attribute("num").as_int()]);
+	}
+	return true;
+}
+
+bool j1Scene::Save(pugi::xml_node& data) const
+{
+	data.append_child("currentMap").append_attribute("num") = currentMap;
+	return true;
+}

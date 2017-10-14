@@ -393,18 +393,11 @@ bool j1Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroup * group)
 
 bool j1Map::SwitchMaps(p2SString* new_map)
 {
-	if (map1active)
-	{
+
 		CleanUp();
-		map1active = false;
+
 		Load_map(new_map->GetString());
-	}
-	else if(!map1active)
-	{
-		CleanUp();
-		map1active = true;
-		Load_map(new_map->GetString());
-	}
+
 	return true;
 }
 
