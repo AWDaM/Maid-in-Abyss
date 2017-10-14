@@ -121,7 +121,7 @@ bool j1Player::Update(float dt)
 		else
 			ReduceSpeed();
 
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && Player.grounded)
 			Player.speed.y = Player.jumpForce, Player.grounded = false;
 
 		Player.speed = ApplyGravity(Player.speed);
@@ -189,7 +189,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 	player.append_child("speed").append_attribute("x") = Player.speed.x;
 	player.child("speed").append_attribute("y") = Player.speed.y;
 	player.append_child("collider").append_attribute("width") = Player.collider.w;
-	player.append_child("collider").append_attribute("heigth") = Player.collider.h;
+	player.child("collider").append_attribute("height") = Player.collider.h;
 	player.append_child("grounded").append_attribute("value") = Player.grounded;
 	player.append_child("dashing").append_attribute("value") = Player.isDashing;
 	player.append_child("currentDashtime").append_attribute("value") = Player.currentDashtime;
@@ -221,7 +221,7 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 							{
 								if (Player.speed.x > 0)
 								{
-									if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x <= objdata->data->x)
+									if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
 										newvec.y -= result.h, BecomeGrounded();
 									else
 										newvec.x -= result.w;
@@ -247,17 +247,24 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 						}
 						else if (Player.speed.y < 0)
 						{
-							if (Player.position.y <= objdata->data->y + objdata->data->height)
+							if (Player.position.y >= objdata->data->y + objdata->data->height)
 							{
-								if (result.h <= result.w)
-									newvec.y += result.h;
-								else
+								if (Player.speed.x > 0)
 								{
-									if (Player.speed.x < 0)
-										newvec.x += result.w;
-									else if (CastCollider.x > 0)
+									if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
+										newvec.y += result.h;
+									else
 										newvec.x -= result.w;
 								}
+								else if (Player.speed.x < 0)
+								{
+									if (result.h <= result.w || Player.position.x <= objdata->data->x + objdata->data->width)
+										newvec.y += result.h;
+									else
+										newvec.x += result.w;
+								}
+								else
+									newvec.y += result.h;
 							}
 							else
 							{
@@ -265,6 +272,8 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 									newvec.x -= result.w;
 								else if (Player.speed.x < 0)
 									newvec.x += result.w;
+								else
+									newvec.y += result.h;
 							}
 						}
 						else
