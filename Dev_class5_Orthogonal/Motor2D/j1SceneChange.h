@@ -15,7 +15,7 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool Update(float dt);
-	bool ChangeScene(p2SString* map, ListOfMapNames newMap, float time = 1.0f);
+	bool ChangeScene(p2SString* map, int newMap, float time = 1.0f);
 
 	bool IsFading() const;
 
@@ -34,7 +34,7 @@ private:
 	} current_step = fade_step::none;
 
 	
-	ListOfMapNames nextMap;
+	int nextMap;
 	p2SString* new_map;
 	uint start_time = 0;
 	uint total_time = 0;

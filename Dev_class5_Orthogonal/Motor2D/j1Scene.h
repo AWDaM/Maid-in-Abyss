@@ -38,9 +38,12 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Load(pugi::xml_node& data);
+	bool Save(pugi::xml_node& data) const;
+
 public:
 
-	ListOfMapNames currentMap;
+	int currentMap;
 	p2List<p2SString*> map_names;
 	float fade_time;
 };

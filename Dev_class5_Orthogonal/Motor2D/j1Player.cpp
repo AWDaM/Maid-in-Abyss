@@ -190,17 +190,17 @@ bool j1Player::Load(pugi::xml_node& data)
 // Save Game State
 bool j1Player::Save(pugi::xml_node& data) const
 {
-	pugi::xml_node player = data;
+	
 
-	player.append_child("position").append_attribute("x") = Player.position.x;
-	player.child("position").append_attribute("y") = Player.position.y;
-	player.append_child("speed").append_attribute("x") = Player.speed.x;
-	player.child("speed").append_attribute("y") = Player.speed.y;
-	player.append_child("collider").append_attribute("width") = Player.collider.w;
-	player.child("collider").append_attribute("height") = Player.collider.h;
-	player.append_child("grounded").append_attribute("value") = Player.grounded;
-	player.append_child("dashing").append_attribute("value") = Player.isDashing;
-	player.append_child("currentDashtime").append_attribute("value") = Player.currentDashtime;
+	data.append_child("position").append_attribute("x") = Player.position.x;
+	data.child("position").append_attribute("y") = Player.position.y;
+	data.append_child("speed").append_attribute("x") = Player.speed.x;
+	data.child("speed").append_attribute("y") = Player.speed.y;
+	data.append_child("collider").append_attribute("width") = Player.collider.w;
+	data.child("collider").append_attribute("height") = Player.collider.h;
+	data.append_child("grounded").append_attribute("value") = Player.grounded;
+	data.append_child("dashing").append_attribute("value") = Player.isDashing;
+	data.append_child("currentDashtime").append_attribute("value") = Player.currentDashtime;
 
 
 	return true;
@@ -344,6 +344,7 @@ void j1Player::BecomeGrounded()
 		Player.isJumping = false, Player.maxSpeed.x -= Player.jumpForce.x;
 
 	Player.grounded = true;
+	Player.jumping_up.Reset();
 }
 
 void j1Player::StartDashing()
@@ -395,13 +396,16 @@ void j1Player::ChangeAnimation()
 {
 	if (!Player.isDashing)
 	{
-		if (Player.speed.y == 0)
+		if (Player.speed.y == 0 && Player.grounded)
 			if (Player.speed.x == 0)
 				Player.current_animation = &Player.idle;
 			else
 				Player.current_animation = &Player.running;
-		else
+		else if (Player.speed.y < 0)
 			Player.current_animation = &Player.jumping_up;
+		else 
+			Player.current_animation = &Player.falling;
+		
 	}
 	else
 		Player.current_animation = &Player.dashing;
@@ -437,6 +441,8 @@ void j1Player::YouDied()
 					Player.position = { objdata->data->x, objdata->data->y };
 					Player.collider.x = Player.position.x + Player.colOffset.x;
 					Player.collider.y = Player.position.y + Player.colOffset.y;
+					Player.speed.x = 0;
+					Player.speed.y = 0;
 				}
 	isPlayerAlive = true;
 }
@@ -465,7 +471,7 @@ void PlayerData::LoadPushbacks()
 	jumping_up.PushBack({ 672, 27, 53, 63 });
 	jumping_up.PushBack({ 764, 0, 49, 75 });
 	jumping_up.loop = false;
-	jumping_up.speed = 0.1f;
+	jumping_up.speed = 0.2f;
 
 	falling.PushBack({ 861, 17, 53, 73 });
 

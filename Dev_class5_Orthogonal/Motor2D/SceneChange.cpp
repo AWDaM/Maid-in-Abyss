@@ -80,7 +80,7 @@ bool j1SceneChange::Update(float dt)
 	return true;
 }
 
-bool j1SceneChange::ChangeScene(p2SString* map, ListOfMapNames newMap, float time)
+bool j1SceneChange::ChangeScene(p2SString* map, int newMap, float time)
 {
 	bool ret = false;
 
