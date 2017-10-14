@@ -121,7 +121,7 @@ bool j1Player::Update(float dt)
 		else
 			ReduceSpeed();
 
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && Player.grounded)
 			Player.speed.y = Player.jumpForce, Player.grounded = false;
 
 		Player.speed = ApplyGravity(Player.speed);
@@ -189,7 +189,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 	player.append_child("speed").append_attribute("x") = Player.speed.x;
 	player.child("speed").append_attribute("y") = Player.speed.y;
 	player.append_child("collider").append_attribute("width") = Player.collider.w;
-	player.append_child("collider").append_attribute("heigth") = Player.collider.h;
+	player.child("collider").append_attribute("height") = Player.collider.h;
 	player.append_child("grounded").append_attribute("value") = Player.grounded;
 	player.append_child("dashing").append_attribute("value") = Player.isDashing;
 	player.append_child("currentDashtime").append_attribute("value") = Player.currentDashtime;
@@ -281,7 +281,7 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 					if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
 						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 							if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
-								newvec.y -= result.h;
+								newvec.y -= result.h , BecomeGrounded();
 				}
 				else if (objdata->data->name == ("Dead"))
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
@@ -315,7 +315,7 @@ void j1Player::BecomeGrounded()
 void j1Player::StartDashing()
 {
 	Player.isDashing = true;
-	Player.speed.x = Player.dashingSpeed.x;
+	Player.speed.x = Player.dashingSpeed.x * Player.direction_x;
 	Player.speed.y = Player.dashingSpeed.y;
 	Player.collider.w += Player.dashingColliderDifference;
 	Player.initialDashtime = SDL_GetTicks();
@@ -325,6 +325,7 @@ void j1Player::StopDashing()
 {
 	Player.isDashing = false;
 	Player.collider.w -= Player.dashingColliderDifference;
+	Player.dashing.Reset();
 }
 uint j1Player::DashingTimer()
 {

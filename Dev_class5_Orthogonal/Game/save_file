@@ -7,16 +7,15 @@
 	<map />
 	<scene />
 	<player>
-		<position x="582" y="1880" />
+		<position x="1053" y="1688" />
 		<speed x="0" y="0" />
-		<collider width="32" />
-		<collider heigth="64" />
+		<collider width="32" height="64" />
 		<grounded value="true" />
 		<dashing value="false" />
-		<currentDashtime value="7723" />
+		<currentDashtime value="0" />
 	</player>
 	<:anonymous />
 	<renderer>
-		<camera x="241" y="1280" />
+		<camera x="712" y="1280" />
 	</renderer>
 </game_state>
