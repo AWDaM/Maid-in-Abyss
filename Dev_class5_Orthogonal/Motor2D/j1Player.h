@@ -24,7 +24,8 @@ struct PlayerData
 	Animation*		current_animation;
 	Animation		idle;
 	Animation		running;
-	Animation		jumping;
+	Animation		jumping_up;
+	Animation		falling;
 	Animation		dashing;
 	SDL_Texture*	Player_tex;
 
