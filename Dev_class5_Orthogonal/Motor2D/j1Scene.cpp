@@ -71,6 +71,7 @@ bool j1Scene::Update(float dt)
 	//if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
 		//App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
 
+
 	App->map->Draw();
 	App->player->Draw();
 
