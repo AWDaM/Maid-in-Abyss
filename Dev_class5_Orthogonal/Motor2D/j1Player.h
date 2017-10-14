@@ -16,7 +16,10 @@ struct PlayerData
 	bool			flip;
 	int				direction_x;
 	int				jumpForce;
-	bool			grounded;
+	bool				grounded;
+	float				Dashtime;
+	float				currentDashtime;
+	float				initialDashtime;
 	iPoint			colOffset;
 	iPoint			speed;
 	iPoint			maxSpeed;
