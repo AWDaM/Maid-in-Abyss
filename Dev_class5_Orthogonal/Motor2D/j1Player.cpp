@@ -288,9 +288,9 @@ void j1Player::ChangeAnimation()
 		if (Player.speed.x == 0)
 			Player.current_animation = &Player.idle;
 		else
-			Player.current_animation = &Player.running;
+			Player.current_animation = &Player.dashing;
 	else
-		Player.current_animation = &Player.jumping;
+		Player.current_animation = &Player.jumping_up;
 }
 
 void j1Player::PlayerMovement()
@@ -328,5 +328,20 @@ void PlayerData::LoadPushbacks()
 	running.loop = true;
 	running.speed = 0.1f;
 
-	jumping.PushBack({ 5, 17, 56, 73 });
+	jumping_up.PushBack({ 672, 27, 53, 63 });
+	jumping_up.PushBack({ 764, 0, 49, 75 });
+	jumping_up.loop = false;
+	jumping_up.speed = 0.1f;
+
+	falling.PushBack({ 861, 17, 53, 73 });
+
+	dashing.PushBack({ 294, 228, 82, 67 });
+	dashing.PushBack({ 390, 223, 73, 72 });
+	dashing.PushBack({ 468, 219, 76, 69 }); 
+	dashing.PushBack({ 548, 219, 76, 69 });
+	dashing.PushBack({ 635, 224, 79, 71 });
+	dashing.PushBack({ 741, 226, 81, 69 });
+	dashing.PushBack({ 834, 227, 82, 68 });
+	dashing.PushBack({ 929, 228, 82, 67 });
+	dashing.speed = 0.15f;
 }
