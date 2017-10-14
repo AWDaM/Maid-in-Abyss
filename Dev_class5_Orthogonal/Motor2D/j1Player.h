@@ -11,7 +11,7 @@ struct SDL_Texture;
 struct ObjectsData;
 
 struct PlayerData
-{
+{			
 	bool			isJumping;
 	bool			isDashing;
 	bool			flip;

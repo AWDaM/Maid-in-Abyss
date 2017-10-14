@@ -42,8 +42,8 @@
     <jumpForce x="2" y="-17"/>
     <maxSpeed x="6" y="10"/>
     <dashingSpeed x="10" y="0"/>
-    <dashingColliderDifference value="25"/>
-    <colOffset x="11" y="8"/>
+    <dashingColliderDifference value="0"/>
+    <colOffset x="5" y="8"/>
     <dashtime value="500"/>
   </player>
 

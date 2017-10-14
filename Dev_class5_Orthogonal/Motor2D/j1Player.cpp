@@ -221,22 +221,23 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 		if (obj->data->name == ("Collisions"))
 			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
+			{
 				if (objdata->data->name == ("Floor"))
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 					{
-						if (Player.speed.y > 0)
+						if (newvec.y > 0)
 						{
 							if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
 							{
-								if (Player.speed.x > 0)
+								if (newvec.x > 0)
 								{
 									if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
 										newvec.y -= result.h, BecomeGrounded();
 									else
 										newvec.x -= result.w;
 								}
-								else if (Player.speed.x < 0)
+								else if (newvec.x < 0)
 								{
 									if (result.h <= result.w || Player.position.x >= objdata->data->x + objdata->data->width)
 										newvec.y -= result.h, BecomeGrounded();
@@ -248,25 +249,25 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 							}
 							else
 							{
-								if (Player.speed.x > 0)
+								if (newvec.x > 0)
 									newvec.x -= result.w;
 								else
 									newvec.x += result.w;
 							}
 
 						}
-						else if (Player.speed.y < 0)
+						else if (newvec.y < 0)
 						{
 							if (Player.position.y >= objdata->data->y + objdata->data->height)
 							{
-								if (Player.speed.x > 0)
+								if (newvec.x > 0)
 								{
 									if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
 										newvec.y += result.h;
 									else
 										newvec.x -= result.w;
 								}
-								else if (Player.speed.x < 0)
+								else if (newvec.x < 0)
 								{
 									if (result.h <= result.w || Player.position.x <= objdata->data->x + objdata->data->width)
 										newvec.y += result.h;
@@ -278,9 +279,9 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 							}
 							else
 							{
-								if (Player.speed.x > 0)
+								if (newvec.x > 0)
 									newvec.x -= result.w;
-								else if (Player.speed.x < 0)
+								else if (newvec.x < 0)
 									newvec.x += result.w;
 								else
 									newvec.y += result.h;
@@ -288,9 +289,9 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 						}
 						else
 						{
-							if (Player.speed.x > 0)
+							if (newvec.x > 0)
 								newvec.x -= result.w;
-							else if (Player.speed.x < 0)
+							else if (newvec.x < 0)
 								newvec.x += result.w;
 						}
 					}
@@ -300,13 +301,21 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 					if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
 						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 							if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
-								newvec.y -= result.h , BecomeGrounded();
+								newvec.y -= result.h, BecomeGrounded();
 				}
 				else if (objdata->data->name == ("Dead"))
+				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 						isPlayerAlive = false;
+				}
+				CastCollider.x -= originalvec.x - newvec.x;
+				CastCollider.y -= originalvec.y - newvec.y;
+
+				
+			}
 
 
+	
 
 	return newvec;
 }
