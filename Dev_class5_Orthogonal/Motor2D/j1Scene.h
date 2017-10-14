@@ -41,6 +41,7 @@ public:
 public:
 
 	p2List<p2SString*> map_names;
+	float fade_time;
 };
 
 #endif // __j1SCENE_H__
