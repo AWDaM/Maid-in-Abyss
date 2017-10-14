@@ -65,13 +65,15 @@ public:
 
 	void FlipImage();
 
+	void BecomeGrounded();
+
 	void AddSpeed();
 	void ReduceSpeed();
 	void ChangeAnimation();
 	void PlayerMovement();
 	iPoint ApplyGravity(iPoint originalvec);
 
-	void PositionCameraOnPlayer(SDL_Rect& camera);
+	void PositionCameraOnPlayer();
 
 private:
 

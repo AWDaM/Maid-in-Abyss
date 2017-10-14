@@ -6,6 +6,7 @@
 #include "j1Map.h"
 #include "j1Input.h"
 #include "j1Render.h"
+#include "j1Window.h"
 
 j1Player::j1Player() : j1Module()
 {
@@ -106,8 +107,7 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
-	App->render->camera.x = Player.position.x - App->render->camera.w / 2;
-	App->render->camera.y = Player.position.y - App->render->camera.h / 2;
+	PositionCameraOnPlayer();
 	return true;
 }
 
@@ -165,13 +165,6 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 					{
-						/*int module = newvec.GetModule();
-						module -= 1;
-						newvec.GetXYfrom_Module_Angle();
-						CastCollider.x = Player.collider.x + newvec.x;
-						CastCollider.x += Player.collider.x + newvec.y;*/
-
-						
 						if (Player.speed.y > 0)
 						{
 							if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
@@ -179,19 +172,19 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 								if (Player.speed.x > 0)
 								{
 									if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x <= objdata->data->x)
-										newvec.y -= result.h;
+										newvec.y -= result.h, BecomeGrounded();
 									else
 										newvec.x -= result.w;
 								}
 								else if (Player.speed.x < 0)
 								{
 									if (result.h <= result.w || Player.position.x >= objdata->data->x + objdata->data->width)
-										newvec.y -= result.h;
+										newvec.y -= result.h, BecomeGrounded();
 									else
 										newvec.x += result.w;
 								}
 								else
-									newvec.y -= result.h;
+									newvec.y -= result.h, BecomeGrounded();
 							}
 							else
 							{
@@ -234,9 +227,10 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 					}
 				}
 				else if (objdata->data->name == ("BGFloor"))
-					if (Player.position.y + Player.collider.y + Player.colOffset.y <= objdata->data->y)
+					if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
 						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
-							newvec.y -= result.h;
+							if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
+								newvec.y -= result.h;
 
 	return newvec;
 }
@@ -257,6 +251,11 @@ void j1Player::FlipImage()
 		Player.flip = true;
 	else if(Player.speed.x > 0)
 		Player.flip = false;
+}
+
+void j1Player::BecomeGrounded()
+{
+	Player.grounded = true;
 }
 
 void j1Player::AddSpeed()
@@ -303,12 +302,12 @@ void j1Player::PlayerMovement()
 }
 
 
-void j1Player::PositionCameraOnPlayer(SDL_Rect& camera)
+void j1Player::PositionCameraOnPlayer()
 {
-	/*camera.x = Player.position.x - 100;
-	if (camera.x < 0)camera.x = 0;
-	camera.y = Player.position.y - 50;
-	if (camera.y > 2048)camera.y = 2048 - 768;*/
+	App->render->camera.x = Player.position.x - App->render->camera.w / 3;
+	if (App->render->camera.x < 0)App->render->camera.x = 0;
+	App->render->camera.y = Player.position.y - App->render->camera.h / 2;
+	if (App->render->camera.y + App->win->height > App->map->data.height*App->map->data.tile_height)App->render->camera.y = App->map->data.height*App->map->data.tile_height - App->win->height;
 }
 iPoint j1Player::ApplyGravity(iPoint originalvec)
 {

@@ -208,12 +208,7 @@ bool j1Map::Load_map(const char* file_name)
 			ObjectsGroup* o = obj_layer->data;
 			LOG("Group ----");
 			LOG("Gname: %s", o->name.GetString());
-			p2List_item<ObjectsData*>* d = o->objects.start;
-			while (d != NULL)
-			{
-				LOG("object name: %s object x: %d object y: %d object width: %d object height: %d", d->data->name.GetString(), d->data->x, d->data->y, d->data->width, d->data->height);
-				d = d->next;
-			}
+			
 			obj_layer = obj_layer->next;
 		}
 	}
@@ -367,12 +362,7 @@ bool j1Map::LoadLayer(pugi::xml_node & node, MapLayer * layer)
 	pugi::xml_node layer_node;
 	int i = 0;
 	for(layer_node = node.child("data").child("tile"); layer_node; layer_node = layer_node.next_sibling("tile"))
-	{
-		
 		layer->data[i++] = layer_node.attribute("gid").as_uint(0);
-		LOG("%s: %i ->%i", layer->name.GetString(), i-1, layer->data[i-1]);
-	
-	}
 
 	return true;
 }
