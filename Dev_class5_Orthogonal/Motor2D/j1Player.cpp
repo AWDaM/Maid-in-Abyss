@@ -290,7 +290,7 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 					if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
 						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 							if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
-								newvec.y -= result.h;
+								newvec.y -= result.h , BecomeGrounded();
 				}
 				else if (objdata->data->name == ("Dead"))
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
@@ -324,7 +324,7 @@ void j1Player::BecomeGrounded()
 void j1Player::StartDashing()
 {
 	Player.isDashing = true;
-	Player.speed.x = Player.dashingSpeed.x;
+	Player.speed.x = Player.dashingSpeed.x * Player.direction_x;
 	Player.speed.y = Player.dashingSpeed.y;
 	Player.collider.w += Player.dashingColliderDifference;
 	Player.initialDashtime = SDL_GetTicks();
@@ -334,6 +334,7 @@ void j1Player::StopDashing()
 {
 	Player.isDashing = false;
 	Player.collider.w -= Player.dashingColliderDifference;
+	Player.dashing.Reset();
 }
 uint j1Player::DashingTimer()
 {
