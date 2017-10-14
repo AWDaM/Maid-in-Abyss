@@ -15,6 +15,7 @@ struct PlayerData
 	bool			isDashing;
 	bool			flip;
 	int				direction_x;
+	int				jumpForce;
 	bool			grounded;
 	iPoint			colOffset;
 	iPoint			speed;

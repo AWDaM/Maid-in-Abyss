@@ -29,6 +29,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	Player.direction_x = 1;
 
+	Player.jumpForce = config.child("jumpForce").attribute("value").as_int();
 
 	Player.maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
 	Player.maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
@@ -114,7 +115,7 @@ bool j1Player::Update(float dt)
 			ReduceSpeed();
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-			Player.speed.y = -20, Player.grounded = false;
+			Player.speed.y = Player.jumpForce, Player.grounded = false;
 
 		Player.speed = ApplyGravity(Player.speed);
 	}
@@ -164,11 +165,12 @@ bool j1Player::Load(pugi::xml_node& data)
 // Save Game State
 bool j1Player::Save(pugi::xml_node& data) const
 {
-	/*pugi::xml_node cam = data.append_child("camera");
+	pugi::xml_node player = data.append_child("position");
 
-	cam.append_attribute("x") = camera.x;
-	cam.append_attribute("y") = camera.y;
-*/
+	player.append_attribute("x") = Player.position.x;
+	player.append_attribute("y") = Player.position.y;
+	/*player.append_attribute()*/
+
 	return true;
 }
 
