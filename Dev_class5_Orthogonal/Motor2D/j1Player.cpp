@@ -218,19 +218,22 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 	CastCollider = Player.collider;
 	CastCollider.x += originalvec.x;
 	CastCollider.y += originalvec.y;
-	 
+
 	SDL_Rect result;
 
 	iPoint newvec = originalvec;
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
+	{
 		if (obj->data->name == ("Collisions"))
+		{
 			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
 			{
 				if (objdata->data->name == ("Floor"))
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 					{
-						if (newvec.y > 0)
+						newvec = AvoidCollision(newvec, result, objdata);
+						/*if (newvec.y > 0)
 						{
 							if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
 							{
@@ -297,7 +300,7 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 								newvec.x -= result.w;
 							else if (newvec.x < 0)
 								newvec.x += result.w;
-						}
+						}*/
 					}
 				}
 				else if (objdata->data->name == ("BGFloor"))
@@ -315,19 +318,94 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 				else if (objdata->data->name == ("End"))
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result) && !App->scenechange->fading)
-					App->scene->to_end = true;
+						App->scene->to_end = true;
 				}
-				CastCollider.x -= originalvec.x - newvec.x;
-				CastCollider.y -= originalvec.y - newvec.y;
-
-				
+				if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result) && !App->scenechange->fading)
+				{
+					CastCollider.x -= (originalvec.x - newvec.x);
+					CastCollider.y -= (originalvec.y - newvec.y);
+				}
 			}
-
-
+		}
+	}
 	
 
 	return newvec;
 }
+
+iPoint j1Player::AvoidCollision(iPoint newvec,const SDL_Rect result, p2List_item<ObjectsData*>* objdata)
+{
+	if (newvec.y > 0)
+	{
+		if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
+		{
+			if (newvec.x > 0)
+			{
+				if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
+					newvec.y -= result.h, BecomeGrounded();
+				else
+					newvec.x -= result.w;
+			}
+			else if (newvec.x < 0)
+			{
+				if (result.h <= result.w || Player.position.x + Player.colOffset.x >= objdata->data->x + objdata->data->width)
+					newvec.y -= result.h, BecomeGrounded();
+				else
+					newvec.x += result.w;
+			}
+			else
+				newvec.y -= result.h, BecomeGrounded();
+		}
+		else
+		{
+			if (newvec.x > 0)
+				newvec.x -= result.w;
+			else
+				newvec.x += result.w;
+		}
+
+	}
+	else if (newvec.y < 0)
+	{
+   		if (Player.position.y + Player.colOffset.y >= objdata->data->y + objdata->data->height)
+		{
+			if (newvec.x > 0)
+			{
+				if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
+					newvec.y += result.h;
+				else
+					newvec.x -= result.w;
+			}
+			else if (newvec.x < 0)
+			{
+				if (result.h <= result.w || Player.position.x + Player.colOffset.x <= objdata->data->x + objdata->data->width)
+					newvec.y += result.h;
+				else
+					newvec.x += result.w;
+			}
+			else
+				newvec.y += result.h;
+		}
+		else
+		{
+			if (newvec.x > 0)
+				newvec.x -= result.w;
+			else if (newvec.x < 0)
+				newvec.x += result.w;
+			else
+				newvec.y += result.h;
+		}
+	}
+	else
+	{
+		if (newvec.x > 0)
+			newvec.x -= result.w;
+		else if (newvec.x < 0)
+			newvec.x += result.w;
+	}
+	return newvec;
+}
+
 
 SDL_Rect j1Player::CreateRect_FromObjData(ObjectsData* data)
 {

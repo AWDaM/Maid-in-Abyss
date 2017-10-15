@@ -65,6 +65,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	iPoint Overlay_avoid(iPoint originalvec);
+	iPoint AvoidCollision(iPoint newvec, const SDL_Rect result, p2List_item<ObjectsData*>* objdata);
 
 	SDL_Rect CreateRect_FromObjData(ObjectsData* data);
 
@@ -85,6 +86,8 @@ public:
 	void ChangeAnimation();
 	void PlayerMovement();
 	iPoint ApplyGravity(iPoint originalvec);
+
+
 
 	void Restart();
 
