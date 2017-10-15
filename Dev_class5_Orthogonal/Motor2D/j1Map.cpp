@@ -52,7 +52,7 @@ iPoint j1Map::MapToWorld(int x, int y) const
 }
 
 
-
+//Returns the rect of the specified tile.
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;
@@ -147,7 +147,6 @@ bool j1Map::Load_map(const char* file_name)
 		data.tilesets.add(set);
 	}
 
-	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
@@ -157,7 +156,6 @@ bool j1Map::Load_map(const char* file_name)
 		if (ret == true)
 		{
 			ret = LoadLayer(layer, set);
-			LOG("loadinglayer");
 		} 
 		data.layers.add(set);
 	}
@@ -170,7 +168,6 @@ bool j1Map::Load_map(const char* file_name)
 		if (ret == true)
 		{
 			ret = LoadObjectLayers(group, set);
-			LOG("loadingobjlayer");
 		}
 		data.objLayers.add(set);
 	}
@@ -192,9 +189,6 @@ bool j1Map::Load_map(const char* file_name)
 			item = item->next;
 		}
 
-		// TODO 4: Add info here about your loaded layers
-		// Adapt this vcode with your own variables
-		
 		p2List_item<MapLayer*>* item_layer = data.layers.start;
 		while(item_layer != NULL)
 		{
@@ -204,6 +198,7 @@ bool j1Map::Load_map(const char* file_name)
 			LOG("layer width: %d layer height: %d", l->width, l->height);
 			item_layer = item_layer->next;
 		}
+
 		p2List_item<ObjectsGroup*>* obj_layer = data.objLayers.start;
 		while (obj_layer != NULL)
 		{
@@ -240,8 +235,6 @@ bool j1Map::LoadMap()
 		p2SString bg_color(map.attribute("backgroundcolor").as_string());
 
 		data.musicFile = map.child("properties").child("property").attribute("value").as_string();
-
-
 
 		data.background_color.r = 0;
 		data.background_color.g = 0;
@@ -356,17 +349,15 @@ bool j1Map::LoadLayer(pugi::xml_node & node, MapLayer * layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_uint();
 	layer->height = node.attribute("height").as_uint();
-
 	layer->size = layer->width * layer->height;
-
-	layer->parallaxSpeed = node.child("properties").child("property").attribute("value").as_float(0.0f);
-
 	layer->data = new uint[layer->size];
-
+	layer->parallaxSpeed = node.child("properties").child("property").attribute("value").as_float(0.0f);
+	
 	memset(layer->data, 0, sizeof(uint)*layer->size);
 
 	pugi::xml_node layer_node;
 	int i = 0;
+
 	for(layer_node = node.child("data").child("tile"); layer_node; layer_node = layer_node.next_sibling("tile"))
 		layer->data[i++] = layer_node.attribute("gid").as_uint(0);
 
@@ -395,19 +386,15 @@ bool j1Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroup * group)
 	return ret;
 }
 
+//to_end is set to false to avoid repetition
 bool j1Map::SwitchMaps(p2SString* new_map)
 {
 		CleanUp();
 		App->scene->to_end = false;
 		Load_map(new_map->GetString());
 		App->audio->PlayMusic(App->map->data.musicFile.GetString());
-		LOG("maploaded");
-	return true;
-}
 
-SDL_Rect j1Map::id_to_rect(uint id)
-{
-	return SDL_Rect();
+	return true;
 }
 
 MapLayer::~MapLayer()

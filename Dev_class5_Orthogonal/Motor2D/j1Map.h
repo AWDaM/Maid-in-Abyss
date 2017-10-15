@@ -6,10 +6,8 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-// TODO 1: Create a struct for the map layer
+
 // ----------------------------------------------------
-
-
 struct MapLayer
 {
 	p2SString name;
@@ -26,7 +24,6 @@ struct MapLayer
 		return x + y*width;
 	}
 };
-	// TODO 6: Short function to get the value of x,y
 
 struct ObjectsData
 {
@@ -44,11 +41,9 @@ struct ObjectsGroup
 	p2List<ObjectsData*>	objects;
 	~ObjectsGroup();
 };
-
 // ----------------------------------------------------
 struct TileSet
 {
-	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -87,10 +82,10 @@ struct MapData
 	p2List<ObjectsGroup*>	objLayers;
 	p2SString				musicFile;
 };
-
 // ----------------------------------------------------
 class j1Map : public j1Module
 {
+//-------------Functions-----------------
 public:
 
 	j1Map();
@@ -110,9 +105,10 @@ public:
 	// Load new map
 	bool Load_map(const char* path);
 
-	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
+	//Method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
-
+	
+	//Unloads the current map and loads the map specified with the corresponding music. 
 	bool SwitchMaps(p2SString* new_map);
 
 private:
@@ -122,12 +118,12 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadObjectLayers(pugi::xml_node& node, ObjectsGroup* group);
-	SDL_Rect id_to_rect(uint id);
 
+
+//-------------Variables-----------------
 public:
 
 	MapData				data;
-
 
 private:
 

@@ -99,9 +99,9 @@ bool j1Scene::PostUpdate()
 	if (to_end)
 	{
 		if(currentMap < map_names.count() - 1)
-			ret = App->scenechange->ChangeScene(++currentMap, fade_time);
+			ret = App->scenechange->ChangeMap(++currentMap, fade_time);
 		else
-			currentMap = 0, ret = App->scenechange->ChangeScene(currentMap, fade_time);
+			currentMap = 0, ret = App->scenechange->ChangeMap(currentMap, fade_time);
 
 
 		to_end = false;

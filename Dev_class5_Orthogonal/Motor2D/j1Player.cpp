@@ -75,6 +75,8 @@ bool j1Player::Start()
 	Player.canDash = true;
 
 	Player.current_animation = &Player.idle;
+
+	//Sets the player in the start position
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 	{
 		if (obj->data->name == ("Collisions"))
@@ -124,14 +126,13 @@ bool j1Player::Update(float dt)
 		{
 			StopDashing();
 		}
-			
 	}
 	if (!Player.isDashing)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			Player.direction_x = 1, AddSpeed();
+			Player.direction_x = 1, AddSpeed_X();
 		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			Player.direction_x = -1, AddSpeed();
+			Player.direction_x = -1, AddSpeed_X();
 		else
 			ReduceSpeed();
 
@@ -144,11 +145,10 @@ bool j1Player::Update(float dt)
 			Player.speed.y = Player.jumpForce.y;
 		}
 
-
 		Player.speed = ApplyGravity(Player.speed);
 	}
 
-	Player.speed = Overlay_detection(Player.speed);
+	Player.speed = Collider_Overlay(Player.speed);
 
 	ChangeAnimation();
 	PlayerMovement();
@@ -157,15 +157,15 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
-	bool ret;
 	if (!isPlayerAlive)
 	{
 		AddSFX(2, 0);
-		App->scenechange->ChangeScene(App->scene->currentMap, App->scene->fade_time);
+		App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);
 	}
-	ret = PositionCameraOnPlayer();
 
-	return ret;
+	PositionCameraOnPlayer();
+
+	return true;
 }
 
 void j1Player::Draw()
@@ -188,9 +188,6 @@ bool j1Player::CleanUp()
 // Load Game State
 bool j1Player::Load(pugi::xml_node& data)
 {
-	/*camera.x = data.child("camera").attribute("x").as_int();
-	camera.y = data.child("camera").attribute("y").as_int();*/
-
 	Player.position.x = data.child("position").attribute("x").as_int();
 	Player.position.y = data.child("position").attribute("y").as_int();
 	Player.speed.x = data.child("speed").attribute("x").as_int();
@@ -202,15 +199,12 @@ bool j1Player::Load(pugi::xml_node& data)
 	Player.grounded = data.child("grounded").attribute("value").as_bool();
 	Player.isDashing = data.child("dashing").attribute("value").as_bool();
 	Player.currentDashtime = data.child("dashtime").attribute("value").as_float();
-	LOG("playerloaded");
 	return true;
 }
 
 // Save Game State
 bool j1Player::Save(pugi::xml_node& data) const
 {
-	
-
 	data.append_child("position").append_attribute("x") = Player.position.x;
 	data.child("position").append_attribute("y") = Player.position.y;
 	data.append_child("speed").append_attribute("x") = Player.speed.x;
@@ -222,12 +216,10 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.append_child("grounded").append_attribute("value") = Player.grounded;
 	data.append_child("dashing").append_attribute("value") = Player.isDashing;
 	data.append_child("currentDashtime").append_attribute("value") = Player.currentDashtime;
-
-
 	return true;
 }
 
-iPoint j1Player::Overlay_detection(iPoint originalvec)
+iPoint j1Player::Collider_Overlay(iPoint originalvec)
 {
 	Player.grounded = false;
 
@@ -252,23 +244,24 @@ iPoint j1Player::Overlay_detection(iPoint originalvec)
 						newvec = AvoidCollision(newvec, result, objdata);
 					}
 				}
-				else if (objdata->data->name == ("BGFloor"))
+				else if (objdata->data->name == ("BGFloor")) //Only collides if the player is above the platform
 				{
 					if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
 						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 							if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
 								newvec.y -= result.h, BecomeGrounded();
 				}
-				else if (objdata->data->name == ("Dead"))
+				else if (objdata->data->name == ("Dead")) //Detects when the player falls
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 						isPlayerAlive = false;
 				}
-				else if (objdata->data->name == ("End"))
+				else if (objdata->data->name == ("End")) //Detects when the player has finished the level
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result) && !App->scenechange->fading)
 						App->scene->to_end = true;
 				}
+				//The new trajectory of the player is adjousted for the next collision check
 				if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result) && !App->scenechange->fading)
 				{
 					CastCollider.x -= (originalvec.x - newvec.x);
@@ -283,6 +276,8 @@ iPoint j1Player::Overlay_detection(iPoint originalvec)
 
 iPoint j1Player::AvoidCollision(iPoint newvec,const SDL_Rect result, p2List_item<ObjectsData*>* objdata)
 {
+	//Checks to determine the position of the player and the other collider. 
+	//The speed is adjousted using the resultant Rect from the collision
 	if (newvec.y > 0)
 	{
 		if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
@@ -379,7 +374,6 @@ void j1Player::BecomeGrounded()
 	{
 		Player.isJumping = false;
 		Player.maxSpeed.x -= Player.jumpForce.x;
-
 	}
 
 	if (Player.current_animation == &Player.falling)
@@ -408,10 +402,9 @@ void j1Player::StopDashing()
 	Player.dashing.Reset();
 }
 
-void j1Player::AddSpeed()
+void j1Player::AddSpeed_X()
 {
 	Player.speed.x += Player.accel.x * Player.direction_x;
-
 
 	if (Player.direction_x > 0)
 	{
@@ -445,12 +438,10 @@ void j1Player::ChangeAnimation()
 			Player.current_animation = &Player.jumping_up;
 		else 
 			Player.current_animation = &Player.falling;
-		
 	}
+
 	else
 		Player.current_animation = &Player.dashing;
-
-
 }
 
 void j1Player::AddSFX(int channel, int repeat)
@@ -478,7 +469,7 @@ iPoint j1Player::ApplyGravity(iPoint originalvec)
 
 void j1Player::Restart()
 {
-	LOG("Wryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy %i", App->scene->currentMap);
+	//Same loop as int Start() to find the start zone
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 		if (obj->data->name == ("Collisions"))
 			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
@@ -523,7 +514,6 @@ void PlayerData::LoadPushbacks()
 
 	falling.PushBack({ 861, 17, 53, 73 });
 
-	//dashing.PushBack({ 294, 228, 82, 67 });
 	dashing.PushBack({ 635, 224, 79, 71 });
 	dashing.PushBack({ 741, 226, 81, 69 });
 	dashing.PushBack({ 834, 227, 82, 68 });

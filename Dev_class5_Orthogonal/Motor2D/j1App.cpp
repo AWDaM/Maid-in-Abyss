@@ -29,7 +29,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	player = new j1Player();
 	map = new j1Map();
-	scenechange = new j1SceneChange();
+	scenechange = new j1MapChange();
 	
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

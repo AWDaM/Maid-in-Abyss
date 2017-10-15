@@ -6,21 +6,34 @@
 
 enum ListOfMapNames;
 
-class j1SceneChange : public j1Module
+class j1MapChange : public j1Module
 {
+//-------------Functions-----------------
 public:
-	j1SceneChange();
-	virtual ~j1SceneChange();
 
+	j1MapChange();
+
+	//Destructor
+	virtual ~j1MapChange();
+
+	//Called before render is avalible
 	bool Awake(pugi::xml_node&);
-	bool Start();
-	bool Update(float dt);
-	bool ChangeScene(int newMap, float time);
 
-	bool IsFading() const;
+	//Called before the first frame
+	bool Start();
+
+	//Called each loop iteration
+	bool Update(float dt);
+
+	//Called to set up the map change and the time the game will fade
+	bool ChangeMap(int newMap, float time);
+
+	//returns true if the change process is active
+	bool IsChanging() const;
 
 private:
 	
+//-------------Variables-----------------
 public:
 
 	bool fading = false;
