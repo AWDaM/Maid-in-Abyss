@@ -189,10 +189,12 @@ bool j1Player::Load(pugi::xml_node& data)
 	Player.speed.y = data.child("speed").attribute("y").as_int();
 	Player.collider.w = data.child("collider").attribute("width").as_int();
 	Player.collider.h = data.child("collider").attribute("height").as_int();
+	Player.collider.x = data.child("collider").attribute("x").as_int();
+	Player.collider.y = data.child("collider").attribute("y").as_int();
 	Player.grounded = data.child("grounded").attribute("value").as_bool();
 	Player.isDashing = data.child("dashing").attribute("value").as_bool();
 	Player.currentDashtime = data.child("dashtime").attribute("value").as_float();
-
+	LOG("playerloaded");
 	return true;
 }
 
@@ -207,6 +209,8 @@ bool j1Player::Save(pugi::xml_node& data) const
 	data.child("speed").append_attribute("y") = Player.speed.y;
 	data.append_child("collider").append_attribute("width") = Player.collider.w;
 	data.child("collider").append_attribute("height") = Player.collider.h;
+	data.child("collider").append_attribute("x") = Player.collider.x;
+	data.child("collider").append_attribute("y") = Player.collider.y;
 	data.append_child("grounded").append_attribute("value") = Player.grounded;
 	data.append_child("dashing").append_attribute("value") = Player.isDashing;
 	data.append_child("currentDashtime").append_attribute("value") = Player.currentDashtime;

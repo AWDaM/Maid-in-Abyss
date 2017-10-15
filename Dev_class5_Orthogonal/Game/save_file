@@ -5,16 +5,19 @@
 	<textures />
 	<audio />
 	<map />
-	<scene />
+	<scene>
+		<currentMap num="0" />
+	</scene>
 	<player>
-		<position x="1053" y="1688" />
+		<position x="5138" y="632" />
 		<speed x="0" y="0" />
-		<collider width="32" height="64" />
+		<collider width="45" height="64" x="5143" y="640" />
 		<grounded value="true" />
 		<dashing value="false" />
-		<currentDashtime value="0" />
+		<currentDashtime value="33309" />
 	</player>
+	<:anonymous />
 	<renderer>
-		<camera x="712" y="1280" />
+		<camera x="4797" y="248" />
 	</renderer>
 </game_state>

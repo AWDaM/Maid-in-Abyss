@@ -113,10 +113,14 @@ bool j1Scene::CleanUp()
 
 bool j1Scene::Load(pugi::xml_node& data)
 {
+
 	if (currentMap != data.child("currentMap").attribute("num").as_int())
 	{
+		LOG("Calling switch maps");
 		currentMap = data.child("currentMap").attribute("num").as_int();
 		App->map->SwitchMaps(map_names[data.child("currentMap").attribute("num").as_int()]);
+		//App->scenechange->ChangeScene(data.child("currentMap").attribute("num").as_int(), 1.0f);
+	
 	}
 	return true;
 }
