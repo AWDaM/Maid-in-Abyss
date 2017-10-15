@@ -397,7 +397,7 @@ bool j1Map::SwitchMaps(p2SString* new_map)
 		CleanUp();
 		App->scene->to_end = false;
 		Load_map(new_map->GetString());
-
+		LOG("maploaded");
 	return true;
 }
 
