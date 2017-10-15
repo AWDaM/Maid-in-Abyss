@@ -60,10 +60,19 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		Load_lvl(0);
+
+	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->player->Restart();
+
+	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		Load_lvl(1);
+
+	else if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->LoadGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	else if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->SaveGame();
 
 	//if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
@@ -119,8 +128,7 @@ bool j1Scene::Load(pugi::xml_node& data)
 		LOG("Calling switch maps");
 		currentMap = data.child("currentMap").attribute("num").as_int();
 		App->map->SwitchMaps(map_names[data.child("currentMap").attribute("num").as_int()]);
-		//App->scenechange->ChangeScene(data.child("currentMap").attribute("num").as_int(), 1.0f);
-	
+
 	}
 	return true;
 }
@@ -129,4 +137,11 @@ bool j1Scene::Save(pugi::xml_node& data) const
 {
 	data.append_child("currentMap").append_attribute("num") = currentMap;
 	return true;
+}
+
+bool j1Scene::Load_lvl(int time)
+{
+	App->map->SwitchMaps(map_names[time]);
+	App->player->Restart();
+	return false;
 }

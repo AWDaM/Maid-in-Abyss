@@ -396,10 +396,10 @@ bool j1Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroup * group)
 
 bool j1Map::SwitchMaps(p2SString* new_map)
 {
-
 		CleanUp();
 		App->scene->to_end = false;
 		Load_map(new_map->GetString());
+		App->audio->PlayMusic(App->map->data.musicFile.GetString());
 		LOG("maploaded");
 	return true;
 }

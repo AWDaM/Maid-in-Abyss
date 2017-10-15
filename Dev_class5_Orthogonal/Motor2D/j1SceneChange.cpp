@@ -53,7 +53,6 @@ bool j1SceneChange::Update(float dt)
 			{
 				App->scene->currentMap = nextMap;
 				App->map->SwitchMaps(App->scene->map_names[nextMap]);
-				App->audio->PlayMusic(App->map->data.musicFile.GetString());
 				App->player->Restart();
 				total_time += total_time;
 				start_time = SDL_GetTicks();

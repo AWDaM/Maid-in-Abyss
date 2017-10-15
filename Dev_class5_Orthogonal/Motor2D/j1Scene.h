@@ -41,6 +41,7 @@ public:
 	bool Load(pugi::xml_node& data);
 	bool Save(pugi::xml_node& data) const;
 
+	bool Load_lvl(int time);
 public:
 
 	int currentMap;
