@@ -38,7 +38,10 @@
   <player>
     <folder>textures/</folder>
     <sprite_sheet source="MC_MarisaKirisame.png"/>
-    <jumpFX source="Grass.wav"/>
+    <jumpFX source="Jump.wav"/>
+    <deathFX source="Death.wav"/>
+    <landFX source="Land.wav"/>
+    <dashFX source="Dash.wav"/>
     <accel x="1" y="1"/>
     <jumpForce x="2" y="-17"/>
     <maxSpeed x="6" y="10"/>

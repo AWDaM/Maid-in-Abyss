@@ -37,6 +37,10 @@ struct PlayerData
 	Animation		dashing;
 	SDL_Texture*	Player_tex;
 	p2SString		jumpFX;
+	p2SString		deathFX;
+	p2SString		landFX;
+	p2SString		dashFX;
+	
 
 	void LoadPushbacks();
 };

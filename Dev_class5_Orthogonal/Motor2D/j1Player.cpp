@@ -31,6 +31,10 @@ bool j1Player::Awake(pugi::xml_node& config)
 	Player.direction_x = 1;
 
 	Player.jumpFX = config.child("jumpFX").attribute("source").as_string();
+	Player.deathFX = config.child("deathFX").attribute("source").as_string();
+	Player.landFX = config.child("landFX").attribute("source").as_string();
+	Player.dashFX = config.child("dashFX").attribute("source").as_string();
+
 	Player.jumpForce.x = config.child("jumpForce").attribute("x").as_int();
 	Player.jumpForce.y = config.child("jumpForce").attribute("y").as_int();
 
@@ -60,6 +64,9 @@ bool j1Player::Start()
 	Player.speed = { 0,0 };
 
 	App->audio->LoadFx(Player.jumpFX.GetString());
+	App->audio->LoadFx(Player.deathFX.GetString());
+	App->audio->LoadFx(Player.landFX.GetString());
+	App->audio->LoadFx(Player.dashFX.GetString());
 
 	
 	isPlayerAlive = true;
@@ -153,6 +160,7 @@ bool j1Player::PostUpdate()
 	bool ret;
 	if (!isPlayerAlive)
 	{
+		AddSFX(2, 0);
 		App->scenechange->ChangeScene(App->scene->currentMap, App->scene->fade_time);
 	}
 	ret = PositionCameraOnPlayer();
@@ -368,7 +376,11 @@ void j1Player::FlipImage()
 void j1Player::BecomeGrounded()
 {
 	if (Player.isJumping)
-		Player.isJumping = false, Player.maxSpeed.x -= Player.jumpForce.x;
+	{
+		AddSFX(3, 0);
+		Player.isJumping = false;
+		Player.maxSpeed.x -= Player.jumpForce.x;
+	}
 
 	Player.grounded = true;
 	Player.jumping_up.Reset();
@@ -376,6 +388,7 @@ void j1Player::BecomeGrounded()
 
 void j1Player::StartDashing()
 {
+	AddSFX(4, 0);
 	Player.isDashing = true;
 	Player.speed.x = Player.dashingSpeed.x * Player.direction_x;
 	Player.speed.y = Player.dashingSpeed.y;
