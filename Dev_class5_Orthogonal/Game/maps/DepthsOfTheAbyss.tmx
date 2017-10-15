@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="320" height="64" tilewidth="32" tileheight="32" nextobjectid="96">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="64" tilewidth="32" tileheight="32" nextobjectid="96">
  <properties>
   <property name="BackgroundMusic" value="DepthsOfTheAbyssBGM.ogg"/>
  </properties>
@@ -56731,19 +56731,19 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="30"/>
-   <tile gid="31"/>
-   <tile gid="16"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="22"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -59251,15 +59251,15 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="12"/>
-   <tile gid="13"/>
-   <tile gid="13"/>
-   <tile gid="13"/>
-   <tile gid="13"/>
-   <tile gid="13"/>
-   <tile gid="13"/>
-   <tile gid="13"/>
-   <tile gid="7"/>
+   <tile gid="20"/>
+   <tile gid="21"/>
+   <tile gid="21"/>
+   <tile gid="21"/>
+   <tile gid="21"/>
+   <tile gid="21"/>
+   <tile gid="21"/>
+   <tile gid="21"/>
+   <tile gid="22"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -59571,15 +59571,15 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="20"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="21"/>
-   <tile gid="22"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -61475,7 +61475,7 @@
   <object id="5" name="Floor" x="576" y="1408" width="1504" height="64"/>
   <object id="6" name="Floor" x="800" y="1664" width="448" height="64"/>
   <object id="7" name="Floor" x="832" y="1728" width="416" height="96"/>
-  <object id="8" name="Floor" x="832" y="1824" width="288" height="64"/>
+  <object id="8" name="Floor" x="832" y="1824" width="288" height="32"/>
   <object id="9" name="Floor" x="736" y="1952" width="544" height="96"/>
   <object id="10" name="Floor" x="1344" y="1472" width="384" height="96"/>
   <object id="11" name="Floor" x="1344" y="1568" width="288" height="32"/>
@@ -61488,7 +61488,6 @@
   <object id="18" name="Floor" x="1792" y="1664" width="768" height="64"/>
   <object id="19" name="Floor" x="1920" y="1728" width="640" height="320"/>
   <object id="20" name="Floor" x="2688" y="1600" width="128" height="448"/>
-  <object id="21" name="Floor" x="2112" y="1568" width="416" height="32"/>
   <object id="22" name="Floor" x="2176" y="1536" width="352" height="32"/>
   <object id="23" name="Floor" x="2240" y="1504" width="288" height="32"/>
   <object id="24" name="Floor" x="2112" y="1280" width="704" height="32"/>
