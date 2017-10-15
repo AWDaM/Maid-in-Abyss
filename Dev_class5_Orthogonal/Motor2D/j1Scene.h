@@ -46,6 +46,7 @@ public:
 	int currentMap;
 	p2List<p2SString*> map_names;
 	float fade_time;
+	bool to_end;
 };
 
 #endif // __j1SCENE_H__

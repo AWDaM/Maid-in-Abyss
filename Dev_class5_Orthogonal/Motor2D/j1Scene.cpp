@@ -43,6 +43,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {	
+	to_end = false;
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
 	App->audio->PlayMusic(App->map->data.musicFile.GetString());
 	LOG("Boi: %s", map_names.start->data->GetString());
@@ -86,6 +87,11 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
+	if (to_end)
+	{
+		ret = App->scenechange->ChangeScene(currentMap++, fade_time);
+		to_end = false;
+	}
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 

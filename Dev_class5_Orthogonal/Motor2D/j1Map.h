@@ -127,7 +127,7 @@ private:
 public:
 
 	MapData				data;
-	bool				map1active;
+
 
 private:
 

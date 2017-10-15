@@ -51,10 +51,10 @@ bool j1SceneChange::Update(float dt)
 		{
 			if (now >= total_time)
 			{
-				if (!App->player->isPlayerAlive)App->player->YouDied();
 				App->scene->currentMap = nextMap;
-				App->map->SwitchMaps(new_map);
+				App->map->SwitchMaps(App->scene->map_names[nextMap]);
 				App->audio->PlayMusic(App->map->data.musicFile.GetString());
+				App->player->Restart();
 				total_time += total_time;
 				start_time = SDL_GetTicks();
 				fading = false;
@@ -80,11 +80,9 @@ bool j1SceneChange::Update(float dt)
 	return true;
 }
 
-bool j1SceneChange::ChangeScene(p2SString* map, int newMap, float time)
+bool j1SceneChange::ChangeScene(int newMap, float time)
 {
 	bool ret = false;
-
-	new_map = map;
 
 	nextMap = newMap;
 

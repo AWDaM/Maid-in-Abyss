@@ -145,10 +145,14 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
-	if (!isPlayerAlive) App->scenechange->ChangeScene(App->scene->map_names[App->scene->currentMap], App->scene->currentMap);
+	bool ret;
+	if (!isPlayerAlive)
+	{
+		App->scenechange->ChangeScene(App->scene->currentMap, App->scene->fade_time);
+	}
+	ret = PositionCameraOnPlayer();
 
-	PositionCameraOnPlayer();
-	return true;
+	return ret;
 }
 
 void j1Player::Draw()
@@ -308,6 +312,11 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 						isPlayerAlive = false;
 				}
+				else if (objdata->data->name == ("End"))
+				{
+					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
+					App->scene->to_end = true;
+				}
 				CastCollider.x -= originalvec.x - newvec.x;
 				CastCollider.y -= originalvec.y - newvec.y;
 
@@ -431,8 +440,9 @@ iPoint j1Player::ApplyGravity(iPoint originalvec)
 	return originalvec;
 }
 
-void j1Player::YouDied()
+void j1Player::Restart()
 {
+	LOG("Wryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy %i", App->scene->currentMap);
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 		if (obj->data->name == ("Collisions"))
 			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
@@ -447,12 +457,13 @@ void j1Player::YouDied()
 	isPlayerAlive = true;
 }
 
-void j1Player::PositionCameraOnPlayer()
+bool j1Player::PositionCameraOnPlayer()
 {
 	App->render->camera.x = Player.position.x - App->render->camera.w / 3;
 	if (App->render->camera.x < 0)App->render->camera.x = 0;
 	App->render->camera.y = Player.position.y - App->render->camera.h / 2;
 	if (App->render->camera.y + App->win->height > App->map->data.height*App->map->data.tile_height)App->render->camera.y = App->map->data.height*App->map->data.tile_height - App->win->height;
+	return true;
 }
 
 void PlayerData::LoadPushbacks()

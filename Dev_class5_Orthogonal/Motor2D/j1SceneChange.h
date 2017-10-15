@@ -15,7 +15,7 @@ public:
 	bool Awake(pugi::xml_node&);
 	bool Start();
 	bool Update(float dt);
-	bool ChangeScene(p2SString* map, int newMap, float time = 1.0f);
+	bool ChangeScene(int newMap, float time);
 
 	bool IsFading() const;
 
@@ -35,7 +35,6 @@ private:
 
 	
 	int nextMap;
-	p2SString* new_map;
 	uint start_time = 0;
 	uint total_time = 0;
 	SDL_Rect screen;

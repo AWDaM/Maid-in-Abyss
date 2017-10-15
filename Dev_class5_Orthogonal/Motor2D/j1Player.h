@@ -86,9 +86,9 @@ public:
 	void PlayerMovement();
 	iPoint ApplyGravity(iPoint originalvec);
 
-	void YouDied();
+	void Restart();
 
-	void PositionCameraOnPlayer();
+	bool PositionCameraOnPlayer();
 
 	
 private:
