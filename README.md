@@ -6,17 +6,20 @@ The game has been made using C++, using SDL and pugi libraries. The maps have be
 
 ### Controls
 -Movement with arrow keys.
+
 -Jump with spacebar.
+
 -Dash with X.
 
 ### Autors
 -Jaume Surís Valhondo
+
 -Lorién Portella López
 
 ### Github
 -https://github.com/AWDaM/Assignment-1_Game-dev
 
-###License
+### License
 
 We do not own any of the sprites, tilesets, music or sfx presented in this game. Authors credited below
 
