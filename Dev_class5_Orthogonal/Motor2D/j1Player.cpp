@@ -148,7 +148,7 @@ bool j1Player::Update(float dt)
 		Player.speed = ApplyGravity(Player.speed);
 	}
 
-	Player.speed = Overlay_avoid(Player.speed);
+	Player.speed = Overlay_detection(Player.speed);
 
 	ChangeAnimation();
 	PlayerMovement();
@@ -227,7 +227,7 @@ bool j1Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
-iPoint j1Player::Overlay_avoid(iPoint originalvec)
+iPoint j1Player::Overlay_detection(iPoint originalvec)
 {
 	Player.grounded = false;
 

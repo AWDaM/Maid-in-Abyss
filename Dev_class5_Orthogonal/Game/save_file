@@ -9,15 +9,15 @@
 		<currentMap num="0" />
 	</scene>
 	<player>
-		<position x="5138" y="632" />
+		<position x="1447" y="1784" />
 		<speed x="0" y="0" />
-		<collider width="45" height="64" x="5143" y="640" />
+		<collider width="32" height="64" x="1458" y="1792" />
 		<grounded value="true" />
 		<dashing value="false" />
-		<currentDashtime value="33309" />
+		<currentDashtime value="333722" />
 	</player>
 	<:anonymous />
 	<renderer>
-		<camera x="4797" y="248" />
+		<camera x="1106" y="1280" />
 	</renderer>
 </game_state>
