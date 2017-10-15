@@ -68,7 +68,6 @@ bool j1Player::Start()
 	App->audio->LoadFx(Player.landFX.GetString());
 	App->audio->LoadFx(Player.dashFX.GetString());
 
-	
 	isPlayerAlive = true;
 	
 	Player.isJumping = false;
@@ -377,10 +376,13 @@ void j1Player::BecomeGrounded()
 {
 	if (Player.isJumping)
 	{
-		AddSFX(3, 0);
 		Player.isJumping = false;
 		Player.maxSpeed.x -= Player.jumpForce.x;
+
 	}
+
+	if (Player.current_animation == &Player.falling)
+		AddSFX(3, 0);
 
 	Player.grounded = true;
 	Player.jumping_up.Reset();
