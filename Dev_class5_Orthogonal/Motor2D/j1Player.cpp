@@ -72,6 +72,7 @@ bool j1Player::Start()
 	
 	Player.isJumping = false;
 	Player.isDashing = false;
+	Player.canDash = true;
 
 	Player.current_animation = &Player.idle;
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
@@ -110,7 +111,7 @@ bool j1Player::Update(float dt)
 {
 	FlipImage();
 
-	if (!Player.isDashing)
+	if (!Player.isDashing && Player.canDash)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 			StartDashing();
@@ -384,6 +385,7 @@ void j1Player::BecomeGrounded()
 	if (Player.current_animation == &Player.falling)
 		AddSFX(3, 0);
 
+	Player.canDash = true;
 	Player.grounded = true;
 	Player.jumping_up.Reset();
 }
@@ -392,6 +394,7 @@ void j1Player::StartDashing()
 {
 	AddSFX(4, 0);
 	Player.isDashing = true;
+	Player.canDash = false;
 	Player.speed.x = Player.dashingSpeed.x * Player.direction_x;
 	Player.speed.y = Player.dashingSpeed.y;
 	Player.collider.w += Player.dashingColliderDifference;
@@ -403,11 +406,6 @@ void j1Player::StopDashing()
 	Player.isDashing = false;
 	Player.collider.w -= Player.dashingColliderDifference;
 	Player.dashing.Reset();
-}
-uint j1Player::DashingTimer()
-{
-
-	return 0;
 }
 
 void j1Player::AddSpeed()

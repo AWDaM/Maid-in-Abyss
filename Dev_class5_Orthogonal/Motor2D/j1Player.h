@@ -12,6 +12,7 @@ struct ObjectsData;
 
 struct PlayerData
 {			
+	bool			canDash;
 	bool			isJumping;
 	bool			isDashing;
 	bool			flip;
@@ -83,7 +84,6 @@ public:
 	void BecomeGrounded();
 
 	void StartDashing();
-	uint DashingTimer();
 	void StopDashing();
 
 	void AddSpeed();
