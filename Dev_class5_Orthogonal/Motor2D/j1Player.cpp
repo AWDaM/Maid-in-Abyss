@@ -7,6 +7,7 @@
 #include "j1Input.h"
 #include "j1SceneChange.h"
 #include "j1Scene.h"
+#include "j1Audio.h"
 #include "j1Render.h"
 #include "j1Window.h"
 
@@ -29,6 +30,7 @@ bool j1Player::Awake(pugi::xml_node& config)
 
 	Player.direction_x = 1;
 
+	Player.jumpFX = config.child("jumpFX").attribute("source").as_string();
 	Player.jumpForce.x = config.child("jumpForce").attribute("x").as_int();
 	Player.jumpForce.y = config.child("jumpForce").attribute("y").as_int();
 
@@ -56,6 +58,9 @@ bool j1Player::Start()
 	Player.LoadPushbacks();
 
 	Player.speed = { 0,0 };
+
+	App->audio->LoadFx(Player.jumpFX.GetString());
+
 	
 	isPlayerAlive = true;
 	
@@ -125,6 +130,7 @@ bool j1Player::Update(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && Player.grounded)
 		{
+			AddSFX(1, 0);
 			Player.isJumping = true;
 			Player.maxSpeed.x += Player.jumpForce.x;
 			Player.speed.x = Player.jumpForce.x*Player.direction_x; 
@@ -138,7 +144,6 @@ bool j1Player::Update(float dt)
 	Player.speed = Overlay_avoid(Player.speed);
 
 	ChangeAnimation();
-
 	PlayerMovement();
 	return true;
 }
@@ -233,74 +238,6 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 					{
 						newvec = AvoidCollision(newvec, result, objdata);
-						/*if (newvec.y > 0)
-						{
-							if (Player.position.y + Player.collider.h + Player.colOffset.y <= objdata->data->y)
-							{
-								if (newvec.x > 0)
-								{
-									if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
-										newvec.y -= result.h, BecomeGrounded();
-									else
-										newvec.x -= result.w;
-								}
-								else if (newvec.x < 0)
-								{
-									if (result.h <= result.w || Player.position.x >= objdata->data->x + objdata->data->width)
-										newvec.y -= result.h, BecomeGrounded();
-									else
-										newvec.x += result.w;
-								}
-								else
-									newvec.y -= result.h, BecomeGrounded();
-							}
-							else
-							{
-								if (newvec.x > 0)
-									newvec.x -= result.w;
-								else
-									newvec.x += result.w;
-							}
-
-						}
-						else if (newvec.y < 0)
-						{
-							if (Player.position.y >= objdata->data->y + objdata->data->height)
-							{
-								if (newvec.x > 0)
-								{
-									if (result.h <= result.w || Player.position.x + Player.collider.w + Player.colOffset.x >= objdata->data->x)
-										newvec.y += result.h;
-									else
-										newvec.x -= result.w;
-								}
-								else if (newvec.x < 0)
-								{
-									if (result.h <= result.w || Player.position.x <= objdata->data->x + objdata->data->width)
-										newvec.y += result.h;
-									else
-										newvec.x += result.w;
-								}
-								else
-									newvec.y += result.h;
-							}
-							else
-							{
-								if (newvec.x > 0)
-									newvec.x -= result.w;
-								else if (newvec.x < 0)
-									newvec.x += result.w;
-								else
-									newvec.y += result.h;
-							}
-						}
-						else
-						{
-							if (newvec.x > 0)
-								newvec.x -= result.w;
-							else if (newvec.x < 0)
-								newvec.x += result.w;
-						}*/
 					}
 				}
 				else if (objdata->data->name == ("BGFloor"))
@@ -328,7 +265,6 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 			}
 		}
 	}
-	
 
 	return newvec;
 }
@@ -498,6 +434,11 @@ void j1Player::ChangeAnimation()
 		Player.current_animation = &Player.dashing;
 
 
+}
+
+void j1Player::AddSFX(int channel, int repeat)
+{
+	App->audio->PlayFx(channel, repeat);
 }
 
 void j1Player::PlayerMovement()

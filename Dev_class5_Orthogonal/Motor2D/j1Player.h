@@ -36,6 +36,7 @@ struct PlayerData
 	Animation		falling;
 	Animation		dashing;
 	SDL_Texture*	Player_tex;
+	p2SString		jumpFX;
 
 	void LoadPushbacks();
 };
@@ -84,6 +85,7 @@ public:
 	void AddSpeed();
 	void ReduceSpeed();
 	void ChangeAnimation();
+	void AddSFX(int channel, int repeat);
 	void PlayerMovement();
 	iPoint ApplyGravity(iPoint originalvec);
 

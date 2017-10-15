@@ -146,7 +146,10 @@ unsigned int j1Audio::LoadFx(const char* path)
 	if(!active)
 		return 0;
 
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+
+	p2SString tmp("%s%s", sfx_folder.GetString(), path);
+
+	Mix_Chunk* chunk = Mix_LoadWAV(tmp.GetString());
 
 	if(chunk == NULL)
 	{

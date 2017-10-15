@@ -2,7 +2,6 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="64" tilewidth="32" tileheight="32" nextobjectid="96">
  <properties>
   <property name="BackgroundMusic" value="DepthsOfTheAbyssBGM.ogg"/>
-  <property name="MovingSFX" value="Floor.wav"/>
  </properties>
  <tileset firstgid="1" name="BasicTileset" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="Metroidvania Tileset.png" width="256" height="256"/>
@@ -61558,7 +61557,7 @@
   <object id="88" name="Floor" x="3232" y="1888" width="64" height="32"/>
   <object id="89" name="Floor" x="3424" y="1760" width="64" height="32"/>
   <object id="90" name="Start" x="96" y="992" width="32" height="32"/>
-  <object id="93" name="Player" x="192" y="768" width="45" height="64"/>
+  <object id="93" name="Player" x="192" y="768" width="32" height="64"/>
   <object id="94" name="End" x="5440" y="1408" width="576" height="32"/>
   <object id="95" name="Dead" x="640" y="2047" width="4256" height="32"/>
  </objectgroup>
