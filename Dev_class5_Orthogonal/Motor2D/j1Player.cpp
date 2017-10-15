@@ -489,6 +489,7 @@ void j1Player::Restart()
 					Player.collider.y = Player.position.y + Player.colOffset.y;
 					Player.speed.x = 0;
 					Player.speed.y = 0;
+					Player.current_animation = &Player.idle;
 				}
 	isPlayerAlive = true;
 }
