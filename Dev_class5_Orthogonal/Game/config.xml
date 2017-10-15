@@ -7,7 +7,7 @@
   </app>
 	
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
 
   <window>
@@ -22,6 +22,15 @@
     <path>data.zip</path>
   </file_system>
 
+  <audio>
+    <music> 
+      <folder>audio/music/</folder>
+    </music>
+   <sfx> 
+      <folder>audio/fx/</folder>
+    </sfx>
+  </audio>
+  
   <map>
     <folder>maps/</folder>
   </map>
@@ -29,14 +38,23 @@
   <player>
     <folder>textures/</folder>
     <sprite_sheet source="MC_MarisaKirisame.png"/>
-    
+    <jumpFX source="Jump.wav"/>
+    <deathFX source="Death.wav"/>
+    <landFX source="Land.wav"/>
+    <dashFX source="Dash.wav"/>
+    <accel x="1" y="1"/>
+    <jumpForce x="2" y="-17"/>
+    <maxSpeed x="6" y="10"/>
+    <dashingSpeed x="10" y="0"/>
+    <dashingColliderDifference value="0"/>
+    <colOffset x="11" y="8"/>
+    <dashtime value="500"/>
   </player>
 
   <scene>
     <map_name name="MaidInAbyss.tmx"></map_name>
     <map_name name="DepthsOfTheAbyss.tmx"></map_name>
+    <fade_time value="1"/>
   </scene>
-
-
 
 </config>

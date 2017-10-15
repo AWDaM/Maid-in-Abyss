@@ -9,7 +9,7 @@ enum ListOfMapNames
 {
 	OuterWorld = 0,
 	DepthsOfTheAbyss
-};
+}; 
 
 class j1Scene : public j1Module
 {
@@ -38,9 +38,16 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Load(pugi::xml_node& data);
+	bool Save(pugi::xml_node& data) const;
+
+	bool Load_lvl(int time);
 public:
 
+	int currentMap;
 	p2List<p2SString*> map_names;
+	float fade_time;
+	bool to_end;
 };
 
 #endif // __j1SCENE_H__

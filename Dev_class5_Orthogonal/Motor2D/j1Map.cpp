@@ -3,6 +3,7 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "j1Audio.h"
 #include "j1Scene.h"
 #include "j1Map.h"
 #include <math.h>
@@ -36,7 +37,7 @@ void j1Map::Draw()
 		for (uint x = 0; x < data.tilesets.count(); x++)
 			for (uint i = 0; i < data.height; i++)
 				for (uint j = 0; j < data.width; j++)
-					App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]));
+					App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]),SDL_FLIP_NONE,-data.layers[y]->parallaxSpeed);
 }
 
 
@@ -51,7 +52,7 @@ iPoint j1Map::MapToWorld(int x, int y) const
 }
 
 
-
+//Returns the rect of the specified tile.
 SDL_Rect TileSet::GetTileRect(int id) const
 {
 	int relative_id = id - firstgid;
@@ -74,27 +75,33 @@ bool j1Map::CleanUp()
 
 	while(item != NULL)
 	{
-		//SDL_DestroyTexture(item->data->texture);
-		RELEASE(item->data);
-		
+		SDL_DestroyTexture(item->data->texture);
+		RELEASE(item->data);	
 		item = item->next;
 	}
 	data.tilesets.clear();
 
-	// TODO 2: clean up all layer data
-	// Remove all layers
+	//Remove all layers
 	p2List_item<MapLayer*>* item2;
 	item2 = data.layers.start;
-
 	
 	while (item2 != NULL)
 	{
-		//RELEASE(item2->data->data);
 		RELEASE(item2->data);
 		item2 = item2->next;
 	}
 	data.layers.clear();
 
+	//Remove all object layers
+	p2List_item<ObjectsGroup*>* item3;
+	item3 = data.objLayers.start;
+
+	while (item3 != NULL)
+	{
+		RELEASE(item3->data);
+		item3 = item3->next;
+	}
+	data.objLayers.clear();
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -140,7 +147,6 @@ bool j1Map::Load_map(const char* file_name)
 		data.tilesets.add(set);
 	}
 
-	// TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	pugi::xml_node layer;
 	for (layer = map_file.child("map").child("layer"); layer && ret; layer = layer.next_sibling("layer"))
@@ -150,7 +156,6 @@ bool j1Map::Load_map(const char* file_name)
 		if (ret == true)
 		{
 			ret = LoadLayer(layer, set);
-			LOG("loadinglayer");
 		} 
 		data.layers.add(set);
 	}
@@ -163,7 +168,6 @@ bool j1Map::Load_map(const char* file_name)
 		if (ret == true)
 		{
 			ret = LoadObjectLayers(group, set);
-			LOG("loadingobjlayer");
 		}
 		data.objLayers.add(set);
 	}
@@ -185,9 +189,6 @@ bool j1Map::Load_map(const char* file_name)
 			item = item->next;
 		}
 
-		// TODO 4: Add info here about your loaded layers
-		// Adapt this vcode with your own variables
-		
 		p2List_item<MapLayer*>* item_layer = data.layers.start;
 		while(item_layer != NULL)
 		{
@@ -197,18 +198,14 @@ bool j1Map::Load_map(const char* file_name)
 			LOG("layer width: %d layer height: %d", l->width, l->height);
 			item_layer = item_layer->next;
 		}
+
 		p2List_item<ObjectsGroup*>* obj_layer = data.objLayers.start;
 		while (obj_layer != NULL)
 		{
 			ObjectsGroup* o = obj_layer->data;
 			LOG("Group ----");
 			LOG("Gname: %s", o->name.GetString());
-			p2List_item<ObjectsData*>* d = o->objects.start;
-			while (d != NULL)
-			{
-				LOG("object name: %s object x: %d object y: %d object width: %d object height: %d", d->data->name.GetString(), d->data->x, d->data->y, d->data->width, d->data->height);
-				d = d->next;
-			}
+			
 			obj_layer = obj_layer->next;
 		}
 	}
@@ -236,6 +233,8 @@ bool j1Map::LoadMap()
 		data.tile_width = map.attribute("tilewidth").as_int();
 		data.tile_height = map.attribute("tileheight").as_int();
 		p2SString bg_color(map.attribute("backgroundcolor").as_string());
+
+		data.musicFile = map.child("properties").child("property").attribute("value").as_string();
 
 		data.background_color.r = 0;
 		data.background_color.g = 0;
@@ -350,22 +349,17 @@ bool j1Map::LoadLayer(pugi::xml_node & node, MapLayer * layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_uint();
 	layer->height = node.attribute("height").as_uint();
-
 	layer->size = layer->width * layer->height;
-
 	layer->data = new uint[layer->size];
-
+	layer->parallaxSpeed = node.child("properties").child("property").attribute("value").as_float(0.0f);
+	
 	memset(layer->data, 0, sizeof(uint)*layer->size);
 
 	pugi::xml_node layer_node;
 	int i = 0;
+
 	for(layer_node = node.child("data").child("tile"); layer_node; layer_node = layer_node.next_sibling("tile"))
-	{
-		
 		layer->data[i++] = layer_node.attribute("gid").as_uint(0);
-		LOG("%s: %i ->%i", layer->name.GetString(), i-1, layer->data[i-1]);
-	
-	}
 
 	return true;
 }
@@ -392,29 +386,23 @@ bool j1Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroup * group)
 	return ret;
 }
 
+//to_end is set to false to avoid repetition
 bool j1Map::SwitchMaps(p2SString* new_map)
 {
-	if (map1active)
-	{
 		CleanUp();
-		map1active = false;
+		App->scene->to_end = false;
 		Load_map(new_map->GetString());
-	}
-	else if(!map1active)
-	{
-		CleanUp();
-		map1active = true;
-		Load_map(new_map->GetString());
-	}
-	return true;
-}
+		App->audio->PlayMusic(App->map->data.musicFile.GetString());
 
-SDL_Rect j1Map::id_to_rect(uint id)
-{
-	return SDL_Rect();
+	return true;
 }
 
 MapLayer::~MapLayer()
 {
 	delete[] data;
+}
+
+ObjectsGroup::~ObjectsGroup()
+{
+	objects.clear();
 }

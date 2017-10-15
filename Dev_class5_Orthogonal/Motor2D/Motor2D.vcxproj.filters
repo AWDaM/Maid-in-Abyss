@@ -34,10 +34,10 @@
     <ClCompile Include="j1Map.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="SceneChange.cpp">
+    <ClCompile Include="j1Player.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Player.cpp">
+    <ClCompile Include="j1SceneChange.cpp">
       <Filter>Desenvolupament  ========\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,10 +133,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Game\maps\hello2.tmx">
+    <None Include="..\Game\maps\MaidInAbyss.tmx">
       <Filter>Desenvolupament  ========\Files</Filter>
     </None>
-    <None Include="..\Game\maps\MaidInAbyss.tmx">
+    <None Include="..\Game\maps\DepthsOfTheAbyss.tmx">
       <Filter>Desenvolupament  ========\Files</Filter>
     </None>
   </ItemGroup>

@@ -25,6 +25,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 
+	fade_time = config.child("fade_time").attribute("value").as_float();
 
 	for (pugi::xml_node map = config.child("map_name"); map; map = map.next_sibling("map_name"))
 	{
@@ -33,7 +34,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 		data->create(map.attribute("name").as_string());
 		map_names.add(data);
 	}
-
+	
 	bool ret = true;
 
 	return ret;
@@ -41,9 +42,10 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 // Called before the first frame
 bool j1Scene::Start()
-{
-	App->map->map1active = true;
+{	
+	to_end = false;
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
+	App->audio->PlayMusic(App->map->data.musicFile.GetString());
 	LOG("Boi: %s", map_names.start->data->GetString());
 	return true;
 
@@ -58,39 +60,32 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		Load_lvl(0);
+
+	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		App->player->Restart();
+
+	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		Load_lvl(1);
+
+	else if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->LoadGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	else if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->SaveGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y -= 10;
+	//if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
+		//App->scenechange->ChangeScene(map_names[currentMap], 1.0f);
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y += 10;
+	//if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
+		//App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x -= 10;
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x += 10;
-
-	if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
-		App->scenechange->ChangeScene(map_names[DepthsOfTheAbyss], 1.0f);
-
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
-		App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
-	//App->render->Blit(img, 0, 0);
 	App->map->Draw();
-
 	App->player->Draw();
-	// TODO 7: Set the window title like
-	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Layers:%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count(), App->map->data.layers.count());
+
+	p2SString title("Maid in Abyss");
 
 	App->win->SetTitle(title.GetString());
 	return true;
@@ -101,6 +96,16 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
+	if (to_end)
+	{
+		if(currentMap < map_names.count() - 1)
+			ret = App->scenechange->ChangeMap(++currentMap, fade_time);
+		else
+			currentMap = 0, ret = App->scenechange->ChangeMap(currentMap, fade_time);
+
+
+		to_end = false;
+	}
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
@@ -113,4 +118,30 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+bool j1Scene::Load(pugi::xml_node& data)
+{
+
+	if (currentMap != data.child("currentMap").attribute("num").as_int())
+	{
+		LOG("Calling switch maps");
+		currentMap = data.child("currentMap").attribute("num").as_int();
+		App->map->SwitchMaps(map_names[data.child("currentMap").attribute("num").as_int()]);
+
+	}
+	return true;
+}
+
+bool j1Scene::Save(pugi::xml_node& data) const
+{
+	data.append_child("currentMap").append_attribute("num") = currentMap;
+	return true;
+}
+
+bool j1Scene::Load_lvl(int time)
+{
+	App->map->SwitchMaps(map_names[time]);
+	App->player->Restart();
+	return false;
 }

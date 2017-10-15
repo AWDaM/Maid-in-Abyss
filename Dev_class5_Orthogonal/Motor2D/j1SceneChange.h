@@ -4,24 +4,36 @@
 #include "j1Module.h"
 #include "SDL\include\SDL_rect.h"
 
+enum ListOfMapNames;
 
-
-class j1SceneChange : public j1Module
+class j1MapChange : public j1Module
 {
+//-------------Functions-----------------
 public:
-	j1SceneChange();
-	virtual ~j1SceneChange();
 
+	j1MapChange();
+
+	//Destructor
+	virtual ~j1MapChange();
+
+	//Called before render is avalible
 	bool Awake(pugi::xml_node&);
+
+	//Called before the first frame
 	bool Start();
+
+	//Called each loop iteration
 	bool Update(float dt);
-	bool ChangeScene(p2SString* map, float time = 1.0f);
 
+	//Called to set up the map change and the time the game will fade
+	bool ChangeMap(int newMap, float time);
 
-	bool IsFading() const;
+	//returns true if the change process is active
+	bool IsChanging() const;
 
 private:
 	
+//-------------Variables-----------------
 public:
 
 	bool fading = false;
@@ -34,7 +46,8 @@ private:
 		fade_from_black
 	} current_step = fade_step::none;
 
-	p2SString* new_map;
+	
+	int nextMap;
 	uint start_time = 0;
 	uint total_time = 0;
 	SDL_Rect screen;

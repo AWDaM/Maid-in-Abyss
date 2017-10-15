@@ -29,7 +29,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 
 	player = new j1Player();
 	map = new j1Map();
-	scenechange = new j1SceneChange();
+	scenechange = new j1MapChange();
 	
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -74,6 +74,8 @@ bool j1App::Awake()
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
 
+	save_game = "save_file";
+	load_game = "save_file";
 	bool ret = false;
 		
 	config = LoadConfig(config_file);

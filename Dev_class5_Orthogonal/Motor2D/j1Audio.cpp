@@ -20,6 +20,10 @@ j1Audio::~j1Audio()
 // Called before render is available
 bool j1Audio::Awake(pugi::xml_node& config)
 {
+	//Stores the path names to each folder
+	music_folder = config.child("music").child_value("folder");
+	sfx_folder = config.child("sfx").child_value("folder");
+
 	LOG("Loading Audio Mixer");
 	bool ret = true;
 	SDL_Init(0);
@@ -31,7 +35,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
-	// load support for the JPG and PNG image formats
+	// load support for the OGG audio format
 	int flags = MIX_INIT_OGG;
 	int init = Mix_Init(flags);
 
@@ -101,8 +105,11 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 		// this call blocks until fade out is done
 		Mix_FreeMusic(music);
 	}
+	 
+	//Temporal string to merge the path to the folder and the sound file
+	p2SString tmp("%s%s", music_folder.GetString(), path);
 
-	music = Mix_LoadMUS(path);
+	music = Mix_LoadMUS(tmp.GetString());
 
 	if(music == NULL)
 	{
@@ -141,7 +148,10 @@ unsigned int j1Audio::LoadFx(const char* path)
 	if(!active)
 		return 0;
 
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+	//Temporal string to merge the path to the folder and the sound file
+	p2SString tmp("%s%s", sfx_folder.GetString(), path);
+
+	Mix_Chunk* chunk = Mix_LoadWAV(tmp.GetString());
 
 	if(chunk == NULL)
 	{
