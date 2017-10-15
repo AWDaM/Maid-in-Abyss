@@ -89,7 +89,7 @@ bool j1Scene::PostUpdate()
 
 	if (to_end)
 	{
-		ret = App->scenechange->ChangeScene(currentMap++, fade_time);
+		ret = App->scenechange->ChangeScene(++currentMap, fade_time);
 		to_end = false;
 	}
 	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)

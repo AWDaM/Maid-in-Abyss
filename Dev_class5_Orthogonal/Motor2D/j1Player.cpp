@@ -314,7 +314,7 @@ iPoint j1Player::Overlay_avoid(iPoint originalvec)
 				}
 				else if (objdata->data->name == ("End"))
 				{
-					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
+					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result) && !App->scenechange->fading)
 					App->scene->to_end = true;
 				}
 				CastCollider.x -= originalvec.x - newvec.x;
