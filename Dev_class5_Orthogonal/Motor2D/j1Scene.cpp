@@ -69,12 +69,23 @@ bool j1Scene::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		Load_lvl(1);
 
-	else if(App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	else if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->LoadGame();
 
-	else if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	else if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->SaveGame();
 
+	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+		App->audio->LowerMusicVolume();
+
+	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+		App->audio->RaiseMusicVolume();
+
+	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+		App->audio->LowerSFXVolume();
+
+	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+		App->audio->RaiseSFXVolume();
 	//if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
 		//App->scenechange->ChangeScene(map_names[currentMap], 1.0f);
 

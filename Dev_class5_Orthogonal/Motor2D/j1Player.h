@@ -106,7 +106,7 @@ public:
 	void ChangeAnimation();
 
 	//Plays the indicated sfx
-	void AddSFX(int channel, int repeat);
+	void AddSFX(int channel, int repeat, uint volume = 128);
 
 	//Adds the speed to the player's position and checks if its out of the boundaries
 	void PlayerMovement();

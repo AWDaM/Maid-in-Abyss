@@ -159,7 +159,7 @@ bool j1Player::PostUpdate()
 {
 	if (!isPlayerAlive)
 	{
-		AddSFX(2, 0);
+		AddSFX(2, 0, 70);
 		App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);
 	}
 
@@ -444,9 +444,9 @@ void j1Player::ChangeAnimation()
 		Player.current_animation = &Player.dashing;
 }
 
-void j1Player::AddSFX(int channel, int repeat)
+void j1Player::AddSFX(int channel, int repeat, uint volume)
 {
-	App->audio->PlayFx(channel, repeat);
+	App->audio->PlayFx(channel, repeat, volume);
 }
 
 void j1Player::PlayerMovement()

@@ -167,7 +167,7 @@ unsigned int j1Audio::LoadFx(const char* path)
 }
 
 // Play WAV
-bool j1Audio::PlayFx(unsigned int id, int repeat)
+bool j1Audio::PlayFx(unsigned int id, int repeat, uint volume)
 {
 	bool ret = false;
 
@@ -176,8 +176,33 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 
 	if(id > 0 && id <= fx.count())
 	{
+		Mix_VolumeChunk(fx[id - 1], volume*sfxVolumeModifier);
 		Mix_PlayChannel(-1, fx[id - 1], repeat);
 	}
 
 	return ret;
+}
+void j1Audio::LowerMusicVolume()
+{
+	musicVolumeModifier -= 0.1f;
+	if (musicVolumeModifier < 0)musicVolumeModifier = 0;
+
+	Mix_VolumeMusic(128 * musicVolumeModifier);
+}
+void j1Audio::LowerSFXVolume()
+{
+	sfxVolumeModifier -= 0.1f;
+	if (sfxVolumeModifier < 0)sfxVolumeModifier = 0;
+}
+void j1Audio::RaiseMusicVolume()
+{
+	musicVolumeModifier += 0.1f;
+	if (musicVolumeModifier > 1)musicVolumeModifier = 1;
+
+	Mix_VolumeMusic(128 * musicVolumeModifier);
+}
+void j1Audio::RaiseSFXVolume()
+{
+	sfxVolumeModifier += 0.1f;
+	if (sfxVolumeModifier > 1)sfxVolumeModifier = 1;
 }

@@ -32,10 +32,17 @@ public:
 	unsigned int LoadFx(const char* path);
 
 	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0);
+	bool PlayFx(unsigned int fx, int repeat = 0, uint volume = 128);
+
+	void LowerMusicVolume();
+	void LowerSFXVolume();
+	void RaiseMusicVolume();
+	void RaiseSFXVolume();
 
 private:
 
+	float				musicVolumeModifier = 1.0f;
+	float				sfxVolumeModifier	= 1.0f;
 	_Mix_Music*			music;
 	p2List<Mix_Chunk*>	fx;
 
