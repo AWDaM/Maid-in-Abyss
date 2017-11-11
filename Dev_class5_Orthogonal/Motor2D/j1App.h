@@ -15,6 +15,7 @@ class j1Scene;
 class j1Player;
 class j1Map;
 class j1MapChange;
+class j1EntityController;
 
 class j1App
 {
@@ -87,6 +88,7 @@ public:
 	j1Player*			player;
 	j1Map*				map;
 	j1MapChange*		scenechange;
+	j1EntityController* entitycontroller;
 
 private:
 

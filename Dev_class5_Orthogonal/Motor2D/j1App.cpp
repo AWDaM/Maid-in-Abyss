@@ -13,6 +13,7 @@
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1Player.h"
+#include "j1EntityController.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
@@ -30,6 +31,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	player = new j1Player();
 	map = new j1Map();
 	scenechange = new j1MapChange();
+	entitycontroller = new j1EntityController();
 	
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -41,6 +43,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(player);
 	AddModule(scenechange);
+	AddModule(entitycontroller);
 
 	// render last to swap buffer
 	AddModule(render);
