@@ -7,12 +7,15 @@
 #include "p2Log.h"
 #include "j1Map.h"
 
+
 class Entity
 {
 public:
-	Entity();
+	Entity(); 
+	Entity(ENTITY_TYPE type);
 	~Entity();
-
+	virtual bool Awake(pugi::xml_node & config) { return true; };
+	virtual bool Start() { return true; };
 	virtual bool PreUpdate(float dt) { return true; };
 	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate(float dt) { return true; };

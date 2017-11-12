@@ -11,8 +11,6 @@
 
 Player::Player()
 {
-	Awake();
-	Start();
 }
 
 

@@ -24,6 +24,8 @@ public:
 	j1EntityController();
 	~j1EntityController();
 
+	bool Awake(pugi::xml_node & config);
+	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
 	bool Save();

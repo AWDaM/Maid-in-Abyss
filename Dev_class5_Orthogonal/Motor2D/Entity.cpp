@@ -16,6 +16,10 @@ Entity::Entity()
 {
 }
 
+Entity::Entity(ENTITY_TYPE type)
+{
+}
+
 
 Entity::~Entity()
 {
