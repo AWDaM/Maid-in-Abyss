@@ -16,10 +16,10 @@ bool j1EntityController::Awake(pugi::xml_node &config)
 {
 	bool ret = false;
 	AddEntity(PLAYER, { 0,0 });
-	p2List_item<Entity>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		ret = tmp->data.Awake(config);
+		ret = tmp->data->Awake(config);
 		tmp = tmp->next;
 	}
 	return ret;
@@ -28,10 +28,10 @@ bool j1EntityController::Awake(pugi::xml_node &config)
 bool j1EntityController::Start()
 {
 	bool ret = false;
-	p2List_item<Entity>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		ret = tmp->data.Start();
+		ret = tmp->data->Start();
 		tmp = tmp->next;
 	}
 	return ret;
@@ -40,10 +40,22 @@ bool j1EntityController::Start()
 bool j1EntityController::Update(float dt)
 {
 	bool ret = false;
-	p2List_item<Entity>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		ret = tmp->data.Update(dt);
+		ret = tmp->data->Update(dt);
+		tmp = tmp->next;
+	}
+	return ret;
+}
+
+bool j1EntityController::PostUpdate()
+{
+	bool ret = true;
+	p2List_item<Entity*>* tmp = Entities.start;
+	while (tmp != nullptr)
+	{
+		tmp->data->PostUpdate();
 		tmp = tmp->next;
 	}
 	return ret;
@@ -52,10 +64,10 @@ bool j1EntityController::Update(float dt)
 bool j1EntityController::CleanUp()
 {
 	bool ret = true;
-	p2List_item<Entity>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		tmp->data.CleanUp();
+		tmp->data->CleanUp();
 		tmp = tmp->next;
 	}
 	return ret;
@@ -64,10 +76,10 @@ bool j1EntityController::CleanUp()
 bool j1EntityController::Save()
 {
 	bool ret = true;
-	p2List_item<Entity>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		tmp->data.Save();
+		tmp->data->Save();
 		tmp = tmp->next;
 	}
 	return ret;
@@ -76,10 +88,10 @@ bool j1EntityController::Save()
 bool j1EntityController::Load()
 {
 	bool ret = true;
-	p2List_item<Entity>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		tmp->data.Load();
+		tmp->data->Load();
 		tmp = tmp->next;
 	}
 	return ret;
@@ -88,10 +100,10 @@ bool j1EntityController::Load()
 bool j1EntityController::Restart()
 {
 	bool ret = true;
-	p2List_item<Entity>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		tmp->data.Restart();
+		tmp->data->Restart();
 		tmp = tmp->next;
 	}
 	return ret;
@@ -100,10 +112,10 @@ bool j1EntityController::Restart()
 bool j1EntityController::Draw()
 {
 	bool ret = true;
-	p2List_item<Entity>* tmp = Entities.start;
+	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		tmp->data.Draw();
+		tmp->data->Draw();
 		tmp = tmp->next;
 	}
 	return ret;
@@ -115,7 +127,7 @@ bool j1EntityController::AddEntity(ENTITY_TYPE type, iPoint pos)
 	if (type = PLAYER)
 	{
 		Entity* tmp = new Player();
-		Entities.add(*tmp);
+		Entities.add(tmp);
 	}
 
 	return true;

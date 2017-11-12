@@ -35,7 +35,7 @@
     <folder>maps/</folder>
   </map>
 
-  <entities>
+  <entitycontroller>
     <player>
       <folder>textures/</folder>
       <sprite_sheet source="MC_MarisaKirisame.png"/>
@@ -53,7 +53,7 @@
     </player>
     
     
-  </entities>
+  </entitycontroller>
  
 
   <scene>

@@ -16,9 +16,9 @@ public:
 	~Entity();
 	virtual bool Awake(pugi::xml_node & config) { return true; };
 	virtual bool Start() { return true; };
-	virtual bool PreUpdate(float dt) { return true; };
+	virtual bool PreUpdate() { return true; };
 	virtual bool Update(float dt) { return true; };
-	virtual bool PostUpdate(float dt) { return true; };
+	virtual bool PostUpdate() { return true; };
 	virtual bool Move() { return true; };
 	virtual void Draw() {};
 	virtual void CleanUp() {};
