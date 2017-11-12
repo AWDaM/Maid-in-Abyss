@@ -21,6 +21,7 @@ Player::~Player()
 bool Player::Awake(pugi::xml_node & config)
 {
 	bool ret = true;
+	config = config.child("player");
 
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();

@@ -15,10 +15,11 @@ j1EntityController::~j1EntityController()
 bool j1EntityController::Awake(pugi::xml_node &config)
 {
 	bool ret = false;
+	AddEntity(PLAYER, { 0,0 });
 	p2List_item<Entity>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		ret = tmp->data.Awake(pugi::xml_node &config);
+		ret = tmp->data.Awake(config);
 		tmp = tmp->next;
 	}
 	return ret;
