@@ -10,6 +10,7 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1SceneChange.h"
+#include "j1EntityController.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -64,7 +65,7 @@ bool j1Scene::Update(float dt)
 		Load_lvl(0);
 
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		App->player->Restart();
+		App->entitycontroller->Restart();
 
 	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		Load_lvl(1);
@@ -94,7 +95,7 @@ bool j1Scene::Update(float dt)
 
 
 	App->map->Draw();
-	App->player->Draw();
+	App->entitycontroller->Draw();
 
 	p2SString title("Maid in Abyss");
 
@@ -153,6 +154,6 @@ bool j1Scene::Save(pugi::xml_node& data) const
 bool j1Scene::Load_lvl(int time)
 {
 	App->map->SwitchMaps(map_names[time]);
-	App->player->Restart();
+	App->entitycontroller->Restart();
 	return false;
 }

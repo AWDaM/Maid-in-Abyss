@@ -4,6 +4,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "j1Timer.h"
 
 
 struct SDL_Texture;
@@ -36,15 +37,6 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
 
-	//Detects if the player's collider is going to collide in the next frame and acts in consequence
-	iPoint Collider_Overlay(iPoint originalvec);
-
-	//Called if the player's collider is going to collide with unpasable terrain, adjousts the player's speed to avoid it
-	iPoint AvoidCollision(iPoint newvec, const SDL_Rect result, p2List_item<ObjectsData*>* objdata);
-
-	//Returns the rect of the Object passed using its data
-	SDL_Rect CreateRect_FromObjData(ObjectsData* data);
-
 	// Called before quitting
 	void CleanUp();
 
@@ -72,7 +64,7 @@ public:
 	
 
 	//Adds the speed to the player's position and checks if its out of the boundaries
-	void PlayerMovement();
+	void PlayerMovement(float dt);
 
 	
 	
@@ -82,15 +74,25 @@ public:
 
 	//Centers the camera on the player and checks if it is out of the boundaries
 	bool PositionCameraOnPlayer();
+
+	void LoadPushbacks();
+
 private:
 	
 public:
+
+
+private:
+
 	bool grounded = false;
 	bool isDashing = false;
 	bool isJumping = false;
-	bool alive = false;
+
 	bool canDash = false;
+	bool flip = false;
 	iPoint jumpForce;
+	iPoint			dashingSpeed;
+	int Dashtime;
 	float currentDashtime = 0;
 	Animation* Current_Animation = nullptr;
 	Animation		idle;
@@ -98,8 +100,14 @@ public:
 	Animation		jumping_up;
 	Animation		falling;
 	Animation		dashing;
-
-private:
+	j1Timer			dashtimer;
+	SDL_Texture*	Player_tex;
+	p2SString		jumpFX;
+	p2SString		deathFX;
+	p2SString		landFX;
+	p2SString		dashFX;
+	p2SString		folder;
+	p2SString		texture_path;
 
 };
 

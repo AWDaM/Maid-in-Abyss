@@ -28,6 +28,8 @@ public:
 	bool CleanUp();
 	bool Save();
 	bool Load();
+	bool Restart();
+	bool Draw();
 
 	bool AddEntity(ENTITY_TYPE type, iPoint pos);
 	bool DeleteEntity();

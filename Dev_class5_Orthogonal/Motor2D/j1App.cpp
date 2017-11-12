@@ -13,7 +13,7 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1App.h"
-#include "j1Player.h"
+//#include "j1Player.h"
 #include "j1EntityController.h"
 
 // Constructor
@@ -28,7 +28,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new j1Audio();
 	scene = new j1Scene();
 
-	player = new j1Player();
+	//player = new j1Player();
 	map = new j1Map();
 	scenechange = new j1MapChange();
 	entitycontroller = new j1EntityController();
@@ -41,7 +41,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
-	AddModule(player);
+	//AddModule(player);
 	AddModule(scenechange);
 	AddModule(entitycontroller);
 
@@ -94,6 +94,7 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+		framerate = app_config.attribute("framerate_cap").as_uint(INFINITE);
 	}
 
 	if(ret == true)

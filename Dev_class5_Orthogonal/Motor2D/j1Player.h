@@ -109,7 +109,7 @@ public:
 	void AddSFX(int channel, int repeat, uint volume = 128);
 
 	//Adds the speed to the player's position and checks if its out of the boundaries
-	void PlayerMovement();
+	void PlayerMovement(float dt);
 
 	//Applies the gravity (acceleration.y) and checks if the speed is out of thee boundaries
 	iPoint ApplyGravity(iPoint originalvec);

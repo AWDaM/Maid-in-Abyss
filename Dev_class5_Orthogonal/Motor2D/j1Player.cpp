@@ -151,7 +151,7 @@ bool j1Player::Update(float dt)
 	Player.speed = Collider_Overlay(Player.speed);
 
 	ChangeAnimation();
-	PlayerMovement();
+	PlayerMovement(dt);
 	return true;
 }
 
@@ -449,7 +449,7 @@ void j1Player::AddSFX(int channel, int repeat, uint volume)
 	App->audio->PlayFx(channel, repeat, volume);
 }
 
-void j1Player::PlayerMovement()
+void j1Player::PlayerMovement(float dt)
 {
 	Player.position += Player.speed;
 

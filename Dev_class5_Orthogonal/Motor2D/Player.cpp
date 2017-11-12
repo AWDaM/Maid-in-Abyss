@@ -1,17 +1,173 @@
-#include "Player.h"
 #include "j1App.h"
+#include "Player.h"
 #include "j1Render.h"
 #include "j1Map.h"
 #include "j1Window.h"
-
+#include "j1Textures.h"
+#include "j1Audio.h"
+#include "j1Input.h"
+#include "j1SceneChange.h"
+#include "j1Scene.h"
 
 Player::Player()
 {
+	Awake();
+	Start();
 }
 
 
 Player::~Player()
 {
+}
+
+bool Player::Awake(pugi::xml_node & config)
+{
+	bool ret = true;
+
+	folder.create(config.child("folder").child_value());
+	texture_path = config.child("sprite_sheet").attribute("source").as_string();
+
+	direction_x = 1;
+
+	jumpFX = config.child("jumpFX").attribute("source").as_string();
+	deathFX = config.child("deathFX").attribute("source").as_string();
+	landFX = config.child("landFX").attribute("source").as_string();
+	dashFX = config.child("dashFX").attribute("source").as_string();
+
+	jumpForce.x = config.child("jumpForce").attribute("x").as_int();
+	jumpForce.y = config.child("jumpForce").attribute("y").as_int();
+
+	maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
+	maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
+
+	dashingSpeed.x = config.child("dashingSpeed").attribute("x").as_int();
+	dashingSpeed.y = config.child("dashingSpeed").attribute("y").as_int();
+
+	Dashtime = config.child("dashtime").attribute("value").as_int();
+
+	colOffset.x = config.child("colOffset").attribute("x").as_int();
+	colOffset.y = config.child("colOffset").attribute("y").as_int();
+
+	return ret;
+}
+
+bool Player::Start()
+{
+	LoadPushbacks();
+
+	speed = { 0,0 };
+
+	App->audio->LoadFx(jumpFX.GetString());
+	App->audio->LoadFx(deathFX.GetString());
+	App->audio->LoadFx(landFX.GetString());
+	App->audio->LoadFx(dashFX.GetString());
+
+	alive = true;
+
+	isJumping = false;
+	isDashing = false;
+	canDash = true;
+
+	Current_Animation = &idle;
+
+	//Sets the player in the start position
+	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
+	{
+		if (obj->data->name == ("Collisions"))
+		{
+			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
+			{
+				if (objdata->data->name == ("Player"))
+				{
+					Collider.h = objdata->data->height;
+					Collider.w = objdata->data->width;
+					Collider.x = objdata->data->x;
+					Collider.y = objdata->data->y;
+				}
+				else if (objdata->data->name == ("Start"))
+				{
+					position = { objdata->data->x, objdata->data->y };
+					Collider.x = position.x + colOffset.x;
+					Collider.y = position.y + colOffset.y;
+				}
+			}
+		}
+	}
+	Player_tex = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
+	return true;
+}
+
+bool Player::PreUpdate()
+{
+	return true;
+}
+
+bool Player::Update(float dt)
+{
+	FlipImage();
+
+	if (!isDashing && canDash)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+			StartDashing();
+	}
+	else if (isDashing)
+	{
+		
+
+		if (dashtimer.Read() >= Dashtime)
+		{
+			StopDashing();
+		}
+	}
+	if (!isDashing)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			speed.x = maxSpeed.x;
+		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			speed.x = -maxSpeed.x;
+		else
+			speed.x = 0;
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && grounded)
+		{
+			AddSFX(1, 0);
+			isJumping = true;
+			maxSpeed.x += jumpForce.x;
+			speed.x = jumpForce.x*direction_x;
+			speed.y = jumpForce.y;
+		}
+
+		speed.y += gravity;
+	}
+
+	speed = Collider_Overlay(speed);
+
+	speed = SpeedBoundaries(speed);
+	ChangeAnimation();
+	PlayerMovement(dt);
+	return true;
+}
+
+bool Player::PostUpdate()
+{
+	if (!alive)
+	{
+		AddSFX(2, 0, 70);
+		App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);
+	}
+
+	PositionCameraOnPlayer();
+
+	return true;
+}
+
+void Player::Draw()
+{
+	if (flip)
+		App->render->Blit(Player_tex, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
+	else
+		App->render->Blit(Player_tex, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
 }
 
 bool Player::Load(pugi::xml_node& data)
@@ -47,6 +203,9 @@ bool Player::Save(pugi::xml_node& data) const
 	return true;
 }
 
+
+
+
 void Player::ChangeAnimation()
 {
 	if (!isDashing)
@@ -64,6 +223,15 @@ void Player::ChangeAnimation()
 
 	else
 		Current_Animation = &dashing;
+}
+
+void Player::PlayerMovement(float dt)
+{
+	/*position += speed*dt;*/
+	position.x += speed.x*dt;
+	position.y += speed.y*dt;
+	Collider.x = position.x + colOffset.x;
+	Collider.y = position.y + colOffset.y;
 }
 
 void Player::Restart()
@@ -92,6 +260,53 @@ bool Player::PositionCameraOnPlayer()
 	return true;
 }
 
+void Player::LoadPushbacks()
+{
+	idle.PushBack({ 5, 17, 56, 73 });
+
+	running.PushBack({ 89, 17, 60, 73 });
+	running.PushBack({ 180, 17, 60, 73 });
+	running.PushBack({ 277, 17, 60, 73 });
+	running.PushBack({ 375, 17, 60, 73 });
+	running.PushBack({ 470, 17, 60, 73 });
+	running.PushBack({ 565, 17, 60, 73 });
+	running.loop = true;
+	running.speed = 0.1f;
+
+	jumping_up.PushBack({ 672, 27, 53, 63 });
+	jumping_up.PushBack({ 764, 0, 49, 75 });
+	jumping_up.loop = false;
+	jumping_up.speed = 0.2f;
+
+	falling.PushBack({ 861, 17, 53, 73 });
+
+	dashing.PushBack({ 635, 224, 79, 71 });
+	dashing.PushBack({ 741, 226, 81, 69 });
+	dashing.PushBack({ 834, 227, 82, 68 });
+	dashing.PushBack({ 929, 228, 82, 67 });
+	dashing.PushBack({ 390, 223, 73, 72 });
+	dashing.PushBack({ 468, 219, 76, 69 });
+	dashing.PushBack({ 548, 219, 76, 69 });
+	dashing.loop = false;
+	dashing.speed = 0.3f;
+}
+
+
+
+void Player::CleanUp()
+{
+	LOG("Deleting player");
+	App->tex->UnLoad(Player_tex);
+}
+
+void Player::FlipImage()
+{
+	if (speed.x < 0)
+		flip = true;
+	else if (speed.x > 0)
+		flip = false;
+}
+
 void Player::BecomeGrounded()
 {
 	if (isJumping)
@@ -106,4 +321,20 @@ void Player::BecomeGrounded()
 	canDash = true;
 	grounded = true;
 	jumping_up.Reset();
+}
+
+void Player::StartDashing()
+{
+	AddSFX(4, 0);
+	isDashing = true;
+	canDash = false;
+	speed.x = dashingSpeed.x * direction_x;
+	speed.y = dashingSpeed.y;
+	dashtimer.Start();
+}
+
+void Player::StopDashing()
+{
+	isDashing = false;
+	dashing.Reset();
 }
