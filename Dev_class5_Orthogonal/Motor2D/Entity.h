@@ -2,7 +2,7 @@
 #define __j1ENTITY_H__
 
 #include "p2Point.h"
-#include "j1Animation.h"
+#include "p2Animation.h"
 #include "j1EntityController.h"
 
 struct SDL_Texture;
@@ -13,10 +13,10 @@ public:
 	Entity();
 	~Entity();
 
-	virtual bool PreUpdate(float dt) { return true };
-	virtual bool Update(float dt) { return true };
-	virtual bool PostUpdate(float dt) { return true };
-	virtual bool Move() { return true };
+	virtual bool PreUpdate(float dt) { return true; };
+	virtual bool Update(float dt) { return true; };
+	virtual bool PostUpdate(float dt) { return true; };
+	virtual bool Move() { return true; };
 	virtual void Draw() {};
 	virtual void CleanUp() {};
 	virtual void Save() const{};
@@ -36,7 +36,7 @@ public:
 	SDL_Texture* texture = nullptr;
 	ENTITY_TYPE Type;
 	fPoint speed;
-	fPoint position;
+	iPoint position;
 	iPoint maxSpeed;
 	float gravity;
 	int direction_x; //-1 if going left, 1 if going right

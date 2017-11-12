@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 #include "p2List.h"
+#include "p2Point.h"
 
 
 enum ENTITY_TYPE
@@ -28,7 +29,7 @@ public:
 	bool Save();
 	bool Load();
 
-	bool AddEntity(ENTITY_TYPE type,iPoint pos,);
+	bool AddEntity(ENTITY_TYPE type, iPoint pos);
 	bool DeleteEntity();
 private:
 
