@@ -9,7 +9,7 @@
 #include "j1SceneChange.h"
 #include "j1Scene.h"
 
-Player::Player()
+Player::Player() : Entity(entityType::PLAYER)
 {
 }
 

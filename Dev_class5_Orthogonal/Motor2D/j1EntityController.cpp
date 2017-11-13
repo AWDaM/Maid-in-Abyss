@@ -15,7 +15,7 @@ j1EntityController::~j1EntityController()
 bool j1EntityController::Awake(pugi::xml_node &config)
 {
 	bool ret = false;
-	AddEntity(PLAYER, { 0,0 });
+	AddEntity(Entity::entityType::PLAYER);
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
@@ -121,16 +121,19 @@ bool j1EntityController::Draw()
 	return ret;
 }
 
-bool j1EntityController::AddEntity(ENTITY_TYPE type, iPoint pos)
+Entity* j1EntityController::AddEntity(Entity::entityType type)
 {
+	Entity* tmp = nullptr;
 
-	if (type = PLAYER)
-	{
-		Entity* tmp = new Player();
+	switch (type)
+		case Entity::entityType::PLAYER: tmp = new Player(); //break;
+		//case Entity::entityType::FLYING_ENEMY: tmp = new Player(); break;
+		//case Entity::entityType::LAND_ENEMY: tmp = new Player();
+	
+	if (tmp)
 		Entities.add(tmp);
-	}
 
-	return true;
+	return tmp;
 }
 
 bool j1EntityController::DeleteEntity()

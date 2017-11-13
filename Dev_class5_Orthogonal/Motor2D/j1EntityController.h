@@ -4,18 +4,12 @@
 #include "j1Module.h"
 #include "p2List.h"
 #include "p2Point.h"
+#include "Player.h"
+//#include "Entity.h"
 
-
-enum ENTITY_TYPE
-{
-	NO_TYPE,
-	PLAYER,
-	MOVING_PLATFORM,
-	FLYING_ENEMY,
-	GROUND_ENEMY,
-};
 
 class Entity;
+
 
 class j1EntityController : public j1Module
 {
@@ -34,7 +28,7 @@ public:
 	bool Restart();
 	bool Draw();
 
-	bool AddEntity(ENTITY_TYPE type, iPoint pos);
+	Entity* AddEntity(Entity::entityType type);
 	bool DeleteEntity();
 private:
 

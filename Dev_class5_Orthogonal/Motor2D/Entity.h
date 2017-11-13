@@ -3,16 +3,25 @@
 
 #include "p2Point.h"
 #include "p2Animation.h"
-#include "j1EntityController.h"
 #include "p2Log.h"
 #include "j1Map.h"
+
 
 
 class Entity
 {
 public:
-	Entity(); 
-	Entity(ENTITY_TYPE type);
+	enum entityType
+	{
+		NO_TYPE,
+		PLAYER,
+		MOVING_PLATFORM,
+		FLYING_ENEMY,
+		LAND_ENEMY,
+	};
+
+public:
+	Entity(entityType type);
 	~Entity();
 	virtual bool Awake(pugi::xml_node & config) { return true; };
 	virtual bool Start() { return true; };
@@ -28,15 +37,16 @@ public:
 	virtual void BecomeGrounded() {};
 	virtual void Restart() {};
 
-	//Applies the gravity (acceleration.y) and checks if the speed is out of thee boundaries
+	//Applies the gravity (speed.y) and checks if the speed is out of the limits
+	fPoint SpeedBoundaries(fPoint originalvec);
+
 	//Detects if the player's collider is going to collide in the next frame and acts in consequence
+	fPoint Collider_Overlay(fPoint originalvec);
 
 	//Called if the player's collider is going to collide with unpasable terrain, adjousts the player's speed to avoid it
+	fPoint AvoidCollision(fPoint newvec, const SDL_Rect result, p2List_item<ObjectsData*>* objdata);
 
 	//Returns the rect of the Object passed using its data
-	fPoint SpeedBoundaries(fPoint originalvec);
-	fPoint Collider_Overlay(fPoint originalvec);
-	fPoint AvoidCollision(fPoint newvec, const SDL_Rect result, p2List_item<ObjectsData*>* objdata);
 	SDL_Rect CreateRect_FromObjData(ObjectsData* data);
 
 	//Plays the indicated sfx
@@ -46,7 +56,7 @@ private:
 
 public:
 	SDL_Texture* texture = nullptr;
-	ENTITY_TYPE Type;
+	entityType type;
 	fPoint speed;
 	iPoint position;
 	iPoint maxSpeed;

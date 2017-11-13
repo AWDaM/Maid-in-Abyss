@@ -1,9 +1,14 @@
-#pragma once
 #include "Entity.h"
+
+struct SDL_Texture;
+
 class Enemy : public Entity
 {
 public:
-	Enemy();
+	Enemy(Entity::entityType type);
 	~Enemy();
+
+public:
+
 };
 

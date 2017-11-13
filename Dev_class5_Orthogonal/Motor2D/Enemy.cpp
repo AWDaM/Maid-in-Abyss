@@ -2,7 +2,7 @@
 
 
 
-Enemy::Enemy()
+Enemy::Enemy(Entity::entityType type) : Entity(type)
 {
 }
 

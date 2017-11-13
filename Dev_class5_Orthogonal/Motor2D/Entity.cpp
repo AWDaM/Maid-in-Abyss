@@ -12,14 +12,9 @@
 #include "j1Window.h"
 
 
-Entity::Entity()
+Entity::Entity(entityType type) : type(type)
 {
 }
-
-Entity::Entity(ENTITY_TYPE type)
-{
-}
-
 
 Entity::~Entity()
 {
