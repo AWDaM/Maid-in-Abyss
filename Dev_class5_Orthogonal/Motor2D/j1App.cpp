@@ -94,7 +94,13 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
-		framerate = app_config.attribute("framerate_cap").as_uint(INFINITE);
+		//framerate = app_config.attribute("framerate_cap").as_uint(INFINITE);
+		int cap = app_config.attribute("framerate_cap").as_int(-1);
+
+		if (cap > 0)
+		{
+			framerate = 1000 / cap;
+		}
 	}
 
 	if(ret == true)
@@ -208,16 +214,15 @@ void j1App::FinishUpdate()
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
 
-	float capped_ms = 1000 / framerate;
-	if (last_frame_ms < capped_ms)
+	if (framerate > 0 && last_frame_ms < framerate)
 	{
 		//uint32 delay = 1000 / framerate - ptimer.ReadMs();
 		//SDL_Delay(delay);
 		//float true_delay = delay - ptimer.ReadMs();
 		//LOG("We wanted to delay: %i. We had to wait: %f", delay, true_delay);
 		j1PerfTimer t;
-		SDL_Delay(capped_ms - last_frame_ms);
-		LOG("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
+		SDL_Delay(framerate - last_frame_ms);
+		LOG("We waited for %d milliseconds and got back in %f", framerate - last_frame_ms, t.ReadMs());
 	}
 }
 

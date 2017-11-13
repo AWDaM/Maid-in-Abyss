@@ -99,7 +99,7 @@ bool j1Scene::Update(float dt)
 
 	p2SString title("Maid in Abyss");
 
-	App->win->SetTitle(title.GetString());
+	//App->win->SetTitle(title.GetString());
 	return true;
 }
 
