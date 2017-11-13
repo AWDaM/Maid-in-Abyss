@@ -208,13 +208,16 @@ void j1App::FinishUpdate()
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
 	App->win->SetTitle(title);
 
-
-	if (ptimer.ReadMs() < 1000 / framerate)
+	float capped_ms = 1000 / framerate;
+	if (last_frame_ms < capped_ms)
 	{
-		uint32 delay = 1000 / framerate - ptimer.ReadMs();
-		SDL_Delay(delay);
-		float true_delay = ptimer.ReadMs();
-		LOG("We wanted to delay: %i. We had to wait: %f", delay, true_delay);
+		//uint32 delay = 1000 / framerate - ptimer.ReadMs();
+		//SDL_Delay(delay);
+		//float true_delay = delay - ptimer.ReadMs();
+		//LOG("We wanted to delay: %i. We had to wait: %f", delay, true_delay);
+		j1PerfTimer t;
+		SDL_Delay(capped_ms - last_frame_ms);
+		LOG("We waited for %d milliseconds and got back in %f", capped_ms - last_frame_ms, t.ReadMs());
 	}
 }
 

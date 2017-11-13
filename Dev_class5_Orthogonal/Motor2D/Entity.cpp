@@ -43,6 +43,7 @@ fPoint Entity::SpeedBoundaries(fPoint originalvec)
 
 fPoint Entity::Collider_Overlay(fPoint originalvec)
 {
+	grounded = false;
 
 	SDL_Rect CastCollider;
 	CastCollider = Collider;

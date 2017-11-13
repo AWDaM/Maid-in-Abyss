@@ -65,6 +65,7 @@ public:
 	iPoint colOffset;
 	SDL_Rect Collider;
 	bool alive = false;
+	bool grounded = false;
 private:
 	
 };

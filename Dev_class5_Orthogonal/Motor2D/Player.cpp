@@ -43,6 +43,7 @@ bool Player::Awake(pugi::xml_node & config)
 	dashingSpeed.y = config.child("dashingSpeed").attribute("y").as_int();
 
 	Dashtime = config.child("dashtime").attribute("value").as_int();
+	gravity = config.child("gravity").attribute("value").as_int();
 
 	colOffset.x = config.child("colOffset").attribute("x").as_int();
 	colOffset.y = config.child("colOffset").attribute("y").as_int();

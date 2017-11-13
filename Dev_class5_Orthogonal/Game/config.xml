@@ -1,7 +1,7 @@
 <!-- Config file for the game -->
 
 <config>
-  <app framerate_cap="30">
+  <app framerate_cap="10">
     <title>Game Development Testbed</title>
     <organization>UPC</organization>
   </app>
@@ -44,8 +44,9 @@
       <landFX source="Land.wav"/>
       <dashFX source="Dash.wav"/>
       <accel x="1" y="1"/>
-      <jumpForce x="2" y="-17"/>
-      <maxSpeed x="6" y="10"/>
+      <gravity value="50"/>
+      <jumpForce x="200" y="-1700"/>
+      <maxSpeed x="600" y="1000"/>
       <dashingSpeed x="10" y="0"/>
       <dashingColliderDifference value="0"/>
       <colOffset x="11" y="8"/>
