@@ -46,6 +46,8 @@ bool Player::Awake(pugi::xml_node & config)
 	colOffset.x = config.child("colOffset").attribute("x").as_int();
 	colOffset.y = config.child("colOffset").attribute("y").as_int();
 
+	animationSpeed = 5;
+
 	return ret;
 }
 
@@ -156,6 +158,8 @@ bool Player::Update(float dt)
 		speed = Collider_Overlay(speed, meh);
 		speed.x = (int)speed.x;
 		speed.y = (int)speed.y;
+
+		NormalizeAnimationSpeed(dt);
 
 		ChangeAnimation();
 		PlayerMovement(meh);
