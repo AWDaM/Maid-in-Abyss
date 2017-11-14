@@ -38,10 +38,10 @@ public:
 	virtual void Restart() {};
 
 	//Applies the gravity (speed.y) and checks if the speed is out of the limits
-	fPoint SpeedBoundaries(fPoint originalvec);
+	fPoint SpeedBoundaries(fPoint originalvec, float dt);
 
 	//Detects if the player's collider is going to collide in the next frame and acts in consequence
-	fPoint Collider_Overlay(fPoint originalvec);
+	fPoint Collider_Overlay(fPoint originalvec, float dt);
 
 	//Called if the player's collider is going to collide with unpasable terrain, adjousts the player's speed to avoid it
 	fPoint AvoidCollision(fPoint newvec, const SDL_Rect result, p2List_item<ObjectsData*>* objdata);

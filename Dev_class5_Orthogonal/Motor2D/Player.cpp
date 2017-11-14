@@ -77,14 +77,14 @@ bool Player::Start()
 		{
 			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
 			{
-				if (objdata->data->name == ("Player"))
+				if (objdata->data->name == 6)
 				{
 					Collider.h = objdata->data->height;
 					Collider.w = objdata->data->width;
 					Collider.x = objdata->data->x;
 					Collider.y = objdata->data->y;
 				}
-				else if (objdata->data->name == ("Start"))
+				else if (objdata->data->name == 4)
 				{
 					position = { objdata->data->x, objdata->data->y };
 					Collider.x = position.x + colOffset.x;
@@ -140,12 +140,17 @@ bool Player::Update(float dt)
 
 		speed.y += gravity;
 	}
+	//speed.y = speed.y*dt;
+	//speed.x = speed.x*dt;
+	float meh = dt;
+	speed = SpeedBoundaries(speed,meh);
+	
+	speed = Collider_Overlay(speed, meh);
+	speed.x = (int)speed.x;
+	speed.y = (int)speed.y;
 
-	speed = Collider_Overlay(speed);
-
-	speed = SpeedBoundaries(speed);
 	ChangeAnimation();
-	PlayerMovement(dt);
+	PlayerMovement(meh);
 	return true;
 }
 
@@ -239,7 +244,7 @@ void Player::Restart()
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 		if (obj->data->name == ("Collisions"))
 			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
-				if (objdata->data->name == ("Start"))
+				if (objdata->data->name == 4)
 				{
 					position = { objdata->data->x, objdata->data->y };
 					Collider.x = position.x + colOffset.x;
@@ -311,7 +316,7 @@ void Player::BecomeGrounded()
 {
 	if (isJumping)
 	{
-		isJumping = false;
+ 		isJumping = false;
 		maxSpeed.x -= jumpForce.x;
 	}
 

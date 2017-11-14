@@ -20,35 +20,35 @@ Entity::~Entity()
 {
 }
 
-fPoint Entity::SpeedBoundaries(fPoint originalvec)
+fPoint Entity::SpeedBoundaries(fPoint originalvec, float dt)
 {
 	if (direction_x > 0)
 	{
-		if (originalvec.x > maxSpeed.x)
+		if (originalvec.x*dt > maxSpeed.x*dt)
 			originalvec.x = maxSpeed.x;
 	}
 
 	else
 	{
-		if (originalvec.x < direction_x*maxSpeed.x)
+		if (originalvec.x*dt < direction_x*maxSpeed.x*dt)
 			originalvec.x = direction_x*maxSpeed.x;
 	}
 
-	if (originalvec.y > maxSpeed.y)
+	if (originalvec.y*dt > maxSpeed.y*dt)
 	{
 		originalvec.y = maxSpeed.y;
 	}
 	return originalvec;
 }
 
-fPoint Entity::Collider_Overlay(fPoint originalvec)
+fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 {
 	grounded = false;
 
 	SDL_Rect CastCollider;
 	CastCollider = Collider;
-	CastCollider.x += originalvec.x;
-	CastCollider.y += originalvec.y;
+	CastCollider.x += originalvec.x*dt;
+	CastCollider.y += originalvec.y*dt;
 
 	SDL_Rect result;
 
@@ -59,26 +59,26 @@ fPoint Entity::Collider_Overlay(fPoint originalvec)
 		{
 			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
 			{
-				if (objdata->data->name == ("Floor"))
+				if (objdata->data->name == 1)
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 					{
 						newvec = AvoidCollision(newvec, result, objdata);
 					}
 				}
-				else if (objdata->data->name == ("BGFloor")) //Only collides if the player is above the platform
+				else if (objdata->data->name == 2) //Only collides if the player is above the platform
 				{
 					if (position.y + Collider.h + colOffset.y <= objdata->data->y)
 						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 							if (result.h <= result.w || position.x + Collider.w + colOffset.x >= objdata->data->x)
 								newvec.y -= result.h, BecomeGrounded();
 				}
-				else if (objdata->data->name == ("Dead")) //Detects when the player falls
+				else if (objdata->data->name == 3) //Detects when the player falls
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 						alive = false;
 				}
-				else if (objdata->data->name == ("End")) //Detects when the player has finished the level
+				else if (objdata->data->name == 5) //Detects when the player has finished the level
 				{
 					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result) && !App->scenechange->fading)
 						App->scene->to_end = true;

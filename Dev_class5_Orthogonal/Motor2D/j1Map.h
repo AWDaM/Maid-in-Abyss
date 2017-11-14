@@ -27,7 +27,7 @@ struct MapLayer
 
 struct ObjectsData
 {
-	p2SString	name;
+	uint16_t	name;
 	int			x;
 	int			y;
 	uint		width;

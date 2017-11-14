@@ -378,7 +378,7 @@ bool j1Map::LoadObjectLayers(pugi::xml_node & node, ObjectsGroup * group)
 		data->width		= obj.attribute("width").as_uint();
 		data->x			= obj.attribute("x").as_uint();
 		data->y			= obj.attribute("y").as_uint();
-		data->name		= obj.attribute("name").as_string();
+		data->name		= obj.attribute("name").as_uint();
 
 		group->objects.add(data);
 	}
