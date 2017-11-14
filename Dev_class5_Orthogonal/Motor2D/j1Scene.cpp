@@ -87,12 +87,15 @@ bool j1Scene::Update(float dt)
 
 	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->audio->RaiseSFXVolume();
+
+	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		slowing = true;
 	//if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
 		//App->scenechange->ChangeScene(map_names[currentMap], 1.0f);
 
 	//if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
 		//App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
-
+	if (slowing)SlowMo();
 
 	App->map->Draw();
 	App->entitycontroller->Draw();
@@ -156,4 +159,14 @@ bool j1Scene::Load_lvl(int time)
 	App->map->SwitchMaps(map_names[time]);
 	App->entitycontroller->Restart();
 	return false;
+}
+
+void j1Scene::SlowMo()
+{
+	timeScale += 0.02f*backToNormal;
+
+	if (timeScale < 0.5f)backToNormal = 1;
+
+	if (backToNormal == 1 && timeScale == 1)slowing = false, backToNormal = -1;
+
 }

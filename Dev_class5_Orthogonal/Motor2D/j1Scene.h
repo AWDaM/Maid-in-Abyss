@@ -42,8 +42,13 @@ public:
 	bool Save(pugi::xml_node& data) const;
 
 	bool Load_lvl(int time);
+
+	void SlowMo();
 public:
 
+	float timeScale = 1;
+	bool slowing = false;
+	int backToNormal = -1;
 	int currentMap;
 	p2List<p2SString*> map_names;
 	float fade_time;

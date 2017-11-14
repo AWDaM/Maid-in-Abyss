@@ -191,5 +191,5 @@ void Entity::AddSFX(int channel, int repeat, uint volume)
 
 void Entity::NormalizeAnimationSpeed(float dt)
 {
-	Current_Animation->speed = animationSpeed*dt;
+	Current_Animation->speed = animationSpeed*dt*App->scene->timeScale;
 }

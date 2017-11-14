@@ -126,12 +126,12 @@ bool Player::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 			{
 				direction_x = 1;
-				speed.x = maxSpeed.x*dt*direction_x;
+				speed.x = maxSpeed.x*dt*direction_x*App->scene->timeScale;
 			}
 			else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 			{
 				direction_x = -1;
-				speed.x = maxSpeed.x*dt*direction_x;
+				speed.x = maxSpeed.x*dt*direction_x*App->scene->timeScale;
 			}
 			else
 				speed.x = 0;
@@ -143,10 +143,10 @@ bool Player::Update(float dt)
 				grounded = false;
 				//maxSpeed.x += jumpForce.x;
 				//speed.x = jumpForce.x*direction_x*dt;
-				speed.y = jumpForce.y*dt;
+				speed.y = jumpForce.y;
 			}
 
-			speed.y += gravity*dt;
+			speed.y += gravity*dt*App->scene->timeScale;
 		}
 		//speed.y = speed.y*dt;
 		//speed.x = speed.x*dt;
@@ -247,8 +247,8 @@ void Player::ChangeAnimation()
 void Player::PlayerMovement(float dt)
 {
 	/*position += speed*dt;*/
-	position.x += speed.x*dt;
-	position.y += speed.y*dt;
+	position.x += speed.x*dt*App->scene->timeScale;
+	position.y += speed.y*dt*App->scene->timeScale;
 	Collider.x = position.x + colOffset.x;
 	Collider.y = position.y + colOffset.y;
 }
@@ -349,8 +349,8 @@ void Player::StartDashing(float dt)
 	AddSFX(4, 0);
 	isDashing = true;
 	canDash = false;
-	speed.x = dashingSpeed.x * direction_x*dt;
-	speed.y = dashingSpeed.y*dt;
+	speed.x = dashingSpeed.x * direction_x*dt*App->scene->timeScale;
+	speed.y = dashingSpeed.y*dt*App->scene->timeScale;
 	dashtimer.Start();
 }
 
