@@ -102,61 +102,65 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
-	FlipImage();
-
-	if (!isDashing && canDash)
+	if (dt < 1)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
-			StartDashing(dt);
+		FlipImage();
+
+		if (!isDashing && canDash)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+				StartDashing(dt);
+		}
+		else if (isDashing)
+		{
+
+			if (dashtimer.Read() >= Dashtime || App->input->GetKey(SDL_SCANCODE_X) == KEY_UP)
+			{
+				StopDashing();
+			}
+		}
+		if (!isDashing)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			{
+				direction_x = 1;
+				speed.x = maxSpeed.x*dt*direction_x;
+			}
+			else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			{
+				direction_x = -1;
+				speed.x = maxSpeed.x*dt*direction_x;
+			}
+			else
+				speed.x = 0;
+
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && grounded)
+			{
+				AddSFX(1, 0);
+				isJumping = true;
+				grounded = false;
+				//maxSpeed.x += jumpForce.x;
+				//speed.x = jumpForce.x*direction_x*dt;
+				speed.y = jumpForce.y*dt;
+			}
+
+			speed.y += gravity*dt;
+		}
+		//speed.y = speed.y*dt;
+		//speed.x = speed.x*dt;
+
+		float meh = 1;
+		speed = SpeedBoundaries(speed, meh);
+
+
+		speed = Collider_Overlay(speed, meh);
+		speed.x = (int)speed.x;
+		speed.y = (int)speed.y;
+
+		ChangeAnimation();
+		PlayerMovement(meh);
 	}
-	else if (isDashing)
-	{
-		
-		if (dashtimer.Read() >= Dashtime || App->input->GetKey(SDL_SCANCODE_X) == KEY_UP)
-		{
-			StopDashing();
-		}
-	}
-	if (!isDashing)
-	{
-		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		{
-			direction_x = 1;
-			speed.x = maxSpeed.x*dt*direction_x;
-		}
-		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		{
-			direction_x = -1;
-			speed.x = maxSpeed.x*dt*direction_x;
-		}
-		else
-			speed.x = 0;
 
-		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && grounded)
-		{
-			AddSFX(1, 0);
-			isJumping = true;
-			grounded = false;
-			//maxSpeed.x += jumpForce.x;
-			//speed.x = jumpForce.x*direction_x*dt;
-			speed.y = jumpForce.y*dt;
-		}
-
-		speed.y += gravity*dt;
-	}
-	//speed.y = speed.y*dt;
-	//speed.x = speed.x*dt;
-
-	float meh = 1;
-	speed = SpeedBoundaries(speed,meh);
-
-	
-	speed = Collider_Overlay(speed, meh);
-	speed.x = (int)speed.x;
-	speed.y = (int)speed.y;
-
-	ChangeAnimation();
-	PlayerMovement(meh);
 	return true;
 }
 

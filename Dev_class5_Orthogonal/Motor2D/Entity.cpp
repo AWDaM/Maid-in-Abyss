@@ -188,3 +188,8 @@ void Entity::AddSFX(int channel, int repeat, uint volume)
 {
 	App->audio->PlayFx(channel, repeat, volume);
 }
+
+void Entity::normalizeAnimationSpeed(float dt)
+{
+	//Current_Animation->speed * 
+}
