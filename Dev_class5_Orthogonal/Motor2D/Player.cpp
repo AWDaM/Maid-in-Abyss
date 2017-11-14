@@ -8,6 +8,7 @@
 #include "j1Input.h"
 #include "j1SceneChange.h"
 #include "j1Scene.h"
+#include "j1EntityController.h"
 
 Player::Player() : Entity(entityType::PLAYER)
 {
@@ -23,8 +24,7 @@ bool Player::Awake(pugi::xml_node & config)
 	bool ret = true;
 	config = config.child("player");
 
-	folder.create(config.child("folder").child_value());
-	texture_path = config.child("sprite_sheet").attribute("source").as_string();
+	
 
 	jumpFX = config.child("jumpFX").attribute("source").as_string();
 	deathFX = config.child("deathFX").attribute("source").as_string();
@@ -91,7 +91,8 @@ bool Player::Start()
 			}
 		}
 	}
-	Player_tex = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
+	//Player_tex = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
+	Player_tex = App->tex->Load(PATH(App->entitycontroller->folder.GetString(), App->entitycontroller->texture_path.GetString()));
 	return true;
 }
 

@@ -5,7 +5,7 @@
 #include "p2Animation.h"
 #include "p2Log.h"
 #include "j1Map.h"
-
+#include "j1App.h"
 
 
 class Entity
@@ -21,6 +21,7 @@ public:
 	};
 
 public:
+	Entity();
 	Entity(entityType type);
 	~Entity();
 	virtual bool Awake(pugi::xml_node & config) { return true; };

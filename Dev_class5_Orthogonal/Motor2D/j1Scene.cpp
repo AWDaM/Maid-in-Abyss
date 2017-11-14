@@ -48,6 +48,7 @@ bool j1Scene::Start()
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
 	App->audio->PlayMusic(App->map->data.musicFile.GetString());
 	LOG("Boi: %s", map_names.start->data->GetString());
+	App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { 350,1880 });
 	return true;
 
 }

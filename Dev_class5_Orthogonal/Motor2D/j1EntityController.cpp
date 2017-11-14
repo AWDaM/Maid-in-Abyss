@@ -3,6 +3,7 @@
 #include "j1Render.h"
 #include "Entity.h"
 #include "Player.h"
+#include "FlyingFurrball.h"
 #include "PugiXml/src/pugixml.hpp"
 
 j1EntityController::j1EntityController()
@@ -17,7 +18,9 @@ j1EntityController::~j1EntityController()
 bool j1EntityController::Awake(pugi::xml_node &config)
 {
 	bool ret = false;
-	AddEntity(Entity::entityType::PLAYER);
+	folder.create(config.child("folder").child_value());
+	texture_path = config.child("sprite_sheet").attribute("source").as_string();
+	AddEntity(Entity::entityType::PLAYER, { 0,0 });
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
@@ -140,13 +143,19 @@ bool j1EntityController::DebugDraw()
 	return true;
 }
 
-Entity* j1EntityController::AddEntity(Entity::entityType type)
+Entity* j1EntityController::AddEntity(Entity::entityType type, iPoint position)
 {
 	Entity* tmp = nullptr;
 
 	switch (type)
-		case Entity::entityType::PLAYER: tmp = new Player(); //break;
-		//case Entity::entityType::FLYING_ENEMY: tmp = new Player(); break;
+	{
+	case Entity::entityType::PLAYER:
+		tmp = new Player();
+		break;
+	case Entity::entityType::FLYING_ENEMY:
+		tmp = new FlyingFurrball();
+		break;
+	}
 		//case Entity::entityType::LAND_ENEMY: tmp = new Player();
 	
 	if (tmp)

@@ -29,13 +29,14 @@ public:
 	bool Draw();
 	bool DebugDraw();
 
-	Entity* AddEntity(Entity::entityType type);
+	Entity* AddEntity(Entity::entityType type, iPoint position);
 	bool DeleteEntity();
 private:
 
 	//------------Attributes-----------//
 public:
-
+	p2SString		folder;
+	p2SString		texture_path;
 private:
 	p2List<Entity*> Entities;
 

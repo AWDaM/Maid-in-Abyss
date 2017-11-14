@@ -5,7 +5,13 @@
 FlyingFurrball::FlyingFurrball() : Enemy(entityType::FLYING_ENEMY)
 {
 	type = FLYING_ENEMY;
+}
 
+FlyingFurrball::FlyingFurrball(iPoint position) : Enemy(entityType::FLYING_ENEMY, position)
+{
+	type = FLYING_ENEMY;
+	LoadPushbacks();
+	Current_Animation = &idle;
 }
 
 
