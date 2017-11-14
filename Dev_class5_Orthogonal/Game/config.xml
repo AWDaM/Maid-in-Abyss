@@ -38,7 +38,7 @@
   <entitycontroller>
     <player>
       <folder>textures/</folder>
-      <sprite_sheet source="MC_MarisaKirisame.png"/>
+      <sprite_sheet source="Entities.png"/>
       <jumpFX source="Jump.wav"/>
       <deathFX source="Death.wav"/>
       <landFX source="Land.wav"/>

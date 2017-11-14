@@ -2,6 +2,7 @@
 #include "p2Log.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "j1Input.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
@@ -38,8 +39,34 @@ void j1Map::Draw()
 			for (uint i = 0; i < data.height; i++)
 				for (uint j = 0; j < data.width; j++)
 					App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]),SDL_FLIP_NONE,-data.layers[y]->parallaxSpeed);
+	
+
+	DebugDraw();
 }
 
+void j1Map::DebugDraw()
+{
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		debug = !debug;
+
+	if (debug)
+	{
+		SDL_Rect col;
+		for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
+			if (obj->data->name == ("Collisions"))
+				for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
+					if (objdata->data->name == 1)
+					{
+						col.h = objdata->data->height, col.w = objdata->data->width, col.x = objdata->data->x, col.y = objdata->data->y;
+						App->render->DrawQuad(col, 0, 0, 255, 50);
+					}
+					else if (objdata->data->name == 2)
+					{
+						col.h = objdata->data->height, col.w = objdata->data->width, col.x = objdata->data->x, col.y = objdata->data->y;
+						App->render->DrawQuad(col, 0, 255, 0, 50);
+					}
+	}
+}
 
 iPoint j1Map::MapToWorld(int x, int y) const
 {
