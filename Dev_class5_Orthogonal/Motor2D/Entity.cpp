@@ -52,6 +52,8 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 
 	SDL_Rect result;
 
+
+
 	fPoint newvec = originalvec;
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
 	{
@@ -82,10 +84,13 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 					//The new trajectory of the player is adjousted for the next collision check
 					CastCollider.x -= (originalvec.x - newvec.x);
 					CastCollider.y -= (originalvec.y - newvec.y);
+					LOG("Newvec x: %i y: %i", newvec.x, newvec.y);
+
 				}
 			}
 		}
 	}
+
 
 	return newvec;
 }
@@ -160,6 +165,12 @@ fPoint Entity::AvoidCollision(fPoint newvec, const SDL_Rect result, p2List_item<
 		else if (newvec.x < 0)
 			newvec.x += result.w;
 	}
+
+	if (newvec.y < 1 && newvec.y > -1)
+	{
+		newvec.y = 0;
+	}
+
 	return newvec;
 }
 

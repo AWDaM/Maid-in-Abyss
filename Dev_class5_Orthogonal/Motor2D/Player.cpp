@@ -26,8 +26,6 @@ bool Player::Awake(pugi::xml_node & config)
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 
-	direction_x = 1;
-
 	jumpFX = config.child("jumpFX").attribute("source").as_string();
 	deathFX = config.child("deathFX").attribute("source").as_string();
 	landFX = config.child("landFX").attribute("source").as_string();
@@ -122,10 +120,15 @@ bool Player::Update(float dt)
 	if (!isDashing)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			speed.x = maxSpeed.x*dt;
+		{
+			direction_x = 1;
+			speed.x = maxSpeed.x*dt*direction_x;
+		}
 		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			speed.x = -maxSpeed.x*dt;
-
+		{
+			direction_x = -1;
+			speed.x = maxSpeed.x*dt*direction_x;
+		}
 		else
 			speed.x = 0;
 
@@ -133,8 +136,9 @@ bool Player::Update(float dt)
 		{
 			AddSFX(1, 0);
 			isJumping = true;
-			maxSpeed.x += jumpForce.x;
-			speed.x = jumpForce.x*direction_x*dt;
+			grounded = false;
+			//maxSpeed.x += jumpForce.x;
+			//speed.x = jumpForce.x*direction_x*dt;
 			speed.y = jumpForce.y*dt;
 		}
 
@@ -255,6 +259,8 @@ void Player::Restart()
 					speed.y = 0;
 					Current_Animation = &idle;
 				}
+	LOG("Ded");
+
 	alive = true;
 }
 

@@ -61,7 +61,7 @@ public:
 	iPoint position;
 	iPoint maxSpeed;
 	float gravity;
-	int direction_x; //-1 if going left, 1 if going right
+	int direction_x = 1; //-1 if going left, 1 if going right
 	iPoint colOffset;
 	SDL_Rect Collider;
 	bool alive = false;
