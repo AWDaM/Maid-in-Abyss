@@ -94,7 +94,6 @@ private:
 	iPoint			dashingSpeed;
 	int Dashtime;
 	float currentDashtime = 0;
-	Animation* Current_Animation = nullptr;
 	Animation		idle;
 	Animation		running;
 	Animation		jumping_up;

@@ -54,9 +54,12 @@ public:
 	//Plays the indicated sfx
 	void AddSFX(int channel, int repeat, uint volume = 128);
 
+	void NormalizeAnimationSpeed(float dt);
 private:
 
 public:
+	float animationSpeed = 1;
+	Animation* Current_Animation = nullptr;
 	SDL_Texture* texture = nullptr;
 	entityType type;
 	fPoint speed;
