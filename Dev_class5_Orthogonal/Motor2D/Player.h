@@ -47,7 +47,7 @@ public:
 	void BecomeGrounded();
 
 	//When called, sets the player in the dash state
-	void StartDashing();
+	void StartDashing(float dt);
 
 	//When called, sets the corresponding bools and readjousts the player's collider
 	void StopDashing();

@@ -109,13 +109,12 @@ bool Player::Update(float dt)
 	if (!isDashing && canDash)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
-			StartDashing();
+			StartDashing(dt);
 	}
 	else if (isDashing)
 	{
 		
-
-		if (dashtimer.Read() >= Dashtime)
+		if (dashtimer.Read() >= Dashtime || App->input->GetKey(SDL_SCANCODE_X) == KEY_UP)
 		{
 			StopDashing();
 		}
@@ -123,9 +122,10 @@ bool Player::Update(float dt)
 	if (!isDashing)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			speed.x = maxSpeed.x;
+			speed.x = maxSpeed.x*dt;
 		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			speed.y = maxSpeed.y;
+			speed.x = -maxSpeed.x*dt;
+
 		else
 			speed.x = 0;
 
@@ -134,16 +134,18 @@ bool Player::Update(float dt)
 			AddSFX(1, 0);
 			isJumping = true;
 			maxSpeed.x += jumpForce.x;
-			speed.x = jumpForce.x*direction_x;
-			speed.y = jumpForce.y;
+			speed.x = jumpForce.x*direction_x*dt;
+			speed.y = jumpForce.y*dt;
 		}
 
-		speed.y += gravity;
+		speed.y += gravity*dt;
 	}
 	//speed.y = speed.y*dt;
 	//speed.x = speed.x*dt;
-	float meh = dt;
-	speed = SpeedBoundaries(speed, meh);
+
+	float meh = 1;
+	speed = SpeedBoundaries(speed,meh);
+
 	
 	speed = Collider_Overlay(speed, meh);
 	speed.x = (int)speed.x;
@@ -328,13 +330,13 @@ void Player::BecomeGrounded()
 	jumping_up.Reset();
 }
 
-void Player::StartDashing()
+void Player::StartDashing(float dt)
 {
 	AddSFX(4, 0);
 	isDashing = true;
 	canDash = false;
-	speed.x = dashingSpeed.x * direction_x;
-	speed.y = dashingSpeed.y;
+	speed.x = dashingSpeed.x * direction_x*dt;
+	speed.y = dashingSpeed.y*dt;
 	dashtimer.Start();
 }
 
