@@ -1,4 +1,6 @@
 #include "j1EntityController.h"
+#include "j1App.h"
+#include "j1Render.h"
 #include "Entity.h"
 #include "Player.h"
 #include "PugiXml/src/pugixml.hpp"
@@ -39,6 +41,8 @@ bool j1EntityController::Start()
 
 bool j1EntityController::Update(float dt)
 {
+	if (App->map->debug)DebugDraw();
+
 	bool ret = false;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
@@ -46,6 +50,7 @@ bool j1EntityController::Update(float dt)
 		ret = tmp->data->Update(dt);
 		tmp = tmp->next;
 	}
+
 	return ret;
 }
 
@@ -119,6 +124,20 @@ bool j1EntityController::Draw()
 		tmp = tmp->next;
 	}
 	return ret;
+}
+
+bool j1EntityController::DebugDraw()
+{
+	p2List_item<Entity*>* tmp = Entities.start;
+	SDL_Rect col;
+	while (tmp != nullptr)
+	{
+		col.h = tmp->data->Collider.h, col.w = tmp->data->Collider.w, col.x = tmp->data->Collider.x, col.y = tmp->data->Collider.y;
+		App->render->DrawQuad(col, 255, 0, 0, 50);
+		tmp = tmp->next;
+	}
+
+	return true;
 }
 
 Entity* j1EntityController::AddEntity(Entity::entityType type)

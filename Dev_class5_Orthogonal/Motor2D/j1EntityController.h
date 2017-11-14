@@ -27,6 +27,7 @@ public:
 	bool Load();
 	bool Restart();
 	bool Draw();
+	bool DebugDraw();
 
 	Entity* AddEntity(Entity::entityType type);
 	bool DeleteEntity();

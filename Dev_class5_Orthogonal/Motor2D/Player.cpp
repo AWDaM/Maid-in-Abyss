@@ -125,7 +125,7 @@ bool Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 			speed.x = maxSpeed.x;
 		else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			speed.x = -maxSpeed.x;
+			speed.y = maxSpeed.y;
 		else
 			speed.x = 0;
 
@@ -143,7 +143,7 @@ bool Player::Update(float dt)
 	//speed.y = speed.y*dt;
 	//speed.x = speed.x*dt;
 	float meh = dt;
-	speed = SpeedBoundaries(speed,meh);
+	speed = SpeedBoundaries(speed, meh);
 	
 	speed = Collider_Overlay(speed, meh);
 	speed.x = (int)speed.x;

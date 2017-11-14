@@ -99,6 +99,7 @@ public:
 	// Called each loop iteration
 	void Draw();
 
+	void DebugDraw();
 	// Called before quitting
 	bool CleanUp();
 
@@ -124,6 +125,7 @@ private:
 public:
 
 	MapData				data;
+	bool				debug = false;
 
 private:
 
