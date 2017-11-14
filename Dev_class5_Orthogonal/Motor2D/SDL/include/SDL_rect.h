@@ -64,7 +64,7 @@ typedef struct SDL_Point
 typedef struct SDL_Rect
 {
     int x, y;
-    int w, h;
+    float w, h;
 } SDL_Rect;
 
 /**
