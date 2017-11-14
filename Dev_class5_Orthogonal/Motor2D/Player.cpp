@@ -276,12 +276,12 @@ void Player::LoadPushbacks()
 	running.PushBack({ 470, 17, 60, 73 });
 	running.PushBack({ 565, 17, 60, 73 });
 	running.loop = true;
-	running.speed = 0.1f;
+	running.speed = 0.25f;
 
 	jumping_up.PushBack({ 672, 27, 53, 63 });
 	jumping_up.PushBack({ 764, 0, 49, 75 });
 	jumping_up.loop = false;
-	jumping_up.speed = 0.2f;
+	jumping_up.speed = 0.5f;
 
 	falling.PushBack({ 861, 17, 53, 73 });
 
@@ -293,7 +293,7 @@ void Player::LoadPushbacks()
 	dashing.PushBack({ 468, 219, 76, 69 });
 	dashing.PushBack({ 548, 219, 76, 69 });
 	dashing.loop = false;
-	dashing.speed = 0.3f;
+	dashing.speed = 0.6f;
 }
 
 
