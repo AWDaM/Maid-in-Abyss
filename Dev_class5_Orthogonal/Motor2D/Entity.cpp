@@ -59,33 +59,27 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 		{
 			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
 			{
-				if (objdata->data->name == 1)
+				if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
 				{
-					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
+					if (objdata->data->name == 1)
 					{
 						newvec = AvoidCollision(newvec, result, objdata);
 					}
-				}
-				else if (objdata->data->name == 2) //Only collides if the player is above the platform
-				{
-					if (position.y + Collider.h + colOffset.y <= objdata->data->y)
-						if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
+					else if (objdata->data->name == 2) //Only collides if the player is above the platform
+					{
+						if (position.y + Collider.h + colOffset.y <= objdata->data->y)
 							if (result.h <= result.w || position.x + Collider.w + colOffset.x >= objdata->data->x)
 								newvec.y -= result.h, BecomeGrounded();
-				}
-				else if (objdata->data->name == 3) //Detects when the player falls
-				{
-					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result))
-						alive = false;
-				}
-				else if (objdata->data->name == 5) //Detects when the player has finished the level
-				{
-					if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result) && !App->scenechange->fading)
-						App->scene->to_end = true;
-				}
-				//The new trajectory of the player is adjousted for the next collision check
-				if (SDL_IntersectRect(&CastCollider, &CreateRect_FromObjData(objdata->data), &result) && !App->scenechange->fading)
-				{
+					}
+					else if (objdata->data->name == 3) //Detects when the player falls
+					{
+							alive = false;
+					}
+					else if (objdata->data->name == 5) //Detects when the player has finished the level
+					{
+							App->scene->to_end = true;
+					}
+					//The new trajectory of the player is adjousted for the next collision check
 					CastCollider.x -= (originalvec.x - newvec.x);
 					CastCollider.y -= (originalvec.y - newvec.y);
 				}
