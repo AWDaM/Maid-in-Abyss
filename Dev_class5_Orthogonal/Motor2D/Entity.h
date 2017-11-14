@@ -36,6 +36,7 @@ public:
 	virtual void ChangeAnimation() {};
 	virtual void BecomeGrounded() {};
 	virtual void Restart() {};
+	virtual void LoadPushbacks() {};
 
 	//Applies the gravity (speed.y) and checks if the speed is out of the limits
 	fPoint SpeedBoundaries(fPoint originalvec, float dt);
