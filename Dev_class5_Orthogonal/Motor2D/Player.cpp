@@ -104,6 +104,7 @@ bool Player::PreUpdate()
 
 bool Player::Update(float dt)
 {
+	App->scene->test = position;
 	if (dt < 1)
 	{
 		FlipImage();
@@ -136,7 +137,7 @@ bool Player::Update(float dt)
 			else
 				speed.x = 0;
 
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && grounded)
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 			{
 				AddSFX(1, 0);
 				isJumping = true;
@@ -244,6 +245,7 @@ void Player::PlayerMovement(float dt)
 	/*position += speed*dt;*/
 	position.x += speed.x*dt*App->scene->timeScale;
 	position.y += speed.y*dt*App->scene->timeScale;
+	LOG("HEYLISTENHERE %f", speed.x);
 	
 }
 
