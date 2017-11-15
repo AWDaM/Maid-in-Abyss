@@ -32,7 +32,6 @@ public:
 	bool PostUpdate();
 
 	// Called each loop iteration
-	void Draw();
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
@@ -41,7 +40,7 @@ public:
 	void CleanUp();
 
 	//Decides if the sprite needs to be flipped
-	void FlipImage();
+
 
 	//When called, sets the corresponding bools and plays the sfx
 	void BecomeGrounded();
@@ -89,7 +88,7 @@ private:
 	bool isJumping = false;
 
 	bool canDash = false;
-	bool flip = false;
+
 	iPoint jumpForce;
 	iPoint			dashingSpeed;
 	int Dashtime;
@@ -100,13 +99,11 @@ private:
 	Animation		falling;
 	Animation		dashing;
 	j1Timer			dashtimer;
-	SDL_Texture*	Player_tex;
 	p2SString		jumpFX;
 	p2SString		deathFX;
 	p2SString		landFX;
 	p2SString		dashFX;
-	p2SString		folder;
-	p2SString		texture_path;
+
 
 };
 

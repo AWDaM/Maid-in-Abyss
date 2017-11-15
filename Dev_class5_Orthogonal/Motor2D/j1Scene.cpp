@@ -56,6 +56,9 @@ bool j1Scene::Start()
 		App->pathfinding->SetMap(w, h, data);
 
 	debug_tex = App->tex->Load("maps/Navigable.png");
+
+	App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { 650,1680 });
+
 	return true;
 
 }

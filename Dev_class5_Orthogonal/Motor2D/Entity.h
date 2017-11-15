@@ -5,7 +5,7 @@
 #include "p2Animation.h"
 #include "p2Log.h"
 #include "j1Map.h"
-
+#include "j1App.h"
 
 
 class Entity
@@ -21,6 +21,7 @@ public:
 	};
 
 public:
+	Entity();
 	Entity(entityType type);
 	~Entity();
 	virtual bool Awake(pugi::xml_node & config) { return true; };
@@ -29,7 +30,7 @@ public:
 	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
 	virtual bool Move() { return true; };
-	virtual void Draw() {};
+ void Draw();
 	virtual void CleanUp() {};
 	virtual void Save() const{};
 	virtual void Load() {};
@@ -54,12 +55,16 @@ public:
 	void AddSFX(int channel, int repeat, uint volume = 128);
 
 	void NormalizeAnimationSpeed(float dt);
+
+	void FlipImage();
+
+	void PositionCollider();
+
 private:
 
 public:
 	float animationSpeed = 1;
 	Animation* Current_Animation = nullptr;
-	SDL_Texture* texture = nullptr;
 	entityType type;
 	fPoint speed;
 	iPoint position;
@@ -67,9 +72,13 @@ public:
 	float gravity;
 	int direction_x = 1; //-1 if going left, 1 if going right
 	iPoint colOffset;
+	iPoint sightOffset;
 	SDL_Rect Collider;
+	SDL_Rect SightCollider;
 	bool alive = false;
 	bool grounded = false;
+	bool flip = false;
+	bool chasing_player = false;
 private:
 	
 };

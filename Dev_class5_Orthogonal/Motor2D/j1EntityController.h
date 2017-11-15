@@ -29,13 +29,16 @@ public:
 	bool Draw();
 	bool DebugDraw();
 
-	Entity* AddEntity(Entity::entityType type);
+	Entity* AddEntity(Entity::entityType type, iPoint position);
 	bool DeleteEntity();
+	void EnemyColliderCheck();
 private:
 
 	//------------Attributes-----------//
 public:
-
+	p2SString		folder;
+	p2SString		texture_path;
+	SDL_Texture* texture;
 private:
 	p2List<Entity*> Entities;
 

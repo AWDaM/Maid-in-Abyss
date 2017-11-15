@@ -1,7 +1,9 @@
-#include "j1App.h"
+
+#include "j1EntityController.h"
 #include "Entity.h"
 #include "p2Defs.h"
 #include "p2Log.h"
+#include "j1App.h"
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Input.h"
@@ -12,12 +14,24 @@
 #include "j1Window.h"
 
 
+Entity::Entity()
+{
+}
+
 Entity::Entity(entityType type) : type(type)
 {
 }
 
 Entity::~Entity()
 {
+}
+
+void Entity::Draw()
+{
+		if (flip)
+			App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
+		else
+			App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
 }
 
 fPoint Entity::SpeedBoundaries(fPoint originalvec, float dt)
@@ -84,7 +98,7 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 					//The new trajectory of the player is adjousted for the next collision check
 					CastCollider.x -= (originalvec.x - newvec.x);
 					CastCollider.y -= (originalvec.y - newvec.y);
-					LOG("Newvec x: %i y: %i", newvec.x, newvec.y);
+					//LOG("Newvec x: %i y: %i", newvec.x, newvec.y);
 
 				}
 			}
@@ -170,6 +184,10 @@ fPoint Entity::AvoidCollision(fPoint newvec, const SDL_Rect result, p2List_item<
 	{
 		newvec.y = 0;
 	}
+	if (newvec.x < 1 && newvec.x > -1)
+	{
+		newvec.x = 0;
+	}
 
 	return newvec;
 }
@@ -192,4 +210,32 @@ void Entity::AddSFX(int channel, int repeat, uint volume)
 void Entity::NormalizeAnimationSpeed(float dt)
 {
 	Current_Animation->speed = animationSpeed*dt*App->scene->timeScale;
+}
+
+void Entity::FlipImage()
+{
+		if (speed.x < 0)
+			flip = true;
+		else if (speed.x > 0)
+			flip = false;
+}
+
+void Entity::PositionCollider()
+{
+	Collider.x = position.x + colOffset.x;
+	Collider.y = position.y + colOffset.y;
+	if (type != PLAYER)
+	{
+		if (direction_x == 1)
+		{
+			SightCollider.x = position.x - sightOffset.x;
+			SightCollider.y = position.y - sightOffset.y;
+		}
+		else
+		{
+			SightCollider.x = position.x - SightCollider.w + sightOffset.x;
+			SightCollider.y = position.y - sightOffset.y;
+		}
+		
+	}
 }

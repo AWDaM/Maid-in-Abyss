@@ -8,6 +8,7 @@
 #include "j1Input.h"
 #include "j1SceneChange.h"
 #include "j1Scene.h"
+#include "j1EntityController.h"
 
 Player::Player() : Entity(entityType::PLAYER)
 {
@@ -23,8 +24,7 @@ bool Player::Awake(pugi::xml_node & config)
 	bool ret = true;
 	config = config.child("player");
 
-	folder.create(config.child("folder").child_value());
-	texture_path = config.child("sprite_sheet").attribute("source").as_string();
+	
 
 	jumpFX = config.child("jumpFX").attribute("source").as_string();
 	deathFX = config.child("deathFX").attribute("source").as_string();
@@ -93,7 +93,7 @@ bool Player::Start()
 			}
 		}
 	}
-	Player_tex = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
+
 	return true;
 }
 
@@ -163,6 +163,7 @@ bool Player::Update(float dt)
 
 		ChangeAnimation();
 		PlayerMovement(meh);
+		PositionCollider();
 	}
 
 	return true;
@@ -181,13 +182,7 @@ bool Player::PostUpdate()
 	return true;
 }
 
-void Player::Draw()
-{
-	if (flip)
-		App->render->Blit(Player_tex, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
-	else
-		App->render->Blit(Player_tex, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
-}
+
 
 bool Player::Load(pugi::xml_node& data)
 {
@@ -249,8 +244,7 @@ void Player::PlayerMovement(float dt)
 	/*position += speed*dt;*/
 	position.x += speed.x*dt*App->scene->timeScale;
 	position.y += speed.y*dt*App->scene->timeScale;
-	Collider.x = position.x + colOffset.x;
-	Collider.y = position.y + colOffset.y;
+	
 }
 
 void Player::Restart()
@@ -317,16 +311,10 @@ void Player::LoadPushbacks()
 void Player::CleanUp()
 {
 	LOG("Deleting player");
-	App->tex->UnLoad(Player_tex);
+
 }
 
-void Player::FlipImage()
-{
-	if (speed.x < 0)
-		flip = true;
-	else if (speed.x > 0)
-		flip = false;
-}
+
 
 void Player::BecomeGrounded()
 {
