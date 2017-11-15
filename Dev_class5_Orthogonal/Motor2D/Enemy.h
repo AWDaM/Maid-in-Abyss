@@ -10,6 +10,6 @@ public:
 	~Enemy();
 
 public:
-	Animation* Current_Animation = nullptr;
+
 };
 

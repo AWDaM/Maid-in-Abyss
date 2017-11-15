@@ -162,7 +162,7 @@ Entity* j1EntityController::AddEntity(Entity::entityType type, iPoint position)
 	}
 		//case Entity::entityType::LAND_ENEMY: tmp = new Player();
 	
-	if (tmp)
+if (tmp)
 		Entities.add(tmp);
 
 	return tmp;

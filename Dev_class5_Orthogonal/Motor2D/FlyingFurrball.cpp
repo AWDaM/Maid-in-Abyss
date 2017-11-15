@@ -11,12 +11,17 @@ FlyingFurrball::FlyingFurrball(iPoint position) : Enemy(entityType::FLYING_ENEMY
 {
 	type = FLYING_ENEMY;
 	LoadPushbacks();
-	Current_Animation = &moving;
+	Current_Animation = &idle;
 }
 
 
 FlyingFurrball::~FlyingFurrball()
 {
+}
+
+bool FlyingFurrball::Start()
+{
+	return true;
 }
 
 void FlyingFurrball::LoadPushbacks()

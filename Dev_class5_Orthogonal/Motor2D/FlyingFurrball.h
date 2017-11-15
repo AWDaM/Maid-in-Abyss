@@ -7,6 +7,8 @@ public:
 	FlyingFurrball(iPoint position);
 	~FlyingFurrball();
 
+	bool Start();
+
 private:
 
 	void LoadPushbacks();
