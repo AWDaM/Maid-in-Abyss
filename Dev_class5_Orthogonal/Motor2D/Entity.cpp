@@ -1,4 +1,5 @@
 
+#include "j1EntityController.h"
 #include "Entity.h"
 #include "p2Defs.h"
 #include "p2Log.h"
@@ -23,6 +24,14 @@ Entity::Entity(entityType type) : type(type)
 
 Entity::~Entity()
 {
+}
+
+void Entity::Draw()
+{
+		if (flip)
+			App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
+		else
+			App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
 }
 
 fPoint Entity::SpeedBoundaries(fPoint originalvec, float dt)
@@ -197,4 +206,12 @@ void Entity::AddSFX(int channel, int repeat, uint volume)
 void Entity::NormalizeAnimationSpeed(float dt)
 {
 	Current_Animation->speed = animationSpeed*dt*App->scene->timeScale;
+}
+
+void Entity::FlipImage()
+{
+		if (speed.x < 0)
+			flip = true;
+		else if (speed.x > 0)
+			flip = false;
 }

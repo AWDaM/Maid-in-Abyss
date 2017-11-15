@@ -30,7 +30,7 @@ public:
 	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
 	virtual bool Move() { return true; };
-	virtual void Draw() {};
+ void Draw();
 	virtual void CleanUp() {};
 	virtual void Save() const{};
 	virtual void Load() {};
@@ -55,12 +55,13 @@ public:
 	void AddSFX(int channel, int repeat, uint volume = 128);
 
 	void NormalizeAnimationSpeed(float dt);
+
+	void FlipImage();
 private:
 
 public:
 	float animationSpeed = 1;
 	Animation* Current_Animation = nullptr;
-	SDL_Texture* texture = nullptr;
 	entityType type;
 	fPoint speed;
 	iPoint position;
@@ -71,6 +72,7 @@ public:
 	SDL_Rect Collider;
 	bool alive = false;
 	bool grounded = false;
+	bool flip = false;
 private:
 	
 };

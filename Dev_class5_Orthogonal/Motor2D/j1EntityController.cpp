@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "FlyingFurrball.h"
 #include "PugiXml/src/pugixml.hpp"
+#include "j1Textures.h"
 
 j1EntityController::j1EntityController()
 {
@@ -20,6 +21,7 @@ bool j1EntityController::Awake(pugi::xml_node &config)
 	bool ret = false;
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
+	texture = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
 	AddEntity(Entity::entityType::PLAYER, { 0,0 });
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
