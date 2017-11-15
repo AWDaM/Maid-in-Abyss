@@ -31,6 +31,7 @@ public:
 
 	Entity* AddEntity(Entity::entityType type, iPoint position);
 	bool DeleteEntity();
+	void EnemyColliderCheck();
 private:
 
 	//------------Attributes-----------//

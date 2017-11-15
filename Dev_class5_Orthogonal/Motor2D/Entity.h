@@ -57,6 +57,9 @@ public:
 	void NormalizeAnimationSpeed(float dt);
 
 	void FlipImage();
+
+	void PositionCollider();
+
 private:
 
 public:
@@ -69,10 +72,13 @@ public:
 	float gravity;
 	int direction_x = 1; //-1 if going left, 1 if going right
 	iPoint colOffset;
+	iPoint sightOffset;
 	SDL_Rect Collider;
+	SDL_Rect SightCollider;
 	bool alive = false;
 	bool grounded = false;
 	bool flip = false;
+	bool chasing_player = false;
 private:
 	
 };

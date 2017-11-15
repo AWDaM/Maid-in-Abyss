@@ -23,6 +23,11 @@ Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 	Collider.w = 50;
 	Collider.x = pos.x;
 	Collider.y = pos.y;
+	sightOffset = { 400,300 };
+	SightCollider.x = pos.x - sightOffset.x;
+	SightCollider.y = pos.y - sightOffset.y;
+	SightCollider.w = 1000;
+	SightCollider.h = 650;
 }
 
 

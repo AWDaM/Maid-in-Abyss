@@ -7,6 +7,7 @@ public:
 	FlyingFurrball(iPoint position);
 	~FlyingFurrball();
 
+	bool Update(float dt);
 	bool Start();
 
 private:

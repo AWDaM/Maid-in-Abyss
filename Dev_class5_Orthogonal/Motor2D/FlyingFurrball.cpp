@@ -19,6 +19,13 @@ FlyingFurrball::~FlyingFurrball()
 {
 }
 
+bool FlyingFurrball::Update(float dt)
+{
+	direction_x = 1;
+	PositionCollider();
+	return true;
+}
+
 bool FlyingFurrball::Start()
 {
 	return true;

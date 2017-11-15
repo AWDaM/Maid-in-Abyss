@@ -163,6 +163,7 @@ bool Player::Update(float dt)
 
 		ChangeAnimation();
 		PlayerMovement(meh);
+		PositionCollider();
 	}
 
 	return true;
@@ -243,8 +244,7 @@ void Player::PlayerMovement(float dt)
 	/*position += speed*dt;*/
 	position.x += speed.x*dt*App->scene->timeScale;
 	position.y += speed.y*dt*App->scene->timeScale;
-	Collider.x = position.x + colOffset.x;
-	Collider.y = position.y + colOffset.y;
+	
 }
 
 void Player::Restart()

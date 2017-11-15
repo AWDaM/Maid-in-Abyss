@@ -98,7 +98,7 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 					//The new trajectory of the player is adjousted for the next collision check
 					CastCollider.x -= (originalvec.x - newvec.x);
 					CastCollider.y -= (originalvec.y - newvec.y);
-					LOG("Newvec x: %i y: %i", newvec.x, newvec.y);
+					//LOG("Newvec x: %i y: %i", newvec.x, newvec.y);
 
 				}
 			}
@@ -218,4 +218,24 @@ void Entity::FlipImage()
 			flip = true;
 		else if (speed.x > 0)
 			flip = false;
+}
+
+void Entity::PositionCollider()
+{
+	Collider.x = position.x + colOffset.x;
+	Collider.y = position.y + colOffset.y;
+	if (type != PLAYER)
+	{
+		if (direction_x == 1)
+		{
+			SightCollider.x = position.x - sightOffset.x;
+			SightCollider.y = position.y - sightOffset.y;
+		}
+		else
+		{
+			SightCollider.x = position.x - SightCollider.w + sightOffset.x;
+			SightCollider.y = position.y - sightOffset.y;
+		}
+		
+	}
 }
