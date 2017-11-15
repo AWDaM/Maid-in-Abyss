@@ -184,6 +184,10 @@ fPoint Entity::AvoidCollision(fPoint newvec, const SDL_Rect result, p2List_item<
 	{
 		newvec.y = 0;
 	}
+	if (newvec.x < 1 && newvec.x > -1)
+	{
+		newvec.x = 0;
+	}
 
 	return newvec;
 }
