@@ -48,8 +48,10 @@ bool j1EntityController::Start()
 
 bool j1EntityController::Update(float dt)
 {
-	if (App->map->debug)DebugDraw();
-
+	if (App->map->debug)
+	{
+		DebugDraw();
+	}
 	EnemyColliderCheck();
 	bool ret = false;
 	p2List_item<Entity*>* tmp = Entities.start;
@@ -144,7 +146,7 @@ bool j1EntityController::DebugDraw()
 	{
 		col.h = tmp->data->Collider.h, col.w = tmp->data->Collider.w, col.x = tmp->data->Collider.x, col.y = tmp->data->Collider.y;
 		App->render->DrawQuad(col, 255, 0, 0, 50);
-		if (tmp->data->type = Entity::entityType::FLYING_ENEMY)
+		if (tmp->data->type == Entity::entityType::FLYING_ENEMY)
 		{
 			col2.h = tmp->data->SightCollider.h, col2.w = tmp->data->SightCollider.w, col2.x = tmp->data->SightCollider.x, col2.y = tmp->data->SightCollider.y;
 			App->render->DrawQuad(col2, 255, 0, 0, 50);
@@ -183,8 +185,8 @@ bool j1EntityController::DeleteEntity()
 
 void j1EntityController::EnemyColliderCheck()
 {
-	p2List_item<Entity*>* player;
-	for (p2List_item<Entity*>* i = Entities.start; i; i = i->next)
+	p2List_item<Entity*>* player =  nullptr;
+	for (p2List_item<Entity*>* i = Entities.start; i != nullptr; i = i->next)
 	{
 		if (i->data->type == Entity::entityType::PLAYER)
 		{
@@ -200,6 +202,10 @@ void j1EntityController::EnemyColliderCheck()
 			if (SDL_HasIntersection(&tmp->data->SightCollider, &player->data->Collider))
 			{
 				tmp->data->chasing_player = true;
+			}
+			else
+			{
+				tmp->data->chasing_player = false;
 			}
 			if (SDL_HasIntersection(&tmp->data->Collider, &player->data->Collider))
 			{

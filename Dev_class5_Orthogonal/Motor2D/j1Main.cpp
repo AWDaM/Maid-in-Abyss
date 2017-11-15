@@ -35,6 +35,7 @@ int main(int argc, char* args[])
 
 	while(state != EXIT)
 	{
+		BROFILER_FRAME("MaidInAbyss");
 		switch(state)
 		{
 

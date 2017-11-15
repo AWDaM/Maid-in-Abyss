@@ -1,6 +1,6 @@
 #include <iostream> 
 #include <sstream>
-
+#include"Brofiler/Brofiler.h"
 #include "p2Defs.h"
 #include "p2Log.h"
 
@@ -75,6 +75,7 @@ void j1App::AddModule(j1Module* module)
 // Called before render is available
 bool j1App::Awake()
 {
+	BROFILER_CATEGORY("Awake", Profiler::Color::Fuchsia);
 	PERF_START(ptimer);
 
 	pugi::xml_document	config_file;
@@ -142,6 +143,7 @@ bool j1App::Start()
 // Called each loop iteration
 bool j1App::Update()
 {
+	BROFILER_CATEGORY("Update", Profiler::Color::Fuchsia);
 	bool ret = true;
 	PrepareUpdate();
 
@@ -183,7 +185,7 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 
 	DeltaTime = frame_time.ReadSec();
-	LOG("DELTA TIME: %f", DeltaTime);
+//	LOG("DELTA TIME: %f", DeltaTime);
 	frame_time.Start();
 	ptimer.Start();
 }
@@ -212,7 +214,7 @@ void j1App::FinishUpdate()
 	static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
-	//App->win->SetTitle(title);
+	App->win->SetTitle(title);
 
 	if (framerate > 0 && last_frame_ms < framerate)
 	{
@@ -222,13 +224,14 @@ void j1App::FinishUpdate()
 		//LOG("We wanted to delay: %i. We had to wait: %f", delay, true_delay);
 		j1PerfTimer t;
 		SDL_Delay(framerate - last_frame_ms);
-		LOG("We waited for %d milliseconds and got back in %f", framerate - last_frame_ms, t.ReadMs());
+		//LOG("We waited for %d milliseconds and got back in %f", framerate - last_frame_ms, t.ReadMs());
 	}
 }
 
 // Call modules before each loop iteration
 bool j1App::PreUpdate()
 {
+	BROFILER_CATEGORY("PreUpdate", Profiler::Color::Blue);
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	item = modules.start;
@@ -251,6 +254,7 @@ bool j1App::PreUpdate()
 // Call modules on each loop iteration
 bool j1App::DoUpdate()
 {
+	BROFILER_CATEGORY("DoUpdate", Profiler::Color::LightBlue);
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	item = modules.start;
@@ -273,6 +277,7 @@ bool j1App::DoUpdate()
 // Call modules after each loop iteration
 bool j1App::PostUpdate()
 {
+	BROFILER_CATEGORY("PostUpdate", Profiler::Color::Magenta);
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	j1Module* pModule = NULL;

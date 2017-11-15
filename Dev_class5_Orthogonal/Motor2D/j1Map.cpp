@@ -46,8 +46,7 @@ void j1Map::Draw()
 
 void j1Map::DebugDraw()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		debug = !debug;
+
 
 	if (debug)
 	{

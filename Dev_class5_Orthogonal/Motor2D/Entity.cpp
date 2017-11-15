@@ -91,7 +91,7 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 					{
 							alive = false;
 					}
-					else if (objdata->data->name == 5) //Detects when the player has finished the level
+					else if (objdata->data->name == 5 && App->scene->to_end == false) //Detects when the player has finished the level
 					{
 							App->scene->to_end = true;
 					}

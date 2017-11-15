@@ -48,6 +48,10 @@ bool Player::Awake(pugi::xml_node & config)
 
 	animationSpeed = 5;
 
+	SightCollider.x = 0;
+	SightCollider.y = 0;
+	SightCollider.w = 1;
+	SightCollider.h = 1;
 	return ret;
 }
 
@@ -136,6 +140,7 @@ bool Player::Update(float dt)
 			}
 			else
 				speed.x = 0;
+
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 			{
