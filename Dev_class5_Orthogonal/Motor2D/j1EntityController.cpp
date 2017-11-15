@@ -44,6 +44,7 @@ bool j1EntityController::Start()
 
 bool j1EntityController::Update(float dt)
 {
+	if (App->map->debug)DebugDraw();
 
 	bool ret = false;
 	p2List_item<Entity*>* tmp = Entities.start;
@@ -52,7 +53,7 @@ bool j1EntityController::Update(float dt)
 		ret = tmp->data->Update(dt);
 		tmp = tmp->next;
 	}
-	if (App->map->debug)DebugDraw();
+	//if (App->map->debug)DebugDraw();
 
 	return ret;
 }
