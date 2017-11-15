@@ -25,11 +25,7 @@ Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 	Collider.y = pos.y;
 }
 
-void Enemy::Draw()
-{
 
-	App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
-}
 
 
 Enemy::~Enemy()
