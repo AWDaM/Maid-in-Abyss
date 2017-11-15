@@ -93,8 +93,7 @@ bool Player::Start()
 			}
 		}
 	}
-	//Player_tex = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
-	Player_tex = App->tex->Load(PATH(App->entitycontroller->folder.GetString(), App->entitycontroller->texture_path.GetString()));
+
 	return true;
 }
 
@@ -182,13 +181,7 @@ bool Player::PostUpdate()
 	return true;
 }
 
-void Player::Draw()
-{
-	if (flip)
-		App->render->Blit(Player_tex, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
-	else
-		App->render->Blit(Player_tex, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
-}
+
 
 bool Player::Load(pugi::xml_node& data)
 {
@@ -318,16 +311,10 @@ void Player::LoadPushbacks()
 void Player::CleanUp()
 {
 	LOG("Deleting player");
-	App->tex->UnLoad(Player_tex);
+
 }
 
-void Player::FlipImage()
-{
-	if (speed.x < 0)
-		flip = true;
-	else if (speed.x > 0)
-		flip = false;
-}
+
 
 void Player::BecomeGrounded()
 {

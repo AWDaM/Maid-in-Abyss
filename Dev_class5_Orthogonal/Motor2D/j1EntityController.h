@@ -37,6 +37,7 @@ private:
 public:
 	p2SString		folder;
 	p2SString		texture_path;
+	SDL_Texture* texture;
 private:
 	p2List<Entity*> Entities;
 
