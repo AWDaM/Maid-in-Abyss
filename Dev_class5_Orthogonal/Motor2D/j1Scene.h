@@ -45,6 +45,7 @@ public:
 
 	void SlowMo();
 public:
+	SDL_Texture* debug_tex;
 
 	float timeScale = 1;
 	bool slowing = false;

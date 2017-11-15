@@ -18,6 +18,7 @@ class j1Scene;
 class j1Map;
 class j1MapChange;
 class j1EntityController;
+class j1PathFinding;
 
 class j1App
 {
@@ -86,10 +87,10 @@ public:
 	j1Textures*			tex;
 	j1Audio*			audio;
 	j1Scene*			scene;
-//	j1Player*			player;
 	j1Map*				map;
 	j1MapChange*		scenechange;
 	j1EntityController* entitycontroller;
+	j1PathFinding*		pathfinding;
 
 private:
 
@@ -112,9 +113,8 @@ private:
 	j1Timer				last_sec_frame_time;
 	uint32				last_sec_frame_count = 0;
 	uint32				prev_last_sec_frame_count = 0;
-	//int					capped_ms = -1;
 
-	uint16_t				framerate;
+	uint16_t			framerate;
 
 	float DeltaTime;
 };

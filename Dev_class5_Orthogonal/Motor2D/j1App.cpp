@@ -15,23 +15,23 @@
 #include "j1App.h"
 //#include "j1Player.h"
 #include "j1EntityController.h"
+#include "j1Pathfinding.h"
 
 // Constructor
 j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 {
 	PERF_START(ptimer);
 
-	input = new j1Input();
-	win = new j1Window();
-	render = new j1Render();
-	tex = new j1Textures();
-	audio = new j1Audio();
-	scene = new j1Scene();
-
-	//player = new j1Player();
-	map = new j1Map();
-	scenechange = new j1MapChange();
-	entitycontroller = new j1EntityController();
+	input				= new j1Input();
+	win					= new j1Window();
+	render				= new j1Render();
+	tex					= new j1Textures();
+	audio				= new j1Audio();
+	scene				= new j1Scene();
+	map					= new j1Map();
+	scenechange			= new j1MapChange();
+	entitycontroller	= new j1EntityController();
+	pathfinding			= new j1PathFinding();
 	
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -41,9 +41,9 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
-	//AddModule(player);
 	AddModule(scenechange);
 	AddModule(entitycontroller);
+	AddModule(pathfinding);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -212,7 +212,7 @@ void j1App::FinishUpdate()
 	static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
-	App->win->SetTitle(title);
+	//App->win->SetTitle(title);
 
 	if (framerate > 0 && last_frame_ms < framerate)
 	{

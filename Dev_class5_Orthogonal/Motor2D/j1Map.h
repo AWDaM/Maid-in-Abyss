@@ -8,6 +8,32 @@
 
 struct SDL_Texture;
 // ----------------------------------------------------
+struct Properties
+{
+	struct Property
+	{
+		p2SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	int Get(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
 struct MapLayer
 {
 	p2SString name;
@@ -15,6 +41,7 @@ struct MapLayer
 	uint height = 0;
 	uint* data = nullptr;
 	uint size = 0;
+	Properties	properties;
 	float parallaxSpeed;
 
 	~MapLayer();
@@ -108,10 +135,12 @@ public:
 
 	//Method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
-	
+
+	iPoint j1Map::WorldToMap(int x, int y) const;
 	//Unloads the current map and loads the map specified with the corresponding music. 
 	bool SwitchMaps(p2SString* new_map);
 
+	bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 private:
 
 	bool LoadMap();
@@ -119,7 +148,9 @@ private:
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadObjectLayers(pugi::xml_node& node, ObjectsGroup* group);
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
+	TileSet* GetTilesetFromTileId(int id) const;
 
 //-------------Variables-----------------
 public:

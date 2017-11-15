@@ -10,6 +10,7 @@
 #include "j1Player.h"
 #include "j1Scene.h"
 #include "j1SceneChange.h"
+#include "j1Pathfinding.h"
 #include "j1EntityController.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -48,6 +49,13 @@ bool j1Scene::Start()
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
 	App->audio->PlayMusic(App->map->data.musicFile.GetString());
 	LOG("Boi: %s", map_names.start->data->GetString());
+
+	int w, h;
+	uchar* data = NULL;
+	if (App->map->CreateWalkabilityMap(w, h, &data))
+		App->pathfinding->SetMap(w, h, data);
+
+	debug_tex = App->tex->Load("maps/Navigable.png");
 	return true;
 
 }
@@ -55,6 +63,28 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	static iPoint origin;
+	static bool origin_selected = false;
+
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	{
+		if (origin_selected == true)
+		{
+			App->pathfinding->CreatePath(origin, p);
+			origin_selected = false;
+		}
+		else
+		{
+			origin = p;
+			origin_selected = true;
+		}
+	}
+
 	return true;
 }
 
@@ -100,9 +130,27 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 	App->entitycontroller->Draw();
 
-	p2SString title("Maid in Abyss");
+	
 
-	//App->win->SetTitle(title.GetString());
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	iPoint p = App->render->ScreenToWorld(x, y);
+	p = App->map->WorldToMap(p.x, p.y);
+	p2SString title("%i %i", p.x, p.y);
+
+	p = App->map->MapToWorld(p.x, p.y);
+
+	App->render->Blit(debug_tex, p.x, p.y);
+
+	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+
+	for (uint i = 0; i < path->Count(); ++i)
+	{
+		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+		App->render->Blit(debug_tex, pos.x, pos.y);
+	}
+
+	App->win->SetTitle(title.GetString());
 	return true;
 }
 
