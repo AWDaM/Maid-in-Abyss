@@ -153,7 +153,7 @@ Entity* j1EntityController::AddEntity(Entity::entityType type, iPoint position)
 		tmp = new Player();
 		break;
 	case Entity::entityType::FLYING_ENEMY:
-		tmp = new FlyingFurrball();
+		tmp = new FlyingFurrball(position);
 		break;
 	}
 		//case Entity::entityType::LAND_ENEMY: tmp = new Player();
