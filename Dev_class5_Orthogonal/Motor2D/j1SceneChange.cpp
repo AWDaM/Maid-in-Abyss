@@ -16,7 +16,7 @@
 j1MapChange::j1MapChange()
 {
 	//TODO: screen en funcio de config
-	
+	name.create("mapchange");
 }
 
 j1MapChange::~j1MapChange()

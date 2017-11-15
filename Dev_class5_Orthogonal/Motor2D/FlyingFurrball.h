@@ -13,6 +13,8 @@ public:
 private:
 
 	void LoadPushbacks();
+	void CleanUp();
+public:
 
 private:
 	Animation idle;

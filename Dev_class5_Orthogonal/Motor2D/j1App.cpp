@@ -183,7 +183,7 @@ void j1App::PrepareUpdate()
 	last_sec_frame_count++;
 
 	DeltaTime = frame_time.ReadSec();
-	LOG("DELTA TIME: %f", DeltaTime);
+//	LOG("DELTA TIME: %f", DeltaTime);
 	frame_time.Start();
 	ptimer.Start();
 }
@@ -212,7 +212,7 @@ void j1App::FinishUpdate()
 	static char title[256];
 	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
 		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
-	//App->win->SetTitle(title);
+	App->win->SetTitle(title);
 
 	if (framerate > 0 && last_frame_ms < framerate)
 	{
@@ -222,7 +222,7 @@ void j1App::FinishUpdate()
 		//LOG("We wanted to delay: %i. We had to wait: %f", delay, true_delay);
 		j1PerfTimer t;
 		SDL_Delay(framerate - last_frame_ms);
-		LOG("We waited for %d milliseconds and got back in %f", framerate - last_frame_ms, t.ReadMs());
+		//LOG("We waited for %d milliseconds and got back in %f", framerate - last_frame_ms, t.ReadMs());
 	}
 }
 

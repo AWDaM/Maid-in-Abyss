@@ -57,7 +57,7 @@ bool j1Scene::Start()
 
 	debug_tex = App->tex->Load("maps/Navigable.png");
 
-	App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { 650,1680 });
+	App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { 850,1480 });
 
 	return true;
 
@@ -109,6 +109,9 @@ bool j1Scene::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->SaveGame();
 
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		App->map->debug = !App->map->debug;
+
 	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
 		App->audio->LowerMusicVolume();
 
@@ -135,7 +138,7 @@ bool j1Scene::Update(float dt)
 
 	
 
-	int x, y;
+	/*int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
@@ -153,7 +156,7 @@ bool j1Scene::Update(float dt)
 		App->render->Blit(debug_tex, pos.x, pos.y);
 	}
 
-	App->win->SetTitle(title.GetString());
+	App->win->SetTitle(title.GetString());*/
 	return true;
 }
 

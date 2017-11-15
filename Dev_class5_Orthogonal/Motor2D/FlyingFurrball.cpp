@@ -21,7 +21,14 @@ FlyingFurrball::~FlyingFurrball()
 
 bool FlyingFurrball::Update(float dt)
 {
-	direction_x = 1;
+	if (chasing_player)
+	{
+		Current_Animation = &moving;
+	}
+	else
+	{
+		Current_Animation = &idle;
+	}
 	PositionCollider();
 	return true;
 }
@@ -30,6 +37,8 @@ bool FlyingFurrball::Start()
 {
 	return true;
 }
+
+
 
 void FlyingFurrball::LoadPushbacks()
 {
@@ -43,4 +52,8 @@ void FlyingFurrball::LoadPushbacks()
 	moving.PushBack({ 796, 633,53,53 });
 	moving.loop = true;
 	moving.speed = 0.3;
+}
+
+void FlyingFurrball::CleanUp()
+{
 }
