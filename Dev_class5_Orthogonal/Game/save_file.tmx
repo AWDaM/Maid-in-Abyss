@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene>
+		<currentMap num="0" />
+	</scene>
+	<mapchange />
+	<entitycontroller>
+		<player>
+			<position x="577" y="1880" />
+			<speed x="0" y="0" />
+			<collider width="32" height="64" x="588" y="1888" />
+			<grounded value="true" />
+			<dashing value="false" />
+			<currentDashtime value="0" />
+			<FlyingFurrball>
+				<position x="631" y="1762" />
+			</FlyingFurrball>
+		</player>
+	</entitycontroller>
+	<pathfinding />
+	<renderer>
+		<camera x="236" y="1280" />
+	</renderer>
+</game_state>

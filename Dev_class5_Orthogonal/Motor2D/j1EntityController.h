@@ -23,8 +23,8 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
-	bool Save();
-	bool Load();
+	bool Save(pugi::xml_node&) const;
+	bool Load(pugi::xml_node&);
 	bool Restart();
 	bool Draw();
 	bool DebugDraw();

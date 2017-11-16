@@ -90,25 +90,34 @@ bool j1EntityController::CleanUp()
 	return ret;
 }
 
-bool j1EntityController::Save()
+bool j1EntityController::Save(pugi::xml_node& file) const
 {
 	bool ret = true;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		tmp->data->Save();
+		tmp->data->Save( file);
 		tmp = tmp->next;
 	}
 	return ret;
 }
 
-bool j1EntityController::Load()
+bool j1EntityController::Load(pugi::xml_node& file)
 {
 	bool ret = true;
 	p2List_item<Entity*>* tmp = Entities.start;
+	pugi::xml_node furrballFile = file;
 	while (tmp != nullptr)
 	{
-		tmp->data->Load();
+		if (tmp->data->type == Entity::entityType::PLAYER)
+		{
+			tmp->data->Load(file.child("player"));
+		}
+		else if (tmp->data->type == Entity::entityType::FLYING_ENEMY)
+		{
+			furrballFile = furrballFile.next_sibling("flyingfurball");
+			tmp->data->Load(furrballFile);
+		}
 		tmp = tmp->next;
 	}
 	return ret;

@@ -32,8 +32,8 @@ public:
 	virtual bool Move() { return true; };
  void Draw();
 	virtual void CleanUp() {};
-	virtual void Save() const{};
-	virtual void Load() {};
+	virtual void Save(pugi::xml_node& file) const{};
+	virtual void Load(pugi::xml_node& file) {};
 	virtual void ChangeAnimation() {};
 	virtual void BecomeGrounded() {};
 	virtual void Restart() {};

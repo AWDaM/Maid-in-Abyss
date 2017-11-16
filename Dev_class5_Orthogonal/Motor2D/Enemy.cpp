@@ -57,3 +57,17 @@ bool Enemy::Move()
 
 	return true;
 }
+
+void Enemy::Save(pugi::xml_node &data) const
+{
+	
+	data = data.append_child("FlyingFurrball");
+	data.append_child("position").append_attribute("x") = position.x;
+	data.child("position").append_attribute("y") = position.y;
+}
+
+void Enemy::Load(pugi::xml_node &data)
+{
+	position.x = data.child("position").attribute("x").as_int();
+	position.y = data.child("position").attribute("y").as_int();
+}
