@@ -68,7 +68,6 @@ bool j1Scene::PreUpdate()
 {
 
 
-	test = App->render->ScreenToWorld(test.x, test.y);
 	test = App->map->WorldToMap(test.x, test.y);
 
 
@@ -112,8 +111,8 @@ bool j1Scene::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		slowing = true;
 
-	else if ( App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-		App->pathfinding->CreatePath({ test.x + 20, test.y + 5}, test);
+	else if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+		App->pathfinding->CreatePath({test.x + 20, test.y + 5}, { test.x, test.y });
 
 	//if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
 		//App->scenechange->ChangeScene(map_names[currentMap], 1.0f);
