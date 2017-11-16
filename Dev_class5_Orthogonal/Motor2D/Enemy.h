@@ -21,7 +21,7 @@ public:
 	Entity* target = nullptr;
 	iPoint currentPathtile;
 	int pathIndex;
-
+	iPoint speed2;
 	
 private:
 

@@ -45,7 +45,6 @@ public:
 	uchar GetTileAt(const iPoint& pos) const;
 private:
 public:
-	p2List<p2DynArray<iPoint>> paths;
 private:
 
 	// size of the map

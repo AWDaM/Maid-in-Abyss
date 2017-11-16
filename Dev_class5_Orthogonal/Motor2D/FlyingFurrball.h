@@ -9,7 +9,7 @@ public:
 
 	bool Update(float dt);
 	bool Start();
-
+	bool Move();
 private:
 
 	void LoadPushbacks();

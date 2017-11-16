@@ -167,8 +167,9 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 {
+	last_path.Clear();
 	int ret = -1;
-	if (IsWalkable(origin) || IsWalkable(destination))
+	if (IsWalkable(origin) && IsWalkable(destination))
 	{
 		PathList open;
 		PathList closed;
@@ -194,7 +195,6 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 				last_path.PushBack(current.pos);
 				last_path.Flip();
-				paths.add(last_path);
 				break;
 			}
 

@@ -75,13 +75,13 @@ public:
 		return(*this);
 	}
 
-	//const p2Point& operator *=(const int &v)
-	//{
-	//	x *= v;
-	//	y *= v;
+	const p2Point& operator *=(const int &v)
+	{
+		x *= v;
+		y *= v;
 
-	//	return(*this);
-	//}
+		return(*this);
+	}
 
 	bool operator ==(const p2Point& v) const
 	{
@@ -130,6 +130,14 @@ public:
 
 		x = temp_x;
 		y = temp_y;
+	}
+
+	//Normalize
+	void Normalize()
+	{
+		float _module = GetModule();
+		x = (x /(TYPE) _module);
+		y = (y / (TYPE)_module);
 	}
 	// Distances ---------------------------------------------
 	TYPE DistanceTo(const p2Point& v) const
