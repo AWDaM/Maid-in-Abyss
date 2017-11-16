@@ -50,6 +50,10 @@ struct MapLayer
 	{
 		return x + y*width;
 	}
+	inline uint GetID(uint x, uint y) const
+	{
+		return data[(y*width) + x];
+	}
 };
 
 struct ObjectsData
