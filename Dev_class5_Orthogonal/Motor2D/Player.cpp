@@ -250,7 +250,7 @@ void Player::PlayerMovement(float dt)
 	/*position += speed*dt;*/
 	position.x += speed.x*dt*App->scene->timeScale;
 	position.y += speed.y*dt*App->scene->timeScale;
-	LOG("HEYLISTENHERE %f", speed.x);
+	//LOG("HEYLISTENHERE %f", speed.x);
 	
 }
 
