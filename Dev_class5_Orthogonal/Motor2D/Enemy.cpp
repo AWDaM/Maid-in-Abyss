@@ -5,7 +5,7 @@
 #include "j1Render.h"
 
 
-Enemy::Enemy(Entity::entityType type)
+Enemy::Enemy(Entity::entityType type) : Entity(type)
 {
 }
 

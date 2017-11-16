@@ -113,7 +113,7 @@ bool j1Scene::Update(float dt)
 		slowing = true;
 
 	else if ( App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-		App->pathfinding->CreatePath({ test.x + 20, test.y }, test);
+		App->pathfinding->CreatePath({ test.x + 20, test.y + 5}, test);
 
 	//if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
 		//App->scenechange->ChangeScene(map_names[currentMap], 1.0f);
@@ -127,7 +127,7 @@ bool j1Scene::Update(float dt)
 
 	
 
-	/*int x, y;
+	int x, y;
 	App->input->GetMousePosition(x, y);
 	iPoint p = App->render->ScreenToWorld(x, y);
 	p = App->map->WorldToMap(p.x, p.y);
@@ -142,10 +142,10 @@ bool j1Scene::Update(float dt)
 	for (uint i = 0; i < path->Count(); ++i)
 	{
 		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		App->render->Blit(debug_tex, pos.x, pos.y,0,SDL_FLIP_NONE,-1);
+		App->render->Blit(debug_tex, pos.x, pos.y, 0, SDL_FLIP_NONE, 0);
 	}
 
-	App->win->SetTitle(title.GetString());*/
+	App->win->SetTitle(title.GetString());
 	return true;
 }
 
