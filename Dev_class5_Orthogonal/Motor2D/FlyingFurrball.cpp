@@ -30,7 +30,8 @@ bool FlyingFurrball::Update(float dt)
 	{ 
 		DoPathfinding = true;
 		accumulated_time = 0.0f;
-	}*/
+	}*/
+
 	if (chasing_player)
 	{
 		Current_Animation = &moving;
