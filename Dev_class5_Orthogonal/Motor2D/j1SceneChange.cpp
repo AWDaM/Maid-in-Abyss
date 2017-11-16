@@ -54,6 +54,7 @@ bool j1MapChange::Update(float dt)
 			{
 				App->scene->currentMap = nextMap;
 				App->map->SwitchMaps(App->scene->map_names[nextMap]);
+				
 				App->entitycontroller->Restart();
 				total_time += total_time;
 				start_time = SDL_GetTicks();
