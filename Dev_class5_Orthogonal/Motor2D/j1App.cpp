@@ -1,6 +1,6 @@
 #include <iostream> 
 #include <sstream>
-#include"Brofiler/Brofiler.h"
+
 #include "p2Defs.h"
 #include "p2Log.h"
 
@@ -75,7 +75,7 @@ void j1App::AddModule(j1Module* module)
 // Called before render is available
 bool j1App::Awake()
 {
-	BROFILER_CATEGORY("Awake", Profiler::Color::Fuchsia);
+
 	PERF_START(ptimer);
 
 	pugi::xml_document	config_file;

@@ -31,6 +31,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 
 void j1Map::Draw()
 {
+	BROFILER_CATEGORY("Map draw", Profiler::Color::BlanchedAlmond);
 	if (map_loaded == false)
 		return;
 	iPoint wCoord;
@@ -40,8 +41,13 @@ void j1Map::Draw()
 			for (uint i = 0; i < data.height; i++)
 				for (uint j = 0; j < data.width; j++)
 				{
-					wCoord = MapToWorld(i, j);
-					if (wCoord.x < camera.x && wCoord.x > camera.x + camera.w && wCoord.y < camera.y && wCoord.y > camera.y + camera.h)
+					//App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]), SDL_FLIP_NONE, -data.layers[y]->parallaxSpeed);
+					wCoord = MapToWorld(j, i);
+					if (wCoord.x >= camera.x && wCoord.x <= camera.x + camera.w && wCoord.y >= camera.y && wCoord.y <= camera.y + camera.h && data.layers[y]->parallaxSpeed == 1)
+					{
+						App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]), SDL_FLIP_NONE, -data.layers[y]->parallaxSpeed);
+					}
+					else if(data.layers[y]->parallaxSpeed == 1)
 					{
 						App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]), SDL_FLIP_NONE, -data.layers[y]->parallaxSpeed);
 					}

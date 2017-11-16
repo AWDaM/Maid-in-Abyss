@@ -4,12 +4,11 @@
 
 FlyingFurrball::FlyingFurrball() : Enemy(entityType::FLYING_ENEMY)
 {
-	type = FLYING_ENEMY;
 }
 
 FlyingFurrball::FlyingFurrball(iPoint position) : Enemy(entityType::FLYING_ENEMY, position)
 {
-	type = FLYING_ENEMY;
+
 	LoadPushbacks();
 	Current_Animation = &idle;
 }
@@ -24,12 +23,16 @@ bool FlyingFurrball::Update(float dt)
 	if (chasing_player)
 	{
 		Current_Animation = &moving;
+		speed = { 100,100 };
 	}
 	else
 	{
 		Current_Animation = &idle;
+		speed = { 0, 0 };
 	}
 	PositionCollider();
+	position.x += speed.x*dt;
+	position.y += speed.y*dt;
 	return true;
 }
 
