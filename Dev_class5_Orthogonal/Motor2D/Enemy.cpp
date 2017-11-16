@@ -5,7 +5,7 @@
 #include "j1Render.h"
 
 
-Enemy::Enemy(Entity::entityType type)
+Enemy::Enemy(Entity::entityType type) : Entity(type)
 {
 }
 
@@ -35,4 +35,25 @@ Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 
 Enemy::~Enemy()
 {
+}
+
+Entity * Enemy::GetTarget()
+{
+	p2List_item<Entity*>* ret = nullptr;
+	for (p2List_item<Entity*>* i = App->entitycontroller->Entities.start; i != nullptr; i = i->next)
+	{
+		if (i->data->type == Entity::entityType::PLAYER)
+		{
+			ret = i;
+			break;
+		}
+	}
+
+	return ret->data;
+}
+
+bool Enemy::Move()
+{
+
+	return true;
 }

@@ -41,16 +41,19 @@ void j1Map::Draw()
 			for (uint i = 0; i < data.height; i++)
 				for (uint j = 0; j < data.width; j++)
 				{
+
 					//App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]), SDL_FLIP_NONE, -data.layers[y]->parallaxSpeed);
+
+
 					wCoord = MapToWorld(j, i);
-					if (wCoord.x >= camera.x && wCoord.x <= camera.x + camera.w && wCoord.y >= camera.y && wCoord.y <= camera.y + camera.h && data.layers[y]->parallaxSpeed == 1)
+					if (data.layers[y]->parallaxSpeed == 1)
 					{
-						App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]), SDL_FLIP_NONE, -data.layers[y]->parallaxSpeed);
+						if(wCoord.x >= camera.x - 32 && wCoord.x <= camera.x + camera.w && wCoord.y >= camera.y - 32 && wCoord.y <= camera.y + camera.h)
+							App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]), SDL_FLIP_NONE, -data.layers[y]->parallaxSpeed);
 					}
-					else if(data.layers[y]->parallaxSpeed == 1)
-					{
+					else
 						App->render->Blit(data.tilesets[x]->texture, j*data.tile_width, i*data.tile_height, &data.tilesets[x]->GetTileRect(data.layers[y]->data[data.layers[y]->Get(j, i)]), SDL_FLIP_NONE, -data.layers[y]->parallaxSpeed);
-					}
+
 				}
 
 	DebugDraw();

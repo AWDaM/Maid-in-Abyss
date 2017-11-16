@@ -151,7 +151,6 @@ bool Player::Update(float dt)
 				//speed.x = jumpForce.x*direction_x*dt;
 				speed.y = jumpForce.y;
 			}
-
 			speed.y += gravity*dt*App->scene->timeScale;
 		}
 		//speed.y = speed.y*dt;

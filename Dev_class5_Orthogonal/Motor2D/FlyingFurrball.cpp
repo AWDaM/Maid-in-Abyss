@@ -1,5 +1,6 @@
 #include "FlyingFurrball.h"
-
+#include "j1Scene.h"
+#include "j1Render.h"
 
 
 FlyingFurrball::FlyingFurrball() : Enemy(entityType::FLYING_ENEMY)
@@ -8,7 +9,6 @@ FlyingFurrball::FlyingFurrball() : Enemy(entityType::FLYING_ENEMY)
 
 FlyingFurrball::FlyingFurrball(iPoint position) : Enemy(entityType::FLYING_ENEMY, position)
 {
-
 	LoadPushbacks();
 	Current_Animation = &idle;
 }
@@ -20,10 +20,26 @@ FlyingFurrball::~FlyingFurrball()
 
 bool FlyingFurrball::Update(float dt)
 {
+	if (target == nullptr)
+	{
+		target = GetTarget();
+	}
+
+	/*accumulated_time += dt;
+	if (accumulated_time >= update_ms_cycle)
+	{ 
+		DoPathfinding = true;
+		accumulated_time = 0.0f;
+	}*/
 	if (chasing_player)
 	{
 		Current_Animation = &moving;
-		speed = { 100,100 };
+		//if (DoPathfinding)
+		//{
+			//DoPathfinding = false;
+			App->pathfinding->CreatePath(App->map->WorldToMap(position.x,position.y), App->map->WorldToMap(target->position.x,target->position.y));
+			path = *App->pathfinding->GetLastPath();
+		//}
 	}
 	else
 	{
@@ -33,6 +49,11 @@ bool FlyingFurrball::Update(float dt)
 	PositionCollider();
 	position.x += speed.x*dt;
 	position.y += speed.y*dt;
+	for (uint i = 0; i < path.Count(); ++i)
+	{
+		iPoint pos = App->map->MapToWorld(path.At(i)->x, path.At(i)->y);
+		App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
+	}
 	return true;
 }
 

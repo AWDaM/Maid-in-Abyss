@@ -34,7 +34,7 @@ public:
 	// Destructor
 	~p2DynArray()
 	{
-		delete[] data;
+   		delete[] data;
 	}
 
 	// Operators
