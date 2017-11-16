@@ -40,6 +40,7 @@ bool FlyingFurrball::Update(float dt)
 			//DoPathfinding = false;
 			App->pathfinding->CreatePath(App->map->WorldToMap(position.x,position.y), App->map->WorldToMap(target->position.x,target->position.y));
 			path = *App->pathfinding->GetLastPath();
+			path.
 		//}
 	}
 	else
