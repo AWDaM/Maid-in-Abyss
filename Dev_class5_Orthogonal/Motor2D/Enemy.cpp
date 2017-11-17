@@ -61,7 +61,7 @@ bool Enemy::Move()
 void Enemy::Save(pugi::xml_node &data) const
 {
 	
-	data = data.append_child("FlyingFurrball");
+	data = data.append_child("flyingfurrball");
 	data.append_child("position").append_attribute("x") = position.x;
 	data.child("position").append_attribute("y") = position.y;
 }

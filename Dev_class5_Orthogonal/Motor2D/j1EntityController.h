@@ -41,7 +41,9 @@ public:
 	SDL_Texture* texture;
 	p2List<Entity*> Entities;
 
+
 private:
+	
 protected:
 	
 
