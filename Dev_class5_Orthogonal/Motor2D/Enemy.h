@@ -19,12 +19,12 @@ public:
 	float accumulated_time;
 	float update_ms_cycle = 0;
 	p2DynArray<iPoint> path;
-	bool DoPathfinding = false;
+	//bool DoPathfinding = false;
 	Entity* target = nullptr;
-	iPoint currentPathtile;
+	/*iPoint currentPathtile;
 	int pathIndex;
-	iPoint speed2;
-	
+	iPoint speed2;*/
+	bool canFly;
 private:
 
 
