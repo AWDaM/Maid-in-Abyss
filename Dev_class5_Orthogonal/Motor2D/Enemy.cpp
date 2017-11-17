@@ -19,8 +19,8 @@ Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 	gravity = 0;
 	direction_x = 1;
 	colOffset = { 5,5 };
-	Collider.h = 32;
-	Collider.w = 32;
+	Collider.h = 31;
+	Collider.w = 31;
 	Collider.x = pos.x;
 	Collider.y = pos.y;
 	sightOffset = { 400,300 };

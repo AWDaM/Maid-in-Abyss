@@ -38,7 +38,7 @@ bool FlyingFurrball::Update(float dt)
 	/*	if (DoPathfinding)
 		{*/
 			DoPathfinding = false;
-			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x, position.y), App->map->WorldToMap(target->position.x, target->position.y)) != -1)
+			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y)) != -1)
 			{
 				path = *App->pathfinding->GetLastPath();
 				pathIndex = path.Count() - 1;
