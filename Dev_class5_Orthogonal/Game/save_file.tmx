@@ -11,19 +11,19 @@
 	<mapchange />
 	<entitycontroller>
 		<player>
-			<position x="577" y="1880" />
+			<position x="542" y="1880" />
 			<speed x="0" y="0" />
-			<collider width="32" height="64" x="588" y="1888" />
+			<collider width="32" height="64" x="553" y="1888" />
 			<grounded value="true" />
 			<dashing value="false" />
 			<currentDashtime value="0" />
-			<FlyingFurrball>
-				<position x="631" y="1762" />
-			</FlyingFurrball>
 		</player>
+		<FlyingFurrball>
+			<position x="642" y="1644" />
+		</FlyingFurrball>
 	</entitycontroller>
 	<pathfinding />
 	<renderer>
-		<camera x="236" y="1280" />
+		<camera x="201" y="1280" />
 	</renderer>
 </game_state>

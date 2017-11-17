@@ -106,7 +106,7 @@ bool j1EntityController::Load(pugi::xml_node& file)
 {
 	bool ret = true;
 	p2List_item<Entity*>* tmp = Entities.start;
-	pugi::xml_node furrballFile = file;
+	pugi::xml_node furrballFile = file.child("flyingfurball");
 	while (tmp != nullptr)
 	{
 		if (tmp->data->type == Entity::entityType::PLAYER)
@@ -115,8 +115,9 @@ bool j1EntityController::Load(pugi::xml_node& file)
 		}
 		else if (tmp->data->type == Entity::entityType::FLYING_ENEMY)
 		{
-			furrballFile = furrballFile.next_sibling("flyingfurball");
 			tmp->data->Load(furrballFile);
+			furrballFile = furrballFile.next_sibling("flyingfurball");
+			
 		}
 		tmp = tmp->next;
 	}
