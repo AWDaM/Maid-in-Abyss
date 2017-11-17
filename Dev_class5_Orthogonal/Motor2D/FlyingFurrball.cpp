@@ -39,11 +39,11 @@ bool FlyingFurrball::Update(float dt)
 		if (DoPathfinding)
 		{
 			DoPathfinding = false;
-			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y),true) != -1)
+			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y), true) > 0)
 			{
 				path = *App->pathfinding->GetLastPath();
-				pathIndex = path.Count() - 1;
-				currentPathtile = *path.At(pathIndex);
+
+				currentPathtile = *path.At(0);
 			}
 			else
 				speed = { 0,0 };
@@ -52,23 +52,19 @@ bool FlyingFurrball::Update(float dt)
 	else
 	{
 		Current_Animation = &idle;
-		//speed = { 0, 0 };
+		speed = { 0, 0 };
 	}
+
 	if (dt < 1)
 	{
-		speed = { 0,30 };
 		PositionCollider();
 		Move();
-		speed = Collider_Overlay(speed, dt);
+		//speed = Collider_Overlay(speed, dt);
 		speed.x = (int)speed.x;
 		speed.y = (int)speed.y;
 		position.x += speed.x*dt;
 		position.y += speed.y*dt;
-	}/*for (uint i = 0; i < path.Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(path.At(i)->x, path.At(i)->y);
-		App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
-	}*/
+	}
 	return true;
 }
 
@@ -79,23 +75,18 @@ bool FlyingFurrball::Start()
 
 bool FlyingFurrball::Move()
 {
-	/*if (chasing_player)
+	if (chasing_player)
 	{
   		iPoint pos = App->map->WorldToMap(position.x, position.y);
-		iPoint objective = currentPathtile;
 		speed.x = currentPathtile.x - pos.x;
 		speed.y = currentPathtile.y - pos.y;
-		speed.Normalize();
-		if (speed.x == 0 && speed.y == 0)
-		{
-			pathIndex--;
-			currentPathtile = *path.At(pathIndex);
-		}
+
+
 		speed.x *= 100;
 		speed.y *= 100;
 	}
 	else
-		speed = { 0,0 };*/
+		speed = { 0,0 };
 	return true;
 }
 

@@ -191,12 +191,10 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, b
 
 			if (lowestScoreNode.data.pos == destination && canFly)
 			{
-				//for (p2List_item<PathNode>* current = closed.list.start; current; current = current->next)
 				PathNode current;
 				for (current = lowestScoreNode.data; current.parent != nullptr; current = *current.parent)
 					last_path.PushBack(current.pos);
 
-				last_path.PushBack(current.pos);
 				last_path.Flip();
 				break;
 			}
