@@ -57,7 +57,7 @@ bool j1Scene::Start()
 
 	debug_tex = App->tex->Load("maps/Navigable.png");
 
-	App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { 850,1480 });
+	App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { 850,1700 });
 
 	return true;
 

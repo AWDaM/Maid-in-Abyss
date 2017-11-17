@@ -11,6 +11,7 @@ FlyingFurrball::FlyingFurrball(iPoint position) : Enemy(entityType::FLYING_ENEMY
 {
 	LoadPushbacks();
 	Current_Animation = &idle;
+	canFly = true;
 }
 
 
@@ -51,13 +52,19 @@ bool FlyingFurrball::Update(float dt)
 	else
 	{
 		Current_Animation = &idle;
-		speed = { 0, 0 };
+		//speed = { 0, 0 };
 	}
-	PositionCollider();
-	Move();
-	position.x += speed.x*dt;
-	position.y += speed.y*dt;
-	/*for (uint i = 0; i < path.Count(); ++i)
+	if (dt < 1)
+	{
+		speed = { 0,30 };
+		PositionCollider();
+		Move();
+		speed = Collider_Overlay(speed, dt);
+		speed.x = (int)speed.x;
+		speed.y = (int)speed.y;
+		position.x += speed.x*dt;
+		position.y += speed.y*dt;
+	}/*for (uint i = 0; i < path.Count(); ++i)
 	{
 		iPoint pos = App->map->MapToWorld(path.At(i)->x, path.At(i)->y);
 		App->render->Blit(App->scene->debug_tex, pos.x, pos.y);
@@ -72,7 +79,7 @@ bool FlyingFurrball::Start()
 
 bool FlyingFurrball::Move()
 {
-	if (chasing_player)
+	/*if (chasing_player)
 	{
   		iPoint pos = App->map->WorldToMap(position.x, position.y);
 		iPoint objective = currentPathtile;
@@ -88,7 +95,7 @@ bool FlyingFurrball::Move()
 		speed.y *= 100;
 	}
 	else
-		speed = { 0,0 };
+		speed = { 0,0 };*/
 	return true;
 }
 

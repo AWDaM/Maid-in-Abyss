@@ -4,6 +4,7 @@
 
 LandMaid::LandMaid() : Enemy(entityType::LAND_ENEMY)
 {
+	canFly = false;
 }
 
 

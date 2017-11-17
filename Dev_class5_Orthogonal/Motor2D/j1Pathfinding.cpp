@@ -49,7 +49,7 @@ bool j1PathFinding::IsWalkable(const iPoint& pos, bool canFly) const
 	if (canFly)
 		return t != INVALID_WALK_CODE && t > 0;
 	else
-		return t != INVALID_WALK_CODE && t == 1;
+		return t != INVALID_WALK_CODE && t == 2;
 }
 
 // Utility: return the walkability value of a tile
@@ -172,7 +172,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, b
 {
 	last_path.Clear();
 	int ret = -1;
-	if (IsWalkable(origin, canFly) && IsWalkable(destination, canFly))
+	if (IsWalkable(origin, canFly) && IsWalkable(destination, true))
 	{
 		PathList open;
 		PathList closed;
@@ -189,9 +189,19 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, b
 			closed.list.add(lowestScoreNode.data);
 			open.list.del(open.GetNodeLowestScore());
 
-			if (lowestScoreNode.data.pos == destination)
+			if (lowestScoreNode.data.pos == destination && canFly)
 			{
 				//for (p2List_item<PathNode>* current = closed.list.start; current; current = current->next)
+				PathNode current;
+				for (current = lowestScoreNode.data; current.parent != nullptr; current = *current.parent)
+					last_path.PushBack(current.pos);
+
+				last_path.PushBack(current.pos);
+				last_path.Flip();
+				break;
+			}
+			else if (lowestScoreNode.data.pos.x == destination.x && !canFly)
+			{
 				PathNode current;
 				for (current = lowestScoreNode.data; current.parent != nullptr; current = *current.parent)
 					last_path.PushBack(current.pos);
