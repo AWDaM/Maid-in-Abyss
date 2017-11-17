@@ -189,7 +189,7 @@ bool Player::PostUpdate()
 
 
 
-bool Player::Load(pugi::xml_node& data)
+void Player::Load(pugi::xml_node& data)
 {
 	position.x = data.child("position").attribute("x").as_int();
 	position.y = data.child("position").attribute("y").as_int();
@@ -202,24 +202,26 @@ bool Player::Load(pugi::xml_node& data)
 	grounded = data.child("grounded").attribute("value").as_bool();
 	isDashing = data.child("dashing").attribute("value").as_bool();
 	currentDashtime = data.child("dashtime").attribute("value").as_float();
-	return true;
+
 }
 
 // Save Game State
-bool Player::Save(pugi::xml_node& data) const
+void Player::Save(pugi::xml_node& data) const
 {
-	data.append_child("position").append_attribute("x") = position.x;
-	data.child("position").append_attribute("y") = position.y;
-	data.append_child("speed").append_attribute("x") = speed.x;
-	data.child("speed").append_attribute("y") = speed.y;
-	data.append_child("collider").append_attribute("width") = Collider.w;
-	data.child("collider").append_attribute("height") = Collider.h;
-	data.child("collider").append_attribute("x") = Collider.x;
-	data.child("collider").append_attribute("y") = Collider.y;
-	data.append_child("grounded").append_attribute("value") = grounded;
-	data.append_child("dashing").append_attribute("value") = isDashing;
-	data.append_child("currentDashtime").append_attribute("value") = currentDashtime;
-	return true;
+	data.append_child("player");
+	
+	data.child("player").append_child("position").append_attribute("x") = position.x;
+	data.child("player").child("position").append_attribute("y") = position.y;
+	data.child("player").append_child("speed").append_attribute("x") = speed.x;
+	data.child("player").child("speed").append_attribute("y") = speed.y;
+	data.child("player").append_child("collider").append_attribute("width") = Collider.w;
+	data.child("player").child("collider").append_attribute("height") = Collider.h;
+	data.child("player").child("collider").append_attribute("x") = Collider.x;
+	data.child("player").child("collider").append_attribute("y") = Collider.y;
+	data.child("player").append_child("grounded").append_attribute("value") = grounded;
+	data.child("player").append_child("dashing").append_attribute("value") = isDashing;
+	data.child("player").append_child("currentDashtime").append_attribute("value") = currentDashtime;
+
 }
 
 

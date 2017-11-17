@@ -33,8 +33,8 @@ public:
 
 	// Called each loop iteration
 
-	bool Load(pugi::xml_node&);
-	bool Save(pugi::xml_node&) const;
+	void Load(pugi::xml_node& file);
+	void Save(pugi::xml_node& file) const;
 
 	// Called before quitting
 	void CleanUp();

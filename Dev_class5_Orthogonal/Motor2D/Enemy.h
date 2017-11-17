@@ -11,6 +11,8 @@ public:
 	~Enemy();
 	Entity* GetTarget();
 	bool Move();
+	void Save(pugi::xml_node&) const;
+	void Load(pugi::xml_node&);
 private:
 
 public:
