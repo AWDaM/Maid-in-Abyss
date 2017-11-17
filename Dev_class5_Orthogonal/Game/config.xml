@@ -51,7 +51,7 @@
       <maxSpeed x="360" y="600"/>
       <dashingSpeed x="600" y="0"/>
       <dashingColliderDifference value="0"/>
-      <colOffset x="11" y="8"/>
+      <colOffset x="11" y="9"/>
       <dashtime value="500"/>
     </player>
     
