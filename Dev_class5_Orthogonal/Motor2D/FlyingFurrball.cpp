@@ -26,12 +26,12 @@ bool FlyingFurrball::Update(float dt)
 		target = GetTarget();
 	}
 
-	//accumulated_time += dt;
-	//if (accumulated_time >= update_ms_cycle)
-	//{ 
-	//	DoPathfinding = true;
-	//	accumulated_time = 0.0f;
-	//}
+	accumulated_time += dt;
+	if (accumulated_time >= update_ms_cycle)
+	{ 
+		DoPathfinding = true;
+		accumulated_time = 0.0f;
+	}
 
 
 	if (chasing_player)
@@ -44,7 +44,11 @@ bool FlyingFurrball::Update(float dt)
 			{
 				path = *App->pathfinding->GetLastPath();
 
-				currentPathtile = *path.At(0);
+				if (currentPathtile != *path.At(0))currentPathtile = *path.At(0);
+
+				else if (path.Count() > 1)currentPathtile = *path.At(1);
+
+				else speed = { 0,0 };
 			}
 			else
 				speed = { 0,0 };
