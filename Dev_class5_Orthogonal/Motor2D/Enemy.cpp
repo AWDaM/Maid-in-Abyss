@@ -13,7 +13,8 @@ Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 {
 	position.x = pos.x;
 	position.y = pos.y;
-	
+	originalpos.x = pos.x;
+	originalpos.y = pos.y;
 	speed = { 0,0 };
 	maxSpeed = { 300,300 };
 	gravity = 0;
@@ -56,6 +57,12 @@ bool Enemy::Move()
 {
 
 	return true;
+}
+
+void Enemy::Restart()
+{
+	position.x = originalpos.x;
+	position.y = originalpos.y;
 }
 
 void Enemy::Save(pugi::xml_node &data) const

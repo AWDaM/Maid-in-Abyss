@@ -26,12 +26,13 @@ bool FlyingFurrball::Update(float dt)
 		target = GetTarget();
 	}
 
-	accumulated_time += dt;
-	if (accumulated_time >= update_ms_cycle)
-	{ 
-		DoPathfinding = true;
-		accumulated_time = 0.0f;
-	}
+	//accumulated_time += dt;
+	//if (accumulated_time >= update_ms_cycle)
+	//{ 
+	//	DoPathfinding = true;
+	//	accumulated_time = 0.0f;
+	//}
+
 
 	if (chasing_player)
 	{
@@ -55,8 +56,6 @@ bool FlyingFurrball::Update(float dt)
 		speed = { 0, 0 };
 	}
 
-	if (dt < 1)
-	{
 		PositionCollider();
 		Move();
 		//speed = Collider_Overlay(speed, dt);
@@ -64,7 +63,7 @@ bool FlyingFurrball::Update(float dt)
 		speed.y = (int)speed.y;
 		position.x += speed.x*dt;
 		position.y += speed.y*dt;
-	}
+
 	return true;
 }
 

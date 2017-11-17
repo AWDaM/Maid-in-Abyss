@@ -57,7 +57,7 @@ bool j1Scene::Start()
 
 	debug_tex = App->tex->Load("maps/Navigable.png");
 
-	App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { 850,1700 });
+	SpawnEnemies();
 
 	return true;
 
@@ -202,6 +202,29 @@ bool j1Scene::Load_lvl(int time)
 	App->map->SwitchMaps(map_names[time]);
 	App->entitycontroller->Restart();
 	return false;
+}
+
+void j1Scene::SpawnEnemies()
+{
+	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
+	{
+		if (obj->data->name == ("Enemies"))
+		{
+			for (p2List_item<ObjectsData*>* objdata = obj->data->objects.start; objdata; objdata = objdata->next)
+			{
+				if (objdata->data->name == 7)
+				{
+					App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { objdata->data->x,objdata->data->y });
+				}
+
+				else if (objdata->data->name == 8)
+				{
+					App->entitycontroller->AddEntity(Entity::entityType::LAND_ENEMY, { objdata->data->x,objdata->data->y });
+				}
+				
+			}
+		}
+	}
 }
 
 void j1Scene::SlowMo()

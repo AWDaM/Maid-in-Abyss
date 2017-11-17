@@ -11,11 +11,13 @@ public:
 	~Enemy();
 	Entity* GetTarget();
 	bool Move();
+	void Restart();
 	void Save(pugi::xml_node&) const;
 	void Load(pugi::xml_node&);
 private:
 
 public:
+	iPoint originalpos;
 	float accumulated_time;
 	float update_ms_cycle = 0;
 	p2DynArray<iPoint> path;
