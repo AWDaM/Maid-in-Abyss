@@ -26,34 +26,34 @@ bool FlyingFurrball::Update(float dt)
 		target = GetTarget();
 	}
 
-	accumulated_time += dt;
-	if (accumulated_time >= update_ms_cycle)
-	{ 
-		DoPathfinding = true;
-		accumulated_time = 0.0f;
-	}
+	//accumulated_time += dt;
+	//if (accumulated_time >= update_ms_cycle)
+	//{ 
+	//	DoPathfinding = true;
+	//	accumulated_time = 0.0f;
+	//}
 
-	if (chasing_player)
-	{
-        		Current_Animation = &moving;
-		if (DoPathfinding)
-		{
-			DoPathfinding = false;
-			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y),true) != -1)
-			{
-				path = *App->pathfinding->GetLastPath();
-				pathIndex = path.Count() - 1;
-				currentPathtile = *path.At(pathIndex);
-			}
-			else
-				speed = { 0,0 };
-		}
-	}
-	else
-	{
-		Current_Animation = &idle;
-		//speed = { 0, 0 };
-	}
+	//if (chasing_player)
+	//{
+ //       		Current_Animation = &moving;
+	//	if (DoPathfinding)
+	//	{
+	//		DoPathfinding = false;
+	//		if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y),true) != -1)
+	//		{
+	//			path = *App->pathfinding->GetLastPath();
+	//			pathIndex = path.Count() - 1;
+	//			currentPathtile = *path.At(pathIndex);
+	//		}
+	//		else
+	//			speed = { 0,0 };
+	//	}
+	//}
+	//else
+	//{
+	//	Current_Animation = &idle;
+	//	//speed = { 0, 0 };
+	//}
 	if (dt < 1)
 	{
 		speed = { 0,30 };
