@@ -37,7 +37,7 @@ bool FlyingFurrball::Update(float dt)
         		Current_Animation = &moving;
 	/*	if (DoPathfinding)
 		{*/
-			DoPathfinding = false;
+			/*DoPathfinding = false;
 			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y)) != -1)
 			{
 				path = *App->pathfinding->GetLastPath();
@@ -45,7 +45,7 @@ bool FlyingFurrball::Update(float dt)
 				currentPathtile = *path.At(pathIndex);
 			}
 			else
-				speed = { 0,0 };
+				speed = { 0,0 };*/
 		//}
 	}
 	else

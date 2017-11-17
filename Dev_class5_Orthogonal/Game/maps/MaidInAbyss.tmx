@@ -184393,7 +184393,7 @@
   </data>
  </layer>
  <objectgroup name="Collisions">
-  <object id="3" name="6" x="1056" y="1696" width="31" height="64"/>
+  <object id="3" name="6" x="1056" y="1696" width="32" height="63"/>
   <object id="5" name="1" x="0" y="448" width="224" height="1600"/>
   <object id="6" name="1" x="224" y="1952" width="704" height="96"/>
   <object id="7" name="1" x="736" y="1856" width="192" height="96"/>

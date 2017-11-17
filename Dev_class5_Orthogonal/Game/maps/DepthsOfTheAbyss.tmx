@@ -82044,7 +82044,7 @@
   <object id="88" name="1" x="3232" y="1888" width="64" height="32"/>
   <object id="89" name="1" x="3424" y="1760" width="64" height="32"/>
   <object id="90" name="4" x="96" y="992" width="32" height="32"/>
-  <object id="93" name="6" x="192" y="768" width="31" height="64"/>
+  <object id="93" name="6" x="192" y="768" width="32" height="63"/>
   <object id="94" name="5" x="5440" y="1408" width="576" height="632"/>
   <object id="95" name="3" x="-20.6061" y="2047" width="5428.73" height="132"/>
  </objectgroup>
