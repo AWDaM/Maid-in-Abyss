@@ -218,7 +218,7 @@ void j1Scene::SpawnEnemies()
 			{
 				if (objdata->data->name == 7)
 				{
-					App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { objdata->data->x,objdata->data->y });
+					//App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { objdata->data->x,objdata->data->y });
 				}
 
 				else if (objdata->data->name == 8)

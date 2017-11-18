@@ -1,5 +1,7 @@
+
 #ifndef __ENEMY_H__
 #define __ENEMY_H__
+
 #include "Entity.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"

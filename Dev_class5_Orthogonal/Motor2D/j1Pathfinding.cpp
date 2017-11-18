@@ -241,8 +241,11 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, c
 
 		originNode.FindWalkableAdjacents(neighbors, &originNode, canFly);
 
-		last_path.PushBack(neighbors.list.start->data.pos);
-		ret++;
+		if (neighbors.list.start)
+		{
+			last_path.PushBack(neighbors.list.start->data.pos);
+			ret++;
+		}
 	}
 	// TODO 2: Create two lists: open, close
 	// Add the origin tile to open

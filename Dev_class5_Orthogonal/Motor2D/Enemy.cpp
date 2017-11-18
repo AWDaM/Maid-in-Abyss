@@ -27,6 +27,7 @@ Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 	}
 
 	speed = { 0,0 };
+
 	maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
 	maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
 	gravity = config.child("gravity").attribute("value").as_float();
