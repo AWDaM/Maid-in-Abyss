@@ -234,6 +234,16 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, b
 			}
 		}
 	}
+	else if (!IsWalkable(origin, canFly))
+	{
+		PathList neighbors;
+		PathNode originNode(0, origin.DistanceNoSqrt(destination), origin, nullptr);
+
+		originNode.FindWalkableAdjacents(neighbors, &originNode, canFly);
+
+		last_path.PushBack(neighbors.list.start->data.pos);
+		ret++;
+	}
 	// TODO 2: Create two lists: open, close
 	// Add the origin tile to open
 	// Iterate while we have tile in the open list

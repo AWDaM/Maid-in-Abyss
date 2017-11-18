@@ -40,11 +40,11 @@ bool FlyingFurrball::Update(float dt)
 		if (DoPathfinding)
 		{
 			DoPathfinding = false;
-			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y), true) > 0)
+			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y), true) > -1)
 			{
 				path = *App->pathfinding->GetLastPath();
 
-				if (currentPathtile != *path.At(0))currentPathtile = *path.At(0);
+				if (path.Count()>0 && currentPathtile != *path.At(0))currentPathtile = *path.At(0);
 
 				else if (path.Count() > 1)currentPathtile = *path.At(1);
 

@@ -142,7 +142,7 @@ bool Player::Update(float dt)
 				speed.x = 0;
 
 
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && grounded)
 			{
 				AddSFX(1, 0);
 				isJumping = true;
