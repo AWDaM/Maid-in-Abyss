@@ -17,33 +17,33 @@ Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 	originalpos.x = pos.x;
 	originalpos.y = pos.y;
 
-	pugi::xml_document	config_file;
-	pugi::xml_node		config;
+	//pugi::xml_document	config_file;
+	//pugi::xml_node		config;
 
-	config = App->LoadConfig(config_file);
-	if (type == Entity::entityType::FLYING_ENEMY)
-	{
-		config = config.child("entitycontroller").child("flyingfurrball");
-	}
+	//config = App->LoadConfig(config_file);
+	//if (type == Entity::entityType::FLYING_ENEMY)
+	//{
+	//	config = config.child("entitycontroller").child("flyingfurrball");
+	//}
 
-	speed = { 0,0 };
+	//speed = { 0,0 };
 
-	maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
-	maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
-	gravity = config.child("gravity").attribute("value").as_float();
-	direction_x = 1;
-	colOffset.x = config.child("colOffset").attribute("x").as_int();
-	colOffset.y = config.child("colOffset").attribute("y").as_int();
-	Collider.h = config.child("Collider").attribute("h").as_int();
-	Collider.w = config.child("Collider").attribute("w").as_int();
-	Collider.x = pos.x;
-	Collider.y = pos.y;
-	sightOffset.x = config.child("sighOffset").attribute("x").as_int();
-	sightOffset.y = config.child("sighOffset").attribute("y").as_int();
-	SightCollider.x = pos.x - sightOffset.x;
-	SightCollider.y = pos.y - sightOffset.y;
-	SightCollider.w = config.child("SightCollider").attribute("w").as_int();
-	SightCollider.h = config.child("SightCollider").attribute("h").as_int();
+	//maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
+	//maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
+	//gravity = config.child("gravity").attribute("value").as_float();
+	//direction_x = 1;
+	//colOffset.x = config.child("colOffset").attribute("x").as_int();
+	//colOffset.y = config.child("colOffset").attribute("y").as_int();
+	//Collider.h = config.child("Collider").attribute("h").as_int();
+	//Collider.w = config.child("Collider").attribute("w").as_int();
+	//Collider.x = pos.x;
+	//Collider.y = pos.y;
+	//sightOffset.x = config.child("sighOffset").attribute("x").as_int();
+	//sightOffset.y = config.child("sighOffset").attribute("y").as_int();
+	//SightCollider.x = pos.x - sightOffset.x;
+	//SightCollider.y = pos.y - sightOffset.y;
+	//SightCollider.w = config.child("SightCollider").attribute("w").as_int();
+	//SightCollider.h = config.child("SightCollider").attribute("h").as_int();
 }
 
 

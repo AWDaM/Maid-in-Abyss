@@ -9,13 +9,34 @@ LandMaid::LandMaid() : Enemy(entityType::LAND_ENEMY)
 
 LandMaid::LandMaid(iPoint position) : Enemy(entityType::LAND_ENEMY, position)
 {
-	gravity = 50;
 	LoadPushbacks();
 	Current_Animation = &idle;
 	canFly = false;
-	Collider.h = 60;
-	colOffset.x = 5;
-	colOffset.y = 5;
+	speed = { 0,0 };
+
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+
+	config = App->LoadConfig(config_file);
+		
+	config = config.child("entitycontroller").child("landmaid");
+
+	maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
+	maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
+	gravity = config.child("gravity").attribute("value").as_float();
+	direction_x = 1;
+	colOffset.x = config.child("colOffset").attribute("x").as_int();
+	colOffset.y = config.child("colOffset").attribute("y").as_int();
+	Collider.h = config.child("Collider").attribute("h").as_int();
+	Collider.w = config.child("Collider").attribute("w").as_int();
+	Collider.x = position.x;
+	Collider.y = position.y;
+	sightOffset.x = config.child("sightOffset").attribute("x").as_int();
+	sightOffset.y = config.child("sightOffset").attribute("y").as_int();
+	SightCollider.x = position.x - sightOffset.x;
+	SightCollider.y = position.y - sightOffset.y;
+	SightCollider.w = config.child("SightCollider").attribute("w").as_int();
+	SightCollider.h = config.child("SightCollider").attribute("h").as_int();
 }
 
 LandMaid::~LandMaid()
@@ -24,6 +45,8 @@ LandMaid::~LandMaid()
 
 bool LandMaid::Update(float dt)
 {
+	if (dt > 1) return true;
+
 	if(target == nullptr)
 	{
 		target = GetTarget();
@@ -65,7 +88,6 @@ bool LandMaid::Update(float dt)
 		speed.x = 0;
 	}
 
-	PositionCollider();
 	Move();
 	//speed = Collider_Overlay(speed, dt);
 	speed.x = speed.x*dt;
@@ -73,6 +95,8 @@ bool LandMaid::Update(float dt)
 	speed = Collider_Overlay(speed, 1);
 	position.x += speed.x;
 	position.y += speed.y;
+	PositionCollider();
+
 	return true;
 }
 
@@ -101,15 +125,15 @@ bool LandMaid::Move()
 void LandMaid::LoadPushbacks()
 {
 	idle.PushBack({ 0,575,65,50 });
+	idle.PushBack({ 73,575,65,50 });
 	idle.PushBack({ 147,575,65,50 });
-	idle.PushBack({ 223,575,65,50 });
-	idle.PushBack({ 249,575,65,50 });
-	idle.PushBack({ 372,575,65,50 });
-	idle.PushBack({ 249,575,65,50 });
+	idle.PushBack({ 219,575,65,50 });
+	idle.PushBack({ 291,575,65,50 });
+	idle.PushBack({ 362,575,65,50 });
 	idle.loop = true;
 	idle.speed = 0.3;
 
-	moving.PushBack({219,873,65,65 });
+	moving.PushBack({ 219,873,65,65 });
 	moving.PushBack({ 291,873,65,65 });
 	moving.PushBack({ 362,873,65,65 });
 	moving.PushBack({ 435,873,65,65 });

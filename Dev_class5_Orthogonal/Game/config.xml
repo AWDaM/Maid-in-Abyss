@@ -59,11 +59,19 @@
       <gravity value="0"/>
       <maxSpeed x="300" y="300"/>
       <colOffset x="5" y ="5"/>
-      <Collider h="31" y="31"/>
+      <Collider h="31" w="31"/>
       <sightOffset x="400" y="300"/>
       <SightCollider w="1000" h="650"/>
     </flyingfurrball>
-    
+
+    <landmaid>
+      <gravity value="50"/>
+      <maxSpeed x="300" y="300"/>
+      <colOffset x="5" y ="5"/>
+      <Collider h="60" w="31"/>
+      <sightOffset x="400" y="300"/>
+      <SightCollider w="1000" h="650"/>
+    </landmaid>
     
   </entitycontroller>
  
