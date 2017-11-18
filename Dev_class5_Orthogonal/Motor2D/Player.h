@@ -103,6 +103,7 @@ private:
 	p2SString		deathFX;
 	p2SString		landFX;
 	p2SString		dashFX;
+	p2SString		timestopFX;
 
 
 };

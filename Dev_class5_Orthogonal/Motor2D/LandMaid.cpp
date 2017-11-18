@@ -94,6 +94,7 @@ bool LandMaid::Update(float dt)
 	speed.y = gravity*dt;
 	speed = Collider_Overlay(speed, 1);
 
+	FlipImage();
 	position.x += speed.x;
 	position.y += speed.y;
 	PositionCollider();
@@ -112,8 +113,6 @@ bool LandMaid::Move()
 	{
 		iPoint pos = App->map->WorldToMap(position.x, position.y);
 		speed.x = currentPathtile.x - pos.x;
-		
-
 
 		speed.x *= 100;
 		

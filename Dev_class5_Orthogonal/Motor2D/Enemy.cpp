@@ -2,7 +2,6 @@
 #include "Enemy.h"
 #include "j1EntityController.h"
 #include "j1Textures.h"
-#include "j1App.h"
 #include "j1Render.h"
 
 
@@ -51,7 +50,7 @@ void Enemy::Save(pugi::xml_node &data) const
 {
 	if(type == FLYING_ENEMY)
 		data = data.append_child("flyingfurrball");
-	else
+	else if(type == LAND_ENEMY)
 		data = data.append_child("landmaid");
 
 	data.append_child("position").append_attribute("x") = position.x;

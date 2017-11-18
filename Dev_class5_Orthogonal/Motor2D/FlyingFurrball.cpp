@@ -98,6 +98,7 @@ bool FlyingFurrball::Update(float dt)
 
 		if (!App->entitycontroller->timestopped)
 		{
+			FlipImage();
 			position.x += speed.x;
 			position.y += speed.y;
 		}

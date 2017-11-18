@@ -44,6 +44,7 @@
       <deathFX source="Death.wav"/>
       <landFX source="Land.wav"/>
       <dashFX source="Dash.wav"/>
+      <timestopFX source="TimeStop.wav"/>
       <accel x="1" y="1"/>
 
       <gravity value="50"/>
