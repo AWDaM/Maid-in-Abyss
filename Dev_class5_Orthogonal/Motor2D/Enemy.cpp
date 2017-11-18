@@ -1,3 +1,4 @@
+#include "j1App.h"
 #include "Enemy.h"
 #include "j1EntityController.h"
 #include "j1Textures.h"
@@ -15,20 +16,33 @@ Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 	position.y = pos.y;
 	originalpos.x = pos.x;
 	originalpos.y = pos.y;
+
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+
+	config = App->LoadConfig(config_file);
+	if (type == Entity::entityType::FLYING_ENEMY)
+	{
+		config = config.child("entitycontroller").child("flyingfurrball");
+	}
+
 	speed = { 0,0 };
-	maxSpeed = { 300,300 };
-	gravity = 0;
+	maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
+	maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
+	gravity = config.child("gravity").attribute("value").as_float();
 	direction_x = 1;
-	colOffset = { 5,5 };
-	Collider.h = 31;
-	Collider.w = 31;
+	colOffset.x = config.child("colOffset").attribute("x").as_int();
+	colOffset.y = config.child("colOffset").attribute("y").as_int();
+	Collider.h = config.child("Collider").attribute("h").as_int();
+	Collider.w = config.child("Collider").attribute("w").as_int();
 	Collider.x = pos.x;
 	Collider.y = pos.y;
-	sightOffset = { 400,300 };
+	sightOffset.x = config.child("sighOffset").attribute("x").as_int();
+	sightOffset.y = config.child("sighOffset").attribute("y").as_int();
 	SightCollider.x = pos.x - sightOffset.x;
 	SightCollider.y = pos.y - sightOffset.y;
-	SightCollider.w = 1000;
-	SightCollider.h = 650;
+	SightCollider.w = config.child("SightCollider").attribute("w").as_int();
+	SightCollider.h = config.child("SightCollider").attribute("h").as_int();
 }
 
 

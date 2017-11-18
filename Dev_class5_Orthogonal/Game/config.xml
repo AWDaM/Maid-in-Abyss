@@ -55,6 +55,15 @@
       <dashtime value="500"/>
     </player>
     
+    <flyingfurrball>
+      <gravity value="0"/>
+      <maxSpeed x="300" y="300"/>
+      <colOffset x="5" y ="5"/>
+      <Collider h="31" y="31"/>
+      <sightOffset x="400" y="300"/>
+      <SightCollider w="1000" h="650"/>
+    </flyingfurrball>
+    
     
   </entitycontroller>
  

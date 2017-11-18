@@ -1,3 +1,5 @@
+#ifndef __FLYINGFURRBALL_H__
+#define __FLYINGFURRBALL_H__
 #include "Enemy.h"
 
 class FlyingFurrball : public Enemy
@@ -22,3 +24,4 @@ private:
 	Animation attacking;
 };
 
+#endif

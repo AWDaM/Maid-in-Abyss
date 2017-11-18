@@ -55,10 +55,12 @@ public:
 	void LoadGame();
 	void SaveGame() const;
 
-private:
-
 	// Load config file
 	pugi::xml_node LoadConfig(pugi::xml_document&) const;
+
+private:
+
+	
 
 	// Call modules before each loop iteration
 	void PrepareUpdate();
