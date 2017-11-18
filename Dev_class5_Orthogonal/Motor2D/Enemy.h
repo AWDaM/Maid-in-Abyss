@@ -1,3 +1,4 @@
+#pragma once
 #include "Entity.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"

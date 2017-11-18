@@ -13,7 +13,9 @@ LandMaid::LandMaid(iPoint position) : Enemy(entityType::LAND_ENEMY, position)
 	LoadPushbacks();
 	Current_Animation = &idle;
 	canFly = false;
-	Collider.h = 63;
+	Collider.h = 60;
+	colOffset.x = 5;
+	colOffset.y = 5;
 }
 
 LandMaid::~LandMaid()
