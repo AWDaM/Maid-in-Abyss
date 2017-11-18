@@ -17,7 +17,6 @@ Enemy::Enemy(Entity::entityType type, iPoint pos) : Entity(type)
 	originalpos.y = pos.y;
 	speed = { 0,0 };
 	maxSpeed = { 300,300 };
-	gravity = 0;
 	direction_x = 1;
 	colOffset = { 5,5 };
 	Collider.h = 31;

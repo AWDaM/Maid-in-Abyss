@@ -12,6 +12,7 @@ FlyingFurrball::FlyingFurrball(iPoint position) : Enemy(entityType::FLYING_ENEMY
 	LoadPushbacks();
 	Current_Animation = &idle;
 	canFly = true;
+	gravity = 0;
 }
 
 
@@ -40,7 +41,7 @@ bool FlyingFurrball::Update(float dt)
 		if (DoPathfinding)
 		{
 			DoPathfinding = false;
-			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y), true) > -1)
+			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y), canFly) > -1)
 			{
 				path = *App->pathfinding->GetLastPath();
 
@@ -62,11 +63,12 @@ bool FlyingFurrball::Update(float dt)
 
 		PositionCollider();
 		Move();
-		//speed = Collider_Overlay(speed, dt);
-		speed.x = (int)speed.x;
-		speed.y = (int)speed.y;
-		position.x += speed.x*dt;
-		position.y += speed.y*dt;
+		speed.x = speed.x*dt;
+		speed.y = speed.y*dt;
+		//speed = Collider_Overlay(speed, 1);
+
+		position.x += speed.x;
+		position.y += speed.y;
 
 	return true;
 }
