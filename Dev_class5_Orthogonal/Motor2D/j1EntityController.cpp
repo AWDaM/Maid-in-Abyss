@@ -142,6 +142,25 @@ bool j1EntityController::Restart()
 	return ret;
 }
 
+void j1EntityController::ChangeMapEnemies()
+{
+	p2List_item<Entity*>* tmp = Entities.end;
+	while (tmp != nullptr)
+	{
+		p2List_item<Entity*>* tmp2 = tmp;
+		if (tmp->data->type != Entity::entityType::PLAYER)
+		{
+			RELEASE(tmp->data);
+			Entities.del(tmp2);
+			tmp = tmp->prev;
+		}
+		else
+			tmp = tmp->prev;
+		
+	}
+
+}
+
 bool j1EntityController::Draw()
 {
 	BROFILER_CATEGORY("Entity draw", Profiler::Color::Chocolate);

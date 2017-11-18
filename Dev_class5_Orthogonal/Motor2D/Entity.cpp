@@ -87,7 +87,7 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 							if (result.h <= result.w || position.x + Collider.w + colOffset.x >= objdata->data->x)
 								newvec.y -= result.h, BecomeGrounded();
 					}
-					else if (objdata->data->name == 3) //Detects when the player falls
+					else if (objdata->data->name == 3&& !App->scenechange->IsChanging()) //Detects when the player falls
 					{
 							alive = false;
 					}

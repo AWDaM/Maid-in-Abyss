@@ -154,8 +154,10 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (to_end)
+	if (to_end && !App->scenechange->IsChanging())
 	{
+		App->entitycontroller->ChangeMapEnemies();
+		
 		if(currentMap < map_names.count() - 1)
 			ret = App->scenechange->ChangeMap(++currentMap, fade_time);
 		else
