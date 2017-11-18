@@ -83,7 +83,7 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 					}
 					else if (objdata->data->name == 2) //Only collides if the player is above the platform
 					{
-						if (position.y + Collider.h + colOffset.y <= objdata->data->y)
+						if (position.y + Collider.h <= objdata->data->y)
 							if (result.h <= result.w || position.x + Collider.w + colOffset.x >= objdata->data->x)
 								newvec.y -= result.h, BecomeGrounded();
 					}

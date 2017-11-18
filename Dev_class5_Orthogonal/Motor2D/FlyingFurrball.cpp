@@ -31,13 +31,13 @@ FlyingFurrball::FlyingFurrball(iPoint pos) : Enemy(entityType::FLYING_ENEMY, pos
 	colOffset.y = config.child("colOffset").attribute("y").as_int();
 	Collider.h = config.child("Collider").attribute("h").as_int();
 	Collider.w = config.child("Collider").attribute("w").as_int();
-	Collider.x = pos.x;
-	Collider.y = pos.y;
 
+	Collider.x = position.x;
+	Collider.y = position.y;
 	sightOffset.x = config.child("sightOffset").attribute("x").as_int();
 	sightOffset.y = config.child("sightOffset").attribute("y").as_int();
-	SightCollider.x = pos.x - sightOffset.x;
-	SightCollider.y = pos.y - sightOffset.y;
+	SightCollider.x = position.x - sightOffset.x;
+	SightCollider.y = position.y - sightOffset.y;
 	SightCollider.w = config.child("SightCollider").attribute("w").as_int();
 	SightCollider.h = config.child("SightCollider").attribute("h").as_int();
 }
@@ -49,6 +49,8 @@ FlyingFurrball::~FlyingFurrball()
 
 bool FlyingFurrball::Update(float dt)
 {
+	if (dt > 1) return true;
+
 	if (target == nullptr)
 	{
 		target = GetTarget();
@@ -79,7 +81,7 @@ bool FlyingFurrball::Update(float dt)
 				else speed = { 0,0 };
 			}
 			else
-				speed = { 0,0 };
+				speed = { 0,-100 };
 		}
 	}
 	else
