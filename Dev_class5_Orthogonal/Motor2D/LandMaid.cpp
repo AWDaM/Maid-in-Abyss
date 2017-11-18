@@ -93,6 +93,7 @@ bool LandMaid::Update(float dt)
 	speed.x = speed.x*dt;
 	speed.y = gravity*dt;
 	speed = Collider_Overlay(speed, 1);
+
 	position.x += speed.x;
 	position.y += speed.y;
 	PositionCollider();
@@ -124,12 +125,12 @@ bool LandMaid::Move()
 
 void LandMaid::LoadPushbacks()
 {
-	idle.PushBack({ 0,575,65,50 });
-	idle.PushBack({ 73,575,65,50 });
-	idle.PushBack({ 147,575,65,50 });
-	idle.PushBack({ 219,575,65,50 });
-	idle.PushBack({ 291,575,65,50 });
-	idle.PushBack({ 362,575,65,50 });
+	idle.PushBack({ 0,575,50,65 });
+	idle.PushBack({ 73,575,50,65 });
+	idle.PushBack({ 147,575,50,65 });
+	idle.PushBack({ 219,575,50,65 });
+	idle.PushBack({ 291,575,50,65 });
+	idle.PushBack({ 362,575,50,65 });
 	idle.loop = true;
 	idle.speed = 0.3;
 
