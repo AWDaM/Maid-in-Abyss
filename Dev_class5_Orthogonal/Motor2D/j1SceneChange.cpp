@@ -53,9 +53,12 @@ bool j1MapChange::Update(float dt)
 			if (now >= total_time) //Point where the screen is totally black, and the new map is loaded.
 			{
 				App->scene->currentMap = nextMap;
+				LOG("%i", App->scene->currentMap);
+
 				App->map->SwitchMaps(App->scene->map_names[nextMap]);
 				
 				App->entitycontroller->Restart();
+
 				total_time += total_time;
 				start_time = SDL_GetTicks();
 				fading = false;
@@ -70,6 +73,10 @@ bool j1MapChange::Update(float dt)
 			if (now >= total_time)
 			{
 				current_step = fade_step::none;
+				if (App->entitycontroller->Entities.count() <= 1)
+				{
+					App->scene->SpawnEnemies();
+				}
 			}
 
 		}break;
@@ -83,7 +90,7 @@ bool j1MapChange::Update(float dt)
 
 bool j1MapChange::ChangeMap(int newMap, float time)
 {
-	bool ret = false;
+ 	bool ret = false;
 
 	nextMap = newMap;
 

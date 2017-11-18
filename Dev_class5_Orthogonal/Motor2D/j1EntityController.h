@@ -5,6 +5,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Player.h"
+
 //#include "Entity.h"
 
 
@@ -26,6 +27,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
 	bool Restart();
+	void ChangeMapEnemies();
 	bool Draw();
 	bool DebugDraw();
 
