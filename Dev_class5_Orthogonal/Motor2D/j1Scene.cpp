@@ -57,6 +57,7 @@ bool j1Scene::Start()
 
 	debug_tex = App->tex->Load("maps/Navigable.png");
 
+	currentMap = 0;
 	SpawnEnemies();
 
 	return true;
@@ -146,6 +147,7 @@ bool j1Scene::Update(float dt)
 	}
 
 	App->win->SetTitle(title.GetString());
+	LOG("%i", currentMap);
 	return true;
 }
 
