@@ -1,5 +1,5 @@
-#include "j1EntityController.h"
 #include "Enemy.h"
+#include "j1EntityController.h"
 #include "j1Textures.h"
 #include "j1App.h"
 #include "j1Render.h"
@@ -37,7 +37,7 @@ Enemy::~Enemy()
 {
 }
 
-Entity * Enemy::GetTarget()
+Entity * Enemy::GetTarget() const
 {
 	p2List_item<Entity*>* ret = nullptr;
 	for (p2List_item<Entity*>* i = App->entitycontroller->Entities.start; i != nullptr; i = i->next)
