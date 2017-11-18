@@ -1,4 +1,3 @@
-#pragma once
 #include "Entity.h"
 #include "j1Pathfinding.h"
 #include "j1Map.h"
@@ -10,7 +9,7 @@ public:
 	Enemy(Entity::entityType type);
 	Enemy(Entity::entityType type, iPoint position);
 	~Enemy();
-	Entity* GetTarget();
+	Entity* GetTarget() const;
 	bool Move();
 	void Restart();
 	void Save(pugi::xml_node&) const;
