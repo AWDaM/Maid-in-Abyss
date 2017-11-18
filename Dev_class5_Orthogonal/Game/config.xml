@@ -38,6 +38,7 @@
   <entitycontroller>
     <folder>textures/</folder>
     <sprite_sheet source="Entities.png"/>
+    <totaltimestop value="3"/>
     <player>
       <jumpFX source="Jump.wav"/>
       <deathFX source="Death.wav"/>

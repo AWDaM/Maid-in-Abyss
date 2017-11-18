@@ -113,6 +113,8 @@ bool j1Scene::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		slowing = true;
 
+
+
 	//else if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
 		//App->pathfinding->CreatePath({test.x + 20, test.y + 5}, { test.x, test.y });
 

@@ -22,6 +22,7 @@ bool j1EntityController::Awake(pugi::xml_node &config)
 	bool ret = false;
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
+	totaltimestop = config.child("totaltimestop").attribute("value").as_int();
 	AddEntity(Entity::entityType::PLAYER, { 0,0 });
 	
 	p2List_item<Entity*>* tmp = Entities.start;
@@ -54,6 +55,7 @@ bool j1EntityController::Update(float dt)
 	{
 		DebugDraw();
 	}
+	StopTime();
 	EnemyColliderCheck();
 	bool ret = false;
 	p2List_item<Entity*>* tmp = Entities.start;
@@ -255,4 +257,19 @@ void j1EntityController::EnemyColliderCheck()
 		}
 		tmp = tmp->next;
 	}
+}
+
+void j1EntityController::StopTime()
+{
+	if (wanttostop)
+	{
+		timestopped = true;
+		wanttostop = false;
+	}
+
+	if (timestopped_timer.ReadSec()>totaltimestop && timestopped)
+	{
+		timestopped = false;
+	}
+
 }

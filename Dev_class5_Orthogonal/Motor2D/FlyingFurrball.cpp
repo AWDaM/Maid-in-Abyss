@@ -1,3 +1,4 @@
+#include "j1EntityController.h"
 #include "FlyingFurrball.h"
 #include "j1Scene.h"
 #include "j1Render.h"
@@ -5,20 +6,22 @@
 
 FlyingFurrball::FlyingFurrball() : Enemy(entityType::FLYING_ENEMY)
 {
+
 }
 
-FlyingFurrball::FlyingFurrball(iPoint position) : Enemy(entityType::FLYING_ENEMY, position)
+FlyingFurrball::FlyingFurrball(iPoint pos) : Enemy(entityType::FLYING_ENEMY, pos)
 {
 	LoadPushbacks();
 	Current_Animation = &idle;
 	canFly = true;
-
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 
 	config = App->LoadConfig(config_file);
 
 	config = config.child("entitycontroller").child("flyingfurrball");
+
+	speed = { 0,0 };
 
 	maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
 	maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
@@ -28,6 +31,7 @@ FlyingFurrball::FlyingFurrball(iPoint position) : Enemy(entityType::FLYING_ENEMY
 	colOffset.y = config.child("colOffset").attribute("y").as_int();
 	Collider.h = config.child("Collider").attribute("h").as_int();
 	Collider.w = config.child("Collider").attribute("w").as_int();
+
 	Collider.x = position.x;
 	Collider.y = position.y;
 	sightOffset.x = config.child("sightOffset").attribute("x").as_int();
@@ -92,8 +96,15 @@ bool FlyingFurrball::Update(float dt)
 		speed.y = speed.y*dt;
 		//speed = Collider_Overlay(speed, 1);
 
-		position.x += speed.x;
-		position.y += speed.y;
+		if (!App->entitycontroller->timestopped)
+		{
+			position.x += speed.x;
+			position.y += speed.y;
+		}
+		else
+		{
+			Current_Animation->speed = animationSpeed * 0;
+		}
 
 	return true;
 }
