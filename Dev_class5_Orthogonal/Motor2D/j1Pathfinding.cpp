@@ -236,7 +236,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, b
 	}
 	else if (!IsWalkable(origin, canFly))
 	{
-		PathList neighbors;
+ 		PathList neighbors;
 		PathNode originNode(0, origin.DistanceNoSqrt(destination), origin, nullptr);
 
 		originNode.FindWalkableAdjacents(neighbors, &originNode, canFly);

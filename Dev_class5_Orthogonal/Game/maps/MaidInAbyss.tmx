@@ -184458,7 +184458,7 @@
   <object id="99" name="7" x="3182" y="1650" width="32" height="32"/>
   <object id="100" name="7" x="3430" y="946" width="32" height="32"/>
   <object id="101" name="7" x="4314" y="396" width="32" height="32"/>
-  <object id="102" name="8" x="1720" y="1920" width="32" height="32"/>
-  <object id="103" name="8" x="3566" y="1920" width="32" height="32"/>
+  <object id="102" name="8" x="1722" y="1923" width="32" height="32"/>
+  <object id="103" name="8" x="3566" y="1923" width="32" height="32"/>
  </objectgroup>
 </map>

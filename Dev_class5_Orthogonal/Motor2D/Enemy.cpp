@@ -1,5 +1,5 @@
-#include "Enemy.h"
 #include "j1EntityController.h"
+#include "Enemy.h"
 #include "j1Textures.h"
 #include "j1App.h"
 #include "j1Render.h"

@@ -3,6 +3,7 @@
 #include "j1Render.h"
 #include "Entity.h"
 #include "Player.h"
+#include "LandMaid.h"
 #include "FlyingFurrball.h"
 #include "PugiXml/src/pugixml.hpp"
 #include "j1Textures.h"
@@ -205,6 +206,9 @@ Entity* j1EntityController::AddEntity(Entity::entityType type, iPoint position)
 		break;
 	case Entity::entityType::FLYING_ENEMY:
 		tmp = new FlyingFurrball(position);
+		break;
+	case Entity::entityType::LAND_ENEMY:
+		tmp = new GroundMaid(position);
 		break;
 	}
 		//case Entity::entityType::LAND_ENEMY: tmp = new Player();

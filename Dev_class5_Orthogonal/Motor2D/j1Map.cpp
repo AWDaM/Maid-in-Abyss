@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "j1Textures.h"
+#include "j1Pathfinding.h"
 #include "j1Audio.h"
 #include "j1Scene.h"
 #include "j1Map.h"
@@ -499,6 +500,11 @@ bool j1Map::SwitchMaps(p2SString* new_map)
 		App->scene->to_end = false;
 		Load_map(new_map->GetString());
 		App->audio->PlayMusic(App->map->data.musicFile.GetString());
+
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
 
 	return true;
 }
