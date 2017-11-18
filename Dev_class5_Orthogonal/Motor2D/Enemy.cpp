@@ -68,12 +68,6 @@ Entity * Enemy::GetTarget() const
 	return ret->data;
 }
 
-bool Enemy::Move()
-{
-
-	return true;
-}
-
 void Enemy::Restart()
 {
 	position.x = originalpos.x;
@@ -82,8 +76,11 @@ void Enemy::Restart()
 
 void Enemy::Save(pugi::xml_node &data) const
 {
-	
-	data = data.append_child("flyingfurrball");
+	if(type == FLYING_ENEMY)
+		data = data.append_child("flyingfurrball");
+	else
+		data = data.append_child("landmaid");
+
 	data.append_child("position").append_attribute("x") = position.x;
 	data.child("position").append_attribute("y") = position.y;
 }
