@@ -11,6 +11,15 @@
 
 class Entity;
 
+enum timeState
+{
+	NO_STATE,
+	NORMAL,
+	SLOWING,
+	STOPPED,
+	FASTENING,
+	RECENTLY_STOPPED
+};
 
 class j1EntityController : public j1Module
 {
@@ -34,6 +43,7 @@ public:
 	Entity* AddEntity(Entity::entityType type, iPoint position);
 	bool DeleteEntity();
 	void EnemyColliderCheck();
+	void TimeManager();
 	void StopTime();
 private:
 
@@ -45,9 +55,11 @@ public:
 	p2List<Entity*> Entities;
 	bool timestopped = false;
 	j1Timer timestopped_timer;
+	j1Timer timeslowed_timer;
 	int totaltimestop;
+	int totaltimeslow;
 	bool wanttostop = false;
-
+	timeState time_state;
 private:
 	
 protected:

@@ -55,10 +55,10 @@ void Enemy::Restart()
 
 void Enemy::Save(pugi::xml_node &data) const
 {
+	pugi::xml_node furrball = data.append_child("flyingfurrball");;
 	
-	data = data.append_child("flyingfurrball");
-	data.append_child("position").append_attribute("x") = position.x;
-	data.child("position").append_attribute("y") = position.y;
+	furrball.append_child("position").append_attribute("x") = position.x;
+	furrball.child("position").append_attribute("y") = position.y;
 }
 
 void Enemy::Load(pugi::xml_node &data)

@@ -83,7 +83,7 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 					}
 					else if (objdata->data->name == 2) //Only collides if the player is above the platform
 					{
-						if (position.y + Collider.h <= objdata->data->y)
+						if (position.y + Collider.h + colOffset.y <= objdata->data->y)
 							if (result.h <= result.w || position.x + Collider.w + colOffset.x >= objdata->data->x)
 								newvec.y -= result.h, BecomeGrounded();
 					}
@@ -91,8 +91,8 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 					{
 							alive = false;
 					}
-					else if (objdata->data->name == 5 && App->scene->to_end == false) //Detects when the player has finished the level
-					{
+					else if (objdata->data->name == 5 && App->scene->to_end == false && type == Entity::entityType::PLAYER) //Detects when the player has finished the level
+					{ 
 							App->scene->to_end = true;
 					}
 					//The new trajectory of the player is adjousted for the next collision check

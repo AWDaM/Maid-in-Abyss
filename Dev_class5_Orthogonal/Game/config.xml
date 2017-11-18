@@ -39,6 +39,7 @@
     <folder>textures/</folder>
     <sprite_sheet source="Entities.png"/>
     <totaltimestop value="3"/>
+    <totaltimeslow value="2"/>
     <player>
       <jumpFX source="Jump.wav"/>
       <deathFX source="Death.wav"/>

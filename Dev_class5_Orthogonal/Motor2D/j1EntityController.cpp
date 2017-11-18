@@ -23,6 +23,7 @@ bool j1EntityController::Awake(pugi::xml_node &config)
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 	totaltimestop = config.child("totaltimestop").attribute("value").as_int();
+	totaltimeslow = config.child("total").attribute("value").as_int();
 	AddEntity(Entity::entityType::PLAYER, { 0,0 });
 	
 	p2List_item<Entity*>* tmp = Entities.start;
@@ -120,7 +121,7 @@ bool j1EntityController::Load(pugi::xml_node& file)
 		else if (tmp->data->type == Entity::entityType::FLYING_ENEMY)
 		{
 			tmp->data->Load(furrballFile);
-			furrballFile = furrballFile.next_sibling("flyingfurball");
+			furrballFile = furrballFile.next_sibling("flyingfurrball");
 			
 		}
 		else if (tmp->data->type == Entity::entityType::LAND_ENEMY)
@@ -256,6 +257,25 @@ void j1EntityController::EnemyColliderCheck()
 			}
 		}
 		tmp = tmp->next;
+	}
+}
+
+void j1EntityController::TimeManager()
+{
+	if (wanttostop && time_state == NORMAL)
+	{
+		time_state = SLOWING;
+		timeslowed_timer.Start();
+	}
+
+	else if (time_state == SLOWING && timeslowed_timer.ReadSec() > totaltimeslow)
+	{
+		time_state = STOPPED;
+		timestopped_timer.Start();
+	}
+	if (timestopped_timer.ReadSec()>totaltimestop && timestopped)
+	{
+		timestopped = false;
 	}
 }
 

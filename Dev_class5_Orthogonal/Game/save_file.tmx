@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene>
+		<currentMap num="0" />
+	</scene>
+	<mapchange />
+	<entitycontroller>
+		<player>
+			<position x="1690" y="1209" />
+			<speed x="0" y="8" />
+			<collider width="32" height="63" x="1701" y="1218" />
+			<grounded value="false" />
+			<dashing value="false" />
+			<currentDashtime value="0" />
+		</player>
+		<flyingfurrball>
+			<position x="1834" y="1390" />
+		</flyingfurrball>
+		<flyingfurrball>
+			<position x="1838" y="1375" />
+		</flyingfurrball>
+		<flyingfurrball>
+			<position x="1915" y="1282" />
+		</flyingfurrball>
+		<flyingfurrball>
+			<position x="3182" y="1650" />
+		</flyingfurrball>
+		<flyingfurrball>
+			<position x="3430" y="946" />
+		</flyingfurrball>
+		<flyingfurrball>
+			<position x="4314" y="396" />
+		</flyingfurrball>
+		<flyingfurrball>
+			<position x="436" y="425" />
+		</flyingfurrball>
+		<flyingfurrball>
+			<position x="0" y="383" />
+		</flyingfurrball>
+	</entitycontroller>
+	<pathfinding />
+	<renderer>
+		<camera x="1349" y="825" />
+	</renderer>
+</game_state>
