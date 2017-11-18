@@ -34,6 +34,7 @@ public:
 	Entity* AddEntity(Entity::entityType type, iPoint position);
 	bool DeleteEntity();
 	void EnemyColliderCheck();
+	void StopTime();
 private:
 
 	//------------Attributes-----------//
@@ -42,7 +43,10 @@ public:
 	p2SString		texture_path;
 	SDL_Texture* texture;
 	p2List<Entity*> Entities;
-
+	bool timestopped = false;
+	j1Timer timestopped_timer;
+	int totaltimestop;
+	bool wanttostop = false;
 
 private:
 	

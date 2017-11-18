@@ -113,6 +113,8 @@ bool j1Scene::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		slowing = true;
 
+
+
 	//else if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
 		//App->pathfinding->CreatePath({test.x + 20, test.y + 5}, { test.x, test.y });
 
@@ -218,7 +220,7 @@ void j1Scene::SpawnEnemies()
 			{
 				if (objdata->data->name == 7)
 				{
-					//App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { objdata->data->x,objdata->data->y });
+					App->entitycontroller->AddEntity(Entity::entityType::FLYING_ENEMY, { objdata->data->x,objdata->data->y });
 				}
 
 				else if (objdata->data->name == 8)

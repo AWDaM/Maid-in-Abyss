@@ -151,6 +151,12 @@ bool Player::Update(float dt)
 				//speed.x = jumpForce.x*direction_x*dt;
 				speed.y = jumpForce.y;
 			}
+
+			if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+			{
+				App->entitycontroller->wanttostop = true;
+				App->entitycontroller->timestopped_timer.Start();
+			}
 			speed.y += gravity*dt*App->scene->timeScale;
 		}
 		//speed.y = speed.y*dt;
