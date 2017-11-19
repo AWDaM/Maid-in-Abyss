@@ -257,7 +257,9 @@ void j1EntityController::EnemyColliderCheck()
 			}
 			if (SDL_HasIntersection(&tmp->data->Collider, &player->data->Collider))
 			{
-				player->data->alive = false;
+				player->data->AddSFX(2, 0, 80);
+
+				player->data->isDying = true;
 			}
 		}
 		tmp = tmp->next;

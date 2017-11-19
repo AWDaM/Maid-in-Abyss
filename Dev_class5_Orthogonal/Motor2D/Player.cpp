@@ -111,7 +111,7 @@ bool Player::PreUpdate()
 bool Player::Update(float dt)
 {
 	App->scene->test = position;
-	if (dt < 1)
+	if (dt < 1 && !isDying)
 	{
 		FlipImage();
 
@@ -164,21 +164,40 @@ bool Player::Update(float dt)
 		//speed.y = speed.y*dt;
 		//speed.x = speed.x*dt;
 
-		float meh = 1;
-		speed = SpeedBoundaries(speed, meh);
+
+		speed = SpeedBoundaries(speed, 1);
 
 
-		speed = Collider_Overlay(speed, meh);
+		speed = Collider_Overlay(speed, 1);
+		speed.x = (int)speed.x;
+		speed.y = (int)speed.y;
+		NormalizeAnimationSpeed(dt);
+		ChangeAnimation();
+		PlayerMovement(1);
+		PositionCollider();
+
+	}
+	else if (dt < 1 && isDying)
+	{
+
+		speed.x = 200*dt*-direction_x;
+		speed.y = gravity*dt*7;
+
+		speed = Collider_Overlay(speed, 1);
 		speed.x = (int)speed.x;
 		speed.y = (int)speed.y;
 
-		NormalizeAnimationSpeed(dt);
+
+		if (speed.y == 0 || position.y > App->map->data.height*App->map->data.tile_height)
+		{
+			alive = false;
+			speed.x = 0;
+		}
 
 		ChangeAnimation();
-		PlayerMovement(meh);
+		PlayerMovement(1);
 		PositionCollider();
 	}
-
 	return true;
 }
 
@@ -186,7 +205,6 @@ bool Player::PostUpdate()
 {
 	if (!alive)
 	{
-		AddSFX(2, 0, 50);
 		App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);
 	}
 
@@ -237,21 +255,26 @@ void Player::Save(pugi::xml_node& data) const
 
 void Player::ChangeAnimation()
 {
-	if (!isDashing)
+	if (!isDying)
 	{
-		if (speed.y == 0 && grounded)
-			if (speed.x == 0)
-				Current_Animation = &idle;
+		if (!isDashing)
+		{
+			if (speed.y == 0 && grounded)
+				if (speed.x == 0)
+					Current_Animation = &idle;
+				else
+					Current_Animation = &running;
+			else if (speed.y < 0)
+				Current_Animation = &jumping_up;
 			else
-				Current_Animation = &running;
-		else if (speed.y < 0)
-			Current_Animation = &jumping_up;
-		else
-			Current_Animation = &falling;
-	}
+				Current_Animation = &falling;
+		}
 
+		else
+			Current_Animation = &dashing;
+	}
 	else
-		Current_Animation = &dashing;
+		Current_Animation = &dying;
 }
 
 void Player::PlayerMovement(float dt)
@@ -278,7 +301,7 @@ void Player::Restart()
 					Current_Animation = &idle;
 				}
 	LOG("Ded");
-
+	isDying = false;
 	alive = true;
 }
 
@@ -320,6 +343,16 @@ void Player::LoadPushbacks()
 	dashing.PushBack({ 548, 219, 76, 69 });
 	dashing.loop = false;
 	dashing.speed = 0.6f;
+
+	dying.PushBack({ 0, 112, 95, 77 });
+	dying.PushBack({ 95, 112, 95, 77 });
+	dying.PushBack({ 190, 112, 95, 77 });
+	dying.PushBack({ 285, 112, 95, 77 });
+	dying.PushBack({ 380, 112, 95, 77 });
+	dying.PushBack({ 475, 112, 95, 77 });
+	dying.PushBack({ 570, 112, 95, 77 });
+	dying.loop = false;
+	dying.speed = 1.5f;
 }
 
 

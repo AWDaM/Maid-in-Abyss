@@ -78,6 +78,7 @@ public:
 	SDL_Rect Collider;
 	SDL_Rect SightCollider;
 	bool alive = false;
+	bool isDying = false;
 	bool grounded = false;
 	bool flip = false;
 	bool chasing_player = false;
