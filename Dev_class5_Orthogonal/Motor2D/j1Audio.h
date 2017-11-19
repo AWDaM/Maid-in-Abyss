@@ -25,6 +25,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Save(pugi::xml_node&) const;
+	bool Load(pugi::xml_node&);
+
 	// Play a music file
 	bool PlayMusic(const char* path, float fade_time = DEFAULT_MUSIC_FADE_TIME);
 
@@ -38,6 +41,8 @@ public:
 	void LowerSFXVolume();
 	void RaiseMusicVolume();
 	void RaiseSFXVolume();
+
+
 
 private:
 

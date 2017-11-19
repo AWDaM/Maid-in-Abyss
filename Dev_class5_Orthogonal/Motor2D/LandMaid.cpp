@@ -100,6 +100,8 @@ bool LandMaid::Update(float dt)
 	position.x += speed.x;
 	position.y += speed.y;
 	PositionCollider();
+	Current_Animation->speed = animationSpeed*dt;
+
 
 	return true;
 }

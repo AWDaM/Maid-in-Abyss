@@ -23,9 +23,10 @@ bool j1EntityController::Awake(pugi::xml_node &config)
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 	totaltimestop = config.child("totaltimestop").attribute("value").as_int();
-	totaltimeslow = config.child("total").attribute("value").as_int();
+	totaltimeslow = config.child("totaltimeslow").attribute("value").as_int();
+	timestop_cooldown = config.child("timestop_cooldown").attribute("value").as_int();
 	AddEntity(Entity::entityType::PLAYER, { 0,0 });
-	
+	time_state = NORMAL;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
@@ -56,13 +57,16 @@ bool j1EntityController::Update(float dt)
 	{
 		DebugDraw();
 	}
-	StopTime();
+	enemy_dt = TimeManager(enemy_dt,dt);
 	EnemyColliderCheck();
 	bool ret = false;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		ret = tmp->data->Update(dt);
+		if (tmp->data->type == Entity::entityType::PLAYER)
+			ret = tmp->data->Update(dt);
+		else
+			ret = tmp->data->Update(enemy_dt);
 		tmp = tmp->next;
 	}
 	//if (App->map->debug)DebugDraw();
@@ -260,36 +264,69 @@ void j1EntityController::EnemyColliderCheck()
 	}
 }
 
-void j1EntityController::TimeManager()
+float j1EntityController::TimeManager(float enemy_dt, float dt)
 {
-	if (wanttostop && time_state == NORMAL)
+	switch (time_state)
 	{
-		time_state = SLOWING;
-		timeslowed_timer.Start();
-	}
+	case NORMAL:
+		enemy_dt = dt;
+		if (wanttostop)
+		{
+			time_state = SLOWING;
+			wanttostop = false;
+			timestop_timer.Start();
+		}
 
-	else if (time_state == SLOWING && timeslowed_timer.ReadSec() > totaltimeslow)
-	{
-		time_state = STOPPED;
-		timestopped_timer.Start();
+	break;
+
+	case SLOWING:
+		enemy_dt -= (enemy_dt / 10);
+		if (enemy_dt < 0)
+		{
+			enemy_dt = 0;
+		}
+		if (timestop_timer.ReadSec() > totaltimeslow)
+		{
+			time_state = STOPPED;
+			timestop_timer.Start();
+		}
+
+	break;
+
+	case STOPPED:
+		enemy_dt = 0;
+		if (timestop_timer.ReadSec() > totaltimestop)
+		{
+			time_state = FASTENING;
+			timestop_timer.Start();
+			enemy_dt = dt / 10;
+		}
+		
+		break;
+
+	case FASTENING:
+		enemy_dt += (enemy_dt / 20);
+		if (enemy_dt > dt)
+		{
+			enemy_dt = dt;
+		}
+		if (timestop_timer.ReadSec() > totaltimeslow)
+		{
+			time_state = RECENTLY_STOPPED;
+			timestop_timer.Start();
+		}
+
+		break;
+
+	case RECENTLY_STOPPED:
+		enemy_dt = dt;
+		if (timestop_timer.ReadSec() > timestop_cooldown)
+		{
+			time_state = NORMAL;
+		}
+
+		break;
 	}
-	if (timestopped_timer.ReadSec()>totaltimestop && timestopped)
-	{
-		timestopped = false;
-	}
+	return enemy_dt;
 }
 
-void j1EntityController::StopTime()
-{
-	if (wanttostop)
-	{
-		timestopped = true;
-		wanttostop = false;
-	}
-
-	if (timestopped_timer.ReadSec()>totaltimestop && timestopped)
-	{
-		timestopped = false;
-	}
-
-}

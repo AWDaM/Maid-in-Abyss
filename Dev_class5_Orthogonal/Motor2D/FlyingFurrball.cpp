@@ -96,16 +96,12 @@ bool FlyingFurrball::Update(float dt)
 		speed.y = speed.y*dt;
 		//speed = Collider_Overlay(speed, 1);
 
-		if (!App->entitycontroller->timestopped)
-		{
-			FlipImage();
-			position.x += speed.x;
-			position.y += speed.y;
-		}
-		else
-		{
-			Current_Animation->speed = animationSpeed * 0;
-		}
+		FlipImage();
+		position.x += speed.x;
+		position.y += speed.y;
+		Current_Animation->speed = animationSpeed*dt;
+
+
 
 	return true;
 }

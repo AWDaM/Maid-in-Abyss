@@ -44,6 +44,8 @@ void Enemy::Restart()
 {
 	position.x = originalpos.x;
 	position.y = originalpos.y;
+	speed.SetToZero();
+
 }
 
 void Enemy::Save(pugi::xml_node &data) const

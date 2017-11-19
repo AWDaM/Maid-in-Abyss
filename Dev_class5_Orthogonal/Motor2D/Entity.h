@@ -30,7 +30,7 @@ public:
 	virtual bool Update(float dt) { return true; };
 	virtual bool PostUpdate() { return true; };
 	virtual bool Move() { return true; };
- void Draw();
+
 	virtual void CleanUp() {};
 	virtual void Save(pugi::xml_node& file) const{};
 	virtual void Load(pugi::xml_node& file) {};
@@ -60,10 +60,12 @@ public:
 
 	void PositionCollider();
 
+	void Draw();
+
 private:
 
 public:
-	float animationSpeed = 1;
+	float animationSpeed = 2;
 	Animation* Current_Animation = nullptr;
 	entityType type;
 	fPoint speed;

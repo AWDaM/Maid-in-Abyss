@@ -187,6 +187,9 @@
     <None Include="..\Game\maps\DepthsOfTheAbyss.tmx">
       <Filter>Desenvolupament  ========\Files</Filter>
     </None>
+    <None Include="..\Game\save_file.tmx">
+      <Filter>Desenvolupament  ========\Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml">
