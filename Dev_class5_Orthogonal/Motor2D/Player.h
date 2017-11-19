@@ -98,6 +98,7 @@ private:
 	Animation		jumping_up;
 	Animation		falling;
 	Animation		dashing;
+	Animation		dying;
 	j1Timer			dashtimer;
 	p2SString		jumpFX;
 	p2SString		deathFX;

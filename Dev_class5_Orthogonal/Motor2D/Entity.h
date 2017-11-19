@@ -65,7 +65,7 @@ public:
 private:
 
 public:
-	float animationSpeed = 1;
+	float animationSpeed = 2;
 	Animation* Current_Animation = nullptr;
 	entityType type;
 	fPoint speed;
@@ -78,6 +78,7 @@ public:
 	SDL_Rect Collider;
 	SDL_Rect SightCollider;
 	bool alive = false;
+	bool isDying = false;
 	bool grounded = false;
 	bool flip = false;
 	bool chasing_player = false;

@@ -44,7 +44,6 @@ public:
 	bool Load_lvl(int time);
 
 	void SpawnEnemies();
-	void SlowMo();
 public:
 	SDL_Texture* debug_tex;
 	iPoint test;

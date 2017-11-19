@@ -12,7 +12,9 @@ public:
 	float speed = 1.0f;
 	SDL_Rect frames[MAX_FRAMES];
 
+
 private:
+
 	float current_frame;
 	int last_frame = 0;
 	int loops = 0;
@@ -46,6 +48,16 @@ public:
 	void Reset()
 	{
 		current_frame = 0;
+	}
+
+	float GetCurrentFrameinFloat()
+	{
+		return current_frame;
+	}
+
+	int GetLastFrameinInt()
+	{
+		return last_frame;
 	}
 };
 

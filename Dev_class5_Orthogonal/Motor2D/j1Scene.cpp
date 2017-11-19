@@ -123,7 +123,6 @@ bool j1Scene::Update(float dt)
 
 	//if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
 		//App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
-	if (slowing)SlowMo();
 
 	App->map->Draw();
 	App->entitycontroller->Draw();
@@ -230,14 +229,4 @@ void j1Scene::SpawnEnemies()
 			}
 		}
 	}
-}
-
-void j1Scene::SlowMo()
-{
-	timeScale += 0.02f*backToNormal;
-
-	if (timeScale < 0.5f)backToNormal = 1;
-
-	if (backToNormal == 1 && timeScale == 1)slowing = false, backToNormal = -1;
-
 }
