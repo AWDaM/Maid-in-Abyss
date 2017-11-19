@@ -34,35 +34,34 @@ void Entity::Draw()
 			App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
 }
 
-fPoint Entity::SpeedBoundaries(fPoint originalvec, float dt)
+fPoint Entity::SpeedBoundaries(fPoint originalvec)
 {
 	if (direction_x > 0)
 	{
-		if (originalvec.x > maxSpeed.x*dt)
-			originalvec.x = maxSpeed.x*dt;
+		if (originalvec.x > maxSpeed.x)
+			originalvec.x = maxSpeed.x;
 	}
 
 	else
 	{
-		if (originalvec.x < direction_x*maxSpeed.x*dt)
-			originalvec.x = direction_x*maxSpeed.x*dt;
+		if (originalvec.x < direction_x*maxSpeed.x)
+			originalvec.x = direction_x*maxSpeed.x;
 	}
 
-	if (originalvec.y > maxSpeed.y*dt)
+	if (originalvec.y > maxSpeed.y)
 	{
-		originalvec.y = maxSpeed.y*dt;
+		originalvec.y = maxSpeed.y;
 	}
 	return originalvec;
 }
 
-fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
+fPoint Entity::Collider_Overlay(fPoint originalvec)
 {
-	grounded = false;
 
 	SDL_Rect CastCollider;
 	CastCollider = Collider;
-	CastCollider.x += originalvec.x*dt;
-	CastCollider.y += originalvec.y*dt;
+	CastCollider.x += originalvec.x;
+	CastCollider.y += originalvec.y;
 
 	SDL_Rect result;
 
@@ -209,7 +208,7 @@ void Entity::AddSFX(int channel, int repeat, uint volume)
 
 void Entity::NormalizeAnimationSpeed(float dt)
 {
-	Current_Animation->speed = animationSpeed*dt*App->scene->timeScale;
+	Current_Animation->speed = animationSpeed*dt;
 }
 
 void Entity::FlipImage()

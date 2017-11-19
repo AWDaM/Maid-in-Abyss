@@ -542,6 +542,8 @@ TileSet* j1Map::GetTilesetFromTileId(int id) const
 
 bool j1Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
+	BROFILER_CATEGORY("Creating Path Map", Profiler::Color::DarkGreen);
+
 	bool ret = false;
 	p2List_item<MapLayer*>* item;
 	item = data.layers.start;

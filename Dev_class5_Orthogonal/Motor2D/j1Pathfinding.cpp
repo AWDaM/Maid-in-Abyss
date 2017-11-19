@@ -170,7 +170,7 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, const bool canFly)
 {
-	BROFILER_CATEGORY("Pathfindinf", Profiler::Color::Magenta);
+	BROFILER_CATEGORY("Pathfinding", Profiler::Color::Magenta);
 	last_path.Clear();
 	int ret = -1;
 	if (IsWalkable(origin, canFly) && IsWalkable(destination, true))

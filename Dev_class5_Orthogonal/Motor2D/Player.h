@@ -63,7 +63,7 @@ public:
 	
 
 	//Adds the speed to the player's position and checks if its out of the boundaries
-	void PlayerMovement(float dt);
+	void PlayerMovement();
 
 	
 	

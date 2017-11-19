@@ -40,10 +40,10 @@ public:
 	virtual void LoadPushbacks() {};
 
 	//Applies the gravity (speed.y) and checks if the speed is out of the limits
-	fPoint SpeedBoundaries(fPoint originalvec, float dt);
+	fPoint SpeedBoundaries(fPoint originalvec);
 
 	//Detects if the player's collider is going to collide in the next frame and acts in consequence
-	fPoint Collider_Overlay(fPoint originalvec, float dt);
+	fPoint Collider_Overlay(fPoint originalvec);
 
 	//Called if the player's collider is going to collide with unpasable terrain, adjousts the player's speed to avoid it
 	fPoint AvoidCollision(fPoint newvec, const SDL_Rect result, p2List_item<ObjectsData*>* objdata);

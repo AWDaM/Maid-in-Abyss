@@ -131,12 +131,12 @@ bool Player::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 			{
 				direction_x = 1;
-				speed.x = maxSpeed.x*dt*direction_x*App->scene->timeScale;
+				speed.x = maxSpeed.x*dt*direction_x;
 			}
 			else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 			{
 				direction_x = -1;
-				speed.x = maxSpeed.x*dt*direction_x*App->scene->timeScale;
+				speed.x = maxSpeed.x*dt*direction_x;
 			}
 			else
 				speed.x = 0;
@@ -160,21 +160,22 @@ bool Player::Update(float dt)
 					App->entitycontroller->wanttostop = true;
 				}
 			}
-			speed.y += gravity*dt*App->scene->timeScale;
+			speed.y += gravity*dt;
 		}
 		//speed.y = speed.y*dt;
 		//speed.x = speed.x*dt;
 
 
-		speed = SpeedBoundaries(speed, 1);
+		speed = SpeedBoundaries(speed);
+		grounded = false;
 
 
-		speed = Collider_Overlay(speed, 1);
+		speed = Collider_Overlay(speed);
 		speed.x = (int)speed.x;
 		speed.y = (int)speed.y;
 		NormalizeAnimationSpeed(dt);
 		ChangeAnimation();
-		PlayerMovement(1);
+		PlayerMovement();
 		PositionCollider();
 
 	}
@@ -184,7 +185,7 @@ bool Player::Update(float dt)
 		speed.x = 200*dt*-direction_x;
 		speed.y = gravity*dt*7;
 
-		speed = Collider_Overlay(speed, 1);
+		speed = Collider_Overlay(speed);
 		speed.x = (int)speed.x;
 		speed.y = (int)speed.y;
 
@@ -196,7 +197,7 @@ bool Player::Update(float dt)
 		}
 
 		ChangeAnimation();
-		PlayerMovement(1);
+		PlayerMovement();
 		PositionCollider();
 	}
 
@@ -282,11 +283,11 @@ void Player::ChangeAnimation()
 		Current_Animation = &dying;
 }
 
-void Player::PlayerMovement(float dt)
+void Player::PlayerMovement()
 {
 
-	position.x += speed.x*dt*App->scene->timeScale;
-	position.y += speed.y*dt*App->scene->timeScale;
+	position.x += speed.x;
+	position.y += speed.y;
 
 	
 }
@@ -391,8 +392,8 @@ void Player::StartDashing(float dt)
 	AddSFX(4, 0);
 	isDashing = true;
 	canDash = false;
-	speed.x = dashingSpeed.x * direction_x*dt*App->scene->timeScale;
-	speed.y = dashingSpeed.y*dt*App->scene->timeScale;
+	speed.x = dashingSpeed.x * direction_x*dt;
+	speed.y = dashingSpeed.y*dt;
 	dashtimer.Start();
 }
 

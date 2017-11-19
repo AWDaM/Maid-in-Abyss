@@ -91,7 +91,7 @@ bool LandMaid::Update(float dt)
 	Move();
 	speed.x = speed.x*dt;
 	speed.y = gravity*dt;
-	speed = Collider_Overlay(speed, 1);
+	speed = Collider_Overlay(speed);
 
 	speed.x = (int)speed.x;
 	speed.y = (int)speed.y;

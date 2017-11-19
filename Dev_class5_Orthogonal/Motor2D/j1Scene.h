@@ -47,7 +47,6 @@ public:
 public:
 	SDL_Texture* debug_tex;
 	iPoint test;
-	float timeScale = 1;
 	bool slowing = false;
 	int backToNormal = -1;
 	int currentMap;
