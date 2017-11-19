@@ -63,31 +63,33 @@ bool FlyingFurrball::Update(float dt)
 		accumulated_time = 0.0f;
 	}
 
-
-	if (chasing_player)
+	if (App->entitycontroller->time_state != STOPPED)
 	{
-        		Current_Animation = &moving;
-		if (DoPathfinding)
+		if (chasing_player)
 		{
-			DoPathfinding = false;
-			if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y), canFly) > -1)
+			Current_Animation = &moving;
+			if (DoPathfinding)
 			{
-				path = *App->pathfinding->GetLastPath();
+				DoPathfinding = false;
+				if (App->pathfinding->CreatePath(App->map->WorldToMap(position.x + colOffset.x, position.y + colOffset.y), App->map->WorldToMap(target->position.x + target->colOffset.x, target->position.y + target->colOffset.y), canFly) > -1)
+				{
+					path = *App->pathfinding->GetLastPath();
 
-				if (path.Count()>0 && currentPathtile != *path.At(0))currentPathtile = *path.At(0);
+					if (path.Count() > 0 && currentPathtile != *path.At(0))currentPathtile = *path.At(0);
 
-				else if (path.Count() > 1)currentPathtile = *path.At(1);
+					else if (path.Count() > 1)currentPathtile = *path.At(1);
 
-				else speed = { 0,0 };
+					else speed = { 0,0 };
+				}
+				else
+					speed = { 0,-100 };
 			}
-			else
-				speed = { 0,-100 };
 		}
-	}
-	else
-	{
-		Current_Animation = &idle;
-		speed = { 0, 0 };
+		else
+		{
+			Current_Animation = &idle;
+			speed = { 0, 0 };
+		}
 	}
 
 		PositionCollider();

@@ -58,7 +58,9 @@ bool j1EntityController::Update(float dt)
 		DebugDraw();
 	}
 	enemy_dt = TimeManager(enemy_dt,dt);
+
 	EnemyColliderCheck();
+
 	bool ret = false;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
@@ -256,7 +258,7 @@ void j1EntityController::EnemyColliderCheck()
 			{
 				tmp->data->chasing_player = false;
 			}
-			if (SDL_HasIntersection(&tmp->data->Collider, &player->data->Collider))
+			if (SDL_HasIntersection(&tmp->data->Collider, &player->data->Collider) && !godmode)
 			{
 				player->data->AddSFX(2, 0, 80);
 

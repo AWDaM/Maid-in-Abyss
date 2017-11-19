@@ -52,7 +52,7 @@
       <accel x="1" y="1"/>
 
       <gravity value="50"/>
-      <jumpForce x="0" y="-36"/>
+      <jumpForce x="0" y="-25"/>
 
       <maxSpeed x="360" y="600"/>
       <dashingSpeed x="600" y="0"/>

@@ -81,13 +81,13 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene update", Profiler::Color::Black);
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		Load_lvl(0);
+		Load_lvl(0) , currentMap = 0;
 
 	else if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		App->entitycontroller->Restart();
 
 	else if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-		Load_lvl(1);
+		Load_lvl(1) ,  currentMap = 1;
 
 	else if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->LoadGame();
@@ -112,6 +112,9 @@ bool j1Scene::Update(float dt)
 
 	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		slowing = true;
+	
+	else if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		App->entitycontroller->godmode = !App->entitycontroller->godmode;
 
 
 
@@ -204,8 +207,10 @@ bool j1Scene::Save(pugi::xml_node& data) const
 bool j1Scene::Load_lvl(int time)
 {
 	App->map->SwitchMaps(map_names[time]);
+	App->entitycontroller->ChangeMapEnemies();
 	App->entitycontroller->Restart();
-	return false;
+	App->scene->SpawnEnemies();
+	return true;
 }
 
 void j1Scene::SpawnEnemies()

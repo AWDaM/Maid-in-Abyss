@@ -4,12 +4,28 @@ This is a little game made by two second year students of the Videogame Design a
 It's just a small platformer with two levels, where the player can move right and left, jump, and dash.
 The game has been made using C++, using SDL and pugi libraries. The maps have been made using Tiled.
 
+2.0 Update
+We have improved the game by adding framerate cap and selection(at 30 by default), performance analyisis with brofiler,
+and an entity system which can be seen at the pdf inside the release. We also have added enemies that can pathfind to the player,
+and the hability to stop time.
+
 ### Controls
 -Movement with arrow keys.
 
 -Jump with spacebar.
 
--Dash with X.
+-Dash with X (now can be canelled, yay :D)
+
+-ZA WARUDO Z the player stops time during a certain amount of time. This hability has a 10 second cooldown.
+
+### Debug Controls
+F1: Load the first level.
+F2: Restart the current level.
+F3: Load the second level.
+F5: Load the saved game.
+F6: Save the current game.
+F9: View collider logic.
+F10: Activate/Deactivate God Mode (infinite jump, cannot collide with enemies).
 
 ### Autors
 -Jaume Surís Valhondo
@@ -17,7 +33,7 @@ The game has been made using C++, using SDL and pugi libraries. The maps have be
 -Lorién Portella López
 
 ### Github
--https://github.com/AWDaM/Assignment-1_Game-dev
+-https://github.com/AWDaM/GameDevelopmentAssignments
 
 ### Disclosure
 

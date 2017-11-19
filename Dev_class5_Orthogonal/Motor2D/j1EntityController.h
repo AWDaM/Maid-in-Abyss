@@ -53,6 +53,7 @@ public:
 	SDL_Texture* texture;
 	p2List<Entity*> Entities;
 	bool timestopped = false;
+	bool godmode = false;
 	j1Timer timestop_timer;
 	int totaltimestop;
 	int totaltimeslow;

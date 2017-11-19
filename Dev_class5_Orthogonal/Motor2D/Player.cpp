@@ -142,9 +142,18 @@ bool Player::Update(float dt)
 				speed.x = 0;
 
 
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && grounded)
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && grounded && !App->entitycontroller->godmode)
 			{
 				AddSFX(1, 0);
+				isJumping = true;
+				grounded = false;
+				//maxSpeed.x += jumpForce.x;
+				//speed.x = jumpForce.x*direction_x*dt;
+				speed.y = jumpForce.y;
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && App->entitycontroller->godmode)
+			{
 				isJumping = true;
 				grounded = false;
 				//maxSpeed.x += jumpForce.x;
