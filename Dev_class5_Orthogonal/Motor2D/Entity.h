@@ -65,7 +65,7 @@ public:
 private:
 
 public:
-	float animationSpeed = 2;
+	float animationSpeed = 3;
 	Animation* Current_Animation = nullptr;
 	entityType type;
 	fPoint speed;

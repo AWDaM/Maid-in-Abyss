@@ -23,7 +23,7 @@ LandMaid::LandMaid(iPoint position) : Enemy(entityType::LAND_ENEMY, position)
 	maxSpeed.x = config.child("maxSpeed").attribute("x").as_int();
 	maxSpeed.y = config.child("maxSpeed").attribute("y").as_int();
 	gravity = config.child("gravity").attribute("value").as_float();
-	direction_x = 1;
+	direction_x = -1;
 	colOffset.x = config.child("colOffset").attribute("x").as_int();
 	colOffset.y = config.child("colOffset").attribute("y").as_int();
 	Collider.h = config.child("Collider").attribute("h").as_int();
