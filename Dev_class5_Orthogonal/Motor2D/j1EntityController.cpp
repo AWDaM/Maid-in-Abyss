@@ -281,6 +281,10 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 
 	case SLOWING:
 		enemy_dt -= (enemy_dt / 10);
+		if (enemy_dt < 0)
+		{
+			enemy_dt = 0;
+		}
 		if (timestop_timer.ReadSec() > totaltimeslow)
 		{
 			time_state = STOPPED;
@@ -302,6 +306,10 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 
 	case FASTENING:
 		enemy_dt += (enemy_dt / 20);
+		if (enemy_dt > dt)
+		{
+			enemy_dt = dt;
+		}
 		if (timestop_timer.ReadSec() > totaltimeslow)
 		{
 			time_state = RECENTLY_STOPPED;

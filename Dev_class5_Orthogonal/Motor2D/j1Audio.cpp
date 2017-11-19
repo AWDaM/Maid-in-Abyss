@@ -83,6 +83,21 @@ bool j1Audio::CleanUp()
 	return true;
 }
 
+bool j1Audio::Save(pugi::xml_node & config) const
+{
+	config.append_child("musicVolumModifier").append_attribute("value") = musicVolumeModifier;
+	config.append_child("sfxVolumModifier").append_attribute("value") = sfxVolumeModifier;
+	return true;
+}
+
+bool j1Audio::Load(pugi::xml_node & config)
+{
+	musicVolumeModifier = config.child("musicVolumeModifier").attribute("value").as_float();
+	sfxVolumeModifier = config.child("sfxVolumModifier").attribute("value").as_float();
+
+	return true;
+}
+
 // Play a music file
 bool j1Audio::PlayMusic(const char* path, float fade_time)
 {

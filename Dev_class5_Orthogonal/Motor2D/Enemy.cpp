@@ -44,6 +44,7 @@ void Enemy::Restart()
 {
 	position.x = originalpos.x;
 	position.y = originalpos.y;
+
 }
 
 void Enemy::Save(pugi::xml_node &data) const

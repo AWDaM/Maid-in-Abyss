@@ -3,7 +3,10 @@
 	<input />
 	<window />
 	<textures />
-	<audio />
+	<audio>
+		<musicVolumeModifier value="0" />
+		<sfxVolumModifier value="1" />
+	</audio>
 	<map />
 	<scene>
 		<currentMap num="0" />
@@ -11,21 +14,21 @@
 	<mapchange />
 	<entitycontroller>
 		<player>
-			<position x="2243" y="1560" />
+			<position x="320" y="1880" />
 			<speed x="0" y="0" />
-			<collider width="32" height="63" x="2254" y="1569" />
+			<collider width="32" height="63" x="331" y="1889" />
 			<grounded value="true" />
 			<dashing value="false" />
 			<currentDashtime value="0" />
 		</player>
 		<flyingfurrball>
-			<position x="1549" y="1570" />
+			<position x="1289" y="1389" />
 		</flyingfurrball>
 		<flyingfurrball>
-			<position x="2076" y="1697" />
+			<position x="1930" y="1766" />
 		</flyingfurrball>
 		<flyingfurrball>
-			<position x="2146" y="1426" />
+			<position x="2172" y="1228" />
 		</flyingfurrball>
 		<flyingfurrball>
 			<position x="3182" y="1650" />
@@ -37,14 +40,14 @@
 			<position x="4314" y="396" />
 		</flyingfurrball>
 		<landmaid>
-			<position x="1730" y="1919" />
+			<position x="1729" y="1919" />
 		</landmaid>
 		<landmaid>
-			<position x="5179" y="3049" />
+			<position x="5179" y="2191" />
 		</landmaid>
 	</entitycontroller>
 	<pathfinding />
 	<renderer>
-		<camera x="1902" y="1176" />
+		<camera x="0" y="1280" />
 	</renderer>
 </game_state>

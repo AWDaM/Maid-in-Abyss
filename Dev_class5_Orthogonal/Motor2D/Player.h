@@ -19,7 +19,7 @@ public:
 	Player();
 
 	// Destructor
-	virtual ~Player();
+	~Player();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);

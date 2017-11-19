@@ -133,6 +133,7 @@
     <None Include="..\Game\maps\MaidInAbyss.tmx">
       <SubType>Designer</SubType>
     </None>
+    <None Include="..\Game\save_file.tmx" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml">
