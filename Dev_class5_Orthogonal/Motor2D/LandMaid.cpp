@@ -119,11 +119,23 @@ bool LandMaid::Move()
 		if(currentPathtile.x != 0)
 			speed.x = currentPathtile.x - pos.x;
 
-		speed.x *= 70;
+		speed.x *= maxSpeed.x;
 		
 	}
 	else
 		speed.x = 0;
+
+	if (position.x < target->position.x)
+	{
+		direction_x = 1;
+	}
+	else if (position.x > target->position.x)
+	{
+		direction_x = -1;
+	}
+
+	PositionCollider();
+	FlipImage();
 	return true;
 }
 

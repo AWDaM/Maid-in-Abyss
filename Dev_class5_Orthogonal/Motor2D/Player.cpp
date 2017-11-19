@@ -24,8 +24,6 @@ bool Player::Awake(pugi::xml_node & config)
 	bool ret = true;
 	config = config.child("player");
 
-	
-
 	jumpFX = config.child("jumpFX").attribute("source").as_string();
 	deathFX = config.child("deathFX").attribute("source").as_string();
 	landFX = config.child("landFX").attribute("source").as_string();
@@ -168,7 +166,7 @@ bool Player::Update(float dt)
 		//speed.x = speed.x*dt;
 
 
-		speed = SpeedBoundaries(speed, dt);
+		speed = SpeedBoundaries(speed, 1);
 
 
 		speed = Collider_Overlay(speed, 1);
@@ -183,10 +181,10 @@ bool Player::Update(float dt)
 	else if (dt < 1 && isDying)
 	{
 
-		speed.x = 200*dt;
+		speed.x = 200*dt*-direction_x;
 		speed.y = gravity*dt*7;
 
-	//	speed = Collider_Overlay(speed, 1);
+		speed = Collider_Overlay(speed, 1);
 		speed.x = (int)speed.x;
 		speed.y = (int)speed.y;
 
@@ -197,10 +195,14 @@ bool Player::Update(float dt)
 			speed.x = 0;
 		}
 
+		ChangeAnimation();
+		PlayerMovement(1);
+		PositionCollider();
 	}
 
-	LOG("CurrenFrame: %f", Current_Animation->GetCurrentFrameinFloat());
-	LOG("CurrentAnimation speed: %f", Current_Animation->speed);
+
+	/*LOG("CurrenFrame: %f", Current_Animation->GetCurrentFrameinFloat());
+	LOG("CurrentAnimation speed: %f", Current_Animation->speed);*/
 	return true;
 }
 

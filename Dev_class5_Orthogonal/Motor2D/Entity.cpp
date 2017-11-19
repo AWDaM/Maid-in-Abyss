@@ -87,11 +87,11 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 							if (result.h <= result.w || position.x + Collider.w + colOffset.x >= objdata->data->x)
 								newvec.y -= result.h, BecomeGrounded();
 					}
-					else if (objdata->data->name == 3&& !App->scenechange->IsChanging()) //Detects when the player falls
+					else if (objdata->data->name == 3 && !App->scenechange->IsChanging()) //Detects when the player falls
 					{
 							alive = false;
 					}
-					else if (objdata->data->name == 5 && App->scene->to_end == false && type == Entity::entityType::PLAYER) //Detects when the player has finished the level
+					else if (objdata->data->name == 5 && App->scene->to_end == false && type == Entity::entityType::PLAYER && !isDying) //Detects when the player has finished the level
 					{
 							App->scene->to_end = true;
 					}

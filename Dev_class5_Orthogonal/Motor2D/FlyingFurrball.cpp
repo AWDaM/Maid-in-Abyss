@@ -121,8 +121,8 @@ bool FlyingFurrball::Move()
 		speed.y = currentPathtile.y - pos.y;
 
 
-		speed.x *= 100;
-		speed.y *= 100;
+		speed.x *= maxSpeed.x;
+		speed.y *= maxSpeed.y;
 	}
 	else
 		speed = { 0,0 };
