@@ -78,21 +78,23 @@ bool LandMaid::Update(float dt)
 				
 			}
 			else
+			{
 				speed.x = 0;
-
+			}
 		}
 	}
 	else
 	{
-		Current_Animation = &idle;
-		speed.x = 0;
+		//speed.x = 0;
 	}
 
 	Move();
-	//speed = Collider_Overlay(speed, dt);
 	speed.x = speed.x*dt;
 	speed.y = gravity*dt;
 	speed = Collider_Overlay(speed, 1);
+
+	speed.x = (int)speed.x;
+	speed.y = (int)speed.y;
 
 	FlipImage();
 	position.x += speed.x;
@@ -112,9 +114,10 @@ bool LandMaid::Move()
 	if (chasing_player)
 	{
 		iPoint pos = App->map->WorldToMap(position.x, position.y);
-		speed.x = currentPathtile.x - pos.x;
+		if(currentPathtile.x != 0)
+			speed.x = currentPathtile.x - pos.x;
 
-		speed.x *= 100;
+		speed.x *= 70;
 		
 	}
 	else

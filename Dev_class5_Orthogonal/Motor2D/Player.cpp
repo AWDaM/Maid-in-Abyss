@@ -144,7 +144,7 @@ bool Player::Update(float dt)
 				speed.x = 0;
 
 
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && grounded)
 			{
 				AddSFX(1, 0);
 				isJumping = true;
@@ -187,7 +187,7 @@ bool Player::PostUpdate()
 {
 	if (!alive)
 	{
-		AddSFX(2, 0, 70);
+		AddSFX(2, 0, 50);
 		App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);
 	}
 

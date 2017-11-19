@@ -192,7 +192,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, c
 			if (lowestScoreNode.data.pos == destination && canFly)
 			{
 				PathNode current;
-				for (current = lowestScoreNode.data; current.parent != nullptr; current = *current.parent)
+ 				for (current = lowestScoreNode.data; current.parent != nullptr; current = *current.parent)
 					last_path.PushBack(current.pos);
 
 				last_path.Flip();
@@ -204,7 +204,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, c
 				for (current = lowestScoreNode.data; current.parent != nullptr; current = *current.parent)
 					last_path.PushBack(current.pos);
 
-				last_path.PushBack(current.pos);
+				//last_path.PushBack(current.pos);
 				last_path.Flip();
 				break;
 			}
@@ -231,6 +231,11 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, c
 						}
 					}
 				}
+			}
+			if (neighbors.list.start == neighbors.list.end)
+			{
+ 				ret = -1;
+				break;
 			}
 		}
 	}

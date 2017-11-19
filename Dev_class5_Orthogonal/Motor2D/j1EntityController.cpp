@@ -187,7 +187,7 @@ bool j1EntityController::DebugDraw()
 	{
 		col.h = tmp->data->Collider.h, col.w = tmp->data->Collider.w, col.x = tmp->data->Collider.x, col.y = tmp->data->Collider.y;
 		App->render->DrawQuad(col, 255, 0, 0, 50);
-		if (tmp->data->type == Entity::entityType::FLYING_ENEMY)
+		if (tmp->data->type == Entity::entityType::FLYING_ENEMY || tmp->data->type == Entity::entityType::LAND_ENEMY)
 		{
 			col2.h = tmp->data->SightCollider.h, col2.w = tmp->data->SightCollider.w, col2.x = tmp->data->SightCollider.x, col2.y = tmp->data->SightCollider.y;
 			App->render->DrawQuad(col2, 255, 0, 0, 50);

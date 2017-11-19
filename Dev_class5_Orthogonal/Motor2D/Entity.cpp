@@ -83,7 +83,7 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 					}
 					else if (objdata->data->name == 2) //Only collides if the player is above the platform
 					{
-						if (position.y + Collider.h + colOffset.y <= objdata->data->y)
+						if (position.y + Collider.h <= objdata->data->y)
 							if (result.h <= result.w || position.x + Collider.w + colOffset.x >= objdata->data->x)
 								newvec.y -= result.h, BecomeGrounded();
 					}
@@ -117,14 +117,14 @@ fPoint Entity::AvoidCollision(fPoint newvec, const SDL_Rect result, p2List_item<
 		{
 			if (newvec.x > 0)
 			{
-				if (result.h <= result.w || position.x + Collider.w + colOffset.x >= objdata->data->x)
+				if (result.h <= result.w || position.x + Collider.w + colOffset.x > objdata->data->x)
 					newvec.y -= result.h, BecomeGrounded();
 				else
 					newvec.x -= result.w;
 			}
 			else if (newvec.x < 0)
 			{
-				if (result.h <= result.w || position.x + colOffset.x >= objdata->data->x + objdata->data->width)
+				if (result.h <= result.w || position.x + colOffset.x > objdata->data->x + objdata->data->width)
 					newvec.y -= result.h, BecomeGrounded();
 				else
 					newvec.x += result.w;
@@ -214,10 +214,16 @@ void Entity::NormalizeAnimationSpeed(float dt)
 
 void Entity::FlipImage()
 {
-		if (speed.x <= 0)
-			flip = true;
-		else if (speed.x > 0)
-			flip = false;
+	if (speed.x < 0)
+	{
+		direction_x = -1;
+		flip = true;
+	}
+	else if (speed.x > 0)
+	{
+		direction_x = 1;
+		flip = false;
+	}
 }
 
 void Entity::PositionCollider()
