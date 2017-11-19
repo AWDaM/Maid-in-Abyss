@@ -92,7 +92,7 @@ fPoint Entity::Collider_Overlay(fPoint originalvec, float dt)
 							alive = false;
 					}
 					else if (objdata->data->name == 5 && App->scene->to_end == false && type == Entity::entityType::PLAYER) //Detects when the player has finished the level
-					{ 
+					{
 							App->scene->to_end = true;
 					}
 					//The new trajectory of the player is adjousted for the next collision check
@@ -214,7 +214,7 @@ void Entity::NormalizeAnimationSpeed(float dt)
 
 void Entity::FlipImage()
 {
-		if (speed.x < 0)
+		if (speed.x <= 0)
 			flip = true;
 		else if (speed.x > 0)
 			flip = false;

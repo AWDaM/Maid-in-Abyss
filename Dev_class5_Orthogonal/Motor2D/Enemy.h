@@ -13,7 +13,6 @@ public:
 	Enemy(Entity::entityType type, iPoint position);
 	~Enemy();
 	Entity* GetTarget() const;
-	bool Move();
 	void Restart();
 	void Save(pugi::xml_node&) const;
 	void Load(pugi::xml_node&);

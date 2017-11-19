@@ -11,21 +11,21 @@
 	<mapchange />
 	<entitycontroller>
 		<player>
-			<position x="1690" y="1209" />
-			<speed x="0" y="8" />
-			<collider width="32" height="63" x="1701" y="1218" />
-			<grounded value="false" />
+			<position x="2243" y="1560" />
+			<speed x="0" y="0" />
+			<collider width="32" height="63" x="2254" y="1569" />
+			<grounded value="true" />
 			<dashing value="false" />
 			<currentDashtime value="0" />
 		</player>
 		<flyingfurrball>
-			<position x="1834" y="1390" />
+			<position x="1549" y="1570" />
 		</flyingfurrball>
 		<flyingfurrball>
-			<position x="1838" y="1375" />
+			<position x="2076" y="1697" />
 		</flyingfurrball>
 		<flyingfurrball>
-			<position x="1915" y="1282" />
+			<position x="2146" y="1426" />
 		</flyingfurrball>
 		<flyingfurrball>
 			<position x="3182" y="1650" />
@@ -36,15 +36,15 @@
 		<flyingfurrball>
 			<position x="4314" y="396" />
 		</flyingfurrball>
-		<flyingfurrball>
-			<position x="436" y="425" />
-		</flyingfurrball>
-		<flyingfurrball>
-			<position x="0" y="383" />
-		</flyingfurrball>
+		<landmaid>
+			<position x="1730" y="1919" />
+		</landmaid>
+		<landmaid>
+			<position x="5179" y="3049" />
+		</landmaid>
 	</entitycontroller>
 	<pathfinding />
 	<renderer>
-		<camera x="1349" y="825" />
+		<camera x="1902" y="1176" />
 	</renderer>
 </game_state>

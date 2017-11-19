@@ -2,7 +2,6 @@
 #include "Enemy.h"
 #include "j1EntityController.h"
 #include "j1Textures.h"
-#include "j1App.h"
 #include "j1Render.h"
 
 
@@ -41,12 +40,6 @@ Entity * Enemy::GetTarget() const
 	return ret->data;
 }
 
-bool Enemy::Move()
-{
-
-	return true;
-}
-
 void Enemy::Restart()
 {
 	position.x = originalpos.x;
@@ -55,10 +48,19 @@ void Enemy::Restart()
 
 void Enemy::Save(pugi::xml_node &data) const
 {
-	pugi::xml_node furrball = data.append_child("flyingfurrball");;
-	
-	furrball.append_child("position").append_attribute("x") = position.x;
-	furrball.child("position").append_attribute("y") = position.y;
+	if (type == FLYING_ENEMY)
+	{
+		pugi::xml_node furrball = data.append_child("flyingfurrball");;
+		furrball.append_child("position").append_attribute("x") = position.x;
+		furrball.child("position").append_attribute("y") = position.y;
+	}
+	else if (type == LAND_ENEMY)
+	{
+	pugi::xml_node landmaid = data.append_child("landmaid");;
+	landmaid.append_child("position").append_attribute("x") = position.x;
+	landmaid.child("position").append_attribute("y") = position.y;
+	}
+
 }
 
 void Enemy::Load(pugi::xml_node &data)
