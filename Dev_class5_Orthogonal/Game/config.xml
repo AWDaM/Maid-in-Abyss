@@ -25,9 +25,11 @@
   <audio>
     <music> 
       <folder>audio/music/</folder>
+      <musicVolumeModifier value="0.7" />
     </music>
    <sfx> 
       <folder>audio/fx/</folder>
+      <sfxVolumeModifier value="0.3" />
     </sfx>
   </audio>
   
@@ -64,8 +66,8 @@
       <maxSpeed x="300" y="300"/>
       <colOffset x="5" y ="5"/>
       <Collider h="31" w="31"/>
-      <sightOffset x="400" y="300"/>
-      <SightCollider w="1000" h="650"/>
+      <sightOffset x="250" y="300"/>
+      <SightCollider w="1000" h="631"/>
     </flyingfurrball>
 
     <landmaid>

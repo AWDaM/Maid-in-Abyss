@@ -130,26 +130,25 @@ bool j1Scene::Update(float dt)
 
 	
 
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-	p2SString title("%i %i", p.x, p.y);
+	//int x, y;
+	//App->input->GetMousePosition(x, y);
+	//iPoint p = App->render->ScreenToWorld(x, y);
+	//p = App->map->WorldToMap(p.x, p.y);
+	//p2SString title("%i %i", p.x, p.y);
 
-	p = App->map->MapToWorld(p.x, p.y);
+	//p = App->map->MapToWorld(p.x, p.y);
 
-	App->render->Blit(debug_tex, p.x, p.y);
+	//App->render->Blit(debug_tex, p.x, p.y);
 
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
+	//const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
-	for (uint i = 0; i < path->Count(); ++i)
-	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		App->render->Blit(debug_tex, pos.x, pos.y, 0, SDL_FLIP_NONE, 0);
-	}
+	//for (uint i = 0; i < path->Count(); ++i)
+	//{
+	//	iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+	//	App->render->Blit(debug_tex, pos.x, pos.y, 0, SDL_FLIP_NONE, 0);
+	//}
 
-	App->win->SetTitle(title.GetString());
-	LOG("%i", currentMap);
+	//App->win->SetTitle(title.GetString());
 	return true;
 }
 

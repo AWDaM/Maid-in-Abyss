@@ -46,9 +46,9 @@ public:
 
 private:
 
-	float				musicVolumeModifier = 1.0f;
-	float				sfxVolumeModifier	= 1.0f;
-	_Mix_Music*			music;
+	float				musicVolumeModifier;
+	float				sfxVolumeModifier;
+	_Mix_Music*			music = nullptr;
 	p2List<Mix_Chunk*>	fx;
 
 public:

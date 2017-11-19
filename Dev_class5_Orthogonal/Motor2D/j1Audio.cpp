@@ -23,6 +23,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	//Stores the path names to each folder
 	music_folder = config.child("music").child_value("folder");
 	sfx_folder = config.child("sfx").child_value("folder");
+	musicVolumeModifier = config.child("music").child("musicVolumeModifier").attribute("value").as_float();
+	sfxVolumeModifier = config.child("sfx").child("sfxVolumeModifier").attribute("value").as_float();
 
 	LOG("Loading Audio Mixer");
 	bool ret = true;
@@ -85,15 +87,17 @@ bool j1Audio::CleanUp()
 
 bool j1Audio::Save(pugi::xml_node & config) const
 {
-	config.append_child("musicVolumModifier").append_attribute("value") = musicVolumeModifier;
-	config.append_child("sfxVolumModifier").append_attribute("value") = sfxVolumeModifier;
+	config.append_child("musicVolumeModifier").append_attribute("value") = musicVolumeModifier;
+	config.append_child("sfxVolumeModifier").append_attribute("value") = sfxVolumeModifier;
 	return true;
 }
 
 bool j1Audio::Load(pugi::xml_node & config)
 {
 	musicVolumeModifier = config.child("musicVolumeModifier").attribute("value").as_float();
-	sfxVolumeModifier = config.child("sfxVolumModifier").attribute("value").as_float();
+	sfxVolumeModifier = config.child("sfxVolumeModifier").attribute("value").as_float();
+
+	Mix_VolumeMusic(128 * musicVolumeModifier);
 
 	return true;
 }

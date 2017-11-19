@@ -141,6 +141,7 @@ bool j1EntityController::Load(pugi::xml_node& file)
 bool j1EntityController::Restart()
 {
 	bool ret = true;
+	time_state = NORMAL;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
@@ -270,7 +271,7 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 	{
 	case NORMAL:
 		enemy_dt = dt;
-		if (wanttostop)
+		if (wanttostop && time_state != RECENTLY_STOPPED)
 		{
 			time_state = SLOWING;
 			wanttostop = false;
@@ -280,6 +281,7 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 	break;
 
 	case SLOWING:
+		LOG("slowing during %f secs", timestop_timer.ReadSec());
 		enemy_dt -= (enemy_dt / 10);
 		if (enemy_dt < 0)
 		{
@@ -294,6 +296,7 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 	break;
 
 	case STOPPED:
+		LOG("stopped during %f secs", timestop_timer.ReadSec());
 		enemy_dt = 0;
 		if (timestop_timer.ReadSec() > totaltimestop)
 		{
@@ -305,6 +308,7 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 		break;
 
 	case FASTENING:
+		LOG("fastening during %f secs", timestop_timer.ReadSec());
 		enemy_dt += (enemy_dt / 20);
 		if (enemy_dt > dt)
 		{
@@ -319,10 +323,12 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 		break;
 
 	case RECENTLY_STOPPED:
+		LOG("in cooldown during %f secs", timestop_timer.ReadSec());
 		enemy_dt = dt;
 		if (timestop_timer.ReadSec() > timestop_cooldown)
 		{
 			time_state = NORMAL;
+			LOG("back to normal");
 		}
 
 		break;

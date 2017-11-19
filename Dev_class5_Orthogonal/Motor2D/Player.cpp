@@ -156,8 +156,11 @@ bool Player::Update(float dt)
 
 			if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
 			{
-				AddSFX(5, 0);
-				App->entitycontroller->wanttostop = true;
+				if (App->entitycontroller->time_state == NORMAL)
+				{
+					AddSFX(5, 0);
+					App->entitycontroller->wanttostop = true;
+				}
 			}
 			speed.y += gravity*dt*App->scene->timeScale;
 		}

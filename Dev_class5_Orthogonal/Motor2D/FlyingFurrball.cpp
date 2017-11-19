@@ -117,6 +117,7 @@ bool FlyingFurrball::Start()
 
 bool FlyingFurrball::Move()
 {
+	
 	if (chasing_player)
 	{
   		iPoint pos = App->map->WorldToMap(position.x, position.y);
@@ -129,6 +130,15 @@ bool FlyingFurrball::Move()
 	}
 	else
 		speed = { 0,0 };
+
+	if (position.x < target->position.x)
+	{
+		direction_x = 1;
+	}
+	else if(position.x > target->position.x)
+	{
+		direction_x = -1;
+	}
 	return true;
 }
 

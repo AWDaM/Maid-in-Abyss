@@ -214,10 +214,24 @@ void Entity::NormalizeAnimationSpeed(float dt)
 
 void Entity::FlipImage()
 {
+	if (type == PLAYER)
+	{
 		if (speed.x <= 0)
 			flip = true;
 		else if (speed.x > 0)
 			flip = false;
+	}
+	else
+	{
+		if (direction_x == 1)
+		{
+			flip = false;
+		}
+		else if (direction_x == -1)
+		{
+			flip = true;
+		}
+	}
 }
 
 void Entity::PositionCollider()
