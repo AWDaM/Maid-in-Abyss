@@ -144,7 +144,7 @@ bool Player::Update(float dt)
 				speed.x = 0;
 
 
-			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && grounded)
 			{
 				AddSFX(1, 0);
 				isJumping = true;
@@ -154,11 +154,10 @@ bool Player::Update(float dt)
 				speed.y = jumpForce.y;
 			}
 
-			if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
+			if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
 			{
 				AddSFX(5, 0);
 				App->entitycontroller->wanttostop = true;
-				App->entitycontroller->timestopped_timer.Start();
 			}
 			speed.y += gravity*dt*App->scene->timeScale;
 		}

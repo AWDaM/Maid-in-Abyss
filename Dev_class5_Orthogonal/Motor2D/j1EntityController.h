@@ -43,8 +43,7 @@ public:
 	Entity* AddEntity(Entity::entityType type, iPoint position);
 	bool DeleteEntity();
 	void EnemyColliderCheck();
-	void TimeManager();
-	void StopTime();
+	float TimeManager(float enemy_dt, float dt);
 private:
 
 	//------------Attributes-----------//
@@ -54,10 +53,11 @@ public:
 	SDL_Texture* texture;
 	p2List<Entity*> Entities;
 	bool timestopped = false;
-	j1Timer timestopped_timer;
-	j1Timer timeslowed_timer;
+	j1Timer timestop_timer;
 	int totaltimestop;
 	int totaltimeslow;
+	int timestop_cooldown;
+	float enemy_dt;
 	bool wanttostop = false;
 	timeState time_state;
 private:
