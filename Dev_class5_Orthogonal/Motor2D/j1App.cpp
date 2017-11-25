@@ -82,8 +82,8 @@ bool j1App::Awake()
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
 
-	save_game = "save_file.tmx";
-	load_game = "save_file.tmx";
+	save_game = "save_file.xml";
+	load_game = "save_file.xml";
 	bool ret = false;
 		
 	config = LoadConfig(config_file);
@@ -212,8 +212,9 @@ void j1App::FinishUpdate()
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
-		avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	//sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu ",
+	//	avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count);
+	sprintf_s(title, 256, "Maid in Abyss: FPS: %i Avg.FPS: %.2f Ms of the last Frame %02u", frames_on_last_update, avg_fps, last_frame_ms);
 	App->win->SetTitle(title);
 
 	if (framerate > 0 && last_frame_ms < framerate)
