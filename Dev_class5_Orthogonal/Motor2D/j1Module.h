@@ -10,6 +10,7 @@
 #include "PugiXml\src\pugixml.hpp"
 
 class j1App;
+class UIElement;
 
 class j1Module
 {
@@ -85,6 +86,12 @@ public:
 			CleanUp();
 		}
 	}
+
+	virtual bool OnEvent(UIElement* element, int eventType)
+	{
+		return true;
+	}
+
 public:
 
 	p2SString	name;

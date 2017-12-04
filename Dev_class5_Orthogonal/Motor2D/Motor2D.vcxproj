@@ -79,6 +79,16 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FlyingFurrball.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="InheritedImage.cpp" />
+    <ClCompile Include="InheritedInteractive.cpp" />
+    <ClCompile Include="InheritedLabel.cpp" />
+    <ClCompile Include="Interactive.cpp" />
+    <ClCompile Include="InteractiveImage.cpp" />
+    <ClCompile Include="InteractiveLabel.cpp" />
+    <ClCompile Include="InteractiveLabelledImage.cpp" />
+    <ClCompile Include="j1Fonts.cpp" />
+    <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1IntroScene.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -90,6 +100,8 @@
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1SceneSwitch.cpp" />
     <ClCompile Include="j1Timer.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LabelledImage.cpp" />
     <ClCompile Include="LandMaid.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
@@ -99,11 +111,23 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="j1SceneChange.cpp" />
     <ClCompile Include="j1EntityController.cpp" />
+    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FlyingFurrball.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="InheritedImage.h" />
+    <ClInclude Include="InheritedInteractive.h" />
+    <ClInclude Include="InheritedLabel.h" />
+    <ClInclude Include="Interactive.h" />
+    <ClInclude Include="InteractiveImage.h" />
+    <ClInclude Include="InteractiveLabel.h" />
+    <ClInclude Include="InteractiveLabelledImage.h" />
+    <ClInclude Include="j1Fonts.h" />
+    <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1IntroScene.h" />
     <ClInclude Include="j1EntityController.h" />
     <ClInclude Include="j1Map.h" />
@@ -113,6 +137,8 @@
     <ClInclude Include="j1SceneChange.h" />
     <ClInclude Include="j1SceneSwitch.h" />
     <ClInclude Include="j1Timer.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="LabelledImage.h" />
     <ClInclude Include="LandMaid.h" />
     <ClInclude Include="p2Animation.h" />
     <ClInclude Include="p2DynArray.h" />
@@ -131,6 +157,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="UIElement.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\maps\DepthsOfTheAbyss.tmx" />

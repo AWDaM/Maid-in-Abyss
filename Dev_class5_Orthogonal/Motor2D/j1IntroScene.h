@@ -3,6 +3,8 @@
 
 #include "j1Module.h"
 
+class UIElement;
+
 class j1IntroScene :
 	public j1Module
 {

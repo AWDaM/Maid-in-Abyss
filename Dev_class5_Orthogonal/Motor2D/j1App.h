@@ -20,6 +20,8 @@ class j1Map;
 class j1MapChange;
 class j1EntityController;
 class j1PathFinding;
+class j1Fonts;
+class j1Gui;
 
 class j1App
 {
@@ -96,6 +98,8 @@ public:
 	j1MapChange*		scenechange;
 	j1EntityController* entitycontroller;
 	j1PathFinding*		pathfinding;
+	j1Fonts*				font;
+	j1Gui*					gui;
 
 private:
 

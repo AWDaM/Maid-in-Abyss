@@ -4,7 +4,7 @@
 
 j1SceneSwitch::j1SceneSwitch()
 {
-	name.create("sceneswitch")
+	name.create("sceneswitch");
 }
 
 
@@ -50,7 +50,7 @@ bool j1SceneSwitch::Update(float dt)
 
 			if (switchtimer.ReadSec() >= fadetime)
 			{
-				current_step = fade_step::none:
+				current_step = fade_step::none;
 			}
 		}break;
 	}
