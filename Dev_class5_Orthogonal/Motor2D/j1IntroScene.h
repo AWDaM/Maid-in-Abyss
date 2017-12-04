@@ -4,9 +4,10 @@
 #include "j1Module.h"
 
 class UIElement;
+class Window;
+struct SDL_Texture;
 
-class j1IntroScene :
-	public j1Module
+class j1IntroScene : public j1Module
 {
 public:
 	j1IntroScene();
@@ -30,6 +31,10 @@ public:
 	bool CleanUp();
 
 	bool OnEvent(UIElement* element, int eventType);
+
+public:
+	SDL_Texture* background = nullptr;
+	Window* testWindow = nullptr;
 };
 
 #endif
