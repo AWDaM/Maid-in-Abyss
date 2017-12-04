@@ -14,8 +14,8 @@ class j1Input;
 class j1Render;
 class j1Textures;
 class j1Audio;
+class j1IntroScene;
 class j1Scene;
-//class j1Player;
 class j1Map;
 class j1MapChange;
 class j1EntityController;
@@ -44,7 +44,7 @@ public:
 	bool CleanUp();
 
 	// Add a new module to handle
-	void AddModule(j1Module* module);
+	void AddModule(j1Module* module, bool init = true);
 
 	// Exposing some properties for reading
 	int GetArgc() const;
@@ -81,6 +81,8 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
+	void StartModule(j1Module* module);
+
 public:
 
 	// Modules
@@ -89,6 +91,7 @@ public:
 	j1Render*			render;
 	j1Textures*			tex;
 	j1Audio*			audio;
+	j1IntroScene* introscene;
 	j1Scene*			scene;
 	j1Map*				map;
 	j1MapChange*		scenechange;

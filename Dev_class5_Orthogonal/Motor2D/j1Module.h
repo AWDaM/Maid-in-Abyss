@@ -18,9 +18,9 @@ public:
 	j1Module() : active(false)
 	{}
 
-	void Init()
+	void Init(bool init)
 	{
-		active = true;
+		active = init;
 	}
 
 	// Called before render is available

@@ -10,10 +10,10 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Audio.h"
+#include "j1IntroScene.h"
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1App.h"
-//#include "j1Player.h"
 #include "j1EntityController.h"
 #include "j1Pathfinding.h"
 
@@ -27,6 +27,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	render				= new j1Render();
 	tex					= new j1Textures();
 	audio				= new j1Audio();
+	introscene = new j1IntroScene();
 	scene				= new j1Scene();
 	map					= new j1Map();
 	scenechange			= new j1MapChange();
@@ -40,7 +41,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(map);
-	AddModule(scene);
+	AddModule(introscene);
+	AddModule(scene,false);
 	AddModule(scenechange);
 	AddModule(entitycontroller);
 	AddModule(pathfinding);
@@ -66,9 +68,9 @@ j1App::~j1App()
 	modules.clear();
 }
 
-void j1App::AddModule(j1Module* module)
+void j1App::AddModule(j1Module* module, bool init)
 {
-	module->Init();
+	module->Init(init);
 	modules.add(module);
 }
 
@@ -131,7 +133,10 @@ bool j1App::Start()
 
 	while(item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->active)
+		{
+			ret = item->data->Start();
+		}
 		item = item->next;
 	}
 
@@ -431,3 +436,11 @@ bool j1App::SavegameNow() const
 	want_to_save = false;
 	return ret;
 }
+
+void j1App::StartModule(j1Module * module)
+{
+	module->Init(true);
+	module->Start();
+}
+
+
