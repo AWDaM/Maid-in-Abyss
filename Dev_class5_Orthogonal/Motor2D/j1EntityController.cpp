@@ -19,34 +19,23 @@ j1EntityController::~j1EntityController()
 
 bool j1EntityController::Awake(pugi::xml_node &config)
 {
-	bool ret = false;
+	bool ret = true;
 	folder.create(config.child("folder").child_value());
 	texture_path = config.child("sprite_sheet").attribute("source").as_string();
 	totaltimestop = config.child("totaltimestop").attribute("value").as_int();
 	totaltimeslow = config.child("totaltimeslow").attribute("value").as_int();
 	timestop_cooldown = config.child("timestop_cooldown").attribute("value").as_int();
-	AddEntity(Entity::entityType::PLAYER, { 0,0 });
+
 	time_state = NORMAL;
-	p2List_item<Entity*>* tmp = Entities.start;
-	while (tmp != nullptr)
-	{
-		ret = tmp->data->Awake(config);
-		tmp = tmp->next;
-	}
+	
 	return ret;
 }
 
 bool j1EntityController::Start()
 {
-	bool ret = false;
+	bool ret = true;
 	texture = App->tex->Load(PATH(folder.GetString(), texture_path.GetString()));
 
-	p2List_item<Entity*>* tmp = Entities.start;
-	while (tmp != nullptr)
-	{
-		ret = tmp->data->Start();
-		tmp = tmp->next;
-	}
 	return ret;
 }
 
@@ -61,7 +50,7 @@ bool j1EntityController::Update(float dt)
 
 	EnemyColliderCheck();
 
-	bool ret = false;
+	bool ret = true;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{

@@ -14,12 +14,12 @@ j1SceneSwitch::~j1SceneSwitch()
 
 bool j1SceneSwitch::Awake()
 {
-	return false;
+	return true;
 }
 
 bool j1SceneSwitch::Start()
 {
-	return false;
+	return true;
 }
 
 bool j1SceneSwitch::Update(float dt)
@@ -54,7 +54,7 @@ bool j1SceneSwitch::Update(float dt)
 			}
 		}break;
 	}
-	return false;
+	return ret;
 }
 
 bool j1SceneSwitch::SwitchScene(j1Module * SceneIn, j1Module * SceneOut)
@@ -74,5 +74,5 @@ bool j1SceneSwitch::SwitchScene(j1Module * SceneIn, j1Module * SceneOut)
 
 bool j1SceneSwitch::IsSwitching() const
 {
-	return false;
+	return (current_step != fade_step::none);
 }

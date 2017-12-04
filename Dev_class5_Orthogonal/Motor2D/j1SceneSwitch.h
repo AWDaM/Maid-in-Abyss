@@ -36,7 +36,7 @@ public:
 
 private:
 
-	float fadetime;
+	float fadetime = 3.0f;
 	SDL_Rect screen;
 	j1Module* to_enable = nullptr;
 	j1Module* to_disable = nullptr;

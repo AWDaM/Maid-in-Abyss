@@ -7,7 +7,6 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
-#include "j1Player.h"
 #include "j1Scene.h"
 #include "j1SceneChange.h"
 #include "j1Pathfinding.h"
@@ -45,6 +44,11 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {	
+	pugi::xml_document	config_file;
+	pugi::xml_node		config;
+
+	config = App->LoadConfig(config_file);
+
 	to_end = false;
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
 	App->audio->PlayMusic(App->map->data.musicFile.GetString());
@@ -58,6 +62,11 @@ bool j1Scene::Start()
 	debug_tex = App->tex->Load("maps/Navigable.png");
 
 	currentMap = 0;
+	Entity* player = App->entitycontroller->AddEntity(Entity::entityType::PLAYER, { 0,0 });
+	player->Awake(config.child(App->entitycontroller->name.GetString()));
+
+	player->Start();
+
 	SpawnEnemies();
 
 	return true;

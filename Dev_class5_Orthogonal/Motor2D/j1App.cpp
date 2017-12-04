@@ -12,6 +12,7 @@
 #include "j1Audio.h"
 #include "j1IntroScene.h"
 #include "j1Scene.h"
+#include "j1SceneSwitch.h"
 #include "j1Map.h"
 #include "j1App.h"
 #include "j1EntityController.h"
@@ -31,6 +32,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	audio				= new j1Audio();
 	introscene = new j1IntroScene();
 	scene				= new j1Scene();
+	sceneswitch = new j1SceneSwitch();
 	map					= new j1Map();
 	scenechange			= new j1MapChange();
 	entitycontroller	= new j1EntityController();
@@ -47,6 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(introscene);
 	AddModule(scene,false);
+	AddModule(sceneswitch);
 	AddModule(scenechange);
 	AddModule(entitycontroller);
 	AddModule(pathfinding);
@@ -120,6 +123,10 @@ bool j1App::Awake()
 		while(item != NULL && ret == true)
 		{
 			ret = item->data->Awake(config.child(item->data->name.GetString()));
+			if (!ret)
+			{
+				LOG("name: %s", item->data->name.GetString());
+			}
 			item = item->next;
 		}
 	}
@@ -142,6 +149,10 @@ bool j1App::Start()
 		if (item->data->active)
 		{
 			ret = item->data->Start();
+			if (!ret)
+			{
+				LOG("name: %s", item->data->name.GetString());
+			}
 		}
 		item = item->next;
 	}

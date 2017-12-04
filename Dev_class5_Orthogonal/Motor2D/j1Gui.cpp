@@ -272,8 +272,8 @@ bool j1Gui::CreateSceneIntroGUI()
 	tmp->hover = { 0,150,145,43 };
 
 	SDL_Rect window_rect = { 0,0,500,500 };
-	/*Window* window = AddWindow(window_rect, true);
-	window->AddElementToWindow(tmp, { 50,50 });*/
+	Window* window = AddWindow(window_rect, true);
+	window->AddElementToWindow(tmp, { 50,50 });
 	/*{0, 74, 130, 32}
 	{0,105,130,32}
 	{0,150,145,43}*/
