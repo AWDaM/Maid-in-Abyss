@@ -80,7 +80,11 @@
     </landmaid>
     
   </entitycontroller>
- 
+
+  <gui>
+    <atlas file="gui/WOWatlas.png"/>
+    <background file="gui/login_background.png"/>
+  </gui>
 
   <scene>
     <map_name name="MaidInAbyss.tmx"></map_name>

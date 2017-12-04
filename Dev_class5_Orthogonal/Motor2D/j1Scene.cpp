@@ -11,6 +11,7 @@
 #include "j1SceneChange.h"
 #include "j1Pathfinding.h"
 #include "j1EntityController.h"
+#include "j1Gui.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -138,6 +139,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 	App->entitycontroller->Draw();
+	App->gui->Draw();
 
 	
 
