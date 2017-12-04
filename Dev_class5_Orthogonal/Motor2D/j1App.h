@@ -81,7 +81,6 @@ private:
 	bool LoadGameNow();
 	bool SavegameNow() const;
 
-	void StartModule(j1Module* module);
 
 public:
 

@@ -437,10 +437,6 @@ bool j1App::SavegameNow() const
 	return ret;
 }
 
-void j1App::StartModule(j1Module * module)
-{
-	module->Init(true);
-	module->Start();
-}
+
 
 
