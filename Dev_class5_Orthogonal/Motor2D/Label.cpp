@@ -36,7 +36,6 @@ bool Label::LabelPostUpdate()
 bool Label::LabelDraw()
 {
 	App->render->Blit(fontTexture, position.x, position.y);
-
 	return true;
 }
 

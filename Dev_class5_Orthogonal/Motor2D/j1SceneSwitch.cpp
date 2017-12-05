@@ -1,4 +1,6 @@
 #include "j1SceneSwitch.h"
+#include "j1App.h"
+#include "j1Gui.h"
 
 
 
@@ -38,6 +40,7 @@ bool j1SceneSwitch::Update(float dt)
 			if (switchtimer.ReadSec() >= fadetime)
 			{
 				to_disable->Disable();
+				App->gui->CleanUp();
 				to_enable->Enable();
 				switchtimer.Start();
 				current_step = fade_step::fade_from_black;

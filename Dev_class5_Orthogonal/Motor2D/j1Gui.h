@@ -2,11 +2,9 @@
 #define __j1GUI_H__
 
 #include "j1Module.h"
-
-#include "j1App.h"
+#include "p2Point.h"
 #include "SDL/include/SDL_rect.h"
 struct SDL_Texture;
-
 
 enum EventTypes
 {
@@ -97,13 +95,16 @@ public:
 	SDL_Texture* GetAtlas() const;
 	p2List<UIElement*> elements;
 	p2List<Window*> window_list;
+	bool dragging_window = false;
 
 private:
 
 	SDL_Texture* atlas = nullptr;
+
 	p2SString atlas_file_name;
 	p2SString background;
 	iPoint mouseLastFrame;
+	uint focus;
 };
 
 #endif // __j1GUI_H__

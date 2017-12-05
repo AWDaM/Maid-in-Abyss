@@ -58,8 +58,7 @@ void Window::moveElements(iPoint difference)
 
 	for (p2List_item<WinElement*>* item = children_list.start; item; item = item->next)
 	{
-		item->data->element->position.x -= difference.x;
-		item->data->element->position.y -= difference.y;
+		item->data->element->MoveElement(difference.Negate());
 	}
 }
 

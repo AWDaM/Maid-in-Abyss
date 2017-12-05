@@ -29,6 +29,8 @@ public:
 	p2List<WinElement*> children_list;
 	iPoint mouseLastFrame;
 	SDL_Rect collider;
+	uint focus;
+	uint current_focus;
 
 private:
 
