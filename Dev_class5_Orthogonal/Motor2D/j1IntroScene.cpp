@@ -77,7 +77,12 @@ bool j1IntroScene::Update(float dt)
 	{
 		App->sceneswitch->SwitchScene(App->scene,this);
 	}
-		
+	else if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	{
+		App->gui->currentFocus++;
+		if (App->gui->currentFocus == App->gui->focusList.count())
+			App->gui->currentFocus = 0;
+	}
 	App->gui->Draw();
 
 	//App->render->Blit(background, 0, 0);
@@ -100,5 +105,4 @@ bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 	element->HandleAnimation(eventType);
 	return true;
 }
-
 

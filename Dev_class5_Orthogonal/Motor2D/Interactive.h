@@ -29,14 +29,13 @@ public:
 	 void MoveCollider();
 
 
-public:
-	iPoint Interactiverelativepos;
-	SDL_Rect 	collider;
-	bool		isMouseInside = false;
-	j1Module* callback = nullptr;
-	SDL_Texture* fontTexture;
-	p2SString text = "Default Text";
-	uint focus;
+public:	
+	iPoint			Interactiverelativepos;
+	SDL_Rect 		collider;
+	bool			isMouseInside = false;
+	j1Module*		callback = nullptr;
+	SDL_Texture*	fontTexture;
+	p2SString		text = "Default Text";
 
 };
 

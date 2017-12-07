@@ -178,7 +178,7 @@ InheritedInteractive* j1Gui::AddInteractive(SDL_Rect& position, iPoint positionO
 {
 	InheritedInteractive* ret = new InheritedInteractive(position, positionOffset, size, callback, draggable);
 	elements.add(ret);
-
+	focusList.add(ret);
 	return ret;
 }
 
@@ -194,6 +194,7 @@ InteractiveImage* j1Gui::AddInteractiveImage(SDL_Rect& position, iPoint Interact
 {
 	InteractiveImage* ret = new InteractiveImage(position, Interactiverelativepos, Imagerelativepos, image_section, callback, draggable);
 	elements.add(ret);
+	focusList.add(ret);
 	return ret;
 }
 
@@ -201,6 +202,7 @@ InteractiveLabel* j1Gui::AddInteractiveLabel(SDL_Rect & position, iPoint Interac
 {
 	InteractiveLabel* ret = new InteractiveLabel(position, Interactiverelativepos, positionOffsetB, fontPath, textColor, label, size, callback, draggable);
 	elements.add(ret);
+	focusList.add(ret);
 	return ret;
 }
 
@@ -208,6 +210,7 @@ InteractiveLabelledImage* j1Gui::AddInteractiveLabelledImage(SDL_Rect & position
 {
 	InteractiveLabelledImage* ret = new InteractiveLabelledImage(position, Interactiverelativepos, LabelRelativepos, Imagerelativepos, image_section, fontPath, textColor, label, size, callback, draggable);
 	elements.add(ret);
+	focusList.add(ret);
 	return ret;
 }
 
@@ -258,6 +261,7 @@ Window * j1Gui::AddWindow(SDL_Rect &windowrect, bool draggable)
 
 void j1Gui::Load_UIElements(pugi::xml_node node)
 {
+
 	pugi::xml_node tmp;
 
 	tmp = node.child("alternate_image");
@@ -270,16 +274,9 @@ void j1Gui::Load_UIElements(pugi::xml_node node)
 		}
 	}
 	 tmp = node.child("interactivelabelledimage");
-	if (tmp)
-	{
-		App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
-		while (tmp = tmp.next_sibling("interactivelabelledimage"))
-		{
-			App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
-		}
-	}
 
-	tmp = node.child("image");
+ node.child("image");
+
 	if (tmp)
 	{
 		App->gui->Load_Image_fromXML(tmp);
@@ -289,8 +286,16 @@ void j1Gui::Load_UIElements(pugi::xml_node node)
 		}
 	}
 
+	tmp = node.child("interactivelabelledimage");
+	if (tmp)
+	{
+		App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+		while (tmp = tmp.next_sibling("interactivelabelledimage"))
+		{
+			App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+		}
+	}
 
-		
 }
 
 void j1Gui::Load_SceneWindows(pugi::xml_node node)
@@ -423,3 +428,13 @@ bool j1Gui::CreateSceneIntroGUI()
 
 // class Gui ---------------------------------------------------
 
+ bool j1Gui::OnEvent(UIElement * element, int eventType)
+ {
+	 if(currentFocus > -1)
+		if (element == focusList[currentFocus])
+		{
+			LOG("we did it reddit %i", currentFocus);
+		}
+	 element->HandleAnimation(eventType);
+	 return true;
+ }
