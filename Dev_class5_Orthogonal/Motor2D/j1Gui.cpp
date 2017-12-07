@@ -167,9 +167,9 @@ UIElement* j1Gui::AddElement(UIType type, SDL_Rect& position, iPoint positionOff
 	return ret;
 }
 
-InheritedImage* j1Gui::AddImage(SDL_Rect& position, iPoint positionOffset, SDL_Rect * section, bool draggable)
+InheritedImage* j1Gui::AddImage(SDL_Rect& position, iPoint positionOffset, SDL_Rect & section, bool draggable)
 {
-	InheritedImage* ret = new InheritedImage(position, positionOffset, *section, draggable);
+	InheritedImage* ret = new InheritedImage(position, positionOffset, section, draggable);
 	elements.add(ret);
 	return ret;
 }
@@ -256,6 +256,46 @@ Window * j1Gui::AddWindow(SDL_Rect &windowrect, bool draggable)
 	return window;
 }
 
+void j1Gui::Load_UIElements(pugi::xml_node node)
+{
+	pugi::xml_node tmp = node.child("interactivelabelledimage");
+
+	if (tmp)
+	{
+		App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+		while (tmp = tmp.next_sibling("interactivelabelledimage"))
+		{
+			App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+		}
+	}
+
+	tmp = node.child("image");
+	if (tmp)
+	{
+		App->gui->Load_Image_fromXML(tmp);
+		while (tmp = tmp.next_sibling("image"))
+		{
+			App->gui->Load_Image_fromXML(tmp);
+		}
+	}
+
+	//tmp = node.child("alternate_image");
+}
+
+void j1Gui::Load_SceneWindows(pugi::xml_node node)
+{
+	pugi::xml_node tmp = node.child("window");
+
+	if (tmp)
+	{
+		App->gui->Load_Window_fromXML(tmp);
+		while (tmp = tmp.next_sibling("window"))
+		{
+			App->gui->Load_Window_fromXML(tmp);
+		}
+	}
+}
+
 UIElement * j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp)
 {
 	SDL_Rect pos = { tmp.child("pos").attribute("x").as_int(), tmp.child("pos").attribute("y").as_int(), tmp.child("pos").attribute("w").as_int(), tmp.child("pos").attribute("h").as_int() };
@@ -273,6 +313,57 @@ UIElement * j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp)
 	added->hover = { tmp.child("hover").attribute("x").as_int(), tmp.child("hover").attribute("y").as_int(), tmp.child("hover").attribute("w").as_int(), tmp.child("hover").attribute("h").as_int() };
 	added->click = { tmp.child("click").attribute("x").as_int(), tmp.child("click").attribute("y").as_int(), tmp.child("click").attribute("w").as_int(), tmp.child("click").attribute("h").as_int() };
 	added->inactive = { tmp.child("inactive").attribute("x").as_int(), tmp.child("inactive").attribute("y").as_int(), tmp.child("inactive").attribute("w").as_int(), tmp.child("inactive").attribute("h").as_int() };
+	return added;
+}
+
+Window * j1Gui::Load_Window_fromXML(pugi::xml_node node)
+{
+	SDL_Rect collider = { node.child("collider").attribute("x").as_int(), node.child("collider").attribute("y").as_int(), node.child("collider").attribute("w").as_int(), node.child("collider").attribute("h").as_int() };
+	bool draggable =  node.child("draggable").attribute("value").as_bool();
+	Window* added = AddWindow(collider,draggable);
+	if (node.child("elements"))
+	{
+		Load_WindowElements_fromXML(node.child("elements"), added);
+	}
+	return added;
+}
+
+void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window * window)
+{
+	pugi::xml_node tmp = node.child("interactivelabelledimage");
+
+	UIElement* child;
+	if (tmp)
+	{
+		child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		while (tmp = tmp.next_sibling("interactivelabelledimage"))
+		{
+			child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int()});
+		}
+	}
+
+	tmp = node.child("image");
+	if (tmp)
+	{
+		child = App->gui->Load_Image_fromXML(tmp);
+		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		while (tmp = tmp.next_sibling("image"))
+		{
+			App->gui->Load_Image_fromXML(tmp);
+			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		}
+	}
+}
+
+UIElement * j1Gui::Load_Image_fromXML(pugi::xml_node node)
+{
+	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
+	iPoint relativePos = { node.child("relativePosition").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() };
+	SDL_Rect image_section = { node.child("image_section").attribute("x").as_int(), node.child("image_section").attribute("y").as_int(), node.child("image_section").attribute("w").as_int(), node.child("image_section").attribute("h").as_int() };
+	bool draggable = node.child("draggable").attribute("value").as_bool();
+	Image* added = AddImage(position, relativePos, image_section, draggable);
 	return added;
 }
 

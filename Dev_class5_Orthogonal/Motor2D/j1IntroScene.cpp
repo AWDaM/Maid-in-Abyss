@@ -52,7 +52,16 @@ bool j1IntroScene::Start()
 //	InheritedImage* tmp = App->gui->AddImage(test, { 0,0 }, &test, true);
 //
 //	testWindow->AddElementToWindow(tmp, { 0,0 });
-	Load_Gui();
+	pugi::xml_document	Gui_config_file;
+	pugi::xml_node		guiconfig;
+	pugi::xml_node		tmp;
+
+	guiconfig = App->LoadConfig(Gui_config_file, "Gui_config.xml");
+
+	guiconfig = guiconfig.child("introscene");
+
+	App->gui->Load_UIElements(guiconfig);
+	App->gui->Load_SceneWindows(guiconfig);
 	return true;
 }
 
@@ -93,23 +102,4 @@ bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 	return true;
 }
 
-void j1IntroScene::Load_Gui()
-{
-	pugi::xml_document	Gui_config_file;
-	pugi::xml_node		guiconfig;
-	pugi::xml_node		tmp;
 
-	guiconfig = App->LoadConfig(Gui_config_file,"Gui_config.xml");
-
-	guiconfig = guiconfig.child("introscene");
-
-	tmp = guiconfig.child("interactivelabelledimage");
-	if (tmp)
-	{
-		App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
-		while (tmp = tmp.next_sibling("interactivelabelledimage"))
-		{
-			App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
-		}
-	}
-}
