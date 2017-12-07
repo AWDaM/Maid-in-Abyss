@@ -117,7 +117,6 @@ void j1IntroScene::Load_Gui()
 		bool draggable = tmp.child("draggable").attribute("value").as_bool();
 		InteractiveLabelledImage* added = App->gui->AddInteractiveLabelledImage(pos, relativeposA, relativeposB, relativeposC, section, path, color, label, size, this, draggable);
 		
-		added->hover
 		while (tmp = tmp.next_sibling("interactivelabelledimage"))
 		{
 			SDL_Rect pos = { tmp.child("pos").attribute("x").as_int(), tmp.child("pos").attribute("y").as_int(), tmp.child("pos").attribute("w").as_int(), tmp.child("pos").attribute("h").as_int() };

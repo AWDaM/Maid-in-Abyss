@@ -178,7 +178,7 @@ InheritedInteractive* j1Gui::AddInteractive(SDL_Rect& position, iPoint positionO
 {
 	InheritedInteractive* ret = new InheritedInteractive(position, positionOffset, size, callback, draggable);
 	elements.add(ret);
-
+	focusList.add(ret);
 	return ret;
 }
 
@@ -194,6 +194,7 @@ InteractiveImage* j1Gui::AddInteractiveImage(SDL_Rect& position, iPoint Interact
 {
 	InteractiveImage* ret = new InteractiveImage(position, Interactiverelativepos, Imagerelativepos, image_section, callback, draggable);
 	elements.add(ret);
+	focusList.add(ret);
 	return ret;
 }
 
@@ -201,6 +202,7 @@ InteractiveLabel* j1Gui::AddInteractiveLabel(SDL_Rect & position, iPoint Interac
 {
 	InteractiveLabel* ret = new InteractiveLabel(position, Interactiverelativepos, positionOffsetB, fontPath, textColor, label, size, callback, draggable);
 	elements.add(ret);
+	focusList.add(ret);
 	return ret;
 }
 
@@ -208,6 +210,7 @@ InteractiveLabelledImage* j1Gui::AddInteractiveLabelledImage(SDL_Rect & position
 {
 	InteractiveLabelledImage* ret = new InteractiveLabelledImage(position, Interactiverelativepos, positionOffsetB, Imagerelativepos, image_section, fontPath, textColor, label, size, callback, draggable);
 	elements.add(ret);
+	focusList.add(ret);
 	return ret;
 }
 

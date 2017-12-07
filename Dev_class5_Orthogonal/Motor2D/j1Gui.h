@@ -15,6 +15,7 @@ enum EventTypes
 	RIGHT_MOUSE_RELEASED,
 	MOUSE_HOVER_IN,
 	MOUSE_HOVER_OUT,
+	PRESSED_ENTER
 };
 
 
@@ -96,6 +97,9 @@ public:
 	p2List<UIElement*> elements;
 	p2List<Window*> window_list;
 	bool dragging_window = false;
+	int currentFocus = -1;
+	p2List<UIElement*> focusList;
+
 
 private:
 
@@ -104,7 +108,6 @@ private:
 	p2SString atlas_file_name;
 	p2SString background;
 	iPoint mouseLastFrame;
-	uint focus;
 };
 
 #endif // __j1GUI_H__
