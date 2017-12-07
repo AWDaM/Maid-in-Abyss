@@ -52,7 +52,16 @@ bool j1IntroScene::Start()
 //	InheritedImage* tmp = App->gui->AddImage(test, { 0,0 }, &test, true);
 //
 //	testWindow->AddElementToWindow(tmp, { 0,0 });
+	pugi::xml_document	Gui_config_file;
+	pugi::xml_node		guiconfig;
+	pugi::xml_node		tmp;
 
+	guiconfig = App->LoadConfig(Gui_config_file, "Gui_config.xml");
+
+	guiconfig = guiconfig.child("introscene");
+
+	App->gui->Load_UIElements(guiconfig);
+	App->gui->Load_SceneWindows(guiconfig);
 	return true;
 }
 
@@ -69,7 +78,12 @@ bool j1IntroScene::Update(float dt)
 	{
 		App->sceneswitch->SwitchScene(App->scene,this);
 	}
-		
+	else if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	{
+		App->gui->currentFocus++;
+		if (App->gui->currentFocus == App->gui->focusList.count())
+			App->gui->currentFocus = 0;
+	}
 	App->gui->Draw();
 
 	//App->render->Blit(background, 0, 0);
@@ -89,47 +103,7 @@ bool j1IntroScene::CleanUp()
 
 bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 {
+	element->HandleAnimation(eventType);
 	return true;
 }
 
-void j1IntroScene::Load_Gui()
-{
-	pugi::xml_document	Gui_config_file;
-	pugi::xml_node		guiconfig;
-	pugi::xml_node		tmp;
-
-	guiconfig = App->LoadConfig(Gui_config_file,"Gui_config");
-
-	guiconfig = guiconfig.child("introscene");
-
-	tmp = guiconfig.child("interactivelabelledimage");
-	if (tmp)
-	{
-		SDL_Rect pos = { tmp.child("pos").attribute("x").as_int(), tmp.child("pos").attribute("y").as_int(), tmp.child("pos").attribute("w").as_int(), tmp.child("pos").attribute("h").as_int()};
-		iPoint relativeposA = { tmp.child("relativeposA").attribute("x").as_int(),tmp.child("relativeposA").attribute("y").as_int() };
-		iPoint relativeposB = { tmp.child("relativeposB").attribute("x").as_int(),tmp.child("relativeposB").attribute("y").as_int() };
-		iPoint relativeposC = { tmp.child("relativeposC").attribute("x").as_int(),tmp.child("relativeposC").attribute("y").as_int() };
-		SDL_Rect section = { tmp.child("imagesection").attribute("x").as_int(), tmp.child("imagesection").attribute("y").as_int(), tmp.child("imagesection").attribute("w").as_int(), tmp.child("imagesection").attribute("h").as_int() };
-		p2SString path = (tmp.child("fontpath").attribute("path").as_string());
-		SDL_Color color = { tmp.child("color").attribute("r").as_int(), tmp.child("color").attribute("g").as_int(), tmp.child("color").attribute("b").as_int(), tmp.child("color").attribute("a").as_int() };
-		p2SString label = (tmp.child("label").attribute("string").as_string());
-		int size = tmp.child("size").attribute("value").as_int();
-		bool draggable = tmp.child("draggable").attribute("value").as_bool();
-		InteractiveLabelledImage* added = App->gui->AddInteractiveLabelledImage(pos, relativeposA, relativeposB, relativeposC, section, path, color, label, size, this, draggable);
-		
-		while (tmp = tmp.next_sibling("interactivelabelledimage"))
-		{
-			SDL_Rect pos = { tmp.child("pos").attribute("x").as_int(), tmp.child("pos").attribute("y").as_int(), tmp.child("pos").attribute("w").as_int(), tmp.child("pos").attribute("h").as_int() };
-			iPoint relativeposA = { tmp.child("relativeposA").attribute("x").as_int(),tmp.child("relativeposA").attribute("y").as_int() };
-			iPoint relativeposB = { tmp.child("relativeposB").attribute("x").as_int(),tmp.child("relativeposB").attribute("y").as_int() };
-			iPoint relativeposC = { tmp.child("relativeposC").attribute("x").as_int(),tmp.child("relativeposC").attribute("y").as_int() };
-			SDL_Rect section = { tmp.child("imagesection").attribute("x").as_int(), tmp.child("imagesection").attribute("y").as_int(), tmp.child("imagesection").attribute("w").as_int(), tmp.child("imagesection").attribute("h").as_int() };
-			p2SString path = (tmp.child("fontpath").attribute("path").as_string());
-			SDL_Color color = { tmp.child("color").attribute("r").as_int(), tmp.child("color").attribute("g").as_int(), tmp.child("color").attribute("b").as_int(), tmp.child("color").attribute("a").as_int() };
-			p2SString label = (tmp.child("label").attribute("string").as_string());
-			int size = tmp.child("size").attribute("value").as_int();
-			bool draggable = tmp.child("draggable").attribute("value").as_bool();
-			App->gui->AddInteractiveLabelledImage(pos, relativeposA, relativeposB, relativeposC, section, path, color, label, size, this, draggable);
-		}
-	}
-}
