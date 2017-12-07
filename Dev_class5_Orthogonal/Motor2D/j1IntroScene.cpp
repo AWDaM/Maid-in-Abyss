@@ -54,7 +54,6 @@ bool j1IntroScene::Start()
 //	testWindow->AddElementToWindow(tmp, { 0,0 });
 	pugi::xml_document	Gui_config_file;
 	pugi::xml_node		guiconfig;
-	pugi::xml_node		tmp;
 
 	guiconfig = App->LoadConfig(Gui_config_file, "Gui_config.xml");
 

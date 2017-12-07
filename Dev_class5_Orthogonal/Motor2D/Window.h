@@ -17,7 +17,7 @@ class Window
 {
 public:
 	Window();
-	Window(SDL_Rect &collider);
+	Window(SDL_Rect &collider, bool draggable = false);
 	~Window();
 
 	bool PreUpdate();
@@ -26,6 +26,7 @@ public:
 private:
 public:
 
+	bool draggable;
 	p2List<WinElement*> children_list;
 	iPoint mouseLastFrame;
 	SDL_Rect collider;

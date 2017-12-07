@@ -96,6 +96,7 @@ public:
 	Window* Load_Window_fromXML(pugi::xml_node node);
 	void Load_WindowElements_fromXML(pugi::xml_node node, Window* window);
 	UIElement* Load_Image_fromXML(pugi::xml_node node);
+	UIElement* Load_AlterantiveImage_fromXML(pugi::xml_node node);
 
 	bool CreateSceneIntroGUI();
 

@@ -8,7 +8,7 @@ Window::Window()
 {
 }
 
-Window::Window(SDL_Rect & collider) : collider(collider)
+Window::Window(SDL_Rect & collider, bool draggable) : collider(collider), draggable(draggable)
 {
 	iPoint mouseLastFrame;
 	App->input->GetMousePosition(mouseLastFrame.x, mouseLastFrame.y);
@@ -23,7 +23,7 @@ bool Window::PreUpdate()
 {
 	SDL_Point mousePos;
 	App->input->GetMousePosition(mousePos.x, mousePos.y);
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && SDL_PointInRect(&mousePos,&collider))
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && SDL_PointInRect(&mousePos,&collider)&&draggable)
 	{
 		iPoint mouseCurrentpos;
 		App->input->GetMousePosition(mouseCurrentpos.x, mouseCurrentpos.y);
