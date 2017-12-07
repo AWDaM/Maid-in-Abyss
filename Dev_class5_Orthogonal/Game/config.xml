@@ -82,7 +82,7 @@
   </entitycontroller>
 
   <gui>
-    <atlas file="gui/WOWatlas.png"/>
+    <atlas file="gui/definitive atlas.png"/>
     <background file="gui/login_background.png"/>
   </gui>
 

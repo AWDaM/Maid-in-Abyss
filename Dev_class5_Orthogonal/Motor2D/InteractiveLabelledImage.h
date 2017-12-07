@@ -15,6 +15,8 @@ public:
 	bool PreUpdate();
 	bool PostUpdate();
 	bool Draw();
+
+	bool HandleAnimation(int eventType);
 private:
 
 public:
@@ -25,6 +27,6 @@ public:
 private:
 
 };
-};
+
 
 #endif

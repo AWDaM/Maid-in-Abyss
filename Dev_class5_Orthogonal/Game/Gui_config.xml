@@ -1,21 +1,37 @@
 <!-- GUI configuration of the different scenes -->
 <config>
   <introscene>
-    <gui>
       <interactivelabelledimage>
-        <pos x="" y="" w="" h=""/>
-        <relativeposA x="" y=""/>
-        <relativeposB x="" y=""/>
-        <relativeposC x="" y=""/>
-        <imagesection x="" y="" w="" h=""/>
-        <fontpath path=""/>
-        <color r="" g="" b="" a=""/>
-        <label string=""/>
-        <size value=""/>
-        <draggable value=""/>
-        <hover 
+        <pos x="0" y="0" w="261" h="64"/>
+        <relativeposA x="0" y="0"/>
+        <relativeposB x="60" y="21"/>
+        <relativeposC x="0" y="0"/>
+        <imagesection x="0" y="0" w="261" h="64"/>
+        <fontpath path="fonts/Old School Adventures.ttf"/>
+        <color r="255" g="255" b="255" a="0"/>
+        <label string="Hello World"/>
+        <size value="12"/>
+        <draggable value="false"/>
+        <hover x="263" y="0" w="261" h="64" />
+        <click x="526" y="0" w="261" h="64"/>
+        <inactive x="0" y="380" w="261" h="64"/> 
       </interactivelabelledimage>
-    </gui>
+
+    <interactivelabelledimage>
+      <pos x="100" y="100" w="261" h="64"/>
+      <relativeposA x="0" y="0"/>
+      <relativeposB x="60" y="21"/>
+      <relativeposC x="0" y="0"/>
+      <imagesection x="0" y="0" w="261" h="64"/>
+      <fontpath path="fonts/Old School Adventures.ttf"/>
+      <color r="255" g="255" b="255" a="0"/>
+      <label string="Hello World"/>
+      <size value="12"/>
+      <draggable value="false"/>
+      <hover x="263" y="0" w="261" h="64" />
+      <click x="526" y="0" w="261" h="64"/>
+      <inactive x="0" y="380" w="261" h="64"/>
+    </interactivelabelledimage>
 
 
   </introscene>

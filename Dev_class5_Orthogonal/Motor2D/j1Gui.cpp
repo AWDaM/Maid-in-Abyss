@@ -204,9 +204,9 @@ InteractiveLabel* j1Gui::AddInteractiveLabel(SDL_Rect & position, iPoint Interac
 	return ret;
 }
 
-InteractiveLabelledImage* j1Gui::AddInteractiveLabelledImage(SDL_Rect & position, iPoint Interactiverelativepos, iPoint positionOffsetB, iPoint Imagerelativepos, SDL_Rect image_section, p2SString fontPath, SDL_Color textColor, p2SString label, int size, j1Module * callback, bool draggable)
+InteractiveLabelledImage* j1Gui::AddInteractiveLabelledImage(SDL_Rect & position, iPoint Interactiverelativepos, iPoint LabelRelativepos, iPoint Imagerelativepos, SDL_Rect& image_section, p2SString& fontPath, SDL_Color& textColor, p2SString& label, int size, j1Module * callback, bool draggable)
 {
-	InteractiveLabelledImage* ret = new InteractiveLabelledImage(position, Interactiverelativepos, positionOffsetB, Imagerelativepos, image_section, fontPath, textColor, label, size, callback, draggable);
+	InteractiveLabelledImage* ret = new InteractiveLabelledImage(position, Interactiverelativepos, LabelRelativepos, Imagerelativepos, image_section, fontPath, textColor, label, size, callback, draggable);
 	elements.add(ret);
 	return ret;
 }
@@ -256,27 +256,47 @@ Window * j1Gui::AddWindow(SDL_Rect &windowrect, bool draggable)
 	return window;
 }
 
+UIElement * j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp)
+{
+	SDL_Rect pos = { tmp.child("pos").attribute("x").as_int(), tmp.child("pos").attribute("y").as_int(), tmp.child("pos").attribute("w").as_int(), tmp.child("pos").attribute("h").as_int() };
+	iPoint relativeposA = { tmp.child("relativeposA").attribute("x").as_int(),tmp.child("relativeposA").attribute("y").as_int() };
+	iPoint relativeposB = { tmp.child("relativeposB").attribute("x").as_int(),tmp.child("relativeposB").attribute("y").as_int() };
+	iPoint relativeposC = { tmp.child("relativeposC").attribute("x").as_int(),tmp.child("relativeposC").attribute("y").as_int() };
+	SDL_Rect section = { tmp.child("imagesection").attribute("x").as_int(), tmp.child("imagesection").attribute("y").as_int(), tmp.child("imagesection").attribute("w").as_int(), tmp.child("imagesection").attribute("h").as_int() };
+	p2SString path = (tmp.child("fontpath").attribute("path").as_string());
+	SDL_Color color = { tmp.child("color").attribute("r").as_int(), tmp.child("color").attribute("g").as_int(), tmp.child("color").attribute("b").as_int(), tmp.child("color").attribute("a").as_int() };
+	p2SString label = (tmp.child("label").attribute("string").as_string());
+	int size = tmp.child("size").attribute("value").as_int();
+	bool draggable = tmp.child("draggable").attribute("value").as_bool();
+	InteractiveLabelledImage* added = AddInteractiveLabelledImage(pos, relativeposA, relativeposB, relativeposC, section, path, color, label, size, this, draggable);
+
+	added->hover = { tmp.child("hover").attribute("x").as_int(), tmp.child("hover").attribute("y").as_int(), tmp.child("hover").attribute("w").as_int(), tmp.child("hover").attribute("h").as_int() };
+	added->click = { tmp.child("click").attribute("x").as_int(), tmp.child("click").attribute("y").as_int(), tmp.child("click").attribute("w").as_int(), tmp.child("click").attribute("h").as_int() };
+	added->inactive = { tmp.child("inactive").attribute("x").as_int(), tmp.child("inactive").attribute("y").as_int(), tmp.child("inactive").attribute("w").as_int(), tmp.child("inactive").attribute("h").as_int() };
+	return added;
+}
+
 bool j1Gui::CreateSceneIntroGUI()
 {
-	SDL_Rect backgroundrect = { 0,0,0,0 };
-	//AddImage_From_otherFile(backgroundrect, { 0,0 }, background);
-	//{0, 0, 122, 74};
-	//{132, 19, 311, 131};
-	SDL_Rect rect1 = { 960 - 61,800,122,74 };
-	SDL_Rect rect2 = { 0,0,311,131 };
-	SDL_Rect rect3 = { 0,0,130,32 };
-	/*AddInteractiveImage(rect1, { 0,0 }, { 0,0 }, { 960 - 61,800, 122, 74 }, { 0, 0, 122, 74 }, this);
-	AddInteractiveImage(rect2, { 0,0 }, { 0,0 }, { 0, 0, 311, 131 }, { 132, 19, 311, 131 }, this);*/
-	InteractiveImage* tmp = AddInteractiveImage(rect3, { 0,0 }, { 0,0 },  { 0, 74, 130, 32 }, (j1Module*)App->scene, true);
-	tmp->click = { 0,105,130,32 };
-	tmp->hover = { 0,150,145,43 };
+	//SDL_Rect backgroundrect = { 0,0,0,0 };
+	////AddImage_From_otherFile(backgroundrect, { 0,0 }, background);
+	////{0, 0, 122, 74};
+	////{132, 19, 311, 131};
+	//SDL_Rect rect1 = { 960 - 61,800,122,74 };
+	//SDL_Rect rect2 = { 0,0,311,131 };
+	//SDL_Rect rect3 = { 0,0,130,32 };
+	///*AddInteractiveImage(rect1, { 0,0 }, { 0,0 }, { 960 - 61,800, 122, 74 }, { 0, 0, 122, 74 }, this);
+	//AddInteractiveImage(rect2, { 0,0 }, { 0,0 }, { 0, 0, 311, 131 }, { 132, 19, 311, 131 }, this);*/
+	//InteractiveImage* tmp = AddInteractiveImage(rect3, { 0,0 }, { 0,0 },  { 0, 74, 130, 32 }, (j1Module*)App->scene, true);
+	//tmp->click = { 0,105,130,32 };
+	//tmp->hover = { 0,150,145,43 };
 
-	SDL_Rect window_rect = { 0,0,500,500 };
-	Window* window = AddWindow(window_rect, true);
-	window->AddElementToWindow(tmp, { 50,50 });
-	/*{0, 74, 130, 32}
-	{0,105,130,32}
-	{0,150,145,43}*/
+	//SDL_Rect window_rect = { 0,0,500,500 };
+	//Window* window = AddWindow(window_rect, true);
+	//window->AddElementToWindow(tmp, { 50,50 });
+	///*{0, 74, 130, 32}
+	//{0,105,130,32}
+	//{0,150,145,43}*/
 
 	
 	return true;
