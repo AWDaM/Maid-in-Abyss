@@ -322,11 +322,11 @@ void Player::Restart()
 
 bool Player::PositionCameraOnPlayer()
 {
-	/*App->render->camera.x = position.x - App->render->camera.w / 3;
+	App->render->camera.x = position.x - App->render->camera.w / 3;
 	if (App->render->camera.x < 0)App->render->camera.x = 0;
 	App->render->camera.y = position.y - App->render->camera.h / 2;
 	if (App->render->camera.y + App->win->height > App->map->data.height*App->map->data.tile_height)App->render->camera.y = App->map->data.height*App->map->data.tile_height - App->win->height;
-	*/return true;
+	return true;
 }
 
 void Player::LoadPushbacks()

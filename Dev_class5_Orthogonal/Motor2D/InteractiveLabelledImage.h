@@ -15,6 +15,16 @@ public:
 	bool PreUpdate();
 	bool PostUpdate();
 	bool Draw();
+private:
+
+public:
+	SDL_Rect * current;
+	SDL_Rect hover;
+	SDL_Rect click;
+	SDL_Rect inactive;
+private:
+
+};
 };
 
 #endif

@@ -32,6 +32,8 @@ public:
 
 	bool OnEvent(UIElement* element, int eventType);
 
+	void Load_Gui();
+
 public:
 	SDL_Texture* background = nullptr;
 	Window* testWindow = nullptr;

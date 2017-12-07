@@ -1,0 +1,26 @@
+<!-- GUI configuration of the different scenes -->
+<config>
+  <introscene>
+    <gui>
+      <interactivelabelledimage>
+        <pos x="" y="" w="" h=""/>
+        <relativeposA x="" y=""/>
+        <relativeposB x="" y=""/>
+        <relativeposC x="" y=""/>
+        <imagesection x="" y="" w="" h=""/>
+        <fontpath path=""/>
+        <color r="" g="" b="" a=""/>
+        <label string=""/>
+        <size value=""/>
+        <draggable value=""/>
+        <hover 
+      </interactivelabelledimage>
+    </gui>
+
+
+  </introscene>
+  
+  
+  
+</config>
+

@@ -4,6 +4,14 @@
 #include "UIElement.h"
 #include "SDL/include/SDL.h"
 
+enum InteractiveType
+{
+	DEFAULT,
+	QUIT,
+	PLAY,
+	OPEN_SETTINGS,
+};
+
 class Interactive : virtual public UIElement
 {
 public:
