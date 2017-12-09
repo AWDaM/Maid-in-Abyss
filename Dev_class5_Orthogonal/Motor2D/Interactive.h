@@ -23,11 +23,11 @@ public:
 
 
 public:	
-	iPoint			Interactiverelativepos;
+	iPoint			Interactiverelativepos = { 0,0 };
 	SDL_Rect 		collider;
 	bool			isMouseInside = false;
 	j1Module*		callback = nullptr;
-	SDL_Texture*	fontTexture;
+	SDL_Texture*	fontTexture = nullptr;
 	p2SString		text = "Default Text";
 	
 
