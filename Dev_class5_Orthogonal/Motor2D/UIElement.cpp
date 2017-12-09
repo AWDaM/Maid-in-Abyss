@@ -14,6 +14,7 @@ UIElement::UIElement()
 UIElement::UIElement(SDL_Rect & position, bool draggable) : position(position), draggable(draggable)
 {
 	LOG("%i, %i", this->position.x, this->position.y);
+	active = true;
 }
 
 

@@ -22,12 +22,15 @@ Image::Image(SDL_Rect& position, iPoint positionOffset, SDL_Rect&  image_section
 {
 	this->image = App->gui->GetAtlas();
 	this->image_section = image_section;
+	image_section.x = 0;
+	image_section.y = 0;
 }
 
 Image::Image(p2SString& path, SDL_Rect& position, iPoint positionOffset)
 {
 	this->image = App->tex->Load(path.GetString());
-
+	image_section.x = 0;
+	image_section.y = 0;
 	
 	SDL_QueryTexture(this->image, nullptr, nullptr, &image_section.w, &image_section.h);
 	
