@@ -29,7 +29,7 @@ public:
 	j1Module*		callback = nullptr;
 	SDL_Texture*	fontTexture = nullptr;
 	p2SString		text = "Default Text";
-	InteractiveType type = DEFAULT;
+	
 
 };
 

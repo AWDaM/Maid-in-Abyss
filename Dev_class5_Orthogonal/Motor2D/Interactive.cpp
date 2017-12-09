@@ -12,8 +12,9 @@ Interactive::Interactive()
 }
 
 
-Interactive::Interactive(SDL_Rect& pos, iPoint Interactiverelativepos, InteractiveType type, j1Module* callback) :  callback(callback), type(type)
+Interactive::Interactive(SDL_Rect& pos, iPoint Interactiverelativepos, InteractiveType type, j1Module* callback) :  callback(callback)
 {
+	this->type = type;
 	collider.x = pos.x + Interactiverelativepos.x;
 	collider.y = pos.y + Interactiverelativepos.y;
 	collider.w = pos.w;
@@ -37,22 +38,22 @@ bool Interactive::InteractivePreUpdate()
 	if (SDL_PointInRect(&mousePosition, &collider))
 	{
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-			callback->OnEvent(this, EventTypes::LEFT_MOUSE_PRESSED);
-		else if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-			callback->OnEvent(this, EventTypes::LEFT_MOUSE_RELEASED);
-		else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
-			callback->OnEvent(this, EventTypes::RIGHT_MOUSE_PRESSED);
-		else if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
-			callback->OnEvent(this, EventTypes::RIGHT_MOUSE_RELEASED);
-		else if (!isMouseInside)
-			callback->OnEvent(this, EventTypes::MOUSE_HOVER_IN);
+			ret = callback->OnEvent(this, EventTypes::LEFT_MOUSE_PRESSED);
+		 if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+			ret = callback->OnEvent(this, EventTypes::LEFT_MOUSE_RELEASED);
+		 if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+			ret = callback->OnEvent(this, EventTypes::RIGHT_MOUSE_PRESSED);
+		 if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
+			ret = callback->OnEvent(this, EventTypes::RIGHT_MOUSE_RELEASED);
+		 if (!isMouseInside)
+			ret = callback->OnEvent(this, EventTypes::MOUSE_HOVER_IN);
 
 		isMouseInside = true;
 	}
 	else
 	{
 		if (isMouseInside)
-			callback->OnEvent(this, EventTypes::MOUSE_HOVER_OUT);
+			ret = callback->OnEvent(this, EventTypes::MOUSE_HOVER_OUT);
 
 		isMouseInside = false;
 	}

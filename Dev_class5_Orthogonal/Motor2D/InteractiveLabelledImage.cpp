@@ -17,10 +17,16 @@ InteractiveLabelledImage::~InteractiveLabelledImage()
 
 bool InteractiveLabelledImage::PreUpdate()
 {
-	InteractivePreUpdate();
-	LabelPreUpdate();
-	ImagePreUpdate();
-	return true;
+	bool ret = true;
+	ret = InteractivePreUpdate();
+
+	if(ret)
+	ret = LabelPreUpdate();
+
+	if(ret)
+	ret = ImagePreUpdate();
+
+	return ret;
 }
 
 bool InteractiveLabelledImage::PostUpdate()

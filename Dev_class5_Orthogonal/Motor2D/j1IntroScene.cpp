@@ -59,8 +59,8 @@ bool j1IntroScene::Start()
 
 	guiconfig = guiconfig.child("introscene");
 
-	App->gui->Load_UIElements(guiconfig);
-	App->gui->Load_SceneWindows(guiconfig);
+	App->gui->Load_UIElements(guiconfig,this);
+	App->gui->Load_SceneWindows(guiconfig,this);
 	return true;
 }
 
@@ -102,7 +102,19 @@ bool j1IntroScene::CleanUp()
 
 bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 {
+	bool ret = true;
 	element->HandleAnimation(eventType);
-	return true;
+	if (eventType == 0 && element->type == QUIT)
+	{
+		LOG("Quit button");
+		ret = false;
+	}
+
+	else if (eventType == 0 && element->type == NEWGAME)
+	{
+		App->sceneswitch->SwitchScene(App->scene, App->introscene);
+		LOG("New game");
+	}
+	return ret;
 }
 
