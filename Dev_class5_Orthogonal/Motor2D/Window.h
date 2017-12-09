@@ -26,7 +26,8 @@ public:
 private:
 public:
 
-	bool draggable;
+	bool active = true;
+	bool draggable = false;
 	p2List<WinElement*> children_list;
 	iPoint mouseLastFrame;
 	SDL_Rect collider;

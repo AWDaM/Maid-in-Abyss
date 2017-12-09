@@ -55,86 +55,101 @@
       <relativePosition x="" y=""/>
       <draggable value=""/>
     </alternate_image>
-      <interactivelabelledimage>
-        <pos x="0" y="0" w="261" h="64"/>
+
+    <alternate_image>
+      <path string="gui/MaidInAbyssTitle.png"/>
+      <position x="10" y="10" w="10" h="10"/>
+      <relativePosition x="" y=""/>
+      <draggable value=""/>
+    </alternate_image>
+   
+    
+    <interactivelabelledimage>
+        <pos x="679" y="82" w="261" h="64"/>
         <relativeposA x="0" y="0"/>
-        <relativeposB x="60" y="21"/>
+        <relativeposB x="50" y="15"/>
         <relativeposC x="0" y="0"/>
         <imagesection x="0" y="0" w="261" h="64"/>
         <fontpath path="fonts/Old School Adventures.ttf"/>
         <color r="255" g="255" b="255" a="0"/>
-        <label string="Hello World"/>
-        <size value="12"/>
-        <draggable value="true"/>
+        <label string="Continue"/>
+        <size value="20"/>
+       <type value="2"/>
+        <draggable value="false"/>
         <hover x="263" y="0" w="261" h="64" />
         <click x="526" y="0" w="261" h="64"/>
         <inactive x="0" y="380" w="261" h="64"/> 
       </interactivelabelledimage>
 
     <interactivelabelledimage>
-      <pos x="100" y="100" w="261" h="64"/>
+      <pos x="679" y="158" w="261" h="64"/>
       <relativeposA x="0" y="0"/>
-      <relativeposB x="60" y="21"/>
+      <relativeposB x="50" y="15"/>
       <relativeposC x="0" y="0"/>
       <imagesection x="0" y="0" w="261" h="64"/>
       <fontpath path="fonts/Old School Adventures.ttf"/>
       <color r="255" g="255" b="255" a="0"/>
-      <label string="Hello World"/>
-      <size value="12"/>
-      <draggable value="true"/>
-      <hover x="263" y="0" w="261" h="64" />
-      <click x="526" y="0" w="261" h="64"/>
-      <inactive x="0" y="380" w="261" h="64"/>
-    </interactivelabelledimage>
-
-
-    <interactivelabelledimage>
-      <pos x="100" y="100" w="261" h="64"/>
-      <relativeposA x="0" y="0"/>
-      <relativeposB x="60" y="21"/>
-      <relativeposC x="0" y="0"/>
-      <imagesection x="0" y="0" w="261" h="64"/>
-      <fontpath path="fonts/Old School Adventures.ttf"/>
-      <color r="255" g="255" b="255" a="0"/>
-      <label string="Hello World"/>
-      <size value="12"/>
-      <draggable value="true"/>
+      <label string="New Game"/>
+      <size value="20"/>
+      <type value="3"/>
+      <draggable value="false"/>
       <hover x="263" y="0" w="261" h="64" />
       <click x="526" y="0" w="261" h="64"/>
       <inactive x="0" y="380" w="261" h="64"/>
     </interactivelabelledimage>
 
     <interactivelabelledimage>
-      <pos x="100" y="100" w="261" h="64"/>
+      <pos x="679" y="234" w="261" h="64"/>
       <relativeposA x="0" y="0"/>
-      <relativeposB x="60" y="21"/>
+      <relativeposB x="50" y="15"/>
       <relativeposC x="0" y="0"/>
       <imagesection x="0" y="0" w="261" h="64"/>
       <fontpath path="fonts/Old School Adventures.ttf"/>
       <color r="255" g="255" b="255" a="0"/>
-      <label string="Hello World"/>
-      <size value="12"/>
-      <draggable value="true"/>
+      <label string="Credits"/>
+      <type value="5"/>
+      <size value="20"/>
+      <draggable value="false"/>
       <hover x="263" y="0" w="261" h="64" />
       <click x="526" y="0" w="261" h="64"/>
       <inactive x="0" y="380" w="261" h="64"/>
     </interactivelabelledimage>
 
     <interactivelabelledimage>
-      <pos x="100" y="100" w="261" h="64"/>
+      <pos x="679" y="310" w="261" h="64"/>
       <relativeposA x="0" y="0"/>
-      <relativeposB x="60" y="21"/>
+      <relativeposB x="50" y="15"/>
       <relativeposC x="0" y="0"/>
       <imagesection x="0" y="0" w="261" h="64"/>
       <fontpath path="fonts/Old School Adventures.ttf"/>
       <color r="255" g="255" b="255" a="0"/>
-      <label string="Hello World"/>
-      <size value="12"/>
-      <draggable value="true"/>
+      <label string="Settings"/>
+      <type value="4"/>
+      <size value="20"/>
+      <draggable value="false"/>
       <hover x="263" y="0" w="261" h="64" />
       <click x="526" y="0" w="261" h="64"/>
       <inactive x="0" y="380" w="261" h="64"/>
     </interactivelabelledimage>
+
+    <interactivelabelledimage>
+      <pos x="679" y="386" w="261" h="64"/>
+      <relativeposA x="0" y="0"/>
+      <relativeposB x="50" y="15"/>
+      <relativeposC x="0" y="0"/>
+      <imagesection x="0" y="0" w="261" h="64"/>
+      <fontpath path="fonts/Old School Adventures.ttf"/>
+      <color r="255" g="255" b="255" a="0"/>
+      <label string="Exit"/>
+      <type value="1"/>
+      <size value="20"/>
+      <draggable value="false"/>
+      <hover x="263" y="0" w="261" h="64" />
+      <click x="526" y="0" w="261" h="64"/>
+      <inactive x="0" y="380" w="261" h="64"/>
+    </interactivelabelledimage>
+
+ 
 
  
   </introscene>

@@ -6,14 +6,10 @@ InheritedInteractive::InheritedInteractive()
 {
 }
 
-InheritedInteractive::InheritedInteractive(SDL_Rect& pos) : Interactive(pos)
-{
-	type = UIType::INTERACTIVE;
-}
 
-InheritedInteractive::InheritedInteractive(SDL_Rect& pos, iPoint posOffset, SDL_Rect & size, j1Module * callback, bool draggable) : Interactive(pos, posOffset, callback), UIElement(pos, draggable)
+InheritedInteractive::InheritedInteractive(SDL_Rect& pos, iPoint posOffset, SDL_Rect & size, InteractiveType type, j1Module * callback, bool draggable) : Interactive(pos, posOffset,type, callback), UIElement(pos, draggable)
 {
-	type = UIType::INTERACTIVE;
+	this->UItype = UIType::INTERACTIVE;
 }
 
 

@@ -21,8 +21,9 @@ public:
 	~UIElement();
 
 public:
-	UIType type = NO_TYPE;
+	UIType UItype = NO_TYPE;
 	SDL_Rect position;
+	bool active = true;
 	bool In_window = false;
 	bool draggable = false;
 	bool being_dragged = false;

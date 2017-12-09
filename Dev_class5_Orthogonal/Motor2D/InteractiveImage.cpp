@@ -3,16 +3,10 @@
 
 
 
-
-InteractiveImage::InteractiveImage(SDL_Rect & pos) : Interactive(pos)
+InteractiveImage::InteractiveImage(SDL_Rect & pos, iPoint Interactiverelativepos, iPoint Imagerelativepos, SDL_Rect image_section, InteractiveType type, j1Module* callback, bool draggable) :
+	Interactive(pos,Interactiverelativepos,type, callback), Image(pos,Imagerelativepos,image_section) , UIElement(pos, draggable)
 {
-}
-
-
-InteractiveImage::InteractiveImage(SDL_Rect & pos, iPoint Interactiverelativepos, iPoint Imagerelativepos, SDL_Rect image_section, j1Module* callback, bool draggable) :
-	Interactive(pos,Interactiverelativepos,callback), Image(pos,Imagerelativepos,image_section) , UIElement(pos, draggable)
-{
-	type = INTERACTIVE_IMAGE;
+	UItype = INTERACTIVE_IMAGE;
 	current = &this->image_section;
 }
 

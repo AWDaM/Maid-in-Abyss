@@ -8,17 +8,17 @@ InheritedImage::InheritedImage()
 
 InheritedImage::InheritedImage(SDL_Rect& position, iPoint positionOffset, bool draggable) : Image(position, positionOffset), UIElement(position, draggable)
 {
-	type = UIType::IMAGE;
+	UItype = UIType::IMAGE;
 }
 
 InheritedImage::InheritedImage(SDL_Rect& position, iPoint positionOffset, SDL_Rect & image_section, bool draggable) : Image(position, positionOffset, image_section), UIElement(position, draggable)
 {
-	type = UIType::IMAGE;
+	UItype = UIType::IMAGE;
 }
 
 InheritedImage::InheritedImage(SDL_Rect& position, iPoint positionOffset, p2SString & path, bool draggable) : Image(path, position, positionOffset), UIElement(position, draggable)
 {
-	type = UIType::IMAGE;
+	UItype = UIType::IMAGE;
 }
 
 

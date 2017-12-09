@@ -58,14 +58,18 @@ bool j1Gui::PreUpdate()
 	bool ret = true;
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
 	{
-		item->data->PreUpdate();
+		if(item->data->active)
+			item->data->PreUpdate();
+
 		if (!ret)
 			break;
 	}
 
 	for (p2List_item<Window*>* item = window_list.start; item; item = item->next)
 	{
-		item->data->PreUpdate();
+		if (item->data->active)
+			item->data->PreUpdate();
+
 		if (!ret)
 			break;
 	}
@@ -78,7 +82,8 @@ bool j1Gui::PostUpdate()
 	bool ret = true;
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
 	{
-		ret = item->data->PostUpdate();
+		if (item->data->active)
+			ret = item->data->PostUpdate();
 		
 		if (!ret)
 			break;
@@ -91,7 +96,7 @@ bool j1Gui::PostUpdate()
 		{
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 			{
-				if (SDL_PointInRect(&currentMousepos, &item->data->position) && item->data->draggable || item->data->being_dragged)
+				if (item->data->active &&SDL_PointInRect(&currentMousepos, &item->data->position) && item->data->draggable || item->data->being_dragged)
 				{
 					item->data->MoveElement({ currentMousepos.x - mouseLastFrame.x, currentMousepos.y - mouseLastFrame.y });
 					item->data->being_dragged = true;
@@ -112,7 +117,9 @@ bool j1Gui::Draw()
 	bool ret = true;
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
 	{
-		item->data->Draw();
+		if (item->data->active)
+			item->data->Draw();
+
 		if (!ret)
 			break;
 	}
@@ -132,40 +139,7 @@ bool j1Gui::CleanUp()
 	return true;
 }
 
-UIElement* j1Gui::AddElement(UIType type, SDL_Rect& position, iPoint positionOffset, bool draggable)
-{
-	UIElement* ret = nullptr;
-	switch (type)
-	{
-	case INTERACTIVE:
-		ret = new Interactive(position);
-		break;
-	case IMAGE:
-		ret = new Image();
-		break;
-	case LABEL:
-		ret = new Label();
-		break;
-	case INTERACTIVE_IMAGE:
-		//
-		break;
-	case INTERACTIVE_LABELLED_IMAGE:
-		//
-		break;
-	case INTERACTIVE_LABEL:
-		//
-		break;
-	case LABELLED_IMAGE:
-		//
-		break;
-	default:
-		//
-		break;
-	}
-	
-	elements.add(ret);
-	return ret;
-}
+
 
 InheritedImage* j1Gui::AddImage(SDL_Rect& position, iPoint positionOffset, SDL_Rect & section, bool draggable)
 {
@@ -174,9 +148,11 @@ InheritedImage* j1Gui::AddImage(SDL_Rect& position, iPoint positionOffset, SDL_R
 	return ret;
 }
 
-InheritedInteractive* j1Gui::AddInteractive(SDL_Rect& position, iPoint positionOffset, SDL_Rect & size, j1Module * callback, bool draggable)
+
+
+InheritedInteractive * j1Gui::AddInteractive(SDL_Rect & position, iPoint positionOffset, SDL_Rect & size, InteractiveType type, j1Module * callback, bool draggable)
 {
-	InheritedInteractive* ret = new InheritedInteractive(position, positionOffset, size, callback, draggable);
+	InheritedInteractive* ret = new InheritedInteractive(position, positionOffset, size, type, callback, draggable);
 	elements.add(ret);
 	focusList.add(ret);
 	return ret;
@@ -190,29 +166,39 @@ InheritedLabel* j1Gui::AddLabel(SDL_Rect& position, iPoint positionOffset, p2SSt
 	return ret;
 }
 
-InteractiveImage* j1Gui::AddInteractiveImage(SDL_Rect& position, iPoint Interactiverelativepos, iPoint Imagerelativepos, SDL_Rect image_section, j1Module * callback, bool draggable)
+
+
+InteractiveImage * j1Gui::AddInteractiveImage(SDL_Rect & position, iPoint positionOffsetA, iPoint positionOffsetB, SDL_Rect image_section,InteractiveType type, j1Module * callback, bool draggable)
 {
-	InteractiveImage* ret = new InteractiveImage(position, Interactiverelativepos, Imagerelativepos, image_section, callback, draggable);
+	InteractiveImage* ret = new InteractiveImage(position, positionOffsetA, positionOffsetB, image_section, type, callback, draggable);
 	elements.add(ret);
 	focusList.add(ret);
 	return ret;
 }
 
-InteractiveLabel* j1Gui::AddInteractiveLabel(SDL_Rect & position, iPoint Interactiverelativepos, iPoint positionOffsetB, p2SString fontPath, SDL_Color textColor, p2SString label, int size, j1Module * callback, bool draggable)
+InteractiveLabel * j1Gui::AddInteractiveLabel(SDL_Rect & position, iPoint positionOffsetA, iPoint positionOffsetB, p2SString fontPath, SDL_Color textColor, p2SString label, int size, InteractiveType type, j1Module * callback, bool draggable)
 {
-	InteractiveLabel* ret = new InteractiveLabel(position, Interactiverelativepos, positionOffsetB, fontPath, textColor, label, size, callback, draggable);
+	InteractiveLabel* ret = new InteractiveLabel(position, positionOffsetA, positionOffsetB, fontPath, textColor, label, size, type, callback, draggable);
 	elements.add(ret);
 	focusList.add(ret);
 	return ret;
 }
 
-InteractiveLabelledImage* j1Gui::AddInteractiveLabelledImage(SDL_Rect & position, iPoint Interactiverelativepos, iPoint LabelRelativepos, iPoint Imagerelativepos, SDL_Rect& image_section, p2SString& fontPath, SDL_Color& textColor, p2SString& label, int size, j1Module * callback, bool draggable)
+
+
+InteractiveLabelledImage * j1Gui::AddInteractiveLabelledImage(SDL_Rect & position, iPoint positionOffsetA, iPoint positionOffsetB, iPoint positionOffsetC, SDL_Rect & image_section, p2SString & fontPath, SDL_Color & textColor, p2SString & label, int size, InteractiveType type, j1Module * callback, bool draggable)
 {
-	InteractiveLabelledImage* ret = new InteractiveLabelledImage(position, Interactiverelativepos, LabelRelativepos, Imagerelativepos, image_section, fontPath, textColor, label, size, callback, draggable);
+	InteractiveLabelledImage* ret = new InteractiveLabelledImage(position, positionOffsetA, positionOffsetB, positionOffsetC, image_section, fontPath, textColor, label, size, type, callback, draggable);
 	elements.add(ret);
 	focusList.add(ret);
 	return ret;
 }
+
+
+
+
+
+
 
 LabelledImage* j1Gui::AddLabelledImage(SDL_Rect & position, iPoint positionOffsetA, iPoint Imagerelativepos, p2SString fontPath, SDL_Color textColor, p2SString label, int size, SDL_Rect image_section, bool draggable)
 {
@@ -323,8 +309,9 @@ UIElement * j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp)
 	SDL_Color color = { tmp.child("color").attribute("r").as_int(), tmp.child("color").attribute("g").as_int(), tmp.child("color").attribute("b").as_int(), tmp.child("color").attribute("a").as_int() };
 	p2SString label = (tmp.child("label").attribute("string").as_string());
 	int size = tmp.child("size").attribute("value").as_int();
+	InteractiveType type = InteractiveType_from_int(tmp.child("type").attribute("value").as_int());
 	bool draggable = tmp.child("draggable").attribute("value").as_bool();
-	InteractiveLabelledImage* added = AddInteractiveLabelledImage(pos, relativeposA, relativeposB, relativeposC, section, path, color, label, size, this, draggable);
+	InteractiveLabelledImage* added = AddInteractiveLabelledImage(pos, relativeposA, relativeposB, relativeposC, section, path, color, label, size,type,this, draggable);
 
 	added->hover = { tmp.child("hover").attribute("x").as_int(), tmp.child("hover").attribute("y").as_int(), tmp.child("hover").attribute("w").as_int(), tmp.child("hover").attribute("h").as_int() };
 	added->click = { tmp.child("click").attribute("x").as_int(), tmp.child("click").attribute("y").as_int(), tmp.child("click").attribute("w").as_int(), tmp.child("click").attribute("h").as_int() };
@@ -392,6 +379,30 @@ UIElement * j1Gui::Load_AlterantiveImage_fromXML(pugi::xml_node node)
 	bool draggable = node.child("draggable").attribute("value").as_bool();
 	UIElement* added = AddImage_From_otherFile(position, relativePos, path, draggable);
 	return added;
+}
+
+InteractiveType j1Gui::InteractiveType_from_int(int type)
+{
+	InteractiveType ret;
+	switch (type)
+	{
+	case(0):
+		ret= DEFAULT;
+		break;
+	case(1):
+		 ret = QUIT;
+		break;
+	case(2):
+		 ret = CONTINUE;
+		break;
+	case(3):
+		ret = NEWGAME;
+	case(4):
+		ret = OPEN_SETTINGS;
+	case(5):
+		ret = OPEN_CREDITS;
+	};
+	return ret;
 }
 
 bool j1Gui::CreateSceneIntroGUI()

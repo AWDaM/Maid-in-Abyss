@@ -4,20 +4,13 @@
 #include "UIElement.h"
 #include "SDL/include/SDL.h"
 
-enum InteractiveType
-{
-	DEFAULT,
-	QUIT,
-	PLAY,
-	OPEN_SETTINGS,
-};
+
 
 class Interactive : virtual public UIElement
 {
 public:
 	Interactive();
-	Interactive(SDL_Rect& pos);
-	Interactive(SDL_Rect& pos, iPoint posOffset, j1Module* callback);
+	Interactive(SDL_Rect& pos, iPoint posOffset, InteractiveType type, j1Module* callback);
 	~Interactive();
 
 public:
@@ -36,6 +29,7 @@ public:
 	j1Module*		callback = nullptr;
 	SDL_Texture*	fontTexture;
 	p2SString		text = "Default Text";
+	InteractiveType type = DEFAULT;
 
 };
 
