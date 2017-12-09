@@ -25,7 +25,7 @@ public:
 
 
 public:
-	iPoint Imagerelativepos;
+	iPoint Imagerelativepos = { 0,0 };
 	SDL_Rect image_section;
 	SDL_Texture* image = nullptr;
 };

@@ -19,9 +19,9 @@ public:
 	~Label();
 
 public:
-	iPoint Labelrelativepos;
+	iPoint Labelrelativepos = { 0,0 };
 	p2SString label;
-	_TTF_Font* font;
+	_TTF_Font* font = nullptr;
 	SDL_Texture* fontTexture;
 };
 
