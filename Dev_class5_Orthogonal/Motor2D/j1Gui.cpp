@@ -6,6 +6,8 @@
 #include "j1Fonts.h"
 #include "j1Input.h"
 #include "j1Gui.h"
+#include"j1IntroScene.h"
+#include "j1Scene.h"
 #include "Window.h"
 #include "UIElement.h"
 #include "Label.h"
@@ -59,19 +61,23 @@ bool j1Gui::PreUpdate()
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
 	{
 		if(item->data->active)
-			item->data->PreUpdate();
+			 ret = item->data->PreUpdate();
 
 		if (!ret)
 			break;
 	}
 
-	for (p2List_item<Window*>* item = window_list.start; item; item = item->next)
+	if (ret)
 	{
-		if (item->data->active)
-			item->data->PreUpdate();
 
-		if (!ret)
-			break;
+		for (p2List_item<Window*>* item = window_list.start; item; item = item->next)
+		{
+			if (item->data->active)
+				ret = item->data->PreUpdate();
+
+			if (!ret)
+				break;
+		}
 	}
 	return ret;
 }
@@ -245,7 +251,7 @@ Window * j1Gui::AddWindow(SDL_Rect &windowrect, bool draggable)
 	return window;
 }
 
-void j1Gui::Load_UIElements(pugi::xml_node node)
+void j1Gui::Load_UIElements(pugi::xml_node node, j1Module* callback)
 {
 
 	pugi::xml_node tmp;
@@ -275,31 +281,33 @@ void j1Gui::Load_UIElements(pugi::xml_node node)
 	tmp = node.child("interactivelabelledimage");
 	if (tmp)
 	{
-		App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+		App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);
 		while (tmp = tmp.next_sibling("interactivelabelledimage"))
 		{
-			App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+			App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);
 		}
 	}
 
 }
 
-void j1Gui::Load_SceneWindows(pugi::xml_node node)
+void j1Gui::Load_SceneWindows(pugi::xml_node node,j1Module* callback)
 {
 	pugi::xml_node tmp = node.child("window");
 
 	if (tmp)
 	{
-		App->gui->Load_Window_fromXML(tmp);
+		App->gui->Load_Window_fromXML(tmp,callback);
 		while (tmp = tmp.next_sibling("window"))
 		{
-			App->gui->Load_Window_fromXML(tmp);
+			App->gui->Load_Window_fromXML(tmp,callback);
 		}
 	}
 }
 
-UIElement * j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp)
+UIElement * j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp, j1Module* callback)
 {
+	InteractiveLabelledImage* added = nullptr;
+	
 	SDL_Rect pos = { tmp.child("pos").attribute("x").as_int(), tmp.child("pos").attribute("y").as_int(), tmp.child("pos").attribute("w").as_int(), tmp.child("pos").attribute("h").as_int() };
 	iPoint relativeposA = { tmp.child("relativeposA").attribute("x").as_int(),tmp.child("relativeposA").attribute("y").as_int() };
 	iPoint relativeposB = { tmp.child("relativeposB").attribute("x").as_int(),tmp.child("relativeposB").attribute("y").as_int() };
@@ -311,15 +319,17 @@ UIElement * j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp)
 	int size = tmp.child("size").attribute("value").as_int();
 	InteractiveType type = InteractiveType_from_int(tmp.child("type").attribute("value").as_int());
 	bool draggable = tmp.child("draggable").attribute("value").as_bool();
-	InteractiveLabelledImage* added = AddInteractiveLabelledImage(pos, relativeposA, relativeposB, relativeposC, section, path, color, label, size,type,this, draggable);
 
+	added = AddInteractiveLabelledImage(pos, relativeposA, relativeposB, relativeposC, section, path, color, label, size, type, callback, draggable);
+	
 	added->hover = { tmp.child("hover").attribute("x").as_int(), tmp.child("hover").attribute("y").as_int(), tmp.child("hover").attribute("w").as_int(), tmp.child("hover").attribute("h").as_int() };
 	added->click = { tmp.child("click").attribute("x").as_int(), tmp.child("click").attribute("y").as_int(), tmp.child("click").attribute("w").as_int(), tmp.child("click").attribute("h").as_int() };
 	added->inactive = { tmp.child("inactive").attribute("x").as_int(), tmp.child("inactive").attribute("y").as_int(), tmp.child("inactive").attribute("w").as_int(), tmp.child("inactive").attribute("h").as_int() };
+
 	return added;
 }
 
-Window * j1Gui::Load_Window_fromXML(pugi::xml_node node)
+Window * j1Gui::Load_Window_fromXML(pugi::xml_node node, j1Module* callback)
 {
 	SDL_Rect collider = { node.child("collider").attribute("x").as_int(), node.child("collider").attribute("y").as_int(), node.child("collider").attribute("w").as_int(), node.child("collider").attribute("h").as_int() };
 
@@ -327,23 +337,23 @@ Window * j1Gui::Load_Window_fromXML(pugi::xml_node node)
 	Window* added = AddWindow(collider,draggable);
 	if (node.child("elements"))
 	{
-		Load_WindowElements_fromXML(node.child("elements"), added);
+		Load_WindowElements_fromXML(node.child("elements"), added,callback);
 	}
 	return added;
 }
 
-void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window * window)
+void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window * window, j1Module* callback)
 {
 	pugi::xml_node tmp = node.child("interactivelabelledimage");
 
 	UIElement* child;
 	if (tmp)
 	{
-		child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+		child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);
 		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
 		while (tmp = tmp.next_sibling("interactivelabelledimage"))
 		{
-			child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp);
+			child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);
 			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int()});
 		}
 	}
@@ -397,10 +407,13 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 		break;
 	case(3):
 		ret = NEWGAME;
+		break;
 	case(4):
 		ret = OPEN_SETTINGS;
+		break;
 	case(5):
 		ret = OPEN_CREDITS;
+		break;
 	};
 	return ret;
 }

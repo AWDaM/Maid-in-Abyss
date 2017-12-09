@@ -100,11 +100,11 @@ public:
 	Window* AddWindow(SDL_Rect &window, bool draggable = false);
 	// Gui creation functions
 
-	void Load_UIElements(pugi::xml_node node);
-	void Load_SceneWindows(pugi::xml_node node);
-	UIElement* Load_InteractiveLabelledImage_fromXML(pugi::xml_node		tmp);
-	Window* Load_Window_fromXML(pugi::xml_node node);
-	void Load_WindowElements_fromXML(pugi::xml_node node, Window* window);
+	void Load_UIElements(pugi::xml_node node, j1Module* callback);
+	void Load_SceneWindows(pugi::xml_node node, j1Module* callback);
+	UIElement* Load_InteractiveLabelledImage_fromXML(pugi::xml_node	tmp, j1Module* callback);
+	Window* Load_Window_fromXML(pugi::xml_node node, j1Module* callback);
+	void Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1Module* callback);
 	UIElement* Load_Image_fromXML(pugi::xml_node node);
 	UIElement* Load_AlterantiveImage_fromXML(pugi::xml_node node);
 
