@@ -1,6 +1,9 @@
 #include "j1SceneSwitch.h"
+#include "j1Render.h"
 #include "j1App.h"
 #include "j1Gui.h"
+#include "j1Window.h"
+#include "SDL/include/SDL_render.h"
 
 
 
@@ -21,6 +24,10 @@ bool j1SceneSwitch::Awake()
 
 bool j1SceneSwitch::Start()
 {
+	screen.x = 0;
+	screen.y = 0;
+	screen.w = App->win->width;
+	screen.h = App->win->height;
 	return true;
 }
 
@@ -57,6 +64,10 @@ bool j1SceneSwitch::Update(float dt)
 			}
 		}break;
 	}
+
+	SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(normalized * 255.0f));
+	SDL_RenderFillRect(App->render->renderer, &screen);
+
 	return ret;
 }
 
