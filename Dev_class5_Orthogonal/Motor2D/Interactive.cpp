@@ -35,24 +35,27 @@ bool Interactive::InteractivePreUpdate()
 
 	App->input->GetMousePosition(mousePosition.x, mousePosition.y);
 
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+		ret = callback->OnEvent(this, EventTypes::PRESSED_TAB);
+
 	if (SDL_PointInRect(&mousePosition, &collider))
 	{
-		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && ret)
 			ret = callback->OnEvent(this, EventTypes::LEFT_MOUSE_PRESSED);
-		 if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
+		 if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP && ret)
 			ret = callback->OnEvent(this, EventTypes::LEFT_MOUSE_RELEASED);
-		 if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN)
+		 if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_DOWN && ret)
 			ret = callback->OnEvent(this, EventTypes::RIGHT_MOUSE_PRESSED);
-		 if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP)
+		 if (App->input->GetMouseButtonDown(SDL_BUTTON_RIGHT) == KEY_UP && ret)
 			ret = callback->OnEvent(this, EventTypes::RIGHT_MOUSE_RELEASED);
-		 if (!isMouseInside)
+		 if (!isMouseInside && ret)
 			ret = callback->OnEvent(this, EventTypes::MOUSE_HOVER_IN);
 
 		isMouseInside = true;
 	}
 	else
 	{
-		if (isMouseInside)
+		if (isMouseInside && ret)
 			ret = callback->OnEvent(this, EventTypes::MOUSE_HOVER_OUT);
 
 		isMouseInside = false;

@@ -70,7 +70,7 @@ bool j1Gui::PreUpdate()
 	if (ret)
 	{
 
-		for (p2List_item<Window*>* item = window_list.start; item; item = item->next)
+		for (p2List_item<Window*>* item = window_list.end; item; item = item->prev)
 		{
 			if (item->data->active)
 				ret = item->data->PreUpdate();
@@ -86,6 +86,10 @@ bool j1Gui::PreUpdate()
 bool j1Gui::PostUpdate()
 {
 	bool ret = true;
+
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		debug = !debug;
+
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
 	{
 		if (item->data->active)
@@ -124,7 +128,11 @@ bool j1Gui::Draw()
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
 	{
 		if (item->data->active)
+		{
 			item->data->Draw();
+			if (debug)
+				App->render->DrawQuad(item->data->position, 255, 0, 0, 80);
+		}
 
 		if (!ret)
 			break;
@@ -361,9 +369,22 @@ Window * j1Gui::Load_Window_fromXML(pugi::xml_node node, j1Module* callback)
 
 void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window * window, j1Module* callback)
 {
-	pugi::xml_node tmp = node.child("interactivelabelledimage");
+	pugi::xml_node	tmp = node.child("image");
 
 	UIElement* child;
+
+	if (tmp)
+	{
+		child = App->gui->Load_Image_fromXML(tmp);
+		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		while (tmp = tmp.next_sibling("image"))
+		{
+			App->gui->Load_Image_fromXML(tmp);
+			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		}
+	}
+	tmp = node.child("interactivelabelledimage");
+
 	if (tmp)
 	{
 		child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);
@@ -375,17 +396,7 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window * window, j1
 		}
 	}
 
-	tmp = node.child("image");
-	if (tmp)
-	{
-		child = App->gui->Load_Image_fromXML(tmp);
-		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
-		while (tmp = tmp.next_sibling("image"))
-		{
-			App->gui->Load_Image_fromXML(tmp);
-			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
-		}
-	}
+
 }
 
 UIElement * j1Gui::Load_Image_fromXML(pugi::xml_node node)
@@ -490,4 +501,32 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 		}
 	 element->HandleAnimation(eventType);
 	 return true;
+ }
+
+ bool j1Gui::BecomeFocus(Window* curr)
+ {
+	 bool ret = true;
+	 p2List_item<Window*>* item = nullptr;
+	 for (item = window_list.end; item; item = item->prev)
+	 {
+		 if (item->data == curr)
+		 {
+			 RemoveFocuses();
+			 break;
+		 }
+		 if (item->data->hasFocus)
+		 {
+			 ret = false;
+			 break;
+		 }
+	 }
+	 return ret;
+ }
+
+ void j1Gui::RemoveFocuses()
+ {
+	 p2List_item<Window*>* item = nullptr;
+	 for (item = window_list.end; item; item = item->prev)
+		 if (item->data->hasFocus)
+			 item->data->hasFocus = false;
  }

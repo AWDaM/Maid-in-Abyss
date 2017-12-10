@@ -11,6 +11,7 @@ struct WinElement
 	WinElement(UIElement* element, iPoint relativePosition);
 	UIElement* element;
 	iPoint relativePosition;
+
 };
 
 class Window
@@ -23,16 +24,19 @@ public:
 	bool PreUpdate();
 	WinElement* AddElementToWindow(UIElement* element, iPoint relativePosition);
 	void moveElements(iPoint difference);
+
 private:
+	void HandleMovement();
+	void HandleFocus();
+
 public:
 
 	bool active = true;
 	bool draggable = false;
+	bool hasFocus = false;
 	p2List<WinElement*> children_list;
 	iPoint mouseLastFrame;
 	SDL_Rect collider;
-	uint focus;
-	uint current_focus;
 
 private:
 

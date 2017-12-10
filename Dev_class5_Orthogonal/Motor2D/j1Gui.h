@@ -15,7 +15,8 @@ enum EventTypes
 	RIGHT_MOUSE_RELEASED,
 	MOUSE_HOVER_IN,
 	MOUSE_HOVER_OUT,
-	PRESSED_ENTER
+	PRESSED_ENTER,
+	PRESSED_TAB
 };
 
 
@@ -116,6 +117,8 @@ public:
 
 	InteractiveType InteractiveType_from_int(int type);
 	bool OnEvent(UIElement * element, int eventType);
+	bool BecomeFocus(Window* curr);
+	void RemoveFocuses();
 
 	SDL_Texture* GetAtlas() const;
 	p2List<UIElement*> elements;
@@ -128,6 +131,7 @@ public:
 
 private:
 
+	bool debug = false;
 	SDL_Texture* atlas = nullptr;
 
 	p2SString atlas_file_name;

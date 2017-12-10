@@ -13,6 +13,7 @@ public:
 	virtual bool PostUpdate() { return true; }
 	virtual bool Draw() { return true; }
 	virtual bool HandleAnimation(int eventType) { return true; }
+	bool DebugDraw();
 	virtual bool CleanUp() { return true; }
 
 	void MoveElement(iPoint difference);
@@ -30,6 +31,7 @@ public:
 	bool draggable = false;
 	bool being_dragged = false;
 	WinElement* winElement = nullptr;
+	bool hasFocus = false;
 };
 
 #endif
