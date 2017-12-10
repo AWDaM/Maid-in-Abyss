@@ -54,8 +54,18 @@ bool UIClock::HandleAnimation(int newstate)
 		break;
 	case(RECENTLY_STOPPED):
 		LOG("COOLDOWN");
-		current = &default;
+		current = &oncooldown;
 		break;
 	}
 	return true;
+}
+
+void UIClock::ResetAnimations()
+{
+	default.Reset();
+	slowing.Reset();
+	stopped.Reset();
+	fastening.Reset();
+	oncooldown.Reset();
+	current = &default;
 }

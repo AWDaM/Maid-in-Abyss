@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio>
+		<musicVolumeModifier value="0.0999999866" />
+		<sfxVolumeModifier value="0.300000012" />
+	</audio>
+	<map />
+	<gui />
+	<introscene />
+	<scene>
+		<currentMap num="0" />
+	</scene>
+	<sceneswitch />
+	<mapchange />
+	<entitycontroller>
+		<player>
+			<position x="827" y="1784" />
+			<speed x="0" y="0" />
+			<collider width="32" height="63" x="838" y="1793" />
+			<grounded value="true" />
+			<dashing value="false" />
+			<currentDashtime value="0" />
+		</player>
+	</entitycontroller>
+	<pathfinding />
+	<fonts />
+	<renderer>
+		<camera x="486" y="1280" />
+	</renderer>
+</game_state>

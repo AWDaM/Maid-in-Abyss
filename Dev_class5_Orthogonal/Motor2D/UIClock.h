@@ -14,7 +14,7 @@ public:
 
 	bool Draw();
 	bool HandleAnimation(int newstate);
-
+	void ResetAnimations();
 private:
 public:
 	SDL_Texture* image;

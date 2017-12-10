@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "LandMaid.h"
 #include "FlyingFurrball.h"
+#include "PickUp.h"
 #include "PugiXml/src/pugixml.hpp"
 #include "j1Textures.h"
 #include "j1Gui.h"
@@ -211,8 +212,11 @@ Entity* j1EntityController::AddEntity(Entity::entityType type, iPoint position)
 	case Entity::entityType::LAND_ENEMY:
 		tmp = new LandMaid(position);
 		break;
+	case Entity::entityType::PICKUP:
+		tmp = new PickUp(position);
+		break;
 	}
-		//case Entity::entityType::LAND_ENEMY: tmp = new Player();
+
 	
 if (tmp)
 		Entities.add(tmp);
