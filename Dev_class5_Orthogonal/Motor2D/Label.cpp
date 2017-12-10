@@ -35,8 +35,9 @@ bool Label::LabelPostUpdate()
 
 bool Label::LabelDraw()
 {
-	App->render->Blit(fontTexture, position.x+Labelrelativepos.x, position.y+Labelrelativepos.y);
-	return true;
+	iPoint tmp = App->render->ScreenToWorld(position.x + Labelrelativepos.x, position.y + Labelrelativepos.y);
+	
+	return App->render->Blit(fontTexture, tmp.x, tmp.y);
 }
 
 Label::Label()
