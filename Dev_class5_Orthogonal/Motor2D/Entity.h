@@ -18,6 +18,7 @@ public:
 		MOVING_PLATFORM,
 		FLYING_ENEMY,
 		LAND_ENEMY,
+		PICKUP
 	};
 
 public:

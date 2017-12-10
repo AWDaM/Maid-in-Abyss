@@ -251,6 +251,11 @@ void j1Scene::SpawnEnemies()
 				{
 					App->entitycontroller->AddEntity(Entity::entityType::LAND_ENEMY, { objdata->data->x,objdata->data->y });
 				}
+
+				else if (objdata->data->name == 9)
+				{
+					App->entitycontroller->AddEntity(Entity::entityType::PICKUP, { objdata->data->x,objdata->data->y });
+				}
 				
 			}
 		}
