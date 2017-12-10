@@ -23,17 +23,20 @@ bool Window::PreUpdate()
 {
 	SDL_Point mousePos;
 	App->input->GetMousePosition(mousePos.x, mousePos.y);
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && SDL_PointInRect(&mousePos,&collider)&&draggable)
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
-		iPoint mouseCurrentpos;
-		App->input->GetMousePosition(mouseCurrentpos.x, mouseCurrentpos.y);
-		if (mouseCurrentpos != mouseLastFrame)
+		if (SDL_PointInRect(&mousePos, &collider))
 		{
-			iPoint difference = mouseLastFrame - mouseCurrentpos;
-			moveElements(difference);
+			if (App->gui->BecomeFocus(this))
+				hasFocus = true;
 		}
+		else hasFocus = false;
 	}
-
+	if (hasFocus)
+	{
+		HandleMovement();
+		HandleFocus();
+	}
 	App->input->GetMousePosition(mouseLastFrame.x, mouseLastFrame.y);
 	return true;
 }
@@ -59,6 +62,59 @@ void Window::moveElements(iPoint difference)
 	for (p2List_item<WinElement*>* item = children_list.start; item; item = item->next)
 	{
 		item->data->element->MoveElement(difference.Negate());
+		difference.Negate();
+	}
+}
+
+void Window::HandleMovement()
+{
+	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && draggable)
+	{
+		iPoint mouseCurrentpos;
+		App->input->GetMousePosition(mouseCurrentpos.x, mouseCurrentpos.y);
+		if (mouseCurrentpos != mouseLastFrame)
+		{
+			iPoint difference = mouseLastFrame - mouseCurrentpos;
+			moveElements(difference);
+		}
+	}
+}
+
+void Window::HandleFocus()
+{
+	bool focus = false;
+
+	for (p2List_item<WinElement*>* item = children_list.start; item; item = item->next)
+	{
+		if (item->data->element->hasFocus)
+		{
+			focus = true;
+			break;
+		}
+	}
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	{
+		if (!focus)			
+		{
+			children_list.start->data->element->hasFocus = true;
+		}
+		else
+		{
+			for (p2List_item<WinElement*>* item = children_list.start; item; item = item->next)
+			{
+				if (item->data->element->hasFocus)
+				{
+					item->data->element->hasFocus = false;
+					if(item->next)
+						item->next->data->element->hasFocus = true;
+					else 
+					{ 
+						children_list.start->data->element->hasFocus = true;
+					}
+					break;
+				}
+			}
+		}
 	}
 }
 

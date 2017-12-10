@@ -43,19 +43,19 @@ bool InteractiveImage::Draw()
 
 bool InteractiveImage::HandleAnimation(int eventType)
 {
-	if (eventType == 4)
+	if (eventType == EventTypes::MOUSE_HOVER_IN)
 	{
 		current = &hover;
 	}
-	else if (eventType == 5 && !SDL_RectEquals(current, &click))
+	else if (eventType == EventTypes::MOUSE_HOVER_OUT && !SDL_RectEquals(current, &click))
 	{
 		current = &image_section;
 	}
-	else if (eventType == 0 || eventType == 2)
+	else if (eventType == EventTypes::LEFT_MOUSE_PRESSED || eventType == EventTypes::RIGHT_MOUSE_PRESSED)
 	{
 		current = &click;
 	}
-	else if (eventType == 1 || eventType == 3)
+	else if (eventType == EventTypes::LEFT_MOUSE_RELEASED || eventType == EventTypes::RIGHT_MOUSE_RELEASED)
 	{
 		current = &image_section;
 	}

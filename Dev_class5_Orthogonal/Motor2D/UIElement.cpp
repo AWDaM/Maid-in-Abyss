@@ -1,6 +1,12 @@
 #include "UIElement.h"
 #include "p2Log.h"
 
+bool UIElement::DebugDraw()
+{
+
+	return true;
+}
+
 void UIElement::MoveElement(iPoint difference)
 {
 	position.x += difference.x;
