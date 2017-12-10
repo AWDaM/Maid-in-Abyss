@@ -243,7 +243,7 @@ void j1EntityController::EnemyColliderCheck()
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		if (tmp->data->type != Entity::entityType::PLAYER)
+		if (tmp->data->type != Entity::entityType::PLAYER &&tmp->data->type != Entity::entityType::PICKUP)
 		{
 			if (SDL_HasIntersection(&tmp->data->SightCollider, &player->data->Collider))
 			{
@@ -259,6 +259,11 @@ void j1EntityController::EnemyColliderCheck()
 
 				player->data->isDying = true;
 			}
+		}
+
+		else if (tmp->data->type == Entity::entityType::PICKUP)
+		{
+			//add the score and make the pickup disapear
 		}
 		tmp = tmp->next;
 	}
