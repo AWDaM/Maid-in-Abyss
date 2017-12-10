@@ -118,6 +118,9 @@
     <ClCompile Include="UIClock.cpp">
       <Filter>Desenvolupament  ========\GUI\Parents</Filter>
     </ClCompile>
+    <ClCompile Include="PickUp.cpp">
+      <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -257,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="UIClock.h">
       <Filter>Desenvolupament  ========\GUI\Parents</Filter>
+    </ClInclude>
+    <ClInclude Include="PickUp.h">
+      <Filter>Desenvolupament  ========\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -50,6 +50,15 @@ bool j1Scene::Start()
 
 	config = App->LoadConfig(config_file);
 
+	SDL_Rect temp;
+	temp.x = 250;
+	temp.y = 5;
+	temp.w = 100;
+	temp.h = 100;
+
+	p2SString tmp("Score: %i",App->gui->scoreNumber);
+	App->gui->currentScore = App->gui->AddLabel(temp, { 0,0 }, "fonts/Old School Adventures.ttf", { 255,255,255,255 }, tmp.GetString());
+
 	to_end = false;
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
 	App->audio->PlayMusic(App->map->data.musicFile.GetString());

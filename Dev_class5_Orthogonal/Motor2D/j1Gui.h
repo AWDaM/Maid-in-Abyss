@@ -126,14 +126,14 @@ public:
 	bool dragging_window = false;
 	int currentFocus = -1;
 	p2List<UIElement*> focusList;
-
+	InheritedLabel* currentScore = nullptr;
+	int scoreNumber = 0;
 	UIClock* clock = nullptr;
 
 private:
 
 	bool debug = false;
 	SDL_Texture* atlas = nullptr;
-
 	p2SString atlas_file_name;
 	p2SString background;
 	iPoint mouseLastFrame;
