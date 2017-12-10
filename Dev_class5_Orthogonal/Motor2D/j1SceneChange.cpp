@@ -9,6 +9,8 @@
 #include "j1Audio.h"
 #include "j1Map.h"
 #include  "j1EntityController.h"
+#include"j1Gui.h"
+#include "UIClock.h"
 
 #include "SDL\include\SDL_render.h"
 #include "SDL\include\SDL_timer.h"
@@ -58,7 +60,7 @@ bool j1MapChange::Update(float dt)
 				App->map->SwitchMaps(App->scene->map_names[nextMap]);
 				
 				App->entitycontroller->Restart();
-
+				App->gui->clock->ResetAnimations();
 				total_time += total_time;
 				start_time = SDL_GetTicks();
 				fading = false;

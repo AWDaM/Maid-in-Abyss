@@ -1,5 +1,5 @@
 #include "PickUp.h"
-
+#include "j1Render.h"
 
 
 PickUp::PickUp()
@@ -35,4 +35,12 @@ void PickUp::LoadPushbacks()
 	idle.PushBack({ 0,1015,14,14 });
 	idle.PushBack({ 16,1015,14,14 });
 	idle.PushBack({ 32,1015,14,14 });
+	idle.speed = 0.5f;
+	idle.loop = true;
 }
+
+bool PickUp::Update(float dt)
+{
+	return true;
+}
+

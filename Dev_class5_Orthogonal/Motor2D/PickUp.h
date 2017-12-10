@@ -8,6 +8,10 @@ public:
 	~PickUp();
 
 	void LoadPushbacks();
+
+	bool Update(float dt);
+
+
 private:
 public:
 	int points;

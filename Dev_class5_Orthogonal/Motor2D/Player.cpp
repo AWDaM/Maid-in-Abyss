@@ -319,6 +319,7 @@ void Player::Restart()
 	LOG("Ded");
 	isDying = false;
 	alive = true;
+
 }
 
 bool Player::PositionCameraOnPlayer()
