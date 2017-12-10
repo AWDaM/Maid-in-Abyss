@@ -78,6 +78,11 @@
       <sightOffset x="200" y="200"/>
       <SightCollider w="800" h="434"/>
     </landmaid>
+
+    <pickup>
+      <collider h="18" w="18"/>
+      <points value="100"/>
+    </pickup>
     
   </entitycontroller>
 

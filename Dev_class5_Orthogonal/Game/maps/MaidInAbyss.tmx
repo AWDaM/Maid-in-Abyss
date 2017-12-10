@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="64" tilewidth="32" tileheight="32" nextobjectid="104">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="64" tilewidth="32" tileheight="32" nextobjectid="108">
  <properties>
   <property name="BackgroudMusic" value="OuterWorldBGM.ogg"/>
  </properties>
@@ -184460,5 +184460,9 @@
   <object id="101" name="7" x="4314" y="396" width="32" height="32"/>
   <object id="102" name="8" x="1729" y="1692" width="32" height="32"/>
   <object id="103" name="8" x="3568" y="1855.55" width="32" height="32"/>
+  <object id="104" name="9" x="2081.5" y="1568" width="18" height="18"/>
+  <object id="105" name="9" x="1611.67" y="1708.17" width="18" height="18"/>
+  <object id="106" name="9" x="2289.67" y="1575.17" width="18" height="18"/>
+  <object id="107" name="9" x="1806.17" y="1600.17" width="18" height="18"/>
  </objectgroup>
 </map>

@@ -70,6 +70,16 @@ bool j1Scene::Start()
 
 	SpawnEnemies();
 
+	pugi::xml_document	Gui_config_file;
+	pugi::xml_node		guiconfig;
+
+	guiconfig = App->LoadConfig(Gui_config_file, "Gui_config.xml");
+
+	guiconfig = guiconfig.child("scene");
+
+	App->gui->Load_UIElements(guiconfig, this);
+	App->gui->Load_SceneWindows(guiconfig, this);
+
 	return true;
 
 }
@@ -240,6 +250,11 @@ void j1Scene::SpawnEnemies()
 				else if (objdata->data->name == 8)
 				{
 					App->entitycontroller->AddEntity(Entity::entityType::LAND_ENEMY, { objdata->data->x,objdata->data->y });
+				}
+
+				else if (objdata->data->name == 9)
+				{
+					App->entitycontroller->AddEntity(Entity::entityType::PICKUP, { objdata->data->x,objdata->data->y });
 				}
 				
 			}

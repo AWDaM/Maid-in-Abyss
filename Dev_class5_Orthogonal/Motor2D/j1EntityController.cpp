@@ -7,6 +7,8 @@
 #include "FlyingFurrball.h"
 #include "PugiXml/src/pugixml.hpp"
 #include "j1Textures.h"
+#include "j1Gui.h"
+#include "UIClock.h"
 
 j1EntityController::j1EntityController()
 {
@@ -267,6 +269,7 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 		if (wanttostop && time_state != RECENTLY_STOPPED)
 		{
 			time_state = SLOWING;
+			App->gui->clock->HandleAnimation(time_state);
 			wanttostop = false;
 			timestop_timer.Start();
 		}
@@ -283,6 +286,7 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 		if (timestop_timer.ReadSec() > totaltimeslow)
 		{
 			time_state = STOPPED;
+			App->gui->clock->HandleAnimation(time_state);
 			timestop_timer.Start();
 		}
 
@@ -294,6 +298,7 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 		if (timestop_timer.ReadSec() > totaltimestop)
 		{
 			time_state = FASTENING;
+			App->gui->clock->HandleAnimation(time_state);
 			timestop_timer.Start();
 			enemy_dt = dt / 10;
 		}
@@ -310,6 +315,7 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 		if (timestop_timer.ReadSec() > totaltimeslow)
 		{
 			time_state = RECENTLY_STOPPED;
+			App->gui->clock->HandleAnimation(time_state);
 			timestop_timer.Start();
 		}
 
@@ -321,6 +327,7 @@ float j1EntityController::TimeManager(float enemy_dt, float dt)
 		if (timestop_timer.ReadSec() > timestop_cooldown)
 		{
 			time_state = NORMAL;
+			App->gui->clock->HandleAnimation(time_state);
 			LOG("back to normal");
 		}
 
