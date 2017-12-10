@@ -20,6 +20,7 @@
 #include "InheritedImage.h"
 #include "InheritedInteractive.h"
 #include "InheritedLabel.h"
+#include "UIClock.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -49,7 +50,6 @@ bool j1Gui::Start()
 	
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	App->input->GetMousePosition(mouseLastFrame.x, mouseLastFrame.y);
-	CreateSceneIntroGUI();
 
 	return true;
 }
@@ -136,12 +136,12 @@ bool j1Gui::Draw()
 // Called before quitting
 bool j1Gui::CleanUp()
 {
-	/*LOG("Freeing GUI");
-	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
-	{
-		RELEASE(item->data);
-	}
-	elements.clear();*/
+	LOG("Freeing GUI");
+	//for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
+	//{
+	//	item->data->
+	//}
+	//elements.clear();
 	return true;
 }
 
@@ -213,6 +213,13 @@ LabelledImage* j1Gui::AddLabelledImage(SDL_Rect & position, iPoint positionOffse
 	return ret;
 }
 
+UIClock * j1Gui::AddUIClock(SDL_Rect & pos, p2List<Animation>& animations, bool draggable)
+{
+	UIClock* ret = new UIClock(pos, animations, draggable);
+	elements.add(ret);
+	clock = ret;
+	return ret;
+}
 
 
 
@@ -285,6 +292,16 @@ void j1Gui::Load_UIElements(pugi::xml_node node, j1Module* callback)
 		while (tmp = tmp.next_sibling("interactivelabelledimage"))
 		{
 			App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);
+		}
+	}
+
+	tmp = node.child("uiclock");
+	if (tmp)
+	{
+		App->gui->Load_UIClock_fromXML(tmp);
+		while (tmp = tmp.next_sibling("uiclock"))
+		{
+			App->gui->Load_UIClock_fromXML(tmp);
 		}
 	}
 
@@ -391,6 +408,43 @@ UIElement * j1Gui::Load_AlterantiveImage_fromXML(pugi::xml_node node)
 	return added;
 }
 
+UIElement * j1Gui::Load_UIClock_fromXML(pugi::xml_node node)
+{
+	pugi::xml_node tmp = node;
+
+	p2List<Animation> animations;
+	tmp = tmp.child("animation");
+	while (tmp)
+	{
+		animations.add(LoadPushbacks_fromXML(tmp));
+		tmp = tmp.next_sibling("animation");
+	}
+	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
+	bool draggable = node.child("draggable").attribute("value").as_bool();
+
+	UIClock * ret = AddUIClock(position, animations, draggable);
+
+	return ret;
+}
+
+Animation j1Gui::LoadPushbacks_fromXML(pugi::xml_node node)
+{
+	Animation ret;
+	pugi::xml_node tmp = node.child("pushback");
+
+	while (tmp)
+	{
+		ret.PushBack({ tmp.attribute("x").as_int(), tmp.attribute("y").as_int(), tmp.attribute("w").as_int(), tmp.attribute("h").as_int() });
+		tmp = tmp.next_sibling("pushback");
+	}
+	
+	ret.speed = node.child("speed").attribute("value").as_float();
+	ret.loop = node.child("loop").attribute("value").as_bool();
+	
+
+	return ret;
+}
+
 InteractiveType j1Gui::InteractiveType_from_int(int type)
 {
 	InteractiveType ret;
@@ -418,31 +472,6 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	return ret;
 }
 
-bool j1Gui::CreateSceneIntroGUI()
-{
-	//SDL_Rect backgroundrect = { 0,0,0,0 };
-	////AddImage_From_otherFile(backgroundrect, { 0,0 }, background);
-	////{0, 0, 122, 74};
-	////{132, 19, 311, 131};
-	//SDL_Rect rect1 = { 960 - 61,800,122,74 };
-	//SDL_Rect rect2 = { 0,0,311,131 };
-	//SDL_Rect rect3 = { 0,0,130,32 };
-	///*AddInteractiveImage(rect1, { 0,0 }, { 0,0 }, { 960 - 61,800, 122, 74 }, { 0, 0, 122, 74 }, this);
-	//AddInteractiveImage(rect2, { 0,0 }, { 0,0 }, { 0, 0, 311, 131 }, { 132, 19, 311, 131 }, this);*/
-	//InteractiveImage* tmp = AddInteractiveImage(rect3, { 0,0 }, { 0,0 },  { 0, 74, 130, 32 }, (j1Module*)App->scene, true);
-	//tmp->click = { 0,105,130,32 };
-	//tmp->hover = { 0,150,145,43 };
-
-	//SDL_Rect window_rect = { 0,0,500,500 };
-	//Window* window = AddWindow(window_rect, true);
-	//window->AddElementToWindow(tmp, { 50,50 });
-	///*{0, 74, 130, 32}
-	//{0,105,130,32}
-	//{0,150,145,43}*/
-
-	
-	return true;
-}
 
 // const getter for atlas
  SDL_Texture* j1Gui::GetAtlas() const

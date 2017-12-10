@@ -27,8 +27,7 @@ public:
 	SDL_Rect 		collider;
 	bool			isMouseInside = false;
 	j1Module*		callback = nullptr;
-	SDL_Texture*	fontTexture = nullptr;
-	p2SString		text = "Default Text";
+
 	
 
 };

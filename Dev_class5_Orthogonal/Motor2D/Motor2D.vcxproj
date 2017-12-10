@@ -112,6 +112,7 @@
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
     <ClCompile Include="j1SceneChange.cpp" />
     <ClCompile Include="j1EntityController.cpp" />
+    <ClCompile Include="UIClock.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -159,6 +160,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
+    <ClInclude Include="UIClock.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
@@ -173,7 +175,9 @@
     <Xml Include="..\Game\config.xml">
       <SubType>Designer</SubType>
     </Xml>
-    <Xml Include="..\Game\Gui_config.xml" />
+    <Xml Include="..\Game\Gui_config.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

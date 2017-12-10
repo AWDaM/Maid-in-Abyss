@@ -103,6 +103,7 @@ bool Player::Start()
 
 bool Player::PreUpdate()
 {
+
 	return true;
 }
 

@@ -30,6 +30,7 @@ enum UIType
 	INTERACTIVE_LABELLED_IMAGE,
 	INTERACTIVE_LABEL,
 	LABELLED_IMAGE,
+	UICLOCK,
 };
 
 enum InteractiveType
@@ -52,8 +53,10 @@ class InteractiveImage;
 class InteractiveLabel;
 class InteractiveLabelledImage;
 class LabelledImage;
+class UIClock;
 struct SDL_Rect;
 struct SDL_Texture;
+class Animation;
 // ---------------------------------------------------
 class j1Gui : public j1Module
 {
@@ -91,6 +94,7 @@ public:
 	InteractiveLabel* AddInteractiveLabel(SDL_Rect& position, iPoint positionOffsetA, iPoint positionOffsetB, p2SString fontPath, SDL_Color textColor, p2SString label, int size, InteractiveType type, j1Module* callback, bool draggable = false);
 	InteractiveLabelledImage* AddInteractiveLabelledImage(SDL_Rect& position, iPoint positionOffsetA, iPoint positionOffsetB, iPoint positionOffsetC, SDL_Rect& image_section, p2SString& fontPath, SDL_Color& textColor, p2SString& label, int size, InteractiveType type, j1Module* callback, bool draggable = false);
 	LabelledImage* AddLabelledImage(SDL_Rect& position, iPoint positionOffsetA, iPoint positionOffsetB, p2SString fontPath, SDL_Color textColor, p2SString label, int size, SDL_Rect image_section, bool draggable = false);
+	UIClock* AddUIClock(SDL_Rect& pos, p2List<Animation>& animations, bool draggable);
 
 
 	UIElement* DeleteElement(UIElement* element);
@@ -107,9 +111,10 @@ public:
 	void Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1Module* callback);
 	UIElement* Load_Image_fromXML(pugi::xml_node node);
 	UIElement* Load_AlterantiveImage_fromXML(pugi::xml_node node);
+	UIElement* Load_UIClock_fromXML(pugi::xml_node node);
+	Animation LoadPushbacks_fromXML(pugi::xml_node node);
 
 	InteractiveType InteractiveType_from_int(int type);
-	bool CreateSceneIntroGUI();
 	bool OnEvent(UIElement * element, int eventType);
 
 	SDL_Texture* GetAtlas() const;
@@ -119,6 +124,7 @@ public:
 	int currentFocus = -1;
 	p2List<UIElement*> focusList;
 
+	UIClock* clock = nullptr;
 
 private:
 

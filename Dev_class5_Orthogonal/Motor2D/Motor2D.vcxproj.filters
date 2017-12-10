@@ -115,6 +115,9 @@
     <ClCompile Include="InputBox.cpp">
       <Filter>Desenvolupament  ========\GUI\MultiParent</Filter>
     </ClCompile>
+    <ClCompile Include="UIClock.cpp">
+      <Filter>Desenvolupament  ========\GUI\Parents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -251,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="InputBox.h">
       <Filter>Desenvolupament  ========\GUI\MultiParent</Filter>
+    </ClInclude>
+    <ClInclude Include="UIClock.h">
+      <Filter>Desenvolupament  ========\GUI\Parents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -149,12 +149,78 @@
       <inactive x="0" y="380" w="261" h="64"/>
     </interactivelabelledimage>
 
+
  
 
  
   </introscene>
-  
-  
+
+  <scene>
+    <uiclock>
+      <animation>
+        <pushback x="0" y="447" w="128" h="128"/>
+        <speed value="0"/>
+        <loop value="false"/>
+      </animation>
+      
+      <animation>
+        <pushback x="0" y="447" w="128" h="128"/>
+        <pushback x="130" y="447" w="128" h="128"/>
+        <pushback x="260" y="447" w="128" h="128"/>
+        <pushback x="390" y="447" w="128" h="128"/>
+        <pushback x="520" y="447" w="128" h="128"/>
+        <pushback x="650" y="447" w="128" h="128"/>
+        <pushback x="780" y="447" w="128" h="128"/>
+        <pushback x="910" y="447" w="128" h="128"/>
+
+        <speed value="0.33"/>
+        <loop value="true"/>
+      </animation>
+
+      <animation>
+        <pushback x="0" y="577" w="128" h="128"/>
+        <pushback x="130" y="577" w="128" h="128"/>
+        <pushback x="260" y="577" w="128" h="128"/>
+        <pushback x="390" y="577" w="128" h="128"/>
+        <pushback x="520" y="577" w="128" h="128"/>
+        <pushback x="650" y="577" w="128" h="128"/>
+        <pushback x="780" y="577" w="128" h="128"/>
+        <pushback x="910" y="577" w="128" h="128"/>
+        
+        <speed value="0.22"/>
+        <loop value="true"/>
+      </animation>
+
+      <animation>
+        <pushback x="0" y="707" w="128" h="128"/>
+        <pushback x="130" y="707" w="128" h="128"/>
+        <pushback x="260" y="707" w="128" h="128"/>
+        <pushback x="390" y="707" w="128" h="128"/>
+        <pushback x="520" y="707" w="128" h="128"/>
+        <pushback x="650" y="707" w="128" h="128"/>
+        <pushback x="780" y="707" w="128" h="128"/>
+        <pushback x="910" y="707" w="128" h="128"/>
+      
+        <speed value="0.33"/>
+        <loop value="true"/>
+      </animation>
+
+ 
+
+      <animation>
+        <pushback x="1020" y="707" w="128" h="128"/>
+        <speed value="0"/>
+        <loop value="false"/>
+      </animation>
+
+
+      <position x="0" y="0" w="128" h="128"/>
+      <draggable value="false"/>
+
+
+
+    </uiclock>
+  </scene>
   
 </config>
 
