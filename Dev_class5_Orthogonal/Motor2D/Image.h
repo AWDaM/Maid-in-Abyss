@@ -22,9 +22,11 @@ public:
 	 bool ImageUpdate(float dt) { return true; }
 	 bool ImagePostUpdate();
 	 bool ImageDraw(SDL_Rect &current);
+	 bool ImageCleanUp();
 
 
 public:
+	bool Image_from_atlas = true;
 	iPoint Imagerelativepos = { 0,0 };
 	SDL_Rect image_section;
 	SDL_Texture* image = nullptr;

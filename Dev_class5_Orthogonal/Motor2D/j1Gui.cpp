@@ -145,11 +145,11 @@ bool j1Gui::Draw()
 bool j1Gui::CleanUp()
 {
 	LOG("Freeing GUI");
-	//for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
-	//{
-	//	item->data->
-	//}
-	//elements.clear();
+	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
+	{
+		item->data->CleanUp();
+	}
+	elements.clear();
 	return true;
 }
 

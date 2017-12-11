@@ -34,3 +34,10 @@ bool LabelledImage::Draw()
 	ImageDraw(image_section);
 	return true;
 }
+
+bool LabelledImage::CleanUp()
+{
+	LabelCleanUp();
+	ImageCleanUp();
+	return true;
+}

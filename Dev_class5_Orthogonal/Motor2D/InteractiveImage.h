@@ -7,7 +7,6 @@
 class InteractiveImage : public Interactive, public Image
 {
 public:
-	InteractiveImage(SDL_Rect & pos);
 	InteractiveImage(SDL_Rect & pos, iPoint posOffsetA, iPoint posOffsetB, SDL_Rect image_section, InteractiveType type, j1Module* callback, bool draggable = false);
 	~InteractiveImage();
 
@@ -15,7 +14,10 @@ public:
 	bool Update(float dt);
 	bool PostUpdate();
 	bool Draw();
+	bool CleanUp();
+
 	bool HandleAnimation(int eventType);
+	
 
 public:
 

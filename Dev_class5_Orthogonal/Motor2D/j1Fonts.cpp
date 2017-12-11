@@ -103,3 +103,9 @@ bool j1Fonts::CalcSize(const char* text, int& width, int& height, _TTF_Font* fon
 
 	return ret;
 }
+
+void j1Fonts::CloseFont(_TTF_Font * font)
+{
+	TTF_CloseFont(fonts.At(fonts.find(font))->data);
+	fonts.del(fonts.At(fonts.find(font)));
+}

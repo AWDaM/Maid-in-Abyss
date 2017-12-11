@@ -12,6 +12,7 @@ public:
 	bool PreUpdate();
 	bool PostUpdate();
 	bool Draw();
+	bool CleanUp();
 };
 
 #endif
