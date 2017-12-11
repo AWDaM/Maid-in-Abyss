@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #include "j1App.h"
+#include "p2log.h"
 #include "j1Input.h"
 
 
@@ -23,6 +24,11 @@ bool Window::PreUpdate()
 {
 	SDL_Point mousePos;
 	App->input->GetMousePosition(mousePos.x, mousePos.y);
+
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+		HandleFocus();
+
+
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
 	{
 		if (SDL_PointInRect(&mousePos, &collider))
@@ -34,8 +40,8 @@ bool Window::PreUpdate()
 	}
 	if (hasFocus)
 	{
-		HandleMovement();
-		HandleFocus();
+		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && draggable)
+			HandleMovement();
 	}
 	App->input->GetMousePosition(mouseLastFrame.x, mouseLastFrame.y);
 	return true;
@@ -44,8 +50,8 @@ bool Window::PreUpdate()
 
 WinElement*  Window::AddElementToWindow(UIElement* element, iPoint relativePosition)
 {
+	element->window = this;
 	element->In_window = true;
-	
 	WinElement* to_add = new WinElement(element, relativePosition);
 
 	element->winElement = to_add;
@@ -66,17 +72,38 @@ void Window::moveElements(iPoint difference)
 	}
 }
 
+bool Window::OnEvent(UIElement* element)
+{
+	switch (element->type)
+	{
+	case DEFAULT:
+		break;
+	case QUIT:
+		break;
+	case CLOSE_WINDOW:
+		break;
+	case CONTINUE:
+		break;
+	case NEWGAME:
+		break;
+	case OPEN_SETTINGS:
+		break;
+	case OPEN_CREDITS:
+		break;
+	default:
+		break;
+	}
+	return true;
+}
+
 void Window::HandleMovement()
 {
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT && draggable)
+	iPoint mouseCurrentpos;
+	App->input->GetMousePosition(mouseCurrentpos.x, mouseCurrentpos.y);
+	if (mouseCurrentpos != mouseLastFrame)
 	{
-		iPoint mouseCurrentpos;
-		App->input->GetMousePosition(mouseCurrentpos.x, mouseCurrentpos.y);
-		if (mouseCurrentpos != mouseLastFrame)
-		{
-			iPoint difference = mouseLastFrame - mouseCurrentpos;
-			moveElements(difference);
-		}
+		iPoint difference = mouseLastFrame - mouseCurrentpos;
+		moveElements(difference);
 	}
 }
 
@@ -92,28 +119,39 @@ void Window::HandleFocus()
 			break;
 		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 	{
 		if (!focus)			
 		{
-			children_list.start->data->element->hasFocus = true;
+			FocusOnFirstInteractiveElement();
 		}
 		else
 		{
 			for (p2List_item<WinElement*>* item = children_list.start; item; item = item->next)
 			{
-				if (item->data->element->hasFocus)
+				if (item->data->element->hasFocus && (item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE_LABEL || item->data->element->UItype == UIType::INTERACTIVE_IMAGE || item->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
 				{
 					item->data->element->hasFocus = false;
 					if(item->next)
 						item->next->data->element->hasFocus = true;
 					else 
 					{ 
-						children_list.start->data->element->hasFocus = true;
+						FocusOnFirstInteractiveElement();
 					}
 					break;
 				}
 			}
+		}
+	}
+}
+
+void Window::FocusOnFirstInteractiveElement()
+{
+	for (p2List_item<WinElement*>* item = children_list.start; item; item = item->next)
+	{
+		if (item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE_LABEL || item->data->element->UItype == UIType::INTERACTIVE_IMAGE || item->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE)
+		{
+			item->data->element->hasFocus = true;
+			break;
 		}
 	}
 }
