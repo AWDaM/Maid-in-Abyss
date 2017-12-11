@@ -268,8 +268,6 @@ void j1EntityController::EnemyColliderCheck()
 		{
 			if (SDL_HasIntersection(&tmp->data->Collider, &player->data->Collider))
 			{
-
-
 				App->gui->AddScore(tmp->data->points);
 				p2SString temp("Score: %i", App->gui->scoreNumber);
 				App->gui->currentScore->ChangeText(temp);

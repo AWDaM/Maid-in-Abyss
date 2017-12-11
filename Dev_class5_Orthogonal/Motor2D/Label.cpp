@@ -3,14 +3,12 @@
 #include "j1Render.h"
 
 
-Label::Label(SDL_Rect& position, iPoint Labelrelativepos, p2SString fontPath, SDL_Color textColor, p2SString label, int size) : Labelrelativepos(Labelrelativepos)
+Label::Label(SDL_Rect& position, iPoint Labelrelativepos, p2SString fontPath, SDL_Color textColor, p2SString label, int size) : Labelrelativepos(Labelrelativepos), textColor(textColor)
 {
-	this->textColor = textColor;
 	font = App->font->Load(fontPath.GetString(), size);
 	fontTexture = App->font->Print(label.GetString(), textColor, font);
 
 }
-
 
 Label::~Label()
 {
