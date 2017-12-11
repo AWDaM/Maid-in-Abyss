@@ -14,7 +14,7 @@ public:
 
 private:
 public:
-	int points;
+
 	Animation idle;
 private:
 };

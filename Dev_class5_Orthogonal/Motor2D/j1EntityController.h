@@ -41,7 +41,7 @@ public:
 	bool DebugDraw();
 
 	Entity* AddEntity(Entity::entityType type, iPoint position);
-	bool DeleteEntity();
+	bool DeleteEntity(Entity* entity);
 	void EnemyColliderCheck();
 	float TimeManager(float enemy_dt, float dt);
 private:

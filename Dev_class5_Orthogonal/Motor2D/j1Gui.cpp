@@ -530,3 +530,8 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 		 if (item->data->hasFocus)
 			 item->data->hasFocus = false;
  }
+
+ void j1Gui::AddScore(int score)
+ {
+	 currentScore += score;
+ }

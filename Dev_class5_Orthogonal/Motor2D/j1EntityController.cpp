@@ -224,10 +224,13 @@ if (tmp)
 	return tmp;
 }
 
-bool j1EntityController::DeleteEntity()
+bool j1EntityController::DeleteEntity(Entity * entity)
 {
-	return false;
+	entity->CleanUp();
+	Entities.del(Entities.At(Entities.find(entity)));
+	return true;
 }
+
 
 void j1EntityController::EnemyColliderCheck()
 {
@@ -263,6 +266,11 @@ void j1EntityController::EnemyColliderCheck()
 
 		else if (tmp->data->type == Entity::entityType::PICKUP)
 		{
+			if (SDL_HasIntersection(&tmp->data->Collider, &player->data->Collider))
+			{
+				App->gui->AddScore(tmp->data->points);
+				DeleteEntity(tmp->data);
+			}
 			//add the score and make the pickup disapear
 		}
 		tmp = tmp->next;

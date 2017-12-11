@@ -120,6 +120,8 @@ public:
 	bool BecomeFocus(Window* curr);
 	void RemoveFocuses();
 
+	void AddScore(int score);
+
 	SDL_Texture* GetAtlas() const;
 	p2List<UIElement*> elements;
 	p2List<Window*> window_list;
