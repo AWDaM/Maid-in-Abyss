@@ -11,15 +11,8 @@ Label::Label(SDL_Rect& position, iPoint Labelrelativepos, p2SString fontPath, SD
 
 }
 
-
 Label::~Label()
 {
-}
-
-void Label::ChangeText(p2SString& newlabel)
-{
-	//label = newlabel;
-	//fontTexture = App->font->Print(label.GetString(), textColor, font);
 }
 
 bool Label::LabelPreUpdate()
@@ -47,11 +40,18 @@ bool Label::LabelDraw()
 	return App->render->Blit(fontTexture, tmp.x, tmp.y);
 }
 
+
 bool Label::LabelCleanUp()
 {
 	App->font->CloseFont(font);
 	SDL_DestroyTexture(fontTexture);
 	return true;
+}
+
+void Label::ChangeText(p2SString newText)
+{
+	fontTexture = App->font->Print(newText.GetString(), textColor, font);
+
 }
 
 Label::Label()

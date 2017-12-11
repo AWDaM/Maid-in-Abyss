@@ -189,7 +189,6 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-
 	if (to_end && !App->scenechange->IsChanging())
 	{
 		App->entitycontroller->ChangeMapEnemies();

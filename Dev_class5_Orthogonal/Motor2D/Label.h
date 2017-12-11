@@ -13,13 +13,13 @@ public:
 	bool LabelDraw();
 	bool LabelCleanUp();
 
+	void ChangeText(p2SString newText);
+
 	Label();
 
 	Label(SDL_Rect& position, iPoint positionOffset, p2SString fontPath, SDL_Color textColor, p2SString label, int size = 12);
 
 	~Label();
-
-	void ChangeText(p2SString& newlabel);
 
 public:
 	iPoint Labelrelativepos = { 0,0 };

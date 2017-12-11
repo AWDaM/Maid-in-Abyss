@@ -541,6 +541,4 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
  void j1Gui::AddScore(int score)
  {
 	 scoreNumber += score;
-	 p2SString tmp("Score: %i", App->gui->scoreNumber);
-	 currentScore->ChangeText(tmp);
  }
