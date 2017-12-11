@@ -10,7 +10,7 @@
 #include "j1Textures.h"
 #include "j1Gui.h"
 #include "UIClock.h"
-
+#include "InheritedLabel.h"
 j1EntityController::j1EntityController()
 {
 	name.create("entitycontroller");
@@ -268,7 +268,11 @@ void j1EntityController::EnemyColliderCheck()
 		{
 			if (SDL_HasIntersection(&tmp->data->Collider, &player->data->Collider))
 			{
+
+
 				App->gui->AddScore(tmp->data->points);
+				p2SString temp("Score: %i", App->gui->scoreNumber);
+				App->gui->currentScore->ChangeText(temp);
 				DeleteEntity(tmp->data);
 			}
 			//add the score and make the pickup disapear

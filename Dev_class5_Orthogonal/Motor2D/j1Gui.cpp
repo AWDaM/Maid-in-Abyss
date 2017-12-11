@@ -540,5 +540,5 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 
  void j1Gui::AddScore(int score)
  {
-	 currentScore += score;
+	 scoreNumber += score;
  }

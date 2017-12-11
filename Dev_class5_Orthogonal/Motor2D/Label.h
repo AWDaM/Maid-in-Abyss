@@ -12,6 +12,8 @@ public:
 	bool LabelPostUpdate();
 	bool LabelDraw();
 
+	void ChangeText(p2SString newText);
+
 	Label();
 
 	Label(SDL_Rect& position, iPoint positionOffset, p2SString fontPath, SDL_Color textColor, p2SString label, int size = 12);
@@ -23,6 +25,7 @@ public:
 	p2SString label;
 	_TTF_Font* font = nullptr;
 	SDL_Texture* fontTexture;
+	SDL_Color textColor;
 };
 
 #endif

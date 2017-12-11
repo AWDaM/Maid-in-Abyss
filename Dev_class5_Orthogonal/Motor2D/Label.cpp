@@ -5,6 +5,7 @@
 
 Label::Label(SDL_Rect& position, iPoint Labelrelativepos, p2SString fontPath, SDL_Color textColor, p2SString label, int size) : Labelrelativepos(Labelrelativepos)
 {
+	this->textColor = textColor;
 	font = App->font->Load(fontPath.GetString(), size);
 	fontTexture = App->font->Print(label.GetString(), textColor, font);
 
@@ -38,6 +39,11 @@ bool Label::LabelDraw()
 	iPoint tmp = App->render->ScreenToWorld(position.x + Labelrelativepos.x, position.y + Labelrelativepos.y);
 	
 	return App->render->Blit(fontTexture, tmp.x, tmp.y);
+}
+
+void Label::ChangeText(p2SString newText)
+{
+	fontTexture = App->font->Print(newText.GetString(), textColor, font);
 }
 
 Label::Label()
