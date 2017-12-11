@@ -20,7 +20,7 @@ public:
 	 bool InteractiveDraw();
 
 	 void MoveCollider();
-
+	 bool OnEvent();
 
 public:	
 	iPoint			Interactiverelativepos = { 0,0 };

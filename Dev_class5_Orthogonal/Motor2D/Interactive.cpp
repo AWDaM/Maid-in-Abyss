@@ -91,3 +91,28 @@ void Interactive::MoveCollider()
 }
 
 
+bool Interactive::OnEvent()
+{
+
+	switch (type)
+	{
+	case DEFAULT:
+		break;
+	case QUIT:
+		break;
+	case CLOSE_WINDOW:
+		active = false;
+		break;
+	case CONTINUE:
+		break;
+	case NEWGAME:
+		break;
+	case OPEN_SETTINGS:
+		break;
+	case OPEN_CREDITS:
+		break;
+	default:
+		break;
+	}
+	return true;
+}

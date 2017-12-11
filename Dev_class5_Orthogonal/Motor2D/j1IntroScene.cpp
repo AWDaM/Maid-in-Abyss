@@ -99,6 +99,10 @@ bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 {
 	bool ret = true;
 	element->HandleAnimation(eventType);
+
+	if (eventType == EventTypes::PRESSED_ENTER)
+		element->OnEvent();
+
 	if (eventType == 0 && element->type == QUIT)
 	{
 		LOG("Quit button");

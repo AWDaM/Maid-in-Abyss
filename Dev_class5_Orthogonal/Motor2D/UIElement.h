@@ -15,6 +15,7 @@ public:
 	virtual bool HandleAnimation(int eventType) { return true; }
 	bool DebugDraw();
 	virtual bool CleanUp() { return true; }
+	virtual bool OnEvent() { return true; }
 
 	void MoveElement(iPoint difference);
 

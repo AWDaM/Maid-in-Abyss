@@ -24,7 +24,6 @@ public:
 	bool PreUpdate();
 	WinElement* AddElementToWindow(UIElement* element, iPoint relativePosition);
 	void moveElements(iPoint difference);
-	bool OnEvent(UIElement* element);
 
 private:
 	void HandleMovement();

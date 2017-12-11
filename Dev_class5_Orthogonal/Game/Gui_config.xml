@@ -1,4 +1,22 @@
 <!-- GUI configuration of the different scenes -->
+
+<!-- 
+
+_____________________REMINDER___________________
+
+For the types of interactivity with UI elements, we 
+made an enum of types. Said type can be defined on the 
+XML but its value is an int so here's the list of types:
+
+	      DEFAULT         0
+	      QUIT            1
+	      CONTINUE        2
+	      NEWGAME         3
+	      OPEN_SETTINGS   4
+	      OPEN_CREDITS    5
+	      CLOSE_WINDOW    6
+
+-->
 <config>
   <introscene>
     
@@ -21,8 +39,9 @@
           <imagesection x="0" y="0" w="261" h="64"/>
           <fontpath path="fonts/Old School Adventures.ttf"/>
           <color r="255" g="255" b="255" a="0"/>
-          <label string="Hello World"/>
+          <label string="Close window"/>
           <size value="12"/>
+          <type value="6"/>
           <draggable value="false"/>
           <hover x="263" y="0" w="261" h="64" />
           <click x="526" y="0" w="261" h="64"/>
@@ -119,7 +138,7 @@
         <color r="255" g="255" b="255" a="0"/>
         <label string="Continue"/>
         <size value="20"/>
-       <type value="2"/>
+        <type value="2"/>
         <draggable value="false"/>
         <hover x="263" y="0" w="261" h="64" />
         <click x="526" y="0" w="261" h="64"/>

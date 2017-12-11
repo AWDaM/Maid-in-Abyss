@@ -72,30 +72,6 @@ void Window::moveElements(iPoint difference)
 	}
 }
 
-bool Window::OnEvent(UIElement* element)
-{
-	switch (element->type)
-	{
-	case DEFAULT:
-		break;
-	case QUIT:
-		break;
-	case CLOSE_WINDOW:
-		break;
-	case CONTINUE:
-		break;
-	case NEWGAME:
-		break;
-	case OPEN_SETTINGS:
-		break;
-	case OPEN_CREDITS:
-		break;
-	default:
-		break;
-	}
-	return true;
-}
-
 void Window::HandleMovement()
 {
 	iPoint mouseCurrentpos;
