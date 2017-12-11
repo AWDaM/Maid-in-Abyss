@@ -66,6 +66,7 @@ public:
 private:
 
 public:
+	int points;
 	float animationSpeed = 3;
 	Animation* Current_Animation = nullptr;
 	entityType type;
