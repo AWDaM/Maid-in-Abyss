@@ -42,6 +42,7 @@ enum InteractiveType
 	NEWGAME,
 	OPEN_SETTINGS,
 	OPEN_CREDITS,
+	CLOSE_WINDOW
 };
 // TODO 1: Create your structure of classes
 class UIElement;

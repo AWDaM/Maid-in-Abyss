@@ -31,6 +31,7 @@ public:
 	bool draggable = false;
 	bool being_dragged = false;
 	WinElement* winElement = nullptr;
+	Window* window = nullptr;
 	bool hasFocus = false;
 };
 

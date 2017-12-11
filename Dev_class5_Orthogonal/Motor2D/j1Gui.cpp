@@ -461,9 +461,6 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	InteractiveType ret;
 	switch (type)
 	{
-	case(0):
-		ret= DEFAULT;
-		break;
 	case(1):
 		 ret = QUIT;
 		break;
@@ -479,6 +476,8 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	case(5):
 		ret = OPEN_CREDITS;
 		break;
+	default:
+		ret = DEFAULT;
 	};
 	return ret;
 }
@@ -494,6 +493,9 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 
  bool j1Gui::OnEvent(UIElement * element, int eventType)
  {
+	 if (eventType == EventTypes::PRESSED_ENTER)
+		 element->window->OnEvent(element);
+
 	 if(currentFocus > -1)
 		if (element == focusList[currentFocus])
 		{
@@ -528,7 +530,12 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	 p2List_item<Window*>* item = nullptr;
 	 for (item = window_list.end; item; item = item->prev)
 		 if (item->data->hasFocus)
+		 {
+			 for (p2List_item<WinElement*>* item2 = item->data->children_list.start; item2; item2 = item2->next)
+				 item2->data->element->hasFocus = false;
+
 			 item->data->hasFocus = false;
+		 }
  }
 
  void j1Gui::AddScore(int score)

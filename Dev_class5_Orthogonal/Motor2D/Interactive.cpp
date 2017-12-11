@@ -35,8 +35,8 @@ bool Interactive::InteractivePreUpdate()
 
 	App->input->GetMousePosition(mousePosition.x, mousePosition.y);
 
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
-		ret = callback->OnEvent(this, EventTypes::PRESSED_TAB);
+	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && hasFocus)
+		ret = callback->OnEvent(this, EventTypes::PRESSED_ENTER);
 
 	if (SDL_PointInRect(&mousePosition, &collider))
 	{
