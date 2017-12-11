@@ -18,11 +18,14 @@ public:
 
 	~Label();
 
+	void ChangeText(p2SString& newlabel);
+
 public:
 	iPoint Labelrelativepos = { 0,0 };
 	p2SString label;
 	_TTF_Font* font = nullptr;
 	SDL_Texture* fontTexture;
+	SDL_Color textColor;
 };
 
 #endif

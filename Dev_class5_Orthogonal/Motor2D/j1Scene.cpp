@@ -189,6 +189,14 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
+	SDL_Rect temp;
+	temp.x = 250;
+	temp.y = 5;
+	temp.w = 100;
+	temp.h = 100;
+	p2SString tmp("Score: %i", App->gui->scoreNumber);
+	App->gui->currentScore = App->gui->AddLabel(temp, { 0,0 }, "fonts/Old School Adventures.ttf", { 255,255,255,255 }, tmp.GetString());
+
 	if (to_end && !App->scenechange->IsChanging())
 	{
 		App->entitycontroller->ChangeMapEnemies();
