@@ -218,7 +218,7 @@
         <pushback x="780" y="447" w="128" h="128"/>
         <pushback x="910" y="447" w="128" h="128"/>
 
-        <speed value="0.33"/>
+        <speed value="0.125"/>
         <loop value="true"/>
       </animation>
 
@@ -232,7 +232,7 @@
         <pushback x="780" y="577" w="128" h="128"/>
         <pushback x="910" y="577" w="128" h="128"/>
         
-        <speed value="0.22"/>
+        <speed value="0.25"/>
         <loop value="true"/>
       </animation>
 
@@ -246,14 +246,14 @@
         <pushback x="780" y="707" w="128" h="128"/>
         <pushback x="910" y="707" w="128" h="128"/>
       
-        <speed value="0.33"/>
+        <speed value="0.125"/>
         <loop value="true"/>
       </animation>
 
  
 
       <animation>
-        <pushback x="1020" y="707" w="128" h="128"/>
+        <pushback x="1040" y="707" w="128" h="128"/>
         <speed value="0"/>
         <loop value="false"/>
       </animation>

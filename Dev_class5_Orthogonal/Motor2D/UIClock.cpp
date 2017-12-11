@@ -38,6 +38,7 @@ bool UIClock::HandleAnimation(int newstate)
 	{
 	case(NORMAL):
 		current = &default;
+		ResetAnimations();
 		LOG("DEFAULT");
 		break;
 	case(SLOWING):
