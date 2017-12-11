@@ -70,3 +70,10 @@ void UIClock::ResetAnimations()
 	oncooldown.Reset();
 	current = &default;
 }
+
+bool UIClock::CleanUp()
+{
+	SDL_DestroyTexture(image);
+	current = nullptr;
+	return true;
+}

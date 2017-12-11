@@ -41,6 +41,13 @@ bool InteractiveImage::Draw()
 	return true;
 }
 
+bool InteractiveImage::CleanUp()
+{
+	InteractiveCleanUp();
+	ImageCleanUp();
+	return true;
+}
+
 bool InteractiveImage::HandleAnimation(int eventType)
 {
 	if (eventType == EventTypes::MOUSE_HOVER_IN)

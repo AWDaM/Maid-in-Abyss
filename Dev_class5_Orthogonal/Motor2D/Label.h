@@ -11,6 +11,7 @@ public:
 	bool LabelUpdate(float dt);
 	bool LabelPostUpdate();
 	bool LabelDraw();
+	bool LabelCleanUp();
 
 	void ChangeText(p2SString newText);
 

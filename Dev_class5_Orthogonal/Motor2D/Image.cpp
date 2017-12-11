@@ -3,6 +3,7 @@
 #include "j1Textures.h"
 #include "Window.h"
 #include "j1Render.h"
+#include "j1Textures.h"
 
 
 Image::Image()
@@ -28,6 +29,7 @@ Image::Image(SDL_Rect& position, iPoint positionOffset, SDL_Rect&  image_section
 
 Image::Image(p2SString& path, SDL_Rect& position, iPoint positionOffset)
 {
+	Image_from_atlas = false;
 	this->image = App->tex->Load(path.GetString());
 	image_section.x = 0;
 	image_section.y = 0;
@@ -63,6 +65,15 @@ bool Image::ImageDraw(SDL_Rect &current)
 		App->render->Blit(image, position.x + Imagerelativepos.x + winElement->relativePosition.x, position.y + Imagerelativepos.y + winElement->relativePosition.y, &current);
 	}
 	
+	return true;
+}
+
+bool Image::ImageCleanUp()
+{
+	if (!Image_from_atlas)
+	{
+		App->tex->UnLoad(image);
+	}
 	return true;
 }
 

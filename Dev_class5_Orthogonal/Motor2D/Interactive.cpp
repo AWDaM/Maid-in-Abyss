@@ -75,6 +75,12 @@ bool Interactive::InteractiveDraw()
 	return true;
 }
 
+bool Interactive::InteractiveCleanUp()
+{
+	callback = nullptr;
+	return true;
+}
+
 void Interactive::MoveCollider()
 {
 	if (!In_window)

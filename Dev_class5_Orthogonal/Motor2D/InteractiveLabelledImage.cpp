@@ -46,6 +46,14 @@ bool InteractiveLabelledImage::Draw()
 	return true;
 }
 
+bool InteractiveLabelledImage::CleanUp()
+{
+	InteractiveCleanUp();
+	LabelCleanUp();
+	ImageCleanUp();
+	return true;
+}
+
 bool InteractiveLabelledImage::HandleAnimation(int eventType)
 {
 	if (eventType == 4)

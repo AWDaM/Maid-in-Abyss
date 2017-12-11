@@ -43,3 +43,9 @@ bool InheritedImage::Draw()
 	ImageDraw(image_section);
 	return false;
 }
+
+bool InheritedImage::CleanUp()
+{
+	ImageCleanUp();
+	return true;
+}

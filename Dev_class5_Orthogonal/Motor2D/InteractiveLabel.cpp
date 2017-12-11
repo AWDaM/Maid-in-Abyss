@@ -31,3 +31,10 @@ bool InteractiveLabel::Draw()
 	LabelDraw();
 	return true;
 }
+
+bool InteractiveLabel::CleanUp()
+{
+	InteractiveCleanUp();
+	LabelCleanUp();
+	return true;
+}

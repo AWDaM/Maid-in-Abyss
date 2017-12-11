@@ -34,3 +34,9 @@ bool InheritedInteractive::Draw()
 	InteractiveDraw();
 	return true;
 }
+
+bool InheritedInteractive::CleanUp()
+{
+	InteractiveCleanUp();
+	return true;
+}

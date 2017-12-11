@@ -1,6 +1,7 @@
 #include "Label.h"
 #include "j1Fonts.h"
 #include "j1Render.h"
+#include "j1Textures.h"
 
 
 Label::Label(SDL_Rect& position, iPoint Labelrelativepos, p2SString fontPath, SDL_Color textColor, p2SString label, int size) : Labelrelativepos(Labelrelativepos), textColor(textColor)
@@ -39,9 +40,18 @@ bool Label::LabelDraw()
 	return App->render->Blit(fontTexture, tmp.x, tmp.y);
 }
 
+
+bool Label::LabelCleanUp()
+{
+	App->font->CloseFont(font);
+	SDL_DestroyTexture(fontTexture);
+	return true;
+}
+
 void Label::ChangeText(p2SString newText)
 {
 	fontTexture = App->font->Print(newText.GetString(), textColor, font);
+
 }
 
 Label::Label()

@@ -34,3 +34,9 @@ bool InheritedLabel::Draw()
 	LabelDraw();
 	return true;
 }
+
+bool InheritedLabel::CleanUp()
+{
+	LabelCleanUp();
+	return true;
+}
