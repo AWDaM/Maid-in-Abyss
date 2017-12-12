@@ -114,6 +114,7 @@ public:
 	UIElement* Load_Image_fromXML(pugi::xml_node node);
 	UIElement* Load_AlterantiveImage_fromXML(pugi::xml_node node);
 	UIElement* Load_UIClock_fromXML(pugi::xml_node node);
+	UIElement* Load_Label_fromXML(pugi::xml_node node);
 	Animation LoadPushbacks_fromXML(pugi::xml_node node);
 
 	InteractiveType InteractiveType_from_int(int type);

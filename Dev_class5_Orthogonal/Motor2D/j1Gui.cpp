@@ -456,6 +456,24 @@ UIElement* j1Gui::Load_UIClock_fromXML(pugi::xml_node node)
 	return ret;
 }
 
+UIElement * j1Gui::Load_Label_fromXML(pugi::xml_node node)
+{
+	InheritedLabel* ret;
+	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
+	iPoint relativepos =  { node.child("relativePosition").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() }; 
+	p2SString fontPath = node.child("fontpath").attribute("value").as_string();
+	SDL_Color color = { node.child("color").attribute("r").as_int(), node.child("color").attribute("g").as_int(), node.child("color").attribute("b").as_int(), node.child("color").attribute("a").as_int() };
+	p2SString label = node.child("label").attribute("value").as_string();
+	int size = node.child("size").attribute("value").as_int();
+	bool draggable = node.child("draggable").attribute("value").as_bool();
+	if (!node.child("active").attribute("value").as_bool(true))
+		ret->active = false;
+
+	ret = AddLabel(position, relativepos, fontPath, color, label, size, draggable);
+
+	return ret;
+}
+
 Animation j1Gui::LoadPushbacks_fromXML(pugi::xml_node node)
 {
 	Animation ret;
