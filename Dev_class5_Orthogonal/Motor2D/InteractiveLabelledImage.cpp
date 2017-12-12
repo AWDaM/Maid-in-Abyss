@@ -26,6 +26,9 @@ bool InteractiveLabelledImage::PreUpdate()
 	if(ret)
 	ret = ImagePreUpdate();
 
+	if (hasFocus)
+		current = &hover;
+
 	return ret;
 }
 
@@ -40,7 +43,6 @@ bool InteractiveLabelledImage::PostUpdate()
 bool InteractiveLabelledImage::Draw()
 {
 	InteractiveDraw();
-
 	ImageDraw(*current);
 	LabelDraw();
 	return true;
@@ -72,7 +74,6 @@ bool InteractiveLabelledImage::HandleAnimation(int eventType)
 	{
 		current = &image_section;
 	}
-	if (hasFocus)
-		current = &hover;
+
 	return true;
 }

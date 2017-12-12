@@ -19,107 +19,6 @@ XML but its value is an int so here's the list of types:
 -->
 <config>
   <introscene>
-    
-    <window>
-      <collider x="100" y="100" w="384" h="384"/>
-      <draggable value="true"/>
-      <elements>
-        <image>
-          <position x="100" y="100" w="384" h="384"/>
-          <image_section x="789" y="0" w="384" h="384"/>
-          <draggable value="false"/>
-          <winRelativePos x="0" y="0"/>
-          <active value="false"/>
-        </image>
-
-        <interactivelabelledimage>
-          <pos x="0" y="0" w="261" h="64"/>
-          <relativeposA x="0" y="0"/>
-          <relativeposB x="60" y="21"/>
-          <relativeposC x="0" y="0"/>
-          <imagesection x="0" y="0" w="261" h="64"/>
-          <fontpath path="fonts/Old School Adventures.ttf"/>
-          <color r="255" g="255" b="255" a="0"/>
-          <label string="Close window"/>
-          <size value="12"/>
-          <type value="6"/>
-          <draggable value="false"/>
-          <hover x="263" y="0" w="261" h="64" />
-          <click x="526" y="0" w="261" h="64"/>
-          <inactive x="0" y="380" w="261" h="64"/>
-          <active value="false"/>
-          <winRelativePos x="0" y="0"/>
-        </interactivelabelledimage>
-
-        <interactivelabelledimage>
-          <pos x="100" y="100" w="261" h="64"/>
-          <relativeposA x="0" y="0"/>
-          <relativeposB x="60" y="21"/>
-          <relativeposC x="0" y="0"/>
-          <imagesection x="0" y="0" w="261" h="64"/>
-          <fontpath path="fonts/Old School Adventures.ttf"/>
-          <color r="255" g="255" b="255" a="0"/>
-          <label string="Hello World"/>
-          <size value="12"/>
-          <draggable value="false"/>
-          <hover x="263" y="0" w="261" h="64" />
-          <click x="526" y="0" w="261" h="64"/>
-          <inactive x="0" y="380" w="261" h="64"/>
-          <winRelativePos x="0" y="0"/>
-          <active value="false"/>
-        </interactivelabelledimage>
-      </elements>
-    </window>
- <window>
-      <collider x="10" y="10" w="384" h="384"/>
-      <draggable value="true"/>
-      <elements>
-        <image>
-          <position x="10" y="10" w="384" h="384"/>
-          <image_section x="789" y="0" w="384" h="384"/>
-          <draggable value="false"/>
-          <winRelativePos x="0" y="0"/>
-          <active value="false"/>
-        </image>
-
-        <interactivelabelledimage>
-          <pos x="0" y="0" w="261" h="64"/>
-          <relativeposA x="0" y="0"/>
-          <relativeposB x="60" y="21"/>
-          <relativeposC x="0" y="0"/>
-          <imagesection x="0" y="0" w="261" h="64"/>
-          <fontpath path="fonts/Old School Adventures.ttf"/>
-          <color r="255" g="255" b="255" a="0"/>
-          <label string="Hello World"/>
-          <size value="12"/>
-          <draggable value="false"/>
-          <hover x="263" y="0" w="261" h="64" />
-          <click x="526" y="0" w="261" h="64"/>
-          <inactive x="0" y="380" w="261" h="64"/>
-          <winRelativePos x="0" y="0"/>
-          <active value="false"/>
-        </interactivelabelledimage>
-
-        <interactivelabelledimage>
-          <pos x="100" y="100" w="261" h="64"/>
-          <relativeposA x="0" y="0"/>
-          <relativeposB x="60" y="21"/>
-          <relativeposC x="0" y="0"/>
-          <imagesection x="0" y="0" w="261" h="64"/>
-          <fontpath path="fonts/Old School Adventures.ttf"/>
-          <color r="255" g="255" b="255" a="0"/>
-          <label string="Close window"/>
-          <size value="12"/>
-          <type value="6"/>
-          <draggable value="false"/>
-          <hover x="263" y="0" w="261" h="64" />
-          <click x="526" y="0" w="261" h="64"/>
-          <inactive x="0" y="380" w="261" h="64"/>
-          <winRelativePos x="0" y="0"/>
-          <active value="false"/>
-        </interactivelabelledimage>
-      </elements>
-    </window>
     <alternate_image>
       <path string="gui/Kirisame.png"/>
       <position x="0" y="0" w="0" h="0"/>
@@ -133,27 +32,9 @@ XML but its value is an int so here's the list of types:
       <relativePosition x="" y=""/>
       <draggable value=""/>
     </alternate_image>
-   
     
     <interactivelabelledimage>
-        <pos x="679" y="82" w="261" h="64"/>
-        <relativeposA x="0" y="0"/>
-        <relativeposB x="50" y="15"/>
-        <relativeposC x="0" y="0"/>
-        <imagesection x="0" y="0" w="261" h="64"/>
-        <fontpath path="fonts/Old School Adventures.ttf"/>
-        <color r="255" g="255" b="255" a="0"/>
-        <label string="Continue"/>
-        <size value="20"/>
-        <type value="2"/>
-        <draggable value="false"/>
-        <hover x="263" y="0" w="261" h="64" />
-        <click x="526" y="0" w="261" h="64"/>
-        <inactive x="0" y="380" w="261" h="64"/> 
-      </interactivelabelledimage>
-
-    <interactivelabelledimage>
-      <pos x="679" y="158" w="261" h="64"/>
+      <pos x="679" y="82" w="261" h="64"/>
       <relativeposA x="0" y="0"/>
       <relativeposB x="50" y="15"/>
       <relativeposC x="0" y="0"/>
@@ -164,9 +45,26 @@ XML but its value is an int so here's the list of types:
       <size value="20"/>
       <type value="3"/>
       <draggable value="false"/>
-      <hover x="263" y="0" w="261" h="64" />
+      <hover x="263" y="0" w="261" h="64"/>
       <click x="526" y="0" w="261" h="64"/>
       <inactive x="0" y="380" w="261" h="64"/>
+    </interactivelabelledimage>
+
+    <interactivelabelledimage>
+        <pos x="679" y="158" w="261" h="64"/>
+        <relativeposA x="0" y="0"/>
+        <relativeposB x="50" y="15"/>
+        <relativeposC x="0" y="0"/>
+        <imagesection x="0" y="76" w="261" h="64"/>
+        <fontpath path="fonts/Old School Adventures.ttf"/>
+        <color r="255" g="255" b="255" a="0"/>
+        <label string="Continue"/>
+        <size value="20"/>
+        <type value="2"/>
+        <draggable value="false"/>
+        <hover x="263" y="76" w="261" h="64"/>
+        <click x="526" y="76" w="261" h="64"/>
+        <inactive x="0" y="380" w="261" h="64"/> 
     </interactivelabelledimage>
 
     <interactivelabelledimage>
@@ -174,15 +72,15 @@ XML but its value is an int so here's the list of types:
       <relativeposA x="0" y="0"/>
       <relativeposB x="50" y="15"/>
       <relativeposC x="0" y="0"/>
-      <imagesection x="0" y="0" w="261" h="64"/>
+      <imagesection x="0" y="152" w="261" h="64"/>
       <fontpath path="fonts/Old School Adventures.ttf"/>
       <color r="255" g="255" b="255" a="0"/>
       <label string="Credits"/>
       <type value="5"/>
       <size value="20"/>
       <draggable value="false"/>
-      <hover x="263" y="0" w="261" h="64" />
-      <click x="526" y="0" w="261" h="64"/>
+      <hover x="263" y="152" w="261" h="64"/>
+      <click x="526" y="152" w="261" h="64"/>
       <inactive x="0" y="380" w="261" h="64"/>
     </interactivelabelledimage>
 
@@ -191,15 +89,15 @@ XML but its value is an int so here's the list of types:
       <relativeposA x="0" y="0"/>
       <relativeposB x="50" y="15"/>
       <relativeposC x="0" y="0"/>
-      <imagesection x="0" y="0" w="261" h="64"/>
+      <imagesection x="0" y="228" w="261" h="64"/>
       <fontpath path="fonts/Old School Adventures.ttf"/>
       <color r="255" g="255" b="255" a="0"/>
       <label string="Settings"/>
       <type value="4"/>
       <size value="20"/>
       <draggable value="false"/>
-      <hover x="263" y="0" w="261" h="64" />
-      <click x="526" y="0" w="261" h="64"/>
+      <hover x="263" y="228" w="261" h="64"/>
+      <click x="526" y="228" w="261" h="64"/>
       <inactive x="0" y="380" w="261" h="64"/>
     </interactivelabelledimage>
 
@@ -208,15 +106,15 @@ XML but its value is an int so here's the list of types:
       <relativeposA x="0" y="0"/>
       <relativeposB x="50" y="15"/>
       <relativeposC x="0" y="0"/>
-      <imagesection x="0" y="0" w="261" h="64"/>
+      <imagesection x="0" y="304" w="261" h="64"/>
       <fontpath path="fonts/Old School Adventures.ttf"/>
       <color r="255" g="255" b="255" a="0"/>
       <label string="Exit"/>
       <type value="1"/>
       <size value="20"/>
       <draggable value="false"/>
-      <hover x="263" y="0" w="261" h="64" />
-      <click x="526" y="0" w="261" h="64"/>
+      <hover x="263" y="304" w="261" h="64"/>
+      <click x="526" y="304" w="261" h="64"/>
       <inactive x="0" y="380" w="261" h="64"/>
     </interactivelabelledimage>
 

@@ -1,6 +1,7 @@
 #include "Label.h"
 #include "j1Fonts.h"
 #include "j1Render.h"
+#include "Window.h"
 #include "j1Textures.h"
 
 
@@ -35,6 +36,9 @@ bool Label::LabelPostUpdate()
 
 bool Label::LabelDraw()
 {
+	if (window != nullptr && !window->active)
+		return true;
+
 	iPoint tmp = App->render->ScreenToWorld(position.x + Labelrelativepos.x, position.y + Labelrelativepos.y);
 	
 	return App->render->Blit(fontTexture, tmp.x, tmp.y);
@@ -48,10 +52,10 @@ bool Label::LabelCleanUp()
 	return true;
 }
 
-void Label::ChangeText(p2SString newText)
+void Label::ChangeText(p2SString* newText)
 {
-	fontTexture = App->font->Print(newText.GetString(), textColor, font);
-
+	SDL_DestroyTexture(fontTexture);
+	fontTexture = App->font->Print(newText->GetString(), textColor, font);
 }
 
 Label::Label()

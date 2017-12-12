@@ -122,6 +122,8 @@ public:
 	bool CheckWindowFocuses();
 	void WindowlessFocuses();
 	void FocusOnFirstElement();
+	void FocusOnNextElement(p2List_item<UIElement*>* item);
+
 	void AddScore(int score);
 
 	SDL_Texture* GetAtlas() const;
@@ -130,6 +132,8 @@ public:
 	bool dragging_window = false;
 	int currentFocus = -1;
 	InheritedLabel* currentScore = nullptr;
+	InheritedLabel* timeLabel = nullptr;
+	int currentTime = 0;
 	int scoreNumber = 0;
 	UIClock* clock = nullptr;
 

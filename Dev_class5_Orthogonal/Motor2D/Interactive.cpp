@@ -107,6 +107,7 @@ bool Interactive::OnEvent()
 	case DEFAULT:
 		break;
 	case QUIT:
+		return false;
 		break;
 	case CLOSE_WINDOW:
 		window->active = false;

@@ -29,6 +29,7 @@ private:
 	void HandleMovement();
 	void HandleFocus();
 	void FocusOnFirstInteractiveElement();
+	void FindNextFocusableElement(p2List_item<WinElement*>* current);
 
 public:
 

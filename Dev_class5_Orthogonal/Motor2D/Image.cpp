@@ -23,8 +23,6 @@ Image::Image(SDL_Rect& position, iPoint positionOffset, SDL_Rect&  image_section
 {
 	this->image = App->gui->GetAtlas();
 	this->image_section = image_section;
-	image_section.x = 0;
-	image_section.y = 0;
 }
 
 Image::Image(p2SString& path, SDL_Rect& position, iPoint positionOffset)
@@ -56,6 +54,10 @@ bool Image::ImagePostUpdate()
 
 bool Image::ImageDraw(SDL_Rect &current)
 {
+	if (window && !window->active)
+		return true;
+
+
 	if (!In_window)
 	{
 		App->render->Blit(image, position.x + Imagerelativepos.x, position.y + Imagerelativepos.y, &current);

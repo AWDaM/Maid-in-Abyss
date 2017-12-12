@@ -13,7 +13,7 @@ public:
 	bool LabelDraw();
 	bool LabelCleanUp();
 
-	void ChangeText(p2SString newText);
+	void ChangeText(p2SString* newText);
 
 	Label();
 

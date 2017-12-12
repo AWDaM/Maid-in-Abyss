@@ -107,12 +107,8 @@ void Window::HandleFocus()
 				if (item->data->element->hasFocus)
 				{
 					item->data->element->hasFocus = false;
-					if(item->next && (item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE_LABEL || item->data->element->UItype == UIType::INTERACTIVE_IMAGE || item->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
-						item->next->data->element->hasFocus = true;
-					else 
-					{ 
-						FocusOnFirstInteractiveElement();
-					}
+					FindNextFocusableElement(item);
+
 					break;
 				}
 			}
@@ -129,6 +125,24 @@ void Window::FocusOnFirstInteractiveElement()
 			item->data->element->hasFocus = true;
 			break;
 		}
+	}
+}
+
+void Window::FindNextFocusableElement(p2List_item<WinElement*>* current)
+{
+	while (1==1)
+	{
+		if (current->next && (current->next->data->element->UItype == UIType::INTERACTIVE || current->next->data->element->UItype == UIType::INTERACTIVE || current->next->data->element->UItype == UIType::INTERACTIVE_LABEL || current->next->data->element->UItype == UIType::INTERACTIVE_IMAGE || current->next->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
+		{
+			current->next->data->element->hasFocus = true;
+			break;
+		}
+		else if (!current->next)
+		{
+			FocusOnFirstInteractiveElement();
+			break;
+		}
+		current = current->next;
 	}
 }
 

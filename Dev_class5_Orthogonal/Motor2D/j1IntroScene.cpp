@@ -101,7 +101,7 @@ bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 	element->HandleAnimation(eventType);
 
 	if (eventType == EventTypes::PRESSED_ENTER)
-		element->OnEvent();
+		ret = element->OnEvent();
 
 	if (eventType == 0 && element->type == QUIT)
 	{

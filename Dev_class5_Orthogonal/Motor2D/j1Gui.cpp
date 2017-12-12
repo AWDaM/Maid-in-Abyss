@@ -83,7 +83,7 @@ bool j1Gui::PreUpdate()
 
 	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN && !CheckWindowFocuses())
 	{
-
+		WindowlessFocuses();
 	}
 	return ret;
 }
@@ -112,7 +112,7 @@ bool j1Gui::PostUpdate()
 		{
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 			{
-				if (item->data->active &&SDL_PointInRect(&currentMousepos, &item->data->position) && item->data->draggable || item->data->being_dragged)
+				if (item->data->active && SDL_PointInRect(&currentMousepos, &item->data->position) && item->data->draggable || item->data->being_dragged)
 				{
 					item->data->MoveElement({ currentMousepos.x - mouseLastFrame.x, currentMousepos.y - mouseLastFrame.y });
 					item->data->being_dragged = true;
@@ -136,8 +136,10 @@ bool j1Gui::Draw()
 		if (item->data->active)
 		{
 			item->data->Draw();
-			if (debug)
-				App->render->DrawQuad(item->data->position, 255, 0, 0, 80);
+			if (debug && item->data->active)
+				if(!item->data->In_window || item->data->window->active)
+					App->render->DrawQuad(item->data->position, 255, 0, 0, 80);
+
 		}
 
 		if (!ret)
@@ -203,7 +205,7 @@ InteractiveLabel * j1Gui::AddInteractiveLabel(SDL_Rect & position, iPoint positi
 
 
 
-InteractiveLabelledImage * j1Gui::AddInteractiveLabelledImage(SDL_Rect & position, iPoint positionOffsetA, iPoint positionOffsetB, iPoint positionOffsetC, SDL_Rect & image_section, p2SString & fontPath, SDL_Color & textColor, p2SString & label, int size, InteractiveType type, j1Module * callback, bool draggable)
+InteractiveLabelledImage* j1Gui::AddInteractiveLabelledImage(SDL_Rect & position, iPoint positionOffsetA, iPoint positionOffsetB, iPoint positionOffsetC, SDL_Rect & image_section, p2SString & fontPath, SDL_Color & textColor, p2SString & label, int size, InteractiveType type, j1Module * callback, bool draggable)
 {
 	InteractiveLabelledImage* ret = new InteractiveLabelledImage(position, positionOffsetA, positionOffsetB, positionOffsetC, image_section, fontPath, textColor, label, size, type, callback, draggable);
 	elements.add(ret);
@@ -566,7 +568,7 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	 p2List_item<UIElement*>* item = nullptr;
 	 for (item = elements.start; item; item = item->next)
 	 {
-		 if (item->data->In_window || !item->data->active)
+		 if (item->data->In_window || !item->data->active || item->data->UItype == UIType::IMAGE || item->data->UItype == UIType::LABEL || item->data->UItype == UIType::LABELLED_IMAGE || item->data->UItype == UIType::NO_TYPE || item->data->UItype == UIType::UICLOCK)
 			 continue;
 
 		 if (item->data->hasFocus)
@@ -575,6 +577,24 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 			break;
 		}
 	 }
+
+	 if (!focus)
+	 {
+		 FocusOnFirstElement();
+	 }
+	 else
+	 {
+		 p2List_item<UIElement*>* item = nullptr;
+		 for (item = elements.start; item; item = item->next)
+		 {
+			 if (item->data->hasFocus)
+			 {
+				 item->data->hasFocus = false;
+				 FocusOnNextElement(item);
+				 break;
+			 }
+		 }
+	 }
  }
 
  void j1Gui::FocusOnFirstElement()
@@ -582,11 +602,29 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	 p2List_item<UIElement*>* item = nullptr;
 	 for (item = elements.start; item; item = item->next)
 	 {
-		 if (!item->data->In_window && item->data->active)
+		 if (!item->data->In_window && item->data->active && item->data->UItype != UIType::IMAGE && item->data->UItype != UIType::LABEL && item->data->UItype != UIType::LABELLED_IMAGE && item->data->UItype != UIType::NO_TYPE && item->data->UItype != UIType::UICLOCK)
 		 {
 			 item->data->hasFocus = true;
 			 break;
 		 }
+	 }
+ }
+
+ void j1Gui::FocusOnNextElement(p2List_item<UIElement*>* item)
+ {
+	 while (1 == 1)
+	 {
+		 if (item->next && (item->next->data->UItype == UIType::INTERACTIVE || item->next->data->UItype == UIType::INTERACTIVE_LABEL || item->next->data->UItype == UIType::INTERACTIVE_IMAGE || item->next->data->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
+		 {
+			 item->next->data->hasFocus = true;
+			 break;
+		 }
+		 else if (!item->next)
+		 {
+			 FocusOnFirstElement();
+			 break;
+		 }
+		 item = item->next;
 	 }
  }
 

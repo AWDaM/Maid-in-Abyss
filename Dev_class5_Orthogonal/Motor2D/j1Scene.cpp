@@ -7,6 +7,7 @@
 #include "j1Render.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "InheritedLabel.h"
 #include "j1Scene.h"
 #include "j1SceneChange.h"
 #include "j1Pathfinding.h"
@@ -53,11 +54,16 @@ bool j1Scene::Start()
 	SDL_Rect temp;
 	temp.x = 250;
 	temp.y = 5;
-	temp.w = 100;
-	temp.h = 100;
+	temp.w = 0;
+	temp.h = 0;
 
 	p2SString tmp("Score: %i",App->gui->scoreNumber);
 	App->gui->currentScore = App->gui->AddLabel(temp, { 0,0 }, "fonts/Old School Adventures.ttf", { 255,255,255,255 }, tmp.GetString());
+
+	temp.x = 550;
+	p2SString tmp2("Time: 0");
+	App->gui->timeLabel = App->gui->AddLabel(temp, { 0,0 }, "fonts/Old School Adventures.ttf", { 255,255,255,255 }, tmp2.GetString(), 24);
+
 
 	to_end = false;
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
@@ -89,6 +95,8 @@ bool j1Scene::Start()
 	App->gui->Load_UIElements(guiconfig, this);
 	App->gui->Load_SceneWindows(guiconfig, this);
 
+	transcurredTime.Start();
+
 	return true;
 
 }
@@ -96,11 +104,11 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	p2SString temp("Time: %i", (int)transcurredTime.ReadSec());
+	if(pastFrameTime != (int)transcurredTime.ReadSec())
+		App->gui->timeLabel->ChangeText(&temp);
 
-
-	test = App->map->WorldToMap(test.x, test.y);
-
-
+	pastFrameTime = (int)transcurredTime.ReadSec();
 
 	return true;
 }

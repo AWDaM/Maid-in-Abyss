@@ -2,6 +2,7 @@
 #define __j1SCENE_H__
 
 #include "j1Module.h"
+#include "j1Timer.h"
 
 struct SDL_Texture;
 
@@ -50,9 +51,12 @@ public:
 	bool slowing = false;
 	int backToNormal = -1;
 	int currentMap;
+	int pastFrameTime = 0;
 	p2List<p2SString*> map_names;
 	float fade_time;
 	bool to_end;
+	j1Timer transcurredTime;
+
 };
 
 #endif // __j1SCENE_H__
