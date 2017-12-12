@@ -29,6 +29,7 @@ XML but its value is an int so here's the list of types:
           <image_section x="789" y="0" w="384" h="384"/>
           <draggable value="false"/>
           <winRelativePos x="0" y="0"/>
+          <active value="false"/>
         </image>
 
         <interactivelabelledimage>
@@ -46,6 +47,7 @@ XML but its value is an int so here's the list of types:
           <hover x="263" y="0" w="261" h="64" />
           <click x="526" y="0" w="261" h="64"/>
           <inactive x="0" y="380" w="261" h="64"/>
+          <active value="false"/>
           <winRelativePos x="0" y="0"/>
         </interactivelabelledimage>
 
@@ -64,6 +66,7 @@ XML but its value is an int so here's the list of types:
           <click x="526" y="0" w="261" h="64"/>
           <inactive x="0" y="380" w="261" h="64"/>
           <winRelativePos x="0" y="0"/>
+          <active value="false"/>
         </interactivelabelledimage>
       </elements>
     </window>
@@ -76,6 +79,7 @@ XML but its value is an int so here's the list of types:
           <image_section x="789" y="0" w="384" h="384"/>
           <draggable value="false"/>
           <winRelativePos x="0" y="0"/>
+          <active value="false"/>
         </image>
 
         <interactivelabelledimage>
@@ -93,6 +97,7 @@ XML but its value is an int so here's the list of types:
           <click x="526" y="0" w="261" h="64"/>
           <inactive x="0" y="380" w="261" h="64"/>
           <winRelativePos x="0" y="0"/>
+          <active value="false"/>
         </interactivelabelledimage>
 
         <interactivelabelledimage>
@@ -110,6 +115,7 @@ XML but its value is an int so here's the list of types:
           <click x="526" y="0" w="261" h="64"/>
           <inactive x="0" y="380" w="261" h="64"/>
           <winRelativePos x="0" y="0"/>
+          <active value="false"/>
         </interactivelabelledimage>
       </elements>
     </window>

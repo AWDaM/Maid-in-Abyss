@@ -171,6 +171,11 @@ bool Player::Update(float dt)
 				}
 			}
 			speed.y += gravity*dt;
+			//if (speed.y < 1 && !isJumping && !falling)
+			//{
+			//	grounded = true;
+			//}
+
 		}
 		//speed.y = speed.y*dt;
 		//speed.x = speed.x*dt;
@@ -179,10 +184,12 @@ bool Player::Update(float dt)
 		speed = SpeedBoundaries(speed);
 		grounded = false;
 
-
 		speed = Collider_Overlay(speed);
+
+		float tmp = speed.y;
 		speed.x = (int)speed.x;
 		speed.y = (int)speed.y;
+		LOG("Before: %f,After: %f", tmp, speed.y);
 		NormalizeAnimationSpeed(dt);
 		ChangeAnimation();
 		PlayerMovement();
@@ -298,6 +305,8 @@ void Player::PlayerMovement()
 
 	position.x += speed.x;
 	position.y += speed.y;
+	if (speed.y != 0)
+		LOG("My speed.y: %f", speed.y);
 
 	
 }
