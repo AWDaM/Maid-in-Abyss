@@ -349,6 +349,9 @@ UIElement* j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp, j1Mo
 
 	added = AddInteractiveLabelledImage(pos, relativeposA, relativeposB, relativeposC, section, path, color, label, size, type, callback, draggable);
 	
+	if (!tmp.child("active").attribute("value").as_bool(true))
+		added->active = false;
+
 	added->hover = { tmp.child("hover").attribute("x").as_int(), tmp.child("hover").attribute("y").as_int(), tmp.child("hover").attribute("w").as_int(), tmp.child("hover").attribute("h").as_int() };
 	added->click = { tmp.child("click").attribute("x").as_int(), tmp.child("click").attribute("y").as_int(), tmp.child("click").attribute("w").as_int(), tmp.child("click").attribute("h").as_int() };
 	added->inactive = { tmp.child("inactive").attribute("x").as_int(), tmp.child("inactive").attribute("y").as_int(), tmp.child("inactive").attribute("w").as_int(), tmp.child("inactive").attribute("h").as_int() };
@@ -362,6 +365,9 @@ Window* j1Gui::Load_Window_fromXML(pugi::xml_node node, j1Module* callback)
 
 	bool draggable =  node.child("draggable").attribute("value").as_bool(false);
 	Window* added = AddWindow(collider,draggable);
+	if (!node.child("active").attribute("value").as_bool(true))
+		added->active = false;
+
 	if (node.child("elements"))
 	{
 		Load_WindowElements_fromXML(node.child("elements"), added,callback);
@@ -382,6 +388,7 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 		while (tmp = tmp.next_sibling("image"))
 		{
 			App->gui->Load_Image_fromXML(tmp);
+			child->In_window = true;
 			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
 		}
 	}
@@ -394,6 +401,7 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 		while (tmp = tmp.next_sibling("interactivelabelledimage"))
 		{
 			child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);
+			child->In_window = true;
 			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int()});
 		}
 	}
@@ -408,6 +416,8 @@ UIElement* j1Gui::Load_Image_fromXML(pugi::xml_node node)
 	SDL_Rect image_section = { node.child("image_section").attribute("x").as_int(), node.child("image_section").attribute("y").as_int(), node.child("image_section").attribute("w").as_int(), node.child("image_section").attribute("h").as_int() };
 	bool draggable = node.child("draggable").attribute("value").as_bool();
 	Image* added = AddImage(position, relativePos, image_section, draggable);
+	if (!node.child("active").attribute("value").as_bool(true))
+		added->active = false;
 	return added;
 }
 
@@ -418,6 +428,8 @@ UIElement* j1Gui::Load_AlterantiveImage_fromXML(pugi::xml_node node)
 	iPoint relativePos = { node.child("relativePosition").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() };
 	bool draggable = node.child("draggable").attribute("value").as_bool();
 	UIElement* added = AddImage_From_otherFile(position, relativePos, path, draggable);
+	if (!node.child("active").attribute("value").as_bool(true))
+		added->active = false;
 	return added;
 }
 
@@ -436,6 +448,8 @@ UIElement* j1Gui::Load_UIClock_fromXML(pugi::xml_node node)
 	bool draggable = node.child("draggable").attribute("value").as_bool();
 
 	UIClock* ret = AddUIClock(position, animations, draggable);
+	if (!node.child("active").attribute("value").as_bool(true))
+		ret->active = false;
 
 	return ret;
 }
