@@ -25,7 +25,7 @@ bool Window::PreUpdate()
 	SDL_Point mousePos;
 	App->input->GetMousePosition(mousePos.x, mousePos.y);
 
-	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN && hasFocus)
 		HandleFocus();
 
 
@@ -104,10 +104,10 @@ void Window::HandleFocus()
 		{
 			for (p2List_item<WinElement*>* item = children_list.start; item; item = item->next)
 			{
-				if (item->data->element->hasFocus && (item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE_LABEL || item->data->element->UItype == UIType::INTERACTIVE_IMAGE || item->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
+				if (item->data->element->hasFocus)
 				{
 					item->data->element->hasFocus = false;
-					if(item->next)
+					if(item->next && (item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE_LABEL || item->data->element->UItype == UIType::INTERACTIVE_IMAGE || item->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
 						item->next->data->element->hasFocus = true;
 					else 
 					{ 
@@ -124,7 +124,7 @@ void Window::FocusOnFirstInteractiveElement()
 {
 	for (p2List_item<WinElement*>* item = children_list.start; item; item = item->next)
 	{
-		if (item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE_LABEL || item->data->element->UItype == UIType::INTERACTIVE_IMAGE || item->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE)
+		if (item->data->element->active && (item->data->element->UItype == UIType::INTERACTIVE || item->data->element->UItype == UIType::INTERACTIVE_LABEL || item->data->element->UItype == UIType::INTERACTIVE_IMAGE || item->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
 		{
 			item->data->element->hasFocus = true;
 			break;

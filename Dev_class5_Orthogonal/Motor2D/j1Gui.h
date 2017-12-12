@@ -117,10 +117,11 @@ public:
 	Animation LoadPushbacks_fromXML(pugi::xml_node node);
 
 	InteractiveType InteractiveType_from_int(int type);
-	bool OnEvent(UIElement * element, int eventType);
 	bool BecomeFocus(Window* curr);
 	void RemoveFocuses();
-
+	bool CheckWindowFocuses();
+	void WindowlessFocuses();
+	void FocusOnFirstElement();
 	void AddScore(int score);
 
 	SDL_Texture* GetAtlas() const;
@@ -128,7 +129,6 @@ public:
 	p2List<Window*> window_list;
 	bool dragging_window = false;
 	int currentFocus = -1;
-	p2List<UIElement*> focusList;
 	InheritedLabel* currentScore = nullptr;
 	int scoreNumber = 0;
 	UIClock* clock = nullptr;

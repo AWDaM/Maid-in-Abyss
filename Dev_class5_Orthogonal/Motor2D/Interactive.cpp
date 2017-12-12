@@ -38,6 +38,9 @@ bool Interactive::InteractivePreUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && hasFocus)
 		ret = callback->OnEvent(this, EventTypes::PRESSED_ENTER);
 
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+		ret = callback->OnEvent(this, EventTypes::PRESSED_TAB);
+
 	if (SDL_PointInRect(&mousePosition, &collider))
 	{
 		if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && ret)
@@ -99,7 +102,6 @@ void Interactive::MoveCollider()
 
 bool Interactive::OnEvent()
 {
-
 	switch (type)
 	{
 	case DEFAULT:
@@ -107,7 +109,7 @@ bool Interactive::OnEvent()
 	case QUIT:
 		break;
 	case CLOSE_WINDOW:
-		active = false;
+		window->active = false;
 		break;
 	case CONTINUE:
 		break;

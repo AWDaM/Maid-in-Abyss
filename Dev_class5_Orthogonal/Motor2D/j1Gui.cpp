@@ -79,6 +79,12 @@ bool j1Gui::PreUpdate()
 				break;
 		}
 	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN && !CheckWindowFocuses())
+	{
+
+	}
 	return ret;
 }
 
@@ -168,7 +174,6 @@ InheritedInteractive * j1Gui::AddInteractive(SDL_Rect & position, iPoint positio
 {
 	InheritedInteractive* ret = new InheritedInteractive(position, positionOffset, size, type, callback, draggable);
 	elements.add(ret);
-	focusList.add(ret);
 	return ret;
 }
 
@@ -186,7 +191,6 @@ InteractiveImage * j1Gui::AddInteractiveImage(SDL_Rect & position, iPoint positi
 {
 	InteractiveImage* ret = new InteractiveImage(position, positionOffsetA, positionOffsetB, image_section, type, callback, draggable);
 	elements.add(ret);
-	focusList.add(ret);
 	return ret;
 }
 
@@ -194,7 +198,6 @@ InteractiveLabel * j1Gui::AddInteractiveLabel(SDL_Rect & position, iPoint positi
 {
 	InteractiveLabel* ret = new InteractiveLabel(position, positionOffsetA, positionOffsetB, fontPath, textColor, label, size, type, callback, draggable);
 	elements.add(ret);
-	focusList.add(ret);
 	return ret;
 }
 
@@ -204,7 +207,6 @@ InteractiveLabelledImage * j1Gui::AddInteractiveLabelledImage(SDL_Rect & positio
 {
 	InteractiveLabelledImage* ret = new InteractiveLabelledImage(position, positionOffsetA, positionOffsetB, positionOffsetC, image_section, fontPath, textColor, label, size, type, callback, draggable);
 	elements.add(ret);
-	focusList.add(ret);
 	return ret;
 }
 
@@ -329,7 +331,7 @@ void j1Gui::Load_SceneWindows(pugi::xml_node node,j1Module* callback)
 	}
 }
 
-UIElement * j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp, j1Module* callback)
+UIElement* j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp, j1Module* callback)
 {
 	InteractiveLabelledImage* added = nullptr;
 	
@@ -354,7 +356,7 @@ UIElement * j1Gui::Load_InteractiveLabelledImage_fromXML(pugi::xml_node tmp, j1M
 	return added;
 }
 
-Window * j1Gui::Load_Window_fromXML(pugi::xml_node node, j1Module* callback)
+Window* j1Gui::Load_Window_fromXML(pugi::xml_node node, j1Module* callback)
 {
 	SDL_Rect collider = { node.child("collider").attribute("x").as_int(), node.child("collider").attribute("y").as_int(), node.child("collider").attribute("w").as_int(), node.child("collider").attribute("h").as_int() };
 
@@ -367,7 +369,7 @@ Window * j1Gui::Load_Window_fromXML(pugi::xml_node node, j1Module* callback)
 	return added;
 }
 
-void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window * window, j1Module* callback)
+void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1Module* callback)
 {
 	pugi::xml_node	tmp = node.child("image");
 
@@ -399,7 +401,7 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window * window, j1
 
 }
 
-UIElement * j1Gui::Load_Image_fromXML(pugi::xml_node node)
+UIElement* j1Gui::Load_Image_fromXML(pugi::xml_node node)
 {
 	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
 	iPoint relativePos = { node.child("relativePosition").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() };
@@ -409,7 +411,7 @@ UIElement * j1Gui::Load_Image_fromXML(pugi::xml_node node)
 	return added;
 }
 
-UIElement * j1Gui::Load_AlterantiveImage_fromXML(pugi::xml_node node)
+UIElement* j1Gui::Load_AlterantiveImage_fromXML(pugi::xml_node node)
 {
 	p2SString path = node.child("path").attribute("string").as_string();
 	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
@@ -419,7 +421,7 @@ UIElement * j1Gui::Load_AlterantiveImage_fromXML(pugi::xml_node node)
 	return added;
 }
 
-UIElement * j1Gui::Load_UIClock_fromXML(pugi::xml_node node)
+UIElement* j1Gui::Load_UIClock_fromXML(pugi::xml_node node)
 {
 	pugi::xml_node tmp = node;
 
@@ -433,7 +435,7 @@ UIElement * j1Gui::Load_UIClock_fromXML(pugi::xml_node node)
 	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
 	bool draggable = node.child("draggable").attribute("value").as_bool();
 
-	UIClock * ret = AddUIClock(position, animations, draggable);
+	UIClock* ret = AddUIClock(position, animations, draggable);
 
 	return ret;
 }
@@ -494,19 +496,6 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 
 // class Gui ---------------------------------------------------
 
- bool j1Gui::OnEvent(UIElement* element, int eventType)
- {
-
-
-	 if(currentFocus > -1)
-		if (element == focusList[currentFocus])
-		{
-			LOG("we did it reddit %i", currentFocus);
-		}
-	 element->HandleAnimation(eventType);
-	 return true;
- }
-
  bool j1Gui::BecomeFocus(Window* curr)
  {
 	 bool ret = true;
@@ -531,14 +520,60 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
  {
 	 p2List_item<Window*>* item = nullptr;
 	 for (item = window_list.end; item; item = item->prev)
-
-
 		 {
 			 for (p2List_item<WinElement*>* item2 = item->data->children_list.start; item2; item2 = item2->next)
 				 item2->data->element->hasFocus = false;
 
 			 item->data->hasFocus = false;
 		 }
+ }
+
+ bool j1Gui::CheckWindowFocuses()
+ {
+	 bool ret = false;
+
+	 p2List_item<Window*>* item = nullptr;
+	 for (item = window_list.end; item; item = item->prev)
+	 {
+		 if (item->data->hasFocus)
+		 {
+			 ret = true;
+			 break;
+		 }
+	 }
+
+	 return ret;
+ }
+
+ void j1Gui::WindowlessFocuses()
+ {
+	 bool focus = false;
+
+	 p2List_item<UIElement*>* item = nullptr;
+	 for (item = elements.start; item; item = item->next)
+	 {
+		 if (item->data->In_window || !item->data->active)
+			 continue;
+
+		 if (item->data->hasFocus)
+		 {
+			focus = true;
+			break;
+		}
+	 }
+ }
+
+ void j1Gui::FocusOnFirstElement()
+ {
+	 p2List_item<UIElement*>* item = nullptr;
+	 for (item = elements.start; item; item = item->next)
+	 {
+		 if (!item->data->In_window && item->data->active)
+		 {
+			 item->data->hasFocus = true;
+			 break;
+		 }
+	 }
  }
 
  void j1Gui::AddScore(int score)

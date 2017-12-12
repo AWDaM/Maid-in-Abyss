@@ -103,8 +103,9 @@ XML but its value is an int so here's the list of types:
           <imagesection x="0" y="0" w="261" h="64"/>
           <fontpath path="fonts/Old School Adventures.ttf"/>
           <color r="255" g="255" b="255" a="0"/>
-          <label string="Hello World"/>
+          <label string="Close window"/>
           <size value="12"/>
+          <type value="6"/>
           <draggable value="false"/>
           <hover x="263" y="0" w="261" h="64" />
           <click x="526" y="0" w="261" h="64"/>
@@ -115,14 +116,14 @@ XML but its value is an int so here's the list of types:
     </window>
     <alternate_image>
       <path string="gui/Kirisame.png"/>
-      <position x="0" y="0" w="10" h="10"/>
+      <position x="0" y="0" w="0" h="0"/>
       <relativePosition x="" y=""/>
       <draggable value=""/>
     </alternate_image>
 
     <alternate_image>
       <path string="gui/MaidInAbyssTitle.png"/>
-      <position x="10" y="10" w="10" h="10"/>
+      <position x="10" y="10" w="0" h="0"/>
       <relativePosition x="" y=""/>
       <draggable value=""/>
     </alternate_image>
