@@ -115,7 +115,9 @@ public:
 	UIElement* Load_AlterantiveImage_fromXML(pugi::xml_node node);
 	UIElement* Load_UIClock_fromXML(pugi::xml_node node);
 	UIElement* Load_Label_fromXML(pugi::xml_node node);
+	UIElement* Load_InteractiveImage_fromXML(pugi::xml_node node, j1Module* callback);
 	Animation LoadPushbacks_fromXML(pugi::xml_node node);
+
 
 	InteractiveType InteractiveType_from_int(int type);
 	bool BecomeFocus(Window* curr);
