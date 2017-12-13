@@ -101,12 +101,6 @@ bool Player::Start()
 	return true;
 }
 
-bool Player::PreUpdate()
-{
-
-	return true;
-}
-
 bool Player::Update(float dt)
 {
 	App->scene->test = position;

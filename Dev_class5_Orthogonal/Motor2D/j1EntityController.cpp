@@ -1,6 +1,7 @@
 #include "j1EntityController.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "j1Scene.h"
 #include "Entity.h"
 #include "Player.h"
 #include "LandMaid.h"
@@ -44,6 +45,9 @@ bool j1EntityController::Start()
 
 bool j1EntityController::Update(float dt)
 {
+	if (App->scene->pause)
+		return true;
+
 	BROFILER_CATEGORY("Entites update", Profiler::Color::Maroon);
 	if (App->map->debug)
 	{
@@ -70,6 +74,9 @@ bool j1EntityController::Update(float dt)
 
 bool j1EntityController::PostUpdate()
 {
+	if (App->scene->pause)
+		return true;
+
 	bool ret = true;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
@@ -179,6 +186,9 @@ bool j1EntityController::Draw()
 
 bool j1EntityController::DebugDraw()
 {
+	if (App->scene->pause)
+		return true;
+
 	p2List_item<Entity*>* tmp = Entities.start;
 	SDL_Rect col;
 	SDL_Rect col2;

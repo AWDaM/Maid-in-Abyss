@@ -32,7 +32,6 @@ private:
 	void FindNextFocusableElement(p2List_item<WinElement*>* current);
 
 public:
-
 	bool active = true;
 	bool draggable = false;
 	bool hasFocus = false;
