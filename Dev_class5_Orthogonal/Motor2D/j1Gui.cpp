@@ -60,8 +60,9 @@ bool j1Gui::PreUpdate()
 	bool ret = true;
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
 	{
-		if(item->data->active)
-			 ret = item->data->PreUpdate();
+		if (item->data->active)
+			if (!item->data->In_window || item->data->window->active)
+				ret = item->data->PreUpdate();
 
 		if (!ret)
 			break;
@@ -99,7 +100,9 @@ bool j1Gui::PostUpdate()
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
 	{
 		if (item->data->active)
-			ret = item->data->PostUpdate();
+			if (!item->data->In_window || item->data->window->active)
+				ret = item->data->PostUpdate();
+
 		
 		if (!ret)
 			break;
