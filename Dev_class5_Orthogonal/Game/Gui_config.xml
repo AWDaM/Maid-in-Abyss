@@ -31,22 +31,18 @@ XML but its value is an int so here's the list of types:
           <active value="true"/>
         </image>
         
-        <interactivelabelledimage>
-          <pos x="100" y="100" w="14" h="14"/>
-          <relativeposA x="451" y="5"/>
-          <relativeposB x="451" y="5"/>
-          <relativeposC x="451" y="5"/>
+        <interactiveimage>
+<position x="100" y="100" w="14" h="14"/>
+          <relativeposA x="0" y="0"/>
+          <relativeposB x="0" y="0"/>
           <imagesection x="793" y="0" w="14" h="14"/>
-          <fontpath path="fonts/Old School Adventures.ttf"/>
-          <color r="255" g="255" b="255" a="0"/>
-          <label string=""/>
-          <size value=""/>
           <type value="6"/>
           <draggable value="false"/>
           <hover x="793" y="16" w="14" h="14"/>
           <click x="793" y="32" w="14" h="14"/>
           <inactive x="0" y="0" w="0" h="0"/>
-        </interactivelabelledimage>
+         <winRelativePos x="451" y="5"/>
+        </interactiveimage>
       </elements>
     </window>
 
