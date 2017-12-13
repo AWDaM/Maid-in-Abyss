@@ -32,6 +32,7 @@ enum UIType
 	INTERACTIVE_LABEL,
 	LABELLED_IMAGE,
 	UICLOCK,
+	SCROLLBAR,
 };
 
 enum InteractiveType
@@ -56,6 +57,7 @@ class InteractiveLabel;
 class InteractiveLabelledImage;
 class LabelledImage;
 class UIClock;
+class Scrollbar;
 struct SDL_Rect;
 struct SDL_Texture;
 class Animation;
@@ -97,7 +99,7 @@ public:
 	InteractiveLabelledImage* AddInteractiveLabelledImage(SDL_Rect& position, iPoint positionOffsetA, iPoint positionOffsetB, iPoint positionOffsetC, SDL_Rect& image_section, p2SString& fontPath, SDL_Color& textColor, p2SString& label, int size, InteractiveType type, j1Module* callback, bool draggable = false);
 	LabelledImage* AddLabelledImage(SDL_Rect& position, iPoint positionOffsetA, iPoint positionOffsetB, p2SString fontPath, SDL_Color textColor, p2SString label, int size, SDL_Rect image_section, bool draggable = false);
 	UIClock* AddUIClock(SDL_Rect& pos, p2List<Animation>& animations, bool draggable);
-
+	Scrollbar* AddScrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min, SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section, bool draggable);
 
 	UIElement* DeleteElement(UIElement* element);
 
@@ -116,6 +118,7 @@ public:
 	UIElement* Load_UIClock_fromXML(pugi::xml_node node);
 	UIElement* Load_Label_fromXML(pugi::xml_node node);
 	UIElement* Load_InteractiveImage_fromXML(pugi::xml_node node, j1Module* callback);
+	UIElement* Load_Scrollbar_fromXML(pugi::xml_node node);
 	Animation LoadPushbacks_fromXML(pugi::xml_node node);
 
 

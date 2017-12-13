@@ -115,11 +115,14 @@
     <ClCompile Include="InputBox.cpp">
       <Filter>Desenvolupament  ========\GUI\MultiParent</Filter>
     </ClCompile>
-    <ClCompile Include="UIClock.cpp">
-      <Filter>Desenvolupament  ========\GUI\Parents</Filter>
-    </ClCompile>
     <ClCompile Include="PickUp.cpp">
       <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Scrollbar.cpp">
+      <Filter>Desenvolupament  ========\GUI\Custom</Filter>
+    </ClCompile>
+    <ClCompile Include="UIClock.cpp">
+      <Filter>Desenvolupament  ========\GUI\Custom</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -258,11 +261,14 @@
     <ClInclude Include="InputBox.h">
       <Filter>Desenvolupament  ========\GUI\MultiParent</Filter>
     </ClInclude>
-    <ClInclude Include="UIClock.h">
-      <Filter>Desenvolupament  ========\GUI\Parents</Filter>
-    </ClInclude>
     <ClInclude Include="PickUp.h">
       <Filter>Desenvolupament  ========\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Scrollbar.h">
+      <Filter>Desenvolupament  ========\GUI\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="UIClock.h">
+      <Filter>Desenvolupament  ========\GUI\Custom</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +310,9 @@
     </Filter>
     <Filter Include="Desenvolupament  ========\GUI\MultiParent">
       <UniqueIdentifier>{7d6c60b9-eb66-490f-8ce4-fa4b044d252d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Desenvolupament  ========\GUI\Custom">
+      <UniqueIdentifier>{ef778b01-d104-42d3-b5e1-8d1b709b3c80}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

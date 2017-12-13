@@ -145,6 +145,15 @@ XML but its value is an int so here's the list of types:
       <inactive x="0" y="380" w="261" h="64"/>
     </interactivelabelledimage>
 
+    <scrollbar>
+      <scrollerimage x="508" y="859" w="23" h="28"/>
+      <movesvertically value="true"/>
+      <min value="231"/>
+      <position x="10" y="10" w="1" h="1"/>
+      <sliderrelativepos x="0" y="23"/>
+      <imagesection x="508" y="888" w="24" h="277"/>
+      <draggable value="false"/>
+    </scrollbar>
 
  
 

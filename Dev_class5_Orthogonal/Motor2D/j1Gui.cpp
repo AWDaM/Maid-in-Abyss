@@ -21,6 +21,7 @@
 #include "InheritedInteractive.h"
 #include "InheritedLabel.h"
 #include "UIClock.h"
+#include "Scrollbar.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -236,6 +237,13 @@ UIClock * j1Gui::AddUIClock(SDL_Rect & pos, p2List<Animation>& animations, bool 
 	return ret;
 }
 
+Scrollbar * j1Gui::AddScrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min, SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section, bool draggable)
+{
+	Scrollbar* ret = new Scrollbar(scroller_image, moves_vertically, min, pos, Sliderrelativepos, image_section, draggable);
+	elements.add(ret);
+	return ret;
+}
+
 
 
 
@@ -317,6 +325,16 @@ void j1Gui::Load_UIElements(pugi::xml_node node, j1Module* callback)
 		while (tmp = tmp.next_sibling("interactivelabelledimage"))
 		{
 			App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);
+		}
+	}
+	
+	tmp = node.child("scrollbar");
+	if (tmp)
+	{
+		App->gui->Load_Scrollbar_fromXML(tmp);
+		while (tmp = tmp.next_sibling("scrollbar"))
+		{
+			App->gui->Load_Scrollbar_fromXML(tmp);
 		}
 	}
 
@@ -516,6 +534,20 @@ UIElement * j1Gui::Load_InteractiveImage_fromXML(pugi::xml_node node, j1Module* 
 	
 	if (!node.child("active").attribute("value").as_bool(true))
 		ret->active = false;
+	return ret;
+}
+
+UIElement * j1Gui::Load_Scrollbar_fromXML(pugi::xml_node node)
+{
+	Scrollbar* ret;
+	SDL_Rect scroller_image = { node.child("scrollerimage").attribute("x").as_int(), node.child("scrollerimage").attribute("y").as_int(), node.child("scrollerimage").attribute("w").as_int(), node.child("scrollerimage").attribute("h").as_int() };
+	bool moves_vertically = node.child("movesvertically").attribute("value").as_bool();
+	int min = node.child("min").attribute("value").as_int();
+	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
+	iPoint sliderrelativepos = { node.child("position").attribute("x").as_int(),node.child("position").attribute("y").as_int() };
+	SDL_Rect image_section = { node.child("imagesection").attribute("x").as_int(), node.child("imagesection").attribute("y").as_int(), node.child("imagesection").attribute("w").as_int(), node.child("imagesection").attribute("h").as_int() };
+	bool draggable = node.child("draggable").attribute("value").as_bool();
+	ret = AddScrollbar(scroller_image, moves_vertically, min, position, sliderrelativepos, image_section, draggable);
 	return ret;
 }
 
