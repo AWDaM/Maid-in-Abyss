@@ -474,6 +474,24 @@ UIElement * j1Gui::Load_Label_fromXML(pugi::xml_node node)
 	return ret;
 }
 
+UIElement * j1Gui::Load_InteractiveImage_fromXML(pugi::xml_node node, j1Module* callback)
+{
+	InteractiveImage* ret;
+	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
+	iPoint relativeposA = { node.child("relativePositionA").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() };
+	iPoint relativeposB = { node.child("relativePositionB").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() };
+	SDL_Rect image_section = { node.child("image_section").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
+	bool draggable = node.child("draggable").attribute("value").as_bool();
+	InteractiveType type = InteractiveType_from_int(node.child("type").attribute("value").as_int());
+	ret->hover = { node.child("hover").attribute("x").as_int(), node.child("hover").attribute("y").as_int(), node.child("hover").attribute("w").as_int(), node.child("hover").attribute("h").as_int() };
+	ret->click = { node.child("click").attribute("x").as_int(), node.child("click").attribute("y").as_int(), node.child("click").attribute("w").as_int(), node.child("click").attribute("h").as_int() };
+	ret->inactive = { node.child("inactive").attribute("x").as_int(), node.child("inactive").attribute("y").as_int(), node.child("inactive").attribute("w").as_int(), node.child("inactive").attribute("h").as_int() };
+	ret = AddInteractiveImage(position, relativeposA, relativeposB, image_section, type, callback, draggable);
+	if (!node.child("active").attribute("value").as_bool(true))
+		ret->active = false;
+	return ret;
+}
+
 Animation j1Gui::LoadPushbacks_fromXML(pugi::xml_node node)
 {
 	Animation ret;
