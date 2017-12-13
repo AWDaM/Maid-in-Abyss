@@ -466,11 +466,11 @@ UIElement * j1Gui::Load_Label_fromXML(pugi::xml_node node)
 	p2SString label = node.child("label").attribute("value").as_string();
 	int size = node.child("size").attribute("value").as_int();
 	bool draggable = node.child("draggable").attribute("value").as_bool();
-	if (!node.child("active").attribute("value").as_bool(true))
-		ret->active = false;
 
 	ret = AddLabel(position, relativepos, fontPath, color, label, size, draggable);
 
+	if (!node.child("active").attribute("value").as_bool(true))
+		ret->active = false;
 	return ret;
 }
 

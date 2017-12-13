@@ -12,7 +12,7 @@ Interactive::Interactive()
 }
 
 
-Interactive::Interactive(SDL_Rect& pos, iPoint Interactiverelativepos, InteractiveType type, j1Module* callback) :  callback(callback)
+Interactive::Interactive(SDL_Rect& pos, iPoint Interactiverelativepos, InteractiveType type, j1Module* callback) :  callback(callback), Interactiverelativepos(Interactiverelativepos)
 {
 	this->type = type;
 	collider.x = pos.x + Interactiverelativepos.x;
