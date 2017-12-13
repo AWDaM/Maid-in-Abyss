@@ -286,7 +286,7 @@ void j1Gui::Load_UIElements(pugi::xml_node node, j1Module* callback)
 	}
 	 tmp = node.child("interactivelabelledimage");
 
- node.child("image");
+ tmp = node.child("image");
 
 	if (tmp)
 	{
@@ -294,6 +294,16 @@ void j1Gui::Load_UIElements(pugi::xml_node node, j1Module* callback)
 		while (tmp = tmp.next_sibling("image"))
 		{
 			App->gui->Load_Image_fromXML(tmp);
+		}
+	}
+
+	tmp = node.child("interactiveimage");
+	if (tmp)
+	{
+		App->gui->Load_InteractiveImage_fromXML(tmp,callback);
+		while (tmp = tmp.next_sibling("interactiveimage"))
+		{
+			App->gui->Load_InteractiveImage_fromXML(tmp,callback);
 		}
 	}
 
@@ -394,6 +404,17 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
 		}
 	}
+
+	tmp = node.child("interactiveimage");
+	if (tmp)
+	{
+		App->gui->Load_InteractiveImage_fromXML(tmp, callback);
+		while (tmp = tmp.next_sibling("interactiveimage"))
+		{
+			App->gui->Load_InteractiveImage_fromXML(tmp, callback);
+		}
+	}
+
 	tmp = node.child("interactivelabelledimage");
 
 	if (tmp)
@@ -480,13 +501,14 @@ UIElement * j1Gui::Load_InteractiveImage_fromXML(pugi::xml_node node, j1Module* 
 	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
 	iPoint relativeposA = { node.child("relativePositionA").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() };
 	iPoint relativeposB = { node.child("relativePositionB").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() };
-	SDL_Rect image_section = { node.child("image_section").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
+	SDL_Rect image_section = { node.child("imagesection").attribute("x").as_int(), node.child("imagesection").attribute("y").as_int(), node.child("imagesection").attribute("w").as_int(), node.child("imagesection").attribute("h").as_int() };
 	bool draggable = node.child("draggable").attribute("value").as_bool();
 	InteractiveType type = InteractiveType_from_int(node.child("type").attribute("value").as_int());
+	ret = AddInteractiveImage(position, relativeposA, relativeposB, image_section, type, callback, draggable);
 	ret->hover = { node.child("hover").attribute("x").as_int(), node.child("hover").attribute("y").as_int(), node.child("hover").attribute("w").as_int(), node.child("hover").attribute("h").as_int() };
 	ret->click = { node.child("click").attribute("x").as_int(), node.child("click").attribute("y").as_int(), node.child("click").attribute("w").as_int(), node.child("click").attribute("h").as_int() };
 	ret->inactive = { node.child("inactive").attribute("x").as_int(), node.child("inactive").attribute("y").as_int(), node.child("inactive").attribute("w").as_int(), node.child("inactive").attribute("h").as_int() };
-	ret = AddInteractiveImage(position, relativeposA, relativeposB, image_section, type, callback, draggable);
+	
 	if (!node.child("active").attribute("value").as_bool(true))
 		ret->active = false;
 	return ret;
