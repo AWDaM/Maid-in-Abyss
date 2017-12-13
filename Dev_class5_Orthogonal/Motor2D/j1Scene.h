@@ -5,6 +5,7 @@
 #include "j1Timer.h"
 
 struct SDL_Texture;
+class Window;
 
 enum ListOfMapNames
 {
@@ -39,13 +40,19 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool OnEvent(UIElement* element, int eventType);
+
 	bool Load(pugi::xml_node& data);
 	bool Save(pugi::xml_node& data) const;
 
 	bool Load_lvl(int time);
-
+	void OpenPauseMenu();
+	void ClosePauseMenu();
 	void SpawnEnemies();
+
+
 public:
+	Window* sceneMenu = nullptr;
 	SDL_Texture* debug_tex;
 	iPoint test;
 	bool slowing = false;
@@ -56,7 +63,7 @@ public:
 	float fade_time;
 	bool to_end;
 	j1Timer transcurredTime;
-
+	bool pause = false;
 };
 
 #endif // __j1SCENE_H__

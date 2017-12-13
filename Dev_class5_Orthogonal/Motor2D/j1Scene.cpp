@@ -6,6 +6,7 @@
 #include "j1Audio.h"
 #include "j1Render.h"
 #include "j1Window.h"
+#include "Window.h"
 #include "j1Map.h"
 #include "InheritedLabel.h"
 #include "j1Scene.h"
@@ -104,6 +105,11 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
+	if (pause)
+		OpenPauseMenu();
+	else
+		ClosePauseMenu();
+
 	p2SString temp("Time: %i", (int)transcurredTime.ReadSec());
 	if(pastFrameTime != (int)transcurredTime.ReadSec())
 		App->gui->timeLabel->ChangeText(&temp);
@@ -209,8 +215,8 @@ bool j1Scene::PostUpdate()
 
 		to_end = false;
 	}
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		pause = !pause;
 
 	return ret;
 }
@@ -221,6 +227,18 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+bool j1Scene::OnEvent(UIElement* element, int eventType)
+{
+	bool ret = true;
+
+	element->HandleAnimation(eventType);
+
+	if (element->type == InteractiveType::CLOSE_WINDOW && eventType == EventTypes::LEFT_MOUSE_PRESSED)
+		pause = false;
+
+	return ret;
 }
 
 bool j1Scene::Load(pugi::xml_node& data)
@@ -251,6 +269,18 @@ bool j1Scene::Load_lvl(int time)
 	return true;
 }
 
+void j1Scene::OpenPauseMenu()
+{
+	if(sceneMenu)
+	sceneMenu->active = true;
+}
+
+void j1Scene::ClosePauseMenu()
+{
+	if (sceneMenu)
+	sceneMenu->active = false;
+}
+
 void j1Scene::SpawnEnemies()
 {
 	for (p2List_item<ObjectsGroup*>* obj = App->map->data.objLayers.start; obj; obj = obj->next)
@@ -278,3 +308,4 @@ void j1Scene::SpawnEnemies()
 		}
 	}
 }
+

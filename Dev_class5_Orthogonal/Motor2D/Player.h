@@ -27,7 +27,6 @@ public:
 	//Called before the first frame
 	bool Start();
 
-	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
 
