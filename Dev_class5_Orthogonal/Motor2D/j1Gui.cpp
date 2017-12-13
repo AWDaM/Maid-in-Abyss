@@ -139,7 +139,9 @@ bool j1Gui::Draw()
 	{
 		if (item->data->active)
 		{
-			item->data->Draw();
+			if (!item->data->In_window || item->data->window->active)
+				item->data->Draw();
+
 			if (debug && item->data->active)
 				if(!item->data->In_window || item->data->window->active)
 					App->render->DrawQuad(item->data->position, 255, 0, 0, 80);
@@ -405,6 +407,10 @@ Window* j1Gui::Load_Window_fromXML(pugi::xml_node node, j1Module* callback)
 	{
 		Load_WindowElements_fromXML(node.child("elements"), added,callback);
 	}
+
+	if (node.child("isPauseMenu").attribute("value").as_bool(false))
+		App->scene->sceneMenu = added;
+
 	return added;
 }
 
@@ -418,6 +424,7 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 	{
 		child = App->gui->Load_Image_fromXML(tmp);
 		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		child->In_window = true;
 		while (tmp = tmp.next_sibling("image"))
 		{
 			App->gui->Load_Image_fromXML(tmp);
@@ -431,10 +438,12 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 	{
 		child = App->gui->Load_InteractiveImage_fromXML(tmp, callback);
 		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		child->In_window = true;
 		while (tmp = tmp.next_sibling("interactiveimage"))
 		{
 			child = App->gui->Load_InteractiveImage_fromXML(tmp, callback);
 			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+			child->In_window = true;
 		}
 	}
 
@@ -444,6 +453,7 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 	{
 		child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);
 		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		child->In_window = true;
 		while (tmp = tmp.next_sibling("interactivelabelledimage"))
 		{
 			child = App->gui->Load_InteractiveLabelledImage_fromXML(tmp,callback);

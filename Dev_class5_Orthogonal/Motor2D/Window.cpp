@@ -132,7 +132,7 @@ void Window::FindNextFocusableElement(p2List_item<WinElement*>* current)
 {
 	while (1==1)
 	{
-		if (current->next && (current->next->data->element->UItype == UIType::INTERACTIVE || current->next->data->element->UItype == UIType::INTERACTIVE || current->next->data->element->UItype == UIType::INTERACTIVE_LABEL || current->next->data->element->UItype == UIType::INTERACTIVE_IMAGE || current->next->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
+		if (current->next && (current->next->data->element->UItype == UIType::INTERACTIVE || current->next->data->element->UItype == UIType::INTERACTIVE_LABEL || current->next->data->element->UItype == UIType::INTERACTIVE_IMAGE || current->next->data->element->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
 		{
 			current->next->data->element->hasFocus = true;
 			break;

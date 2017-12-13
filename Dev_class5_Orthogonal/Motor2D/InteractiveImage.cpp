@@ -66,5 +66,8 @@ bool InteractiveImage::HandleAnimation(int eventType)
 	{
 		current = &image_section;
 	}
+	if(hasFocus)
+		current = &hover;
+
 	return true;
 }

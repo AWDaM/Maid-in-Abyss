@@ -19,32 +19,7 @@ XML but its value is an int so here's the list of types:
 -->
 <config>
   <introscene>
-    <window>
-      <collider x="100" y="100" w="476" h="469"/>
-      <draggable value="true"/>
-      <elements>
-        <image>
-          <position x="100" y="100" w="476" h="469"/>
-          <image_section x="0" y="838" w="476" h="469"/>
-          <draggable value="false"/>
-          <winRelativePos x="0" y="0"/>
-          <active value="true"/>
-        </image>
-        
-        <interactiveimage>
-          <position x="100" y="100" w="14" h="14"/>
-          <relativeposA x="0" y="0"/>
-          <relativeposB x="0" y="0"/>
-          <imagesection x="793" y="0" w="14" h="14"/>
-          <type value="6"/>
-          <draggable value="false"/>
-          <hover x="793" y="16" w="14" h="14"/>
-          <click x="793" y="32" w="14" h="14"/>
-          <inactive x="0" y="0" w="0" h="0"/>
-         <winRelativePos x="451" y="5"/>
-        </interactiveimage>
-      </elements>
-    </window>
+    
 
         <alternate_image>
       <path string="gui/Kirisame.png"/>
@@ -161,6 +136,34 @@ XML but its value is an int so here's the list of types:
   </introscene>
 
   <scene>
+    <window>
+      <collider x="100" y="100" w="476" h="469"/>
+      <draggable value="true"/>
+      <active value="false"/>
+      <isPauseMenu value="true"/>
+      <elements>
+        <image>
+          <position x="100" y="100" w="476" h="469"/>
+          <image_section x="0" y="838" w="476" h="469"/>
+          <draggable value="false"/>
+          <winRelativePos x="0" y="0"/>
+          <active value="true"/>
+        </image>
+
+        <interactiveimage>
+          <position x="100" y="100" w="14" h="14"/>
+          <relativeposA x="0" y="0"/>
+          <relativeposB x="0" y="0"/>
+          <imagesection x="793" y="0" w="14" h="14"/>
+          <type value="6"/>
+          <draggable value="false"/>
+          <hover x="793" y="16" w="14" h="14"/>
+          <click x="793" y="32" w="14" h="14"/>
+          <inactive x="0" y="0" w="0" h="0"/>
+          <winRelativePos x="451" y="5"/>
+        </interactiveimage>
+      </elements>
+    </window>
     <uiclock>
       <animation>
         <pushback x="0" y="447" w="128" h="128"/>
