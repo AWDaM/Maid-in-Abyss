@@ -57,14 +57,15 @@ bool Image::ImageDraw(SDL_Rect &current)
 	if (window && !window->active)
 		return true;
 
+	iPoint tmp = App->render->ScreenToWorld(position.x + Imagerelativepos.x, position.y + Imagerelativepos.y);
 
 	if (!In_window)
 	{
-		App->render->Blit(image, position.x + Imagerelativepos.x, position.y + Imagerelativepos.y, &current);
+		App->render->Blit(image, tmp.x, tmp.y, &current);
 	}
 	if (In_window)
 	{
-		App->render->Blit(image, position.x + Imagerelativepos.x + winElement->relativePosition.x, position.y + Imagerelativepos.y + winElement->relativePosition.y, &current);
+		App->render->Blit(image, tmp.x + winElement->relativePosition.x, tmp.y + winElement->relativePosition.y, &current);
 	}
 	
 	return true;

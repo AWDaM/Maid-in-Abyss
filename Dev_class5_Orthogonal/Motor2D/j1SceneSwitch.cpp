@@ -71,7 +71,7 @@ bool j1SceneSwitch::Update(float dt)
 	return ret;
 }
 
-bool j1SceneSwitch::SwitchScene(j1Module * SceneIn, j1Module * SceneOut)
+bool j1SceneSwitch::SwitchScene(j1Module* SceneIn, j1Module* SceneOut)
 {
 	bool ret = false;
 

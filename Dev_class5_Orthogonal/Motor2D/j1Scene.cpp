@@ -105,10 +105,7 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-	if (pause)
-		OpenPauseMenu();
-	else
-		ClosePauseMenu();
+
 
 	p2SString temp("Time: %i", (int)transcurredTime.ReadSec());
 	if(pastFrameTime != (int)transcurredTime.ReadSec())
@@ -215,9 +212,15 @@ bool j1Scene::PostUpdate()
 
 		to_end = false;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		pause = !pause;
 
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	{
+		pause = !pause;
+		if (pause)
+			OpenPauseMenu();
+		else
+			ClosePauseMenu();
+	}
 	return ret;
 }
 
@@ -235,8 +238,14 @@ bool j1Scene::OnEvent(UIElement* element, int eventType)
 
 	element->HandleAnimation(eventType);
 
+	if (eventType == EventTypes::PRESSED_ENTER && element->type == InteractiveType::CLOSE_WINDOW)
+	{
+		ret = element->OnEvent();
+		pause = !pause;
+	}
+
 	if (element->type == InteractiveType::CLOSE_WINDOW && eventType == EventTypes::LEFT_MOUSE_PRESSED)
-		pause = false;
+		pause = false, ClosePauseMenu();
 
 	return ret;
 }
