@@ -32,7 +32,7 @@ XML but its value is an int so here's the list of types:
         </image>
         
         <interactiveimage>
-<position x="100" y="100" w="14" h="14"/>
+          <position x="100" y="100" w="14" h="14"/>
           <relativeposA x="0" y="0"/>
           <relativeposB x="0" y="0"/>
           <imagesection x="793" y="0" w="14" h="14"/>

@@ -408,10 +408,12 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 	tmp = node.child("interactiveimage");
 	if (tmp)
 	{
-		App->gui->Load_InteractiveImage_fromXML(tmp, callback);
+		child = App->gui->Load_InteractiveImage_fromXML(tmp, callback);
+		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
 		while (tmp = tmp.next_sibling("interactiveimage"))
 		{
-			App->gui->Load_InteractiveImage_fromXML(tmp, callback);
+			child = App->gui->Load_InteractiveImage_fromXML(tmp, callback);
+			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
 		}
 	}
 
