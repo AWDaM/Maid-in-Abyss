@@ -22,6 +22,7 @@ public:
 	uint current_value;
 	iPoint mouseLastFrame = { 0,0 };
 	bool beingSlided = false;
+	iPoint sliderPos;
 private:
 
 };

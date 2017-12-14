@@ -241,15 +241,12 @@ void j1App::FinishUpdate()
 	sprintf_s(title, 256, "Maid in Abyss: FPS: %i Avg.FPS: %.2f Ms of the last Frame %02u", frames_on_last_update, avg_fps, last_frame_ms);
 	App->win->SetTitle(title);
 
-	if (framerate > 0 && last_frame_ms < framerate)
+	if (framerate > 0 && last_frame_ms < framerate && fpsCapON)
 	{
-		//uint32 delay = 1000 / framerate - ptimer.ReadMs();
-		//SDL_Delay(delay);
-		//float true_delay = delay - ptimer.ReadMs();
-		//LOG("We wanted to delay: %i. We had to wait: %f", delay, true_delay);
+
 		j1PerfTimer t;
 		SDL_Delay(framerate - last_frame_ms);
-		//LOG("We waited for %d milliseconds and got back in %f", framerate - last_frame_ms, t.ReadMs());
+
 	}
 }
 

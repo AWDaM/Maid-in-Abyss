@@ -554,7 +554,7 @@ UIElement * j1Gui::Load_Scrollbar_fromXML(pugi::xml_node node)
 	bool moves_vertically = node.child("movesvertically").attribute("value").as_bool();
 	int min = node.child("min").attribute("value").as_int();
 	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
-	iPoint sliderrelativepos = { node.child("position").attribute("x").as_int(),node.child("position").attribute("y").as_int() };
+	iPoint sliderrelativepos = { node.child("sliderrelativepos").attribute("x").as_int(),node.child("sliderrelativepos").attribute("y").as_int() };
 	SDL_Rect image_section = { node.child("imagesection").attribute("x").as_int(), node.child("imagesection").attribute("y").as_int(), node.child("imagesection").attribute("w").as_int(), node.child("imagesection").attribute("h").as_int() };
 	bool draggable = node.child("draggable").attribute("value").as_bool();
 	ret = AddScrollbar(scroller_image, moves_vertically, min, position, sliderrelativepos, image_section, draggable);

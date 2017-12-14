@@ -152,9 +152,12 @@ bool j1Scene::Update(float dt)
 
 	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		slowing = true;
-	
+
 	else if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->entitycontroller->godmode = !App->entitycontroller->godmode;
+
+	else if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+		App->fpsCapON = !App->fpsCapON;
 
 
 
