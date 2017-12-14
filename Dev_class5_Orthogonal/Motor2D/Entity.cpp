@@ -110,6 +110,10 @@ fPoint Entity::Collider_Overlay(fPoint originalvec)
 
 fPoint Entity::AvoidCollision(fPoint newvec, const SDL_Rect result, p2List_item<ObjectsData*>* objdata)
 {
+	if (type == PLAYER)
+	{
+		type = PLAYER;
+	}
 	if (newvec.y > 0)
 	{
 		if (position.y + Collider.h + colOffset.y <= objdata->data->y)

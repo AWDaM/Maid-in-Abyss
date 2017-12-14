@@ -67,6 +67,7 @@ bool j1EntityController::Update(float dt)
 			ret = tmp->data->Update(enemy_dt);
 		tmp = tmp->next;
 	}
+
 	//if (App->map->debug)DebugDraw();
 
 	return ret;

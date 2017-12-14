@@ -107,13 +107,13 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-
-
-	p2SString temp("Time: %i", (int)transcurredTime.ReadSec());
-	if(pastFrameTime != (int)transcurredTime.ReadSec())
+	if (transcurredTime.ReadSec() >= 1 && !pause)
+	{
+		currentTime += 1;
+		p2SString temp("Time: %i", currentTime);
 		App->gui->timeLabel->ChangeText(&temp);
-
-	pastFrameTime = (int)transcurredTime.ReadSec();
+		transcurredTime.Start();
+	}
 
 	return true;
 }

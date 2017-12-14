@@ -58,6 +58,7 @@ public:
 	bool slowing = false;
 	int backToNormal = -1;
 	int currentMap;
+	int currentTime = 0;
 	int pastFrameTime = 0;
 	p2List<p2SString*> map_names;
 	float fade_time;

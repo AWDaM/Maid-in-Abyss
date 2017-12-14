@@ -60,7 +60,8 @@ bool Interactive::InteractivePreUpdate()
 	{
 		if (isMouseInside && ret)
 			ret = callback->OnEvent(this, EventTypes::MOUSE_HOVER_OUT);
-
+		else
+			ret = callback->OnEvent(this, EventTypes::DEFAULT_TYPE);
 		isMouseInside = false;
 	}
 

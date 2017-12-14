@@ -145,6 +145,7 @@ bool Player::Update(float dt)
 				//maxSpeed.x += jumpForce.x;
 				//speed.x = jumpForce.x*direction_x*dt;
 				speed.y = jumpForce.y;
+
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && App->entitycontroller->godmode)
@@ -154,6 +155,7 @@ bool Player::Update(float dt)
 				//maxSpeed.x += jumpForce.x;
 				//speed.x = jumpForce.x*direction_x*dt;
 				speed.y = jumpForce.y;
+
 			}
 
 			if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
@@ -165,7 +167,8 @@ bool Player::Update(float dt)
 				}
 			}
 
-				speed.y += gravity;
+			speed.y += gravity*dt;
+
 			//if (speed.y > 0 && speed.y < 1 && grounded)
 			//	speed.y = 1;
 
@@ -178,13 +181,15 @@ bool Player::Update(float dt)
 		grounded = false;
 		speed.x = nearbyintf(speed.x);
 		speed.y = nearbyintf(speed.y);
+
 		speed = Collider_Overlay(speed);
 
 		float tmp = speed.y;
 
 		NormalizeAnimationSpeed(dt);
 		ChangeAnimation();
-		PlayerMovement();
+
+		PlayerMovement(dt);
 		PositionCollider();
 
 	}
@@ -206,7 +211,7 @@ bool Player::Update(float dt)
 		}
 
 		ChangeAnimation();
-		PlayerMovement();
+		PlayerMovement(dt);
 		PositionCollider();
 	}
 
@@ -292,10 +297,17 @@ void Player::ChangeAnimation()
 		Current_Animation = &dying;
 }
 
-void Player::PlayerMovement()
+void Player::PlayerMovement(float dt)
 {
+	float tmp = nearbyintf(dt/0.033);
+
+	if (tmp == 0)
+		tmp = 0.5;
+
+	tmp = speed.y * tmp;
+
 	position.x += speed.x;
-	position.y += speed.y;
+	position.y += tmp;
 
 }
 

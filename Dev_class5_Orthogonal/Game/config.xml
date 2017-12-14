@@ -51,7 +51,7 @@
       <timestopFX source="TimeStop.wav"/>
       <accel x="1" y="1"/>
 
-      <gravity value="2"/>
+      <gravity value="50"/>
       <jumpForce x="0" y="-26"/>
 
       <maxSpeed x="360" y="600"/>

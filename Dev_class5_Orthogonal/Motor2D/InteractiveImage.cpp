@@ -50,13 +50,14 @@ bool InteractiveImage::CleanUp()
 
 bool InteractiveImage::HandleAnimation(int eventType)
 {
+	current = &image_section;
+
+	if (hasFocus && eventType == EventTypes::DEFAULT_TYPE)
+		current = &hover;
+
 	if (eventType == EventTypes::MOUSE_HOVER_IN)
 	{
 		current = &hover;
-	}
-	else if (eventType == EventTypes::MOUSE_HOVER_OUT && !SDL_RectEquals(current, &click))
-	{
-		current = &image_section;
 	}
 	else if (eventType == EventTypes::LEFT_MOUSE_PRESSED || eventType == EventTypes::RIGHT_MOUSE_PRESSED)
 	{
@@ -66,8 +67,6 @@ bool InteractiveImage::HandleAnimation(int eventType)
 	{
 		current = &image_section;
 	}
-	if(hasFocus)
-		current = &hover;
 
 	return true;
 }

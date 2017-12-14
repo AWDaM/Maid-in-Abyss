@@ -58,6 +58,12 @@ bool InteractiveLabelledImage::CleanUp()
 
 bool InteractiveLabelledImage::HandleAnimation(int eventType)
 {
+	current = &image_section;
+
+	if (hasFocus && eventType == -1)
+		current = &hover;
+
+
 	if (eventType == 4)
 	{
 		current = &hover;
