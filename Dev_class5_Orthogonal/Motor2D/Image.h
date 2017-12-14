@@ -21,7 +21,7 @@ public:
 	 bool ImagePreUpdate();
 	 bool ImageUpdate(float dt) { return true; }
 	 bool ImagePostUpdate();
-	 bool ImageDraw(SDL_Rect &current);
+	 bool ImageDraw(SDL_Rect &current,float dt);
 	 bool ImageCleanUp();
 
 

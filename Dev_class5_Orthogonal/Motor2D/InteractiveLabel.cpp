@@ -25,10 +25,10 @@ bool InteractiveLabel::PostUpdate()
 	return true;
 }
 
-bool InteractiveLabel::Draw()
+bool InteractiveLabel::Draw(float dt)
 {
-	InteractiveDraw();
-	LabelDraw();
+	InteractiveDraw(dt);
+	LabelDraw(dt);
 	return true;
 }
 

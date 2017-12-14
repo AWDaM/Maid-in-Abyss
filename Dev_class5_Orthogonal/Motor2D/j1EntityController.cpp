@@ -184,14 +184,14 @@ void j1EntityController::DeleteEntities()
 
 }
 
-bool j1EntityController::Draw()
+bool j1EntityController::Draw(float dt)
 {
 	BROFILER_CATEGORY("Entity draw", Profiler::Color::Chocolate);
 	bool ret = true;
 	p2List_item<Entity*>* tmp = Entities.start;
 	while (tmp != nullptr)
 	{
-		tmp->data->Draw();
+		tmp->data->Draw(dt);
 		tmp = tmp->next;
 	}
 	return ret;

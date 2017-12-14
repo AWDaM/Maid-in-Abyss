@@ -38,9 +38,9 @@ bool InheritedImage::PostUpdate()
 	return true;
 }
 
-bool InheritedImage::Draw()
+bool InheritedImage::Draw(float dt)
 {
-	ImageDraw(image_section);
+	ImageDraw(image_section,dt);
 	return false;
 }
 

@@ -28,10 +28,10 @@ bool LabelledImage::PostUpdate()
 	return true;
 }
 
-bool LabelledImage::Draw()
+bool LabelledImage::Draw(float dt)
 {
-	LabelDraw();
-	ImageDraw(image_section);
+	LabelDraw(dt);
+	ImageDraw(image_section,dt);
 	return true;
 }
 

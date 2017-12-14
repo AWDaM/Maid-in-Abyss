@@ -12,7 +12,7 @@ public:
 	UIClock(SDL_Rect& pos, p2List<Animation>& animations, bool draggable);
 	~UIClock();
 
-	bool Draw();
+	bool Draw(float dt);
 	bool HandleAnimation(int newstate);
 	void ResetAnimations();
 	bool CleanUp();

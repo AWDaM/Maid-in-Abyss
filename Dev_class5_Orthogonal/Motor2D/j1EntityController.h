@@ -37,7 +37,7 @@ public:
 	bool Load(pugi::xml_node&);
 	bool Restart();
 	void DeleteEnemies();
-	bool Draw();
+	bool Draw(float dt);
 	bool DebugDraw();
 
 	Entity* AddEntity(Entity::entityType type, iPoint position);

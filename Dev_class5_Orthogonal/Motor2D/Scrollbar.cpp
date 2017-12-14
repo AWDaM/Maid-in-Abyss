@@ -93,9 +93,9 @@ bool Scrollbar::PreUpdate()
 	return true;
 }
 
-bool Scrollbar::Draw()
+bool Scrollbar::Draw(float dt)
 {
-	ImageDraw(image_section);
+	ImageDraw(image_section,dt);
 	App->render->Blit(image, sliderPos.x, sliderPos.y, &scroller_image);
 	return true;
 }

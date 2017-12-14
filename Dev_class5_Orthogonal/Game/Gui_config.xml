@@ -200,7 +200,7 @@ XML but its value is an int so here's the list of types:
         <pushback x="780" y="447" w="128" h="128"/>
         <pushback x="910" y="447" w="128" h="128"/>
 
-        <speed value="0.125"/>
+        <speed value="3.75"/>
         <loop value="true"/>
       </animation>
 
@@ -214,7 +214,7 @@ XML but its value is an int so here's the list of types:
         <pushback x="780" y="577" w="128" h="128"/>
         <pushback x="910" y="577" w="128" h="128"/>
         
-        <speed value="0.25"/>
+        <speed value="7.5"/>
         <loop value="true"/>
       </animation>
 
@@ -228,7 +228,7 @@ XML but its value is an int so here's the list of types:
         <pushback x="780" y="707" w="128" h="128"/>
         <pushback x="910" y="707" w="128" h="128"/>
         <pushback x="1040" y="707" w="128" h="128"/>
-        <speed value="0.125"/>
+        <speed value="3.75"/>
         <loop value="true"/>
       </animation>
 

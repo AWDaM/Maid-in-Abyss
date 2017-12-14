@@ -13,7 +13,7 @@ public:
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
-	bool Draw();
+	bool Draw(float dt);
 	bool CleanUp();
 
 	bool HandleAnimation(int eventType);

@@ -11,11 +11,12 @@ public:
 	virtual bool PreUpdate() { return true; }
 	virtual bool Update(float dt) { return true; }
 	virtual bool PostUpdate() { return true; }
-	virtual bool Draw() { return true; }
+	virtual bool Draw(float dt) { return true; }
 	virtual bool HandleAnimation(int eventType) { return true; }
 	bool DebugDraw();
 	virtual bool CleanUp() { return true; }
 	virtual bool OnEvent() { return true; }
+	virtual bool HandleAnimation() { return true; }
 
 	void MoveElement(iPoint difference);
 
@@ -34,6 +35,7 @@ public:
 	WinElement* winElement = nullptr;
 	Window* window = nullptr;
 	bool hasFocus = false;
+	bool Unavalible = false;
 };
 
 #endif

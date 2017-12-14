@@ -29,9 +29,9 @@ bool InheritedInteractive::PostUpdate()
 	return true;
 }
 
-bool InheritedInteractive::Draw()
+bool InheritedInteractive::Draw(float dt)
 {
-	InteractiveDraw();
+	InteractiveDraw(dt);
 	return true;
 }
 
