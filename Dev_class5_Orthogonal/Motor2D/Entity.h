@@ -61,7 +61,7 @@ public:
 
 	void PositionCollider();
 
-	void Draw();
+	void Draw(float dt);
 
 private:
 

@@ -10,7 +10,7 @@ public:
 	bool LabelPreUpdate();
 	bool LabelUpdate(float dt);
 	bool LabelPostUpdate();
-	bool LabelDraw();
+	bool LabelDraw(float dt);
 	bool LabelCleanUp();
 
 	void ChangeText(p2SString* newText);

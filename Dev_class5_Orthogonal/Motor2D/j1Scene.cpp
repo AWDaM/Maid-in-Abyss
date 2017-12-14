@@ -173,8 +173,8 @@ bool j1Scene::Update(float dt)
 		//App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
 
 	App->map->Draw();
-	App->entitycontroller->Draw();
-	App->gui->Draw();
+	App->entitycontroller->Draw(dt);
+	App->gui->Draw(dt);
 
 	
 

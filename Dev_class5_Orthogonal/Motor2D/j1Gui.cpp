@@ -52,6 +52,7 @@ bool j1Gui::Start()
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	App->input->GetMousePosition(mouseLastFrame.x, mouseLastFrame.y);
 
+
 	return true;
 }
 
@@ -59,6 +60,8 @@ bool j1Gui::Start()
 bool j1Gui::PreUpdate()
 {
 	bool ret = true;
+	CheckSavegame();
+
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
 	{
 		if (item->data->active)
@@ -132,7 +135,7 @@ bool j1Gui::PostUpdate()
 	return ret;
 }
 
-bool j1Gui::Draw()
+bool j1Gui::Draw(float dt)
 {
 	bool ret = true;
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
@@ -140,7 +143,7 @@ bool j1Gui::Draw()
 		if (item->data->active)
 		{
 			if (!item->data->In_window || item->data->window->active)
-				item->data->Draw();
+				item->data->Draw(dt);
 
 			if (debug && item->data->active)
 				if(!item->data->In_window || item->data->window->active)
@@ -611,6 +614,39 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	return ret;
 }
 
+
+void j1Gui::CheckSavegame()
+{
+	pugi::xml_document data;
+	pugi::xml_parse_result result = data.load_file(App->load_game.GetString());
+	p2List_item<UIElement*>* item = elements.start;
+
+	if (result == NULL)
+	{
+		while (item)
+		{
+			if (item->data->type == CONTINUE)
+			{
+				item->data->Unavalible = true;
+				break;
+			}
+			item = item->next;
+		}
+	}
+	else
+	{
+		while (item)
+		{
+			if (item->data->type == CONTINUE)
+			{
+				item->data->Unavalible = false;
+				item->data->HandleAnimation(1);
+				break;
+			}
+			item = item->next;
+		}
+	}
+}
 
 // const getter for atlas
  SDL_Texture* j1Gui::GetAtlas() const

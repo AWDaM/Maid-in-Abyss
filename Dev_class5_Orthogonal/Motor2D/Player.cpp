@@ -210,7 +210,7 @@ bool Player::Update(float dt)
 		PositionCollider();
 	}
 
-
+	LOG("Current animation Speed: %f", Current_Animation->speed);
 	/*LOG("CurrenFrame: %f", Current_Animation->GetCurrentFrameinFloat());
 	LOG("CurrentAnimation speed: %f", Current_Animation->speed);*/
 	return true;
@@ -338,12 +338,12 @@ void Player::LoadPushbacks()
 	running.PushBack({ 470, 17, 60, 73 });
 	running.PushBack({ 565, 17, 60, 73 });
 	running.loop = true;
-	running.speed = 0.25f;
+	running.speed = 7.5f;
 
 	jumping_up.PushBack({ 672, 27, 53, 63 });
 	jumping_up.PushBack({ 764, 0, 49, 75 });
 	jumping_up.loop = false;
-	jumping_up.speed = 0.5f;
+	jumping_up.speed = 15.0f;
 
 	falling.PushBack({ 861, 17, 53, 73 });
 
@@ -355,7 +355,7 @@ void Player::LoadPushbacks()
 	dashing.PushBack({ 468, 219, 76, 69 });
 	dashing.PushBack({ 548, 219, 76, 69 });
 	dashing.loop = false;
-	dashing.speed = 0.6f;
+	dashing.speed = 18.0f;
 
 	dying.PushBack({ 0, 112, 95, 77 });
 	dying.PushBack({ 95, 112, 95, 77 });
@@ -365,7 +365,7 @@ void Player::LoadPushbacks()
 	dying.PushBack({ 475, 112, 95, 77 });
 	dying.PushBack({ 570, 112, 95, 77 });
 	dying.loop = false;
-	dying.speed = 1.5f;
+	dying.speed = 45.0f;
 }
 
 

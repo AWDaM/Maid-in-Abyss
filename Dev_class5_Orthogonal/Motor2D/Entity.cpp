@@ -26,12 +26,12 @@ Entity::~Entity()
 {
 }
 
-void Entity::Draw()
+void Entity::Draw(float dt)
 {
 		if (flip)
-			App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_HORIZONTAL, -1.0);
+			App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame(dt)), SDL_FLIP_HORIZONTAL, -1.0);
 		else
-			App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame()), SDL_FLIP_NONE, -1.0);
+			App->render->Blit(App->entitycontroller->texture, position.x, position.y, &(Current_Animation->GetCurrentFrame(dt)), SDL_FLIP_NONE, -1.0);
 }
 
 fPoint Entity::SpeedBoundaries(fPoint originalvec)
@@ -208,7 +208,7 @@ void Entity::AddSFX(int channel, int repeat, uint volume)
 
 void Entity::NormalizeAnimationSpeed(float dt)
 {
-	Current_Animation->speed = animationSpeed*dt;
+//	Current_Animation->speed = animationSpeed*dt;
 }
 
 void Entity::FlipImage()

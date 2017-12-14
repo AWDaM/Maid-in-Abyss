@@ -16,7 +16,7 @@ public:
 public:
 	 bool InteractivePreUpdate();
 	 bool InteractivePostUpdate();
-	 bool InteractiveDraw();
+	 bool InteractiveDraw(float dt);
 	 bool InteractiveCleanUp();
 
 	 void MoveCollider();

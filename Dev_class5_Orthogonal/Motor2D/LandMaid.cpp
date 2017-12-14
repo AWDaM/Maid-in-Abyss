@@ -101,7 +101,7 @@ bool LandMaid::Update(float dt)
 	position.x += speed.x;
 	position.y += speed.y;
 	PositionCollider();
-	Current_Animation->speed = animationSpeed*dt;
+	//Current_Animation->speed = animationSpeed*dt;
 
 
 	return true;
@@ -149,7 +149,7 @@ void LandMaid::LoadPushbacks()
 	idle.PushBack({ 291,575,50,65 });
 	idle.PushBack({ 362,575,50,65 });
 	idle.loop = true;
-	idle.speed = 0.3;
+	idle.speed = 9.0f;
 
 	moving.PushBack({ 219,873,65,65 });
 	moving.PushBack({ 291,873,65,65 });
@@ -158,7 +158,7 @@ void LandMaid::LoadPushbacks()
 	moving.PushBack({ 507,873,65,65 });
 	moving.PushBack({ 578,873,65,65 });
 	moving.loop = true;
-	moving.speed = 0.3;
+	moving.speed = 9.0f;
 }
 
 

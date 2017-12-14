@@ -11,7 +11,7 @@ public:
 	~Scrollbar();
 
 	bool PreUpdate();
-	bool Draw();
+	bool Draw(float dt);
 private:
 public:
 	SDL_Rect scroller_image;

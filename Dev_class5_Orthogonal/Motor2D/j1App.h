@@ -103,6 +103,7 @@ public:
 	j1Fonts*				font;
 	j1Gui*					gui;
 	bool fpsCapON = true;
+	p2SString			load_game;
 
 private:
 
@@ -115,7 +116,7 @@ private:
 
 	mutable bool		want_to_save = false;
 	bool				want_to_load = false;
-	p2SString			load_game;
+
 	mutable p2SString	save_game;
 
 	j1PerfTimer			ptimer;

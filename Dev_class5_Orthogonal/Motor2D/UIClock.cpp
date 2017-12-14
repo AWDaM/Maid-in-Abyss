@@ -24,12 +24,12 @@ UIClock::~UIClock()
 {
 }
 
-bool UIClock::Draw()
+bool UIClock::Draw(float dt)
 {
 	int x = position.x;
 	int y = position.y;
 	iPoint tmp = App->render->ScreenToWorld(x, y);
-	return App->render->Blit(image, tmp.x,tmp.y ,&current->GetCurrentFrame());
+	return App->render->Blit(image, tmp.x,tmp.y ,&current->GetCurrentFrame(dt));
 }
 
 bool UIClock::HandleAnimation(int newstate)

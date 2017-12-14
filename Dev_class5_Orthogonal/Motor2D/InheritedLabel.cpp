@@ -29,9 +29,9 @@ bool InheritedLabel::PostUpdate()
 	return true;
 }
 
-bool InheritedLabel::Draw()
+bool InheritedLabel::Draw(float dt)
 {
-	LabelDraw();
+	LabelDraw(dt);
 	return true;
 }
 

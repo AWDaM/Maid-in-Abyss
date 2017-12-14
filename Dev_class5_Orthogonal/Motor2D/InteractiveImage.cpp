@@ -34,10 +34,10 @@ bool InteractiveImage::PostUpdate()
 	return true;
 }
 
-bool InteractiveImage::Draw()
+bool InteractiveImage::Draw(float dt)
 {
-	InteractiveDraw();
-	ImageDraw(*current);
+	InteractiveDraw(dt);
+	ImageDraw(*current,dt);
 	return true;
 }
 

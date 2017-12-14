@@ -78,7 +78,7 @@ bool j1IntroScene::Update(float dt)
 		App->sceneswitch->SwitchScene(App->scene,this);
 	}
 
-	App->gui->Draw();
+	App->gui->Draw(dt);
 
 	//App->render->Blit(background, 0, 0);
 

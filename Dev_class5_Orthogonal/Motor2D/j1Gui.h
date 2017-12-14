@@ -84,7 +84,7 @@ public:
 	// Called after all Updates
 	bool PostUpdate();
 
-	bool Draw();
+	bool Draw(float dt);
 
 	// Called before quitting
 	bool CleanUp();
@@ -133,6 +133,7 @@ public:
 
 	void AddScore(int score);
 
+	void CheckSavegame();
 	SDL_Texture* GetAtlas() const;
 	p2List<UIElement*> elements;
 	p2List<Window*> window_list;

@@ -34,7 +34,7 @@ bool Label::LabelPostUpdate()
 	return true;
 }
 
-bool Label::LabelDraw()
+bool Label::LabelDraw(float dt)
 {
 	bool ret = true;
 	if (window != nullptr && !window->active)

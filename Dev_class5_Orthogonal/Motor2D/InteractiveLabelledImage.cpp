@@ -8,6 +8,7 @@ InteractiveLabelledImage::InteractiveLabelledImage(SDL_Rect & pos, iPoint posOff
 	UItype = UIType::INTERACTIVE_LABELLED_IMAGE;
 	this->image_section = image_section;
 	current = &this->image_section;
+	HandleAnimation(1);
 }
 
 
@@ -18,6 +19,9 @@ InteractiveLabelledImage::~InteractiveLabelledImage()
 bool InteractiveLabelledImage::PreUpdate()
 {
 	bool ret = true;
+
+	if (Unavalible)
+		current = &inactive;
 	ret = InteractivePreUpdate();
 
 	if(ret)
@@ -40,11 +44,11 @@ bool InteractiveLabelledImage::PostUpdate()
 	return true;
 }
 
-bool InteractiveLabelledImage::Draw()
+bool InteractiveLabelledImage::Draw(float dt)
 {
-	InteractiveDraw();
-	ImageDraw(*current);
-	LabelDraw();
+	InteractiveDraw(dt);
+	ImageDraw(*current,dt);
+	LabelDraw(dt);
 	return true;
 }
 
@@ -58,22 +62,24 @@ bool InteractiveLabelledImage::CleanUp()
 
 bool InteractiveLabelledImage::HandleAnimation(int eventType)
 {
-	if (eventType == 4)
-	{
-		current = &hover;
-	}
-	else if (eventType == 5 && !SDL_RectEquals(current, &click))
-	{
-		current = &image_section;
-	}
-	else if (eventType == 0 || eventType == 2)
-	{
-		current = &click;
-	}
-	else if (eventType == 1 || eventType == 3)
-	{
-		current = &image_section;
-	}
+
+		if (eventType == 4)
+		{
+			current = &hover;
+		}
+		else if (eventType == 5 && !SDL_RectEquals(current, &click))
+		{
+			current = &image_section;
+		}
+		else if (eventType == 0 || eventType == 2)
+		{
+			current = &click;
+		}
+		else if (eventType == 1 || eventType == 3)
+		{
+			current = &image_section;
+		}
+	
 
 	return true;
 }

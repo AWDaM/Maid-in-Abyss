@@ -101,7 +101,7 @@ bool FlyingFurrball::Update(float dt)
 		FlipImage();
 		position.x += speed.x;
 		position.y += speed.y;
-		Current_Animation->speed = animationSpeed*dt;
+		//Current_Animation->speed = animationSpeed*dt;
 
 
 
@@ -148,12 +148,12 @@ void FlyingFurrball::LoadPushbacks()
 	idle.PushBack({ 796,575,53,53 });
 	idle.PushBack({ 860,575,53,53 });
 	idle.loop = true;
-	idle.speed = 0.3;
+	idle.speed = 9.0f;
 
 	moving.PushBack({ 732, 633,53,53});
 	moving.PushBack({ 796, 633,53,53 });
 	moving.loop = true;
-	moving.speed = 0.3;
+	moving.speed = 9.0f;
 }
 
 void FlyingFurrball::CleanUp()

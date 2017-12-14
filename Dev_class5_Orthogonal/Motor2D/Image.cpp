@@ -53,7 +53,7 @@ bool Image::ImagePostUpdate()
 	return true;
 }
 
-bool Image::ImageDraw(SDL_Rect &current)
+bool Image::ImageDraw(SDL_Rect &current, float dt)
 {
 	if (window && !window->active)
 		return true;
