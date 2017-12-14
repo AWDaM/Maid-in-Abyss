@@ -165,7 +165,7 @@ bool Player::Update(float dt)
 				}
 			}
 
-				speed.y += gravity/dt;
+				speed.y += gravity;
 			//if (speed.y > 0 && speed.y < 1 && grounded)
 			//	speed.y = 1;
 
