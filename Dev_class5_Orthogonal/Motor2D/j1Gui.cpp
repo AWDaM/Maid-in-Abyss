@@ -661,7 +661,6 @@ void j1Gui::CheckSavegame()
 			if (item->data->type == CONTINUE)
 			{
 				item->data->Unavalible = false;
-				item->data->HandleAnimation(1);
 				break;
 			}
 			item = item->next;
