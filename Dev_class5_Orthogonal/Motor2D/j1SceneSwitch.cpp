@@ -56,6 +56,10 @@ bool j1SceneSwitch::Update(float dt)
 				App->gui->Start();
 				to_enable->Enable();
 				switchtimer.Start();
+				if (App->sceneswitch->switchingFromSaveGame)
+				{
+					App->LoadGame();
+				}
 				current_step = fade_step::fade_from_black;
 			}
 		}break;

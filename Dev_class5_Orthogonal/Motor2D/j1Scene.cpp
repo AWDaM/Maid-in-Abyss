@@ -100,6 +100,7 @@ bool j1Scene::Start()
 
 	transcurredTime.Start();
 
+	
 	return true;
 
 }
