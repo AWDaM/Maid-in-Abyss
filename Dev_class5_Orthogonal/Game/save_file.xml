@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<musicVolumeModifier value="0.0999999866" />
+		<musicVolumeModifier value="0.699999988" />
 		<sfxVolumeModifier value="0.300000012" />
 	</audio>
 	<map />
@@ -12,45 +12,42 @@
 	<gui />
 	<introscene />
 	<scene>
-		<currentMap num="1" />
+		<currentMap num="0" />
 	</scene>
 	<sceneswitch />
 	<mapchange />
 	<entitycontroller>
 		<player>
-			<position x="240" y="1688" />
+			<position x="320" y="1880" />
 			<speed x="0" y="0" />
-			<collider width="32" height="63" x="251" y="1697" />
+			<collider width="32" height="63" x="331" y="1889" />
 			<grounded value="true" />
 			<dashing value="false" />
 			<currentDashtime value="0" />
 		</player>
 		<flyingfurrball>
-			<position x="3212" y="1730" />
+			<position x="1289" y="1389" />
 		</flyingfurrball>
 		<flyingfurrball>
-			<position x="3296" y="1150" />
+			<position x="1930" y="1766" />
 		</flyingfurrball>
 		<flyingfurrball>
-			<position x="4770" y="1384" />
+			<position x="2172" y="1228" />
 		</flyingfurrball>
 		<flyingfurrball>
-			<position x="4792" y="1012" />
+			<position x="3182" y="1650" />
+		</flyingfurrball>
+		<flyingfurrball>
+			<position x="3430" y="946" />
+		</flyingfurrball>
+		<flyingfurrball>
+			<position x="4314" y="396" />
 		</flyingfurrball>
 		<landmaid>
-			<position x="990" y="1599" />
+			<position x="1729" y="1695" />
 		</landmaid>
 		<landmaid>
-			<position x="1824" y="1599" />
-		</landmaid>
-		<landmaid>
-			<position x="2432" y="1119" />
-		</landmaid>
-		<landmaid>
-			<position x="3872" y="767" />
-		</landmaid>
-		<landmaid>
-			<position x="5248" y="735" />
+			<position x="3568" y="1919" />
 		</landmaid>
 	</entitycontroller>
 	<pathfinding />

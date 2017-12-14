@@ -183,7 +183,7 @@ XML but its value is an int so here's the list of types:
         </interactivelabelledimage>
 
           <interactivelabelledimage>
-            <pos x="200" y="200" w="261" h="64"/>
+            <pos x="100" y="200" w="261" h="64"/>
             <relativeposA x="0" y="0"/>
             <relativeposB x="20" y="15"/>
             <relativeposC x="0" y="0"/>

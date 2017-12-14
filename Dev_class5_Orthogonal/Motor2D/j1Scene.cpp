@@ -259,6 +259,11 @@ bool j1Scene::OnEvent(UIElement* element, int eventType)
 		pause = false;
 		App->sceneswitch->SwitchScene(App->introscene, App->scene);
 	}
+
+	if(eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == InteractiveType::SAVE_GAME)
+	{
+		App->SaveGame();
+	}
 	return ret;
 }
 

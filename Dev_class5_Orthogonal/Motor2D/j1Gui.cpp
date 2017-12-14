@@ -626,6 +626,9 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	case(7):
 		ret = EXIT_TO_MENU;
 		break;
+	case(8):
+		ret = SAVE_GAME;
+		break;
 	default:
 		ret = DEFAULT;
 	};
