@@ -10,7 +10,9 @@
 #include "j1Map.h"
 #include "InheritedLabel.h"
 #include "j1Scene.h"
+#include "j1IntroScene.h"
 #include "j1SceneChange.h"
+#include "j1Sceneswitch.h"
 #include "j1Pathfinding.h"
 #include "j1EntityController.h"
 #include "j1Gui.h"
@@ -202,7 +204,7 @@ bool j1Scene::PostUpdate()
 
 	if (to_end && !App->scenechange->IsChanging())
 	{
-		App->entitycontroller->ChangeMapEnemies();
+		App->entitycontroller->DeleteEnemies();
 		
 		if(currentMap < map_names.count() - 1)
 			ret = App->scenechange->ChangeMap(++currentMap, fade_time);
@@ -227,6 +229,7 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
+
 	LOG("Freeing scene");
 
 	return true;
@@ -247,6 +250,11 @@ bool j1Scene::OnEvent(UIElement* element, int eventType)
 	if (element->type == InteractiveType::CLOSE_WINDOW && eventType == EventTypes::LEFT_MOUSE_PRESSED)
 		pause = false, ClosePauseMenu();
 
+	if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == InteractiveType::EXIT_TO_MENU)
+	{
+		pause = false;
+		App->sceneswitch->SwitchScene(App->introscene, App->scene);
+	}
 	return ret;
 }
 
@@ -272,7 +280,7 @@ bool j1Scene::Save(pugi::xml_node& data) const
 bool j1Scene::Load_lvl(int time)
 {
 	App->map->SwitchMaps(map_names[time]);
-	App->entitycontroller->ChangeMapEnemies();
+	App->entitycontroller->DeleteEnemies();
 	App->entitycontroller->Restart();
 	App->scene->SpawnEnemies();
 	return true;

@@ -36,12 +36,13 @@ public:
 	bool Save(pugi::xml_node&) const;
 	bool Load(pugi::xml_node&);
 	bool Restart();
-	void ChangeMapEnemies();
+	void DeleteEnemies();
 	bool Draw();
 	bool DebugDraw();
 
 	Entity* AddEntity(Entity::entityType type, iPoint position);
 	bool DeleteEntity(Entity* entity);
+	void DeleteEntities();
 	void EnemyColliderCheck();
 	float TimeManager(float enemy_dt, float dt);
 private:

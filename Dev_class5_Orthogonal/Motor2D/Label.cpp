@@ -36,12 +36,17 @@ bool Label::LabelPostUpdate()
 
 bool Label::LabelDraw()
 {
+	bool ret = true;
 	if (window != nullptr && !window->active)
 		return true;
 
 	iPoint tmp = App->render->ScreenToWorld(position.x + Labelrelativepos.x, position.y + Labelrelativepos.y);
 	
-	return App->render->Blit(fontTexture, tmp.x, tmp.y);
+	if (!In_window)
+		ret = App->render->Blit(fontTexture, tmp.x, tmp.y);
+	else
+		ret = App->render->Blit(fontTexture, tmp.x + winElement->relativePosition.x, tmp.y + winElement->relativePosition.y);
+
 }
 
 

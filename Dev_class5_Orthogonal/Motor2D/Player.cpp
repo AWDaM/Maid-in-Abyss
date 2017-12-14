@@ -183,7 +183,6 @@ bool Player::Update(float dt)
 		float tmp = speed.y;
 		speed.x = (int)speed.x;
 		speed.y = (int)speed.y;
-		LOG("Before: %f,After: %f", tmp, speed.y);
 		NormalizeAnimationSpeed(dt);
 		ChangeAnimation();
 		PlayerMovement();
@@ -296,13 +295,8 @@ void Player::ChangeAnimation()
 
 void Player::PlayerMovement()
 {
-
 	position.x += speed.x;
-	position.y += speed.y;
-	if (speed.y != 0)
-		LOG("My speed.y: %f", speed.y);
-
-	
+	position.y += speed.y;	
 }
 
 void Player::Restart()
@@ -319,7 +313,6 @@ void Player::Restart()
 					speed.y = 0;
 					Current_Animation = &idle;
 				}
-	LOG("Ded");
 	isDying = false;
 	alive = true;
 

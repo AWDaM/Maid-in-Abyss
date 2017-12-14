@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "j1Render.h"
 #include "j1Textures.h"
+#include "p2log.h"
 
 
 Image::Image()

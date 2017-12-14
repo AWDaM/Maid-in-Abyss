@@ -2,6 +2,8 @@
 #include "j1Render.h"
 #include "j1App.h"
 #include "j1Gui.h"
+#include "j1Map.h"
+#include "j1EntityController.h"
 #include "j1Window.h"
 #include "SDL/include/SDL_render.h"
 
@@ -48,6 +50,9 @@ bool j1SceneSwitch::Update(float dt)
 			{
 				to_disable->Disable();
 				App->gui->CleanUp();
+				App->map->CleanUp();
+				App->entitycontroller->DeleteEntities();
+				App->gui->Start();
 				to_enable->Enable();
 				switchtimer.Start();
 				current_step = fade_step::fade_from_black;

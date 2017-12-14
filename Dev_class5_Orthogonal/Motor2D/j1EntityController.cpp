@@ -152,7 +152,7 @@ bool j1EntityController::Restart()
 	return ret;
 }
 
-void j1EntityController::ChangeMapEnemies()
+void j1EntityController::DeleteEnemies()
 {
 	p2List_item<Entity*>* tmp = Entities.end;
 	while (tmp != nullptr)
@@ -166,7 +166,19 @@ void j1EntityController::ChangeMapEnemies()
 		}
 		else
 			tmp = tmp->prev;
-		
+
+	}
+}
+
+void j1EntityController::DeleteEntities()
+{
+	p2List_item<Entity*>* tmp = Entities.end;
+	while (tmp != nullptr)
+	{
+	p2List_item<Entity*>* tmp2 = tmp;
+		RELEASE(tmp->data);
+		Entities.del(tmp2);
+		tmp = tmp->prev;
 	}
 
 }

@@ -585,10 +585,10 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	switch (type)
 	{
 	case(1):
-		 ret = QUIT;
+		ret = QUIT;
 		break;
 	case(2):
-		 ret = CONTINUE;
+		ret = CONTINUE;
 		break;
 	case(3):
 		ret = NEWGAME;
@@ -601,6 +601,9 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 		break;
 	case(6):
 		ret = CLOSE_WINDOW;
+		break;	
+	case(7):
+		ret = EXIT_TO_MENU;
 		break;
 	default:
 		ret = DEFAULT;

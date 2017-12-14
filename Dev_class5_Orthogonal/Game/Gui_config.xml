@@ -15,13 +15,14 @@ XML but its value is an int so here's the list of types:
 	      OPEN_SETTINGS   4
 	      OPEN_CREDITS    5
 	      CLOSE_WINDOW    6
+        BACK_TO_MENU    7
 
 -->
 <config>
   <introscene>
     
 
-        <alternate_image>
+    <alternate_image>
       <path string="gui/Kirisame.png"/>
       <position x="0" y="0" w="0" h="0"/>
       <relativePosition x="" y=""/>
@@ -162,6 +163,24 @@ XML but its value is an int so here's the list of types:
           <inactive x="0" y="0" w="0" h="0"/>
           <winRelativePos x="451" y="5"/>
         </interactiveimage>
+
+        <interactivelabelledimage>
+          <pos x="100" y="100" w="261" h="64"/>
+          <relativeposA x="0" y="0"/>
+          <relativeposB x="20" y="15"/>
+          <relativeposC x="0" y="0"/>
+          <winRelativePos x="100" y="200"/>
+          <imagesection x="0" y="304" w="261" h="64"/>
+          <fontpath path="fonts/Old School Adventures.ttf"/>
+          <color r="255" g="255" b="255" a="0"/>
+          <label string="Exit to Menu"/>
+          <type value="7"/>
+          <size value="20"/>
+          <draggable value="false"/>
+          <hover x="263" y="304" w="261" h="64"/>
+          <click x="526" y="304" w="261" h="64"/>
+          <inactive x="0" y="380" w="261" h="64"/>
+        </interactivelabelledimage>
       </elements>
     </window>
     <uiclock>

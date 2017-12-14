@@ -44,6 +44,7 @@ enum InteractiveType
 	OPEN_SETTINGS,
 	OPEN_CREDITS,
 	CLOSE_WINDOW,
+	EXIT_TO_MENU
 };
 // TODO 1: Create your structure of classes
 class UIElement;

@@ -103,13 +103,13 @@ bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 	if (eventType == EventTypes::PRESSED_ENTER)
 		ret = element->OnEvent();
 
-	if (eventType == 0 && element->type == QUIT)
+	if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == QUIT)
 	{
 		LOG("Quit button");
 		ret = false;
 	}
 
-	else if (eventType == 0 && element->type == NEWGAME)
+	else if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == NEWGAME)
 	{
 		App->sceneswitch->SwitchScene(App->scene, App->introscene);
 		LOG("New game");
