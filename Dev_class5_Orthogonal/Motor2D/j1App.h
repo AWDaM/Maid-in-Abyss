@@ -102,6 +102,7 @@ public:
 	j1PathFinding*		pathfinding;
 	j1Fonts*				font;
 	j1Gui*					gui;
+	bool fpsCapON = true;
 
 private:
 
@@ -128,6 +129,7 @@ private:
 	uint16_t			framerate;
 
 	float DeltaTime;
+
 };
 
 extern j1App* App; // No student is asking me about that ... odd :-S

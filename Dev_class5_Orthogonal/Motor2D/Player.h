@@ -104,6 +104,7 @@ private:
 	p2SString		landFX;
 	p2SString		dashFX;
 	p2SString		timestopFX;
+	bool gravityApplied = false;
 
 
 };

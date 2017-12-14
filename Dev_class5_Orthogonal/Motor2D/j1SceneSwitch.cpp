@@ -35,6 +35,7 @@ bool j1SceneSwitch::Start()
 
 bool j1SceneSwitch::Update(float dt)
 {
+	BROFILER_CATEGORY("SceneSwitchUpdate", Profiler::Color::AliceBlue);
 	bool ret = true;
 
 	if (current_step == fade_step::none)
