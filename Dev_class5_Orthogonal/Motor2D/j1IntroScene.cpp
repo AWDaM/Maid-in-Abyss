@@ -114,6 +114,12 @@ bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 		App->sceneswitch->SwitchScene(App->scene, App->introscene);
 		LOG("New game");
 	}
+
+	else if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == CONTINUE)
+	{
+		App->sceneswitch->SwitchScene(App->scene, App->introscene);
+		App->sceneswitch->switchingFromSaveGame = true;
+	}
 	return ret;
 }
 

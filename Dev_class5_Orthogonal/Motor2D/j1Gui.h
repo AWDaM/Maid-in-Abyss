@@ -145,6 +145,7 @@ public:
 	int scoreNumber = 0;
 	UIClock* clock = nullptr;
 
+
 private:
 
 	bool debug = false;

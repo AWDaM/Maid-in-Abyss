@@ -33,7 +33,7 @@ private:
 	} current_step = fade_step::none;
 
 public:
-
+	bool switchingFromSaveGame = false;
 private:
 
 	float fadetime = 3.0f;
@@ -41,6 +41,7 @@ private:
 	j1Module* to_enable = nullptr;
 	j1Module* to_disable = nullptr;
 	j1Timer switchtimer;
+
 };
 
 #endif
