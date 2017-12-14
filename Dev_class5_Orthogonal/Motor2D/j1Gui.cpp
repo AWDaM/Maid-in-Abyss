@@ -119,13 +119,21 @@ bool j1Gui::PostUpdate()
 		{
 			if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 			{
-				if (item->data->active && SDL_PointInRect(&currentMousepos, &item->data->position) && item->data->draggable || item->data->being_dragged)
+				if (!item->data->In_window && item->data->active && SDL_PointInRect(&currentMousepos, &item->data->position) && item->data->draggable || item->data->being_dragged)
 				{
 					item->data->MoveElement({ currentMousepos.x - mouseLastFrame.x, currentMousepos.y - mouseLastFrame.y });
 					item->data->being_dragged = true;
 				}
-				if (!ret)
-					break;
+				else if (item->data->In_window && item->data->draggable)
+				{
+					SDL_Rect tmp = { item->data->position.x + item->data->winElement->relativePosition.x,item->data->position.y + item->data->winElement->relativePosition.y,item->data->position.w,item->data->position.h };
+					if (SDL_PointInRect(&currentMousepos, &tmp) || item->data->being_dragged)
+					{
+						item->data->MoveElement({ currentMousepos.x - mouseLastFrame.x, currentMousepos.y - mouseLastFrame.y });
+						item->data->being_dragged = true;
+					}
+				}
+				
 			}
 			else
 				item->data->being_dragged = false;
@@ -146,8 +154,18 @@ bool j1Gui::Draw(float dt)
 				item->data->Draw(dt);
 
 			if (debug && item->data->active)
-				if(!item->data->In_window || item->data->window->active)
-					App->render->DrawQuad(item->data->position, 255, 0, 0, 80);
+				if (!item->data->In_window || item->data->window->active)
+				{
+					
+					if(!item->data->In_window)
+					App->render->DrawQuad(item->data->position, 255, 0, 0, 80,true,false);
+					else
+					{
+						SDL_Rect tmp = { item->data->position.x + item->data->winElement->relativePosition.x,item->data->position.y + item->data->winElement->relativePosition.y,item->data->position.w,item->data->position.h };
+						App->render->DrawQuad(tmp,255,0,0,80,true,false );
+			
+					}
+				}
 
 		}
 
