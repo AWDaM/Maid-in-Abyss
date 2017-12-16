@@ -6,6 +6,7 @@
 
 struct SDL_Texture;
 class Window;
+class LifeBar;
 
 enum ListOfMapNames
 {
@@ -52,6 +53,7 @@ public:
 
 
 public:
+	LifeBar* lifebar = nullptr;
 	Window* sceneMenu = nullptr;
 	SDL_Texture* debug_tex;
 	iPoint test;
@@ -60,6 +62,7 @@ public:
 	int currentMap;
 	int currentTime = 0;
 	int pastFrameTime = 0;
+	int playerLives = 4;
 	p2List<p2SString*> map_names;
 	float fade_time;
 	bool to_end;

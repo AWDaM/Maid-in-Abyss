@@ -16,6 +16,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityController.h"
 #include "j1Gui.h"
+#include "LifeBar.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -71,7 +72,6 @@ bool j1Scene::Start()
 	to_end = false;
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
 	App->audio->PlayMusic(App->map->data.musicFile.GetString());
-	LOG("Boi: %s", map_names.start->data->GetString());
 
 	int w, h;
 	uchar* data = NULL;
@@ -177,10 +177,7 @@ bool j1Scene::Update(float dt)
 	App->entitycontroller->Draw(dt);
 	App->gui->Draw(dt);
 
-	
 
-	//int x, y;
-	//App->input->GetMousePosition(x, y);
 	//iPoint p = App->render->ScreenToWorld(x, y);
 	//p = App->map->WorldToMap(p.x, p.y);
 	//p2SString title("%i %i", p.x, p.y);

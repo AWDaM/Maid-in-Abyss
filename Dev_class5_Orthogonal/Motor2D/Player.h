@@ -90,6 +90,7 @@ private:
 
 	iPoint jumpForce;
 	iPoint			dashingSpeed;
+	int lives;
 	int Dashtime;
 	float currentDashtime = 0;
 	Animation		idle;

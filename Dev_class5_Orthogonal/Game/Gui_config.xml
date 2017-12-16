@@ -150,6 +150,8 @@ XML but its value is an int so here's the list of types:
           <winRelativePos x="0" y="0"/>
           <active value="true"/>
         </image>
+        
+        
 
         <interactiveimage>
           <position x="100" y="100" w="14" h="14"/>
@@ -277,6 +279,18 @@ XML but its value is an int so here's the list of types:
       </labelledimage>
 
     </uiclock>
+    <image>
+      <position x="94" y="5" w="299" h="40"/>
+      <image_section x="547" y="853" w="299" h="40"/>
+      <draggable value="false"/>
+      <winRelativePos x="0" y="0"/>
+      <active value="true"/>
+
+      <lifebar value="true"/>
+      <threeLives x="547" y="899" w="299" h="40"/>
+      <twoLives x="547" y="947" w="299" h="40"/>
+      <lastLife x="547" y="995" w="299" h="40"/>
+    </image>
   </scene>
   
 </config>
