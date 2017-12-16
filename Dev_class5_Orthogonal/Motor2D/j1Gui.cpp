@@ -341,6 +341,16 @@ void j1Gui::Load_UIElements(pugi::xml_node node, j1Module* callback)
 		}
 	}
 
+	tmp = node.child("labelledimage");
+	if (tmp)
+	{
+		App->gui->Load_LabelledImage_fromXML(tmp);
+		while (tmp = tmp.next_sibling("interactivelabelledimage"))
+		{
+			App->gui->Load_LabelledImage_fromXML(tmp);
+		}
+	}
+
 	tmp = node.child("interactivelabelledimage");
 	if (tmp)
 	{
@@ -468,6 +478,20 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 		}
 	}
 
+	tmp = node.child("labelledimage");
+	if (tmp)
+	{
+		child = App->gui->Load_LabelledImage_fromXML(tmp);
+		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		child->In_window = true;
+		while (tmp = tmp.next_sibling("interactiveimage"))
+		{
+			child = App->gui->Load_LabelledImage_fromXML(tmp);
+			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+			child->In_window = true;
+		}
+	}
+
 	tmp = node.child("interactivelabelledimage");
 
 	if (tmp)
@@ -579,6 +603,27 @@ UIElement * j1Gui::Load_Scrollbar_fromXML(pugi::xml_node node)
 	SDL_Rect image_section = { node.child("imagesection").attribute("x").as_int(), node.child("imagesection").attribute("y").as_int(), node.child("imagesection").attribute("w").as_int(), node.child("imagesection").attribute("h").as_int() };
 	bool draggable = node.child("draggable").attribute("value").as_bool();
 	ret = AddScrollbar(scroller_image, moves_vertically, min, position, sliderrelativepos, image_section, draggable);
+	if (!node.child("active").attribute("value").as_bool(true))
+		ret->active = false;
+	return ret;
+}
+
+UIElement * j1Gui::Load_LabelledImage_fromXML(pugi::xml_node node)
+{
+	LabelledImage* ret;
+	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
+	iPoint labeloffset = { node.child("labelrelativepos").attribute("x").as_int(),node.child("labelrelativepos").attribute("y").as_int() };
+	iPoint imageoffset = { node.child("imageoffset").attribute("x").as_int(),node.child("imageoffset").attribute("y").as_int() };
+	p2SString fontpath = node.child("fontpath").attribute("string").as_string();
+	SDL_Color color = { node.child("color").attribute("r").as_int(), node.child("color").attribute("g").as_int(), node.child("color").attribute("b").as_int(), node.child("color").attribute("a").as_int() };
+	p2SString label = node.child("label").attribute("string").as_string();
+	int size = node.child("size").attribute("value").as_int();
+	SDL_Rect imagesection = { node.child("imagesection").attribute("x").as_int(), node.child("imagesection").attribute("y").as_int(), node.child("imagesection").attribute("w").as_int(), node.child("imagesection").attribute("h").as_int() };
+	bool draggable = node.child("draggable").attribute("value").as_bool();
+	
+	ret = AddLabelledImage(position, labeloffset, imageoffset, fontpath, color, label, size, imagesection, draggable);
+	if (!node.child("active").attribute("value").as_bool(true))
+		ret->active = false;
 	return ret;
 }
 

@@ -121,6 +121,7 @@ public:
 	UIElement* Load_Label_fromXML(pugi::xml_node node);
 	UIElement* Load_InteractiveImage_fromXML(pugi::xml_node node, j1Module* callback);
 	UIElement* Load_Scrollbar_fromXML(pugi::xml_node node);
+	UIElement* Load_LabelledImage_fromXML(pugi::xml_node node);
 	Animation LoadPushbacks_fromXML(pugi::xml_node node);
 
 

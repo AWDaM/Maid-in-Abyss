@@ -263,7 +263,18 @@ XML but its value is an int so here's the list of types:
       <position x="0" y="0" w="128" h="128"/>
       <draggable value="false"/>
 
-
+      <labelledimage>
+        <position x="" y="" w="" h=""/>
+        <labelrelativepos x="" y=""/>
+        <imageoffset x="" y=""/>
+        <fontpath sting=""/>
+        <color x="" y="" w="" h=""/>
+        <label sting=""/>
+        <size value=""/>
+        <imagesetcion x="" y="" w="" h=""/>
+        <draggable value=""/>
+        
+      </labelledimage>
 
     </uiclock>
   </scene>
