@@ -46,8 +46,8 @@ F11: Disable/Enable 30fps cap
 
 -Lorién Portella López
 
-### Github
--https://github.com/AWDaM/Maid-in-Abyss
+### Webpage
+-https://awdam.github.io/Maid-in-Abyss/
 
 ### Disclosure
 
