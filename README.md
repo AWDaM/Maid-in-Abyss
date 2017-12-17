@@ -17,7 +17,7 @@ In the Intro screen, the player can start a new gameload a saved game(if possibl
 and the license. While playing, the player will have a clock that indicates the state of the ZA WARUDO hability
 a lifebar with the remaining lifes, and counters for the time the pickups(we have also added those) and the score.
 
-The score is calculated by the number of pickupsx100 - current timex10 - lost livesx50.
+The score is calculated by the number of pickups*100 - current time*10 - lost lives*50.
 
 ### Controls
 -Movement with arrow keys.
@@ -26,7 +26,7 @@ The score is calculated by the number of pickupsx100 - current timex10 - lost li
 
 -Dash with X (now can be canelled, yay :D)
 
--ZA WARUDO(Time Stopping) with Z. The player stops time during a certain amount of time. This ability has a 10 second cooldown.
+-ZA WARUDO(Time Stopping) with Z. The player stops time during a certain amount of time. This ability is available every 10 seconds.
 
 -Pause menu wit ESC
 
@@ -42,7 +42,7 @@ F10: Activate/Deactivate God Mode (infinite jump, cannot die when colliding with
 F11: Disable/Enable 30fps cap
 
 ### Innovation
-For the second delivery, related to pathfinding and normalization of the movement we added a (_),
+For the second delivery, related to pathfinding and normalization of the movement we added a game mechanic,
 making it possible to stop time for the enemies during a few seconds and limiting that power to once every 10 seconds.
 
 For the third delivery, we added the entire loading of UI elements in an xml file, from which one can create individual elements
