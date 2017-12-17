@@ -30,16 +30,16 @@ Main core subsystems
 
 ### Previous assignments:
 
--Collision detection using SDL_Rect
--Physics based on a "raycast" of the entity speed
--Entity system with a parent class and childs, with the player as an entity
--Map, entity locations and types from a .tmx file.
+- Collision detection using SDL_Rect
+- Physics based on a "raycast" of the entity speed
+- Entity system with a parent class and childs, with the player as an entity
+- Map, entity locations and types from a .tmx file.
 
 ### This assignment:
 
--Class system for all the GUI elements, using multiparenting
--Focus feature with tab as a method to iterate all the interactive
--All the UIElements are added from gui_config.xml, more elements can be added by just changing values of the .xml (innovation)
+- Class system for all the GUI elements, using multiparenting
+- Focus feature with tab as a method to iterate all the interactive
+- All the UIElements are added from gui_config.xml, more elements can be added by just changing values of the .xml (innovation)
 
 ```markdown
 Syntax highlighted code block
