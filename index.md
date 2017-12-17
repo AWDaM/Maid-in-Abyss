@@ -48,4 +48,16 @@ Links
 - [Repository](https://github.com/AWDaM/Maid-in-Abyss)
 - [Last Release](https://github.com/AWDaM/Maid-in-Abyss/releases/tag/v3.0)
 
+Intallation
+-
+
+To play the game, just decompress the release zip, and execute MaidInAbyss.exe
+
+Controls
+-
+
+-Movement with arrow keys.
+-Jump with spacebar.
+-Dash with X 
+-ZA WARUDO(Time Stopping) with Z. The player stops time during a certain amount of time. This ability has a 10 second cooldown.
 
