@@ -294,6 +294,10 @@ void j1EntityController::EnemyColliderCheck()
 				App->gui->AddScore(tmp->data->points);
 				p2SString temp("Score: %i", App->gui->scoreNumber);
 				App->gui->currentScore->ChangeText(&temp);
+
+				App->gui->coins++;
+				p2SString temo("Coins: %i", App->gui->coins);
+				App->gui->currentCoins->ChangeText(&temo);
 				DeleteEntity(tmp->data);
 			}
 			//add the score and make the pickup disapear

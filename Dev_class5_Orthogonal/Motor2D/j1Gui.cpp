@@ -99,7 +99,7 @@ bool j1Gui::PostUpdate()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		debug = !debug;
 
 	for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
@@ -314,7 +314,7 @@ Window * j1Gui::AddWindow(SDL_Rect &windowrect, bool draggable)
 
 void j1Gui::Load_UIElements(pugi::xml_node node, j1Module* callback)
 {
-
+	BROFILER_CATEGORY("UI", Profiler::Color::Chocolate);
 	pugi::xml_node tmp;
 
 	tmp = node.child("alternate_image");
@@ -353,7 +353,7 @@ void j1Gui::Load_UIElements(pugi::xml_node node, j1Module* callback)
 	if (tmp)
 	{
 		App->gui->Load_LabelledImage_fromXML(tmp);
-		while (tmp = tmp.next_sibling("interactivelabelledimage"))
+		while (tmp = tmp.next_sibling("labelledimage"))
 		{
 			App->gui->Load_LabelledImage_fromXML(tmp);
 		}
@@ -393,6 +393,8 @@ void j1Gui::Load_UIElements(pugi::xml_node node, j1Module* callback)
 
 void j1Gui::Load_SceneWindows(pugi::xml_node node,j1Module* callback)
 {
+	BROFILER_CATEGORY("Windows", Profiler::Color::DarkSlateBlue);
+
 	pugi::xml_node tmp = node.child("window");
 
 	if (tmp)
@@ -682,10 +684,13 @@ UIElement * j1Gui::Load_LabelledImage_fromXML(pugi::xml_node node)
 	if (!node.child("active").attribute("value").as_bool(true))
 		ret->active = false;
 
+	if (node.child("isCoinLabel").attribute("value").as_bool(false))
+		currentCoins = ret;
+	
 	if (node.child("isScoreLabel").attribute("value").as_bool(false))
 		currentScore = ret;
 
-	else if (node.child("isTimeLabel").attribute("value").as_bool(false))
+	if (node.child("isTimeLabel").attribute("value").as_bool(false))
 		timeLabel = ret;
 
 	return ret;
