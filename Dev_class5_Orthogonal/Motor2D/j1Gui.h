@@ -98,6 +98,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Save(pugi::xml_node&) const;
+	bool  Load(pugi::xml_node&);
+
 	// TODO 2: Create the factory methods
 
 	InheritedInteractive* AddInteractive(SDL_Rect& position, iPoint positionOffset, SDL_Rect& size,	 InteractiveType type, j1Module* callback, bool draggable = false);

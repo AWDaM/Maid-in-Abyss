@@ -203,8 +203,10 @@ bool j1Audio::PlayFx(unsigned int id, int repeat, uint volume)
 }
 void j1Audio::ModifyMusicVolume(int value)
 {
-	value = value / 100;
-	musicVolumeModifier = value;
+	//LOG("%i", value);
+	
+	musicVolumeModifier = (float)value/100;
+	LOG("%i", musicVolumeModifier);
 	if (musicVolumeModifier < 0)musicVolumeModifier = 0;
 	if (musicVolumeModifier > 1)musicVolumeModifier = 1;
 
@@ -213,7 +215,7 @@ void j1Audio::ModifyMusicVolume(int value)
 void j1Audio::ModifySFXVolume(int value)
 {
 	value = value / 100;
-	sfxVolumeModifier = value;
+	sfxVolumeModifier = (float)value / 100;
 	if (sfxVolumeModifier < 0)sfxVolumeModifier = 0;
 	if (sfxVolumeModifier > 1)sfxVolumeModifier = 1;
 }

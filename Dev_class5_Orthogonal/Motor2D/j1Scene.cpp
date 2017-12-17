@@ -17,6 +17,7 @@
 #include "j1EntityController.h"
 #include "j1Gui.h"
 #include "LifeBar.h"
+#include "UIClock.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -95,7 +96,7 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-	if (transcurredTime.ReadSec() >= 1 && !pause && !App->sceneswitch->IsSwitching() && !App->scenechange->IsChanging())
+	if (transcurredTime.ReadSec() >= 1 && !pause && !App->sceneswitch->IsSwitching() && !App->scenechange->IsChanging()&&!App->gui->clock->TimeIsModified())
 	{
 		currentTime += 1;
 		p2SString temp("Time: %i", currentTime);
@@ -217,7 +218,7 @@ bool j1Scene::OnEvent(UIElement* element, int eventType)
 
 bool j1Scene::Load(pugi::xml_node& data)
 {
-
+	currentTime = data.child("time").attribute("value").as_int();
 	if (currentMap != data.child("currentMap").attribute("num").as_int())
 	{
 		LOG("Calling switch maps");
@@ -231,6 +232,7 @@ bool j1Scene::Load(pugi::xml_node& data)
 bool j1Scene::Save(pugi::xml_node& data) const
 {
 	data.append_child("currentMap").append_attribute("num") = currentMap;
+	data.append_child("time").append_attribute("value") = currentTime;
 	return true;
 }
 

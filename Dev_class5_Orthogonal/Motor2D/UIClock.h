@@ -17,8 +17,11 @@ public:
 	void ResetAnimations();
 	bool CleanUp();
 
+	bool TimeIsModified();
+
 private:
 public:
+	timeState current_time;
 	SDL_Texture* image;
 	Animation * current;
 	Animation default;

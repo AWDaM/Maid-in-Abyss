@@ -189,6 +189,18 @@ bool j1Gui::CleanUp()
 	return true;
 }
 
+bool j1Gui::Save(pugi::xml_node &config) const
+{
+	config.append_child("score").append_attribute("value") = currentScore;
+	return false;
+}
+
+bool j1Gui::Load(pugi::xml_node &config)
+{
+	scoreNumber = config.child("score").attribute("value").as_int();
+	return false;
+}
+
 
 
 InheritedImage* j1Gui::AddImage(SDL_Rect& position, iPoint positionOffset, SDL_Rect& section, bool draggable)
