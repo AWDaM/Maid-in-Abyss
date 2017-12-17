@@ -2,12 +2,15 @@
 
 ## made by Jaume Surís and Lorién Portella
  [editor on GitHub](https://github.com/AWDaM/GameDevelopmentAssignments/edit/master/index.md) 
-  The game is a  2D platformer where the player needs to reach the end of the levels by jumping, dashing, dodging enemies and... Stoping   time!
-  This game has been made as the project requested in the game development subject, of the second year of university at the Videogame design and development of the UPC.
+ 
+The game is a  2D platformer where the player needs to reach the end of the levels by jumping, dashing, dodging enemies and... Stoping  time!
+
+This game has been made as the project requested in the game development subject, of the second year of university at the Videogame design and development of the UPC.
 
 
-### Markdown
+### Team and individual work
 
+![](https://imgur.com/NRWagrE.jpg)
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
 ```markdown
