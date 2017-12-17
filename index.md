@@ -46,12 +46,7 @@ Gameplay
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/2Fwj46VqYnA" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
-Links
--
 
-- [The team](https://github.com/AWDaM)
-- [Repository](https://github.com/AWDaM/Maid-in-Abyss)
-- [Last Release](https://github.com/AWDaM/Maid-in-Abyss/releases/tag/v3.0)
 
 Intallation
 -
@@ -65,4 +60,11 @@ Controls
 - Jump with spacebar.
 - Dash with X 
 - ZA WARUDO(Time Stopping) with Z. The player stops time during a certain amount of time. This ability has a 10 second cooldown.
+
+Links
+-
+
+- [The team](https://github.com/AWDaM)
+- [Repository](https://github.com/AWDaM/Maid-in-Abyss)
+- [Last Release](https://github.com/AWDaM/Maid-in-Abyss/releases/tag/v3.0)
 
