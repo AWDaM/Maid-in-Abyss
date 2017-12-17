@@ -10,6 +10,15 @@ We have improved the game by adding framerate cap and selection(at 30 by default
 and an entity system which can be seen at the pdf inside the release. We also have added enemies that can pathfind to the player,
 and the hability to stop time.
 
+3.0 Update
+
+We have added an Intro screen before the game and UI. The UI System can be checked in the pdf file inside the release
+In the Intro screen, the player can start a new gameload a saved game(if possible) change the volume or check the authors 
+and the license. While playing, the player will have a clock that indicates the state of the ZA WARUDO hability
+a lifebar with the remaining lifes, and counters for the time the pickups(we have also added those) and the score.
+
+The score is calculated by the number of pickupsx100 - current timex10 - lost livesx50.
+
 ### Controls
 -Movement with arrow keys.
 
@@ -19,22 +28,26 @@ and the hability to stop time.
 
 -ZA WARUDO(Time Stopping) with Z. The player stops time during a certain amount of time. This ability has a 10 second cooldown.
 
+-Pause menu wit ESC
+
 ### Debug Controls
 F1: Load the first level.
 F2: Restart the current level.
 F3: Load the second level.
 F5: Load the saved game.
 F6: Save the current game.
+F8: View UI Logic
 F9: View collider logic.
 F10: Activate/Deactivate God Mode (infinite jump, cannot die when colliding with enemies).
+F11: Disable/Enable 30fps cap
 
 ### Autors
 -Jaume Surís Valhondo
 
 -Lorién Portella López
 
-### Github
--https://github.com/AWDaM/GameDevelopmentAssignments
+### Webpage
+-https://awdam.github.io/Maid-in-Abyss/
 
 ### Disclosure
 
@@ -43,6 +56,9 @@ We do not own any of the sprites, tilesets, music or sfx presented in this game.
 -Sprites: Mystical Chain by LION HEART: http://shakna.jp/
 	Downloaded from http://spritedatabase.net/file/10214/Marisa_Kirisame
 
+-UI Sprites: Golden UI bigger than ever edition by Buch: https://opengameart.org/users/buch
+	Downloaded from https://opengameart.org/content/golden-ui-bigger-than-ever-edition
+	
 -Tilesets: Metroidvania Tileset v.2 by KIIRA https://opengameart.org/users/the-chayed-kiira
 	Downloaded from https://opengameart.org/content/metroidvania-tileset-v2
 

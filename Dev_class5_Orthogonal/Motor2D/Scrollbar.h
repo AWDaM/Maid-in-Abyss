@@ -11,6 +11,7 @@ public:
 	~Scrollbar();
 
 	bool PreUpdate();
+	bool CleanUp();
 	void ModifySmth();
 	bool Draw(float dt);
 	int get_1to100value();

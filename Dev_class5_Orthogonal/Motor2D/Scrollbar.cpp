@@ -98,6 +98,11 @@ bool Scrollbar::PreUpdate()
 	return true;
 }
 
+bool Scrollbar::CleanUp()
+{
+	return true;
+}
+
 void Scrollbar::ModifySmth()
 {
 	switch (type)
@@ -118,14 +123,16 @@ void Scrollbar::ModifySmth()
 bool Scrollbar::Draw(float dt)
 {
 	ImageDraw(image_section,dt);
+	iPoint tmp = App->render->ScreenToWorld(sliderPos.x , sliderPos.y);
+
 	if (!In_window)
 	{
-		App->render->Blit(image, sliderPos.x, sliderPos.y, &scroller_image);
+		App->render->Blit(image, tmp.x, tmp.y, &scroller_image);
 	}
 
 	if (In_window)
 	{
-		App->render->Blit(image, sliderPos.x+winElement->relativePosition.x, sliderPos.y+winElement->relativePosition.y, &scroller_image);
+		App->render->Blit(image, tmp.x+winElement->relativePosition.x, tmp.y+winElement->relativePosition.y, &scroller_image);
 	}
 	return true;
 }

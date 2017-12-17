@@ -133,11 +133,8 @@ bool j1Scene::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->SaveGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		App->map->debug = !App->map->debug;
-
-	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
-		slowing = true;
 
 	else if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		App->entitycontroller->godmode = !App->entitycontroller->godmode;
@@ -199,6 +196,11 @@ bool j1Scene::OnEvent(UIElement* element, int eventType)
 	bool ret = true;
 
 	element->HandleAnimation(eventType);
+
+	if (eventType == EventTypes::LEFT_MOUSE_PRESSED)
+	{
+		App->audio->PlayFx(1);
+	}
 
 	if (eventType == EventTypes::PRESSED_ENTER && element->type == InteractiveType::CLOSE_WINDOW)
 	{

@@ -200,15 +200,17 @@ bool j1Gui::Save(pugi::xml_node &config) const
 
 bool j1Gui::Load(pugi::xml_node &config)
 {
-	scoreNumber = config.child("score").attribute("value").as_int();
-	App->gui->scoreNumber -= 10;
-	p2SString temp("Score: %i", App->gui->scoreNumber);
-	App->gui->currentScore->ChangeText(&temp);
+	if (App->scene->active)
+	{
+		scoreNumber = config.child("score").attribute("value").as_int();
+		App->gui->scoreNumber -= 10;
+		p2SString temp("Score: %i", App->gui->scoreNumber);
+		App->gui->currentScore->ChangeText(&temp);
 
-	p2SString temo("Coins: %i", App->gui->coins);
-	App->gui->currentCoins->ChangeText(&temo);
-	coins = config.child("coins").attribute("value").as_int();
-
+		p2SString temo("Coins: %i", App->gui->coins);
+		App->gui->currentCoins->ChangeText(&temo);
+		coins = config.child("coins").attribute("value").as_int();
+	}
 	return true;
 }
 
@@ -476,6 +478,8 @@ Window* j1Gui::Load_Window_fromXML(pugi::xml_node node, j1Module* callback)
 		App->scene->sceneMenu = added;
 	else if (node.child("settings").attribute("value").as_bool(false))
 		App->introscene->settings = added;
+	else if (node.child("credits").attribute("value").as_bool(false))
+		App->introscene->credits = added;
 
 	return added;
 }

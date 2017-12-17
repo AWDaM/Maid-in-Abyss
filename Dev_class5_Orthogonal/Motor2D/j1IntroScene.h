@@ -36,6 +36,7 @@ public:
 public:
 	SDL_Texture* background = nullptr;
 	Window* settings = nullptr;
+	Window* credits = nullptr;
 };
 
 #endif

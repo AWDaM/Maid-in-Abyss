@@ -8,6 +8,10 @@
 class UIElement
 {
 public:
+	UIElement();
+	UIElement(SDL_Rect & position, bool draggable = false);
+	~UIElement();
+
 	virtual bool PreUpdate() { return true; }
 	virtual bool Update(float dt) { return true; }
 	virtual bool PostUpdate() { return true; }
@@ -20,9 +24,7 @@ public:
 
 	void MoveElement(iPoint difference);
 
-	UIElement();
-	UIElement(SDL_Rect & position, bool draggable = false);
-	~UIElement();
+
 
 public:
 	UIType UItype = NO_TYPE;

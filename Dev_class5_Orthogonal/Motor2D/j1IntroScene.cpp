@@ -86,11 +86,16 @@ bool j1IntroScene::OnEvent(UIElement* element, int eventType)
 	bool ret = true;
 	element->HandleAnimation(eventType);
 
-	if (eventType == EventTypes::MOUSE_HOVER_IN)
+	if (eventType == EventTypes::LEFT_MOUSE_PRESSED)
 	{
 		App->audio->PlayFx(1);
 	}
 
+	if (element->type == InteractiveType::CLOSE_WINDOW && eventType == EventTypes::LEFT_MOUSE_PRESSED)
+	{
+		settings->active = false;
+		credits->active = false;
+	}
 	if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == QUIT)
 	{
 		LOG("Quit button");
@@ -110,8 +115,9 @@ bool j1IntroScene::OnEvent(UIElement* element, int eventType)
 	}
 	else if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == OPEN_SETTINGS)
 		settings->active = true;
-	else if (element->type == InteractiveType::CLOSE_WINDOW && eventType == EventTypes::LEFT_MOUSE_PRESSED)
-		settings->active = false;
+	else if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == OPEN_CREDITS)
+		credits->active = true;
+
 
 	if (eventType == EventTypes::PRESSED_ENTER)
 		ret = element->OnEvent();
