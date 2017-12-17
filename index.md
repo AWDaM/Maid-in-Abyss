@@ -41,6 +41,11 @@ Main core subsystems
 - Focus feature with tab as a method to iterate all the interactive
 - All the UIElements are added from gui_config.xml, more elements can be added by just changing values of the .xml (innovation)
 
+Gameplay
+-
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2Fwj46VqYnA" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
 Links
 -
 
