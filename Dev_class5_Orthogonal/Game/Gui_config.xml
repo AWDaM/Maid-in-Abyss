@@ -121,17 +121,108 @@ XML but its value is an int so here's the list of types:
       <inactive x="0" y="380" w="261" h="64"/>
     </interactivelabelledimage>
 
-    <scrollbar>
+    <!--<scrollbar>
       <scrollerimage x="508" y="859" w="23" h="28"/>
       <movesvertically value="true"/>
       <min value="231"/>
       <position x="10" y="10" w="1" h="1"/>
       <sliderrelativepos x="0" y="23"/>
       <imagesection x="508" y="888" w="24" h="277"/>
+      <type value=""/>
       <draggable value="false"/>
-    </scrollbar>
+    </scrollbar>-->
 
- 
+    <window>
+      <collider x="100" y="100" w="476" h="469"/>
+      <draggable value="false"/>
+      <active value="false"/>
+      <settings value="true"/>
+      <elements>
+        
+        <image>
+          <position x="100" y="100" w="476" h="469"/>
+          <image_section x="0" y="1312" w="476" h="469"/>
+          <draggable value="false"/>
+          <winRelativePos x="0" y="0"/>
+          <active value="true"/>
+        </image>
+
+        <label>
+          <position x="276" y="116" w="207" h="45"/>
+          <relativePosition x="0" y="0"/>
+          <fontpath path="fonts/Old School Adventures.ttf"/>
+          <color r="255" g="255" b="255" a="0"/>
+          <label value="Settings"/>
+          <size value="18"/>
+          <draggable value="false"/>
+          <winRelativePos x="0" y="0"/>
+        </label>
+        
+          <labelledimage>
+          <position x="345" y="198" w="207" h="45"/>
+          <labelrelativepos x="33" y="9"/>
+          <imageoffset x="0" y="0"/>
+          <fontpath string="fonts/Old School Adventures.ttf"/>
+          <color r="255" g="255" b="255" a="0"/>
+          <label string="Music Volume"/>
+          <size value="16"/>
+          <imagesection x="808" y="0" w="207" h="45"/>
+          <draggable value="false"/>
+          <winRelativePos x="0" y="0"/>
+        </labelledimage>
+        
+        <labelledimage>
+          <position x="121" y="198" w="207" h="45"/>
+          <labelrelativepos x="33" y="9"/>
+          <imageoffset x="0" y="0"/>
+          <fontpath string="fonts/Old School Adventures.ttf"/>
+          <color r="255" g="255" b="255" a="0"/>
+          <label string="SFX Volume"/>
+          <size value="16"/>
+          <imagesection x="808" y="0" w="207" h="45"/>
+          <draggable value="false"/>
+          <winRelativePos x="0" y="0"/>
+        </labelledimage>
+
+
+        <scrollbar>
+          <scrollerimage x="508" y="859" w="23" h="28"/>
+          <movesvertically value="true"/>
+          <min value="231"/>
+          <position x="430" y="256" w="24" h="277"/>
+          <sliderrelativepos x="0" y="23"/>
+          <imagesection x="508" y="888" w="24" h="277"/>
+          <type value="1"/>
+          <draggable value="false"/>
+          <winRelativePos x="0" y="0"/>
+        </scrollbar>
+
+        <scrollbar>
+          <scrollerimage x="508" y="859" w="23" h="28"/>
+          <movesvertically value="true"/>
+          <min value="231"/>
+          <position x="209" y="251" w="24" h="277"/>
+          <sliderrelativepos x="0" y="23"/>
+          <imagesection x="508" y="888" w="24" h="277"/>
+          <type value="2"/>
+          <draggable value="false"/>
+          <winRelativePos x="0" y="0"/>
+        </scrollbar>
+
+        <interactiveimage>
+          <position x="100" y="100" w="14" h="14"/>
+          <relativeposA x="0" y="0"/>
+          <relativeposB x="0" y="0"/>
+          <imagesection x="793" y="0" w="14" h="14"/>
+          <type value="6"/>
+          <draggable value="false"/>
+          <hover x="793" y="16" w="14" h="14"/>
+          <click x="793" y="32" w="14" h="14"/>
+          <inactive x="0" y="0" w="0" h="0"/>
+          <winRelativePos x="451" y="1"/>
+        </interactiveimage>
+      </elements>
+    </window>
 
  
   </introscene>

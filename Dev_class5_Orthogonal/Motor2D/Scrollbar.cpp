@@ -1,25 +1,27 @@
 #include "Scrollbar.h"
 #include "j1Input.h"
 #include "j1Render.h"
-
+#include "j1Audio.h"
+#include "p2Log.h"
+#include "Window.h"
 
 Scrollbar::Scrollbar()
 {
 }
 
-Scrollbar::Scrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min, SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section, bool draggable) : Image(pos,{0,0},image_section)
+Scrollbar::Scrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min, SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section, ScrollbarType type, bool draggable) : Image(pos,{0,0},image_section),UIElement(pos,draggable)
 {
 	this->moves_vertically = moves_vertically;
-
+	this->type = type;
 	if (moves_vertically)
 	{
-		this->min = Sliderrelativepos.y + min - scroller_image.h;
-		max = Sliderrelativepos.y;
+		this->min =pos.y+ Sliderrelativepos.y + min - scroller_image.h;
+		max =pos.y+ Sliderrelativepos.y;
 	}
 	else
 	{
-		this->min = Sliderrelativepos.x + min - scroller_image.w;
-		max = Sliderrelativepos.x;
+		this->min =pos.x + Sliderrelativepos.x + min - scroller_image.w;
+		max =pos.x+ Sliderrelativepos.x;
 	}
 
 	sliderPos.x = pos.x + Sliderrelativepos.x;
@@ -58,9 +60,9 @@ bool Scrollbar::PreUpdate()
 					if (sliderPos.y < max)
 						sliderPos.y = max;
 					collider.y += movement;
-					if (collider.y < min)
+					if (collider.y > min)
 						collider.y = min;
-					if (collider.y > max)
+					if (collider.y < max)
 						collider.y = max;
 
 			}
@@ -75,14 +77,15 @@ bool Scrollbar::PreUpdate()
 					if (sliderPos.x < max)
 						sliderPos.x = max;
 					collider.x += movement;
-					if (collider.x < min)
+					if (collider.x > min)
 						collider.x = min;
-					if (collider.x > max)
+					if (collider.x < max)
 						collider.x = max;
 				
 			}
 
 			beingSlided = true;
+			ModifySmth();
 			}
 		}
 	else
@@ -93,9 +96,50 @@ bool Scrollbar::PreUpdate()
 	return true;
 }
 
+void Scrollbar::ModifySmth()
+{
+	switch (type)
+	{
+	case SCROLLBAR_DEFAULT:
+		break;
+	case MUSICVOLUME:
+		App->audio->ModifyMusicVolume(get_1to100value());
+		break;
+	case SFXVOLUME:
+		App->audio->ModifySFXVolume(get_1to100value());
+		break;
+	default:
+		break;
+	}
+}
+
 bool Scrollbar::Draw(float dt)
 {
 	ImageDraw(image_section,dt);
-	App->render->Blit(image, sliderPos.x, sliderPos.y, &scroller_image);
+	if (!In_window)
+	{
+		App->render->Blit(image, sliderPos.x, sliderPos.y, &scroller_image);
+	}
+
+	if (In_window)
+	{
+		App->render->Blit(image, sliderPos.x+winElement->relativePosition.x, sliderPos.y+winElement->relativePosition.y, &scroller_image);
+	}
 	return true;
+}
+
+int Scrollbar::get_1to100value()
+{
+	int _100 = max - min;
+	int _1 = _100 / 100;
+	int current;
+	if (moves_vertically)
+	{
+		current = sliderPos.y - min;
+	}
+	else
+		current = sliderPos.x - min;
+
+	int ret = current / _1;
+	return ret;
 }

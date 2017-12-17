@@ -226,6 +226,7 @@ bool Player::PostUpdate()
 	if (!alive)
 	{
 		App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);
+		LOG("CHANGING");
 	}
 
 	PositionCameraOnPlayer();

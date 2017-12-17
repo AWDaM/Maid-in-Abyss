@@ -141,18 +141,6 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		App->map->debug = !App->map->debug;
 
-	else if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_DOWN)
-		App->audio->LowerMusicVolume();
-
-	else if (App->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
-		App->audio->RaiseMusicVolume();
-
-	else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
-		App->audio->LowerSFXVolume();
-
-	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->audio->RaiseSFXVolume();
-
 	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 		slowing = true;
 
@@ -164,40 +152,13 @@ bool j1Scene::Update(float dt)
 
 
 
-	//else if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
-		//App->pathfinding->CreatePath({test.x + 20, test.y + 5}, { test.x, test.y });
-
-	//if (App->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN && !App->scenechange->IsFading())
-		//App->scenechange->ChangeScene(map_names[currentMap], 1.0f);
-
-	//if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN && !App->scenechange->IsFading())
-		//App->scenechange->ChangeScene(map_names[OuterWorld], 1.0f);
-
 	App->map->Draw();
 	App->entitycontroller->Draw(dt);
 	App->gui->Draw(dt);
 
 	
 
-	//int x, y;
-	//App->input->GetMousePosition(x, y);
-	//iPoint p = App->render->ScreenToWorld(x, y);
-	//p = App->map->WorldToMap(p.x, p.y);
-	//p2SString title("%i %i", p.x, p.y);
-
-	//p = App->map->MapToWorld(p.x, p.y);
-
-	//App->render->Blit(debug_tex, p.x, p.y);
-
-	//const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-
-	//for (uint i = 0; i < path->Count(); ++i)
-	//{
-	//	iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-	//	App->render->Blit(debug_tex, pos.x, pos.y, 0, SDL_FLIP_NONE, 0);
-	//}
-
-	//App->win->SetTitle(title.GetString());
+	
 	return true;
 }
 

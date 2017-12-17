@@ -7,11 +7,13 @@ class Scrollbar : public Image
 {
 public:
 	Scrollbar();
-	Scrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min,SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section , bool draggable);
+	Scrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min,SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section ,ScrollbarType type, bool draggable);
 	~Scrollbar();
 
 	bool PreUpdate();
+	void ModifySmth();
 	bool Draw(float dt);
+	int get_1to100value();
 private:
 public:
 	SDL_Rect scroller_image;
@@ -24,7 +26,7 @@ public:
 	bool beingSlided = false;
 	iPoint sliderPos;
 private:
-
+	ScrollbarType type;
 };
 
 #endif

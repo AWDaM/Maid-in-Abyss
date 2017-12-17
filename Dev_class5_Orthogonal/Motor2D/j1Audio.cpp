@@ -201,27 +201,19 @@ bool j1Audio::PlayFx(unsigned int id, int repeat, uint volume)
 
 	return ret;
 }
-void j1Audio::LowerMusicVolume()
+void j1Audio::ModifyMusicVolume(int value)
 {
-	musicVolumeModifier -= 0.1f;
+	value = value / 100;
+	musicVolumeModifier = value;
 	if (musicVolumeModifier < 0)musicVolumeModifier = 0;
-
-	Mix_VolumeMusic(128 * musicVolumeModifier);
-}
-void j1Audio::LowerSFXVolume()
-{
-	sfxVolumeModifier -= 0.1f;
-	if (sfxVolumeModifier < 0)sfxVolumeModifier = 0;
-}
-void j1Audio::RaiseMusicVolume()
-{
-	musicVolumeModifier += 0.1f;
 	if (musicVolumeModifier > 1)musicVolumeModifier = 1;
 
 	Mix_VolumeMusic(128 * musicVolumeModifier);
 }
-void j1Audio::RaiseSFXVolume()
+void j1Audio::ModifySFXVolume(int value)
 {
-	sfxVolumeModifier += 0.1f;
+	value = value / 100;
+	sfxVolumeModifier = value;
+	if (sfxVolumeModifier < 0)sfxVolumeModifier = 0;
 	if (sfxVolumeModifier > 1)sfxVolumeModifier = 1;
 }

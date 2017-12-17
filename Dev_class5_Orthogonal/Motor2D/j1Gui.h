@@ -47,6 +47,13 @@ enum InteractiveType
 	EXIT_TO_MENU,
 	SAVE_GAME,
 };
+
+enum ScrollbarType
+{
+	SCROLLBAR_DEFAULT,
+	MUSICVOLUME,
+	SFXVOLUME,
+};
 // TODO 1: Create your structure of classes
 class UIElement;
 class Window;
@@ -101,7 +108,7 @@ public:
 	InteractiveLabelledImage* AddInteractiveLabelledImage(SDL_Rect& position, iPoint positionOffsetA, iPoint positionOffsetB, iPoint positionOffsetC, SDL_Rect& image_section, p2SString& fontPath, SDL_Color& textColor, p2SString& label, int size, InteractiveType type, j1Module* callback, bool draggable = false);
 	LabelledImage* AddLabelledImage(SDL_Rect& position, iPoint positionOffsetA, iPoint positionOffsetB, p2SString fontPath, SDL_Color textColor, p2SString label, int size, SDL_Rect image_section, bool draggable = false);
 	UIClock* AddUIClock(SDL_Rect& pos, p2List<Animation>& animations, bool draggable);
-	Scrollbar* AddScrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min, SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section, bool draggable);
+	Scrollbar* AddScrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min, SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section, ScrollbarType type, bool draggable);
 
 	UIElement* DeleteElement(UIElement* element);
 
@@ -126,6 +133,7 @@ public:
 
 
 	InteractiveType InteractiveType_from_int(int type);
+	ScrollbarType ScrollbarType_from_int(int type);
 	bool BecomeFocus(Window* curr);
 	void RemoveFocuses();
 	bool CheckWindowFocuses();

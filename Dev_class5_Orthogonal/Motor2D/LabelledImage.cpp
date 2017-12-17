@@ -30,8 +30,9 @@ bool LabelledImage::PostUpdate()
 
 bool LabelledImage::Draw(float dt)
 {
-	LabelDraw(dt);
+	
 	ImageDraw(image_section,dt);
+	LabelDraw(dt);
 	return true;
 }
 

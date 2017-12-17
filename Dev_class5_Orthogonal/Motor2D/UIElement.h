@@ -26,7 +26,7 @@ public:
 
 public:
 	UIType UItype = NO_TYPE;
-	InteractiveType type = DEFAULT;
+	InteractiveType type = InteractiveType::DEFAULT;
 	SDL_Rect position;
 	bool active = true;
 	bool In_window = false;

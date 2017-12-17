@@ -260,9 +260,9 @@ UIClock * j1Gui::AddUIClock(SDL_Rect & pos, p2List<Animation>& animations, bool 
 	return ret;
 }
 
-Scrollbar * j1Gui::AddScrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min, SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section, bool draggable)
+Scrollbar * j1Gui::AddScrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min, SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section, ScrollbarType type, bool draggable)
 {
-	Scrollbar* ret = new Scrollbar(scroller_image, moves_vertically, min, pos, Sliderrelativepos, image_section, draggable);
+	Scrollbar* ret = new Scrollbar(scroller_image, moves_vertically, min, pos, Sliderrelativepos, image_section, type, draggable);
 	elements.add(ret);
 	return ret;
 }
@@ -441,6 +441,8 @@ Window* j1Gui::Load_Window_fromXML(pugi::xml_node node, j1Module* callback)
 
 	if (node.child("isPauseMenu").attribute("value").as_bool(false))
 		App->scene->sceneMenu = added;
+	else if (node.child("settings").attribute("value").as_bool(false))
+		App->introscene->settings = added;
 
 	return added;
 }
@@ -484,7 +486,7 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 		child = App->gui->Load_LabelledImage_fromXML(tmp);
 		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
 		child->In_window = true;
-		while (tmp = tmp.next_sibling("interactiveimage"))
+		while (tmp = tmp.next_sibling("labelledimage"))
 		{
 			child = App->gui->Load_LabelledImage_fromXML(tmp);
 			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
@@ -507,6 +509,32 @@ void j1Gui::Load_WindowElements_fromXML(pugi::xml_node node, Window* window, j1M
 		}
 	}
 
+	tmp = node.child("label");
+		if (tmp)
+		{
+			child = App->gui->Load_Label_fromXML(tmp);
+			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+			child->In_window = true;
+			while (tmp = tmp.next_sibling("label"))
+			{
+				child = App->gui->Load_Label_fromXML(tmp);
+				window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+				child->In_window = true;
+			}
+		}
+	tmp = node.child("scrollbar");
+	if (tmp)
+	{
+		child = App->gui->Load_Scrollbar_fromXML(tmp);
+		window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+		child->In_window = true;
+		while(tmp = tmp.next_sibling("scrollbar"))
+		{
+			child = App->gui->Load_Scrollbar_fromXML(tmp);
+			window->AddElementToWindow(child, { tmp.child("winRelativePos").attribute("x").as_int(),tmp.child("winRelativePos").attribute("y").as_int() });
+			child->In_window = true;
+		}
+	}
 
 }
 
@@ -560,7 +588,7 @@ UIElement * j1Gui::Load_Label_fromXML(pugi::xml_node node)
 	InheritedLabel* ret;
 	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
 	iPoint relativepos =  { node.child("relativePosition").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() }; 
-	p2SString fontPath = node.child("fontpath").attribute("value").as_string();
+	p2SString fontPath = node.child("fontpath").attribute("path").as_string();
 	SDL_Color color = { node.child("color").attribute("r").as_int(), node.child("color").attribute("g").as_int(), node.child("color").attribute("b").as_int(), node.child("color").attribute("a").as_int() };
 	p2SString label = node.child("label").attribute("value").as_string();
 	int size = node.child("size").attribute("value").as_int();
@@ -601,8 +629,9 @@ UIElement * j1Gui::Load_Scrollbar_fromXML(pugi::xml_node node)
 	SDL_Rect position = { node.child("position").attribute("x").as_int(), node.child("position").attribute("y").as_int(), node.child("position").attribute("w").as_int(), node.child("position").attribute("h").as_int() };
 	iPoint sliderrelativepos = { node.child("sliderrelativepos").attribute("x").as_int(),node.child("sliderrelativepos").attribute("y").as_int() };
 	SDL_Rect image_section = { node.child("imagesection").attribute("x").as_int(), node.child("imagesection").attribute("y").as_int(), node.child("imagesection").attribute("w").as_int(), node.child("imagesection").attribute("h").as_int() };
+	ScrollbarType type = ScrollbarType_from_int(node.child("type").attribute("value").as_int(0));
 	bool draggable = node.child("draggable").attribute("value").as_bool();
-	ret = AddScrollbar(scroller_image, moves_vertically, min, position, sliderrelativepos, image_section, draggable);
+	ret = AddScrollbar(scroller_image, moves_vertically, min, position, sliderrelativepos, image_section,type, draggable);
 	if (!node.child("active").attribute("value").as_bool(true))
 		ret->active = false;
 	return ret;
@@ -677,6 +706,25 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	default:
 		ret = DEFAULT;
 	};
+	return ret;
+}
+
+ScrollbarType j1Gui::ScrollbarType_from_int(int type)
+{
+	ScrollbarType ret;
+
+	switch (type)
+	{
+	case(1):
+		ret = MUSICVOLUME;
+		break;
+	case(2):
+		ret = SFXVOLUME;
+		break;
+	default:
+		ret = SCROLLBAR_DEFAULT;
+		break;
+	}
 	return ret;
 }
 

@@ -9,7 +9,7 @@
 
 struct _Mix_Music;
 struct Mix_Chunk;
-
+class Scrollbar;
 class j1Audio : public j1Module
 {
 public:
@@ -37,10 +37,8 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0, uint volume = 128);
 
-	void LowerMusicVolume();
-	void LowerSFXVolume();
-	void RaiseMusicVolume();
-	void RaiseSFXVolume();
+	void ModifyMusicVolume(int value);
+	void ModifySFXVolume(int value);
 
 
 

@@ -104,6 +104,10 @@ bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 		App->sceneswitch->SwitchScene(App->scene, App->introscene);
 		App->sceneswitch->switchingFromSaveGame = true;
 	}
+	else if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == OPEN_SETTINGS)
+		settings->active = true;
+	else if (element->type == InteractiveType::CLOSE_WINDOW && eventType == EventTypes::LEFT_MOUSE_PRESSED)
+		settings->active = false;
 	return ret;
 }
 

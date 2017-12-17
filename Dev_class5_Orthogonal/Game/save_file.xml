@@ -4,7 +4,7 @@
 	<window />
 	<textures />
 	<audio>
-		<musicVolumeModifier value="0.699999988" />
+		<musicVolumeModifier value="0" />
 		<sfxVolumeModifier value="0.300000012" />
 	</audio>
 	<map />
@@ -18,15 +18,15 @@
 	<mapchange />
 	<entitycontroller>
 		<player>
-			<position x="320" y="1880" />
+			<position x="213" y="1880" />
 			<speed x="0" y="0" />
-			<collider width="32" height="63" x="331" y="1889" />
+			<collider width="32" height="63" x="224" y="1889" />
 			<grounded value="true" />
 			<dashing value="false" />
 			<currentDashtime value="0" />
 		</player>
 		<flyingfurrball>
-			<position x="1289" y="1389" />
+			<position x="680" y="1443" />
 		</flyingfurrball>
 		<flyingfurrball>
 			<position x="1930" y="1766" />
