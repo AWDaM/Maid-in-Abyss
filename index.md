@@ -1,9 +1,10 @@
-# Maid in Abyss
+# A game development project
 
-## Game Development 3rd assignment
-You can use the [editor on GitHub](https://github.com/AWDaM/GameDevelopmentAssignments/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+## made by Jaume Surís and Lorién Portella
+ [editor on GitHub](https://github.com/AWDaM/GameDevelopmentAssignments/edit/master/index.md) 
+  The game is a  2D platformer where the player needs to reach the end of the levels by jumping, dashing, dodging enemies and... Stoping   time!
+  This game has been made as the project requested in the game development subject, of the second year of university at the Videogame design and development of the UPC.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
 ### Markdown
 
