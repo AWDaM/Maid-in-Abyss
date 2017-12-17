@@ -2,6 +2,8 @@
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Scene.h"
+#include "j1SceneSwitch.h"
+#include "j1SceneChange.h"
 #include "Entity.h"
 #include "Player.h"
 #include "LandMaid.h"
@@ -279,9 +281,9 @@ void j1EntityController::EnemyColliderCheck()
 			{
 				tmp->data->chasing_player = false;
 			}
-			if (SDL_HasIntersection(&tmp->data->Collider, &player->data->Collider) && !godmode)
+			if (SDL_HasIntersection(&tmp->data->Collider, &player->data->Collider) && !godmode && !App->scenechange->IsChanging() && !App->sceneswitch->IsSwitching())
 			{
-				player->data->AddSFX(2, 0, 80);
+				player->data->AddSFX(4, 0, 50);
 
 				player->data->isDying = true;
 			}

@@ -81,12 +81,15 @@ bool j1IntroScene::CleanUp()
 	return true;
 }
 
-bool j1IntroScene::OnEvent(UIElement * element, int eventType)
+bool j1IntroScene::OnEvent(UIElement* element, int eventType)
 {
 	bool ret = true;
 	element->HandleAnimation(eventType);
 
-	
+	if (eventType == EventTypes::MOUSE_HOVER_IN)
+	{
+		App->audio->PlayFx(1);
+	}
 
 	if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == QUIT)
 	{

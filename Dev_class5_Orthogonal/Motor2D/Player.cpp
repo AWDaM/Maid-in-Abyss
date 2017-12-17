@@ -143,7 +143,7 @@ bool Player::Update(float dt)
 
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && grounded && !App->entitycontroller->godmode)
 			{
-				AddSFX(1, 0);
+				AddSFX(3, 0);
 				isJumping = true;
 				grounded = false;
 				//maxSpeed.x += jumpForce.x;
@@ -166,7 +166,7 @@ bool Player::Update(float dt)
 			{
 				if (App->entitycontroller->time_state == NORMAL)
 				{
-					AddSFX(5, 0);
+					AddSFX(7, 0);
 					App->entitycontroller->wanttostop = true;
 				}
 			}
@@ -416,7 +416,7 @@ void Player::BecomeGrounded()
 	}
 
 	if (Current_Animation == &falling)
-		AddSFX(3, 0);
+		AddSFX(5, 0);
 
 	canDash = true;
 	grounded = true;
@@ -425,7 +425,7 @@ void Player::BecomeGrounded()
 
 void Player::StartDashing(float dt)
 {
-	AddSFX(4, 0);
+	AddSFX(6, 0);
 	isDashing = true;
 	canDash = false;
 	speed.x = dashingSpeed.x * direction_x*dt;

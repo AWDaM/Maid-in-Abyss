@@ -12,6 +12,7 @@
 #include "UIElement.h"
 #include "Label.h"
 #include "Image.h"
+#include "j1Audio.h"
 #include "Interactive.h"
 #include "InteractiveImage.h"
 #include "InteractiveLabel.h"
@@ -39,6 +40,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 	LOG("Loading GUI atlas");
 	bool ret = true;
 
+	buttonFX = conf.child("buttonFX").attribute("source").as_string("");
 	atlas_file_name = conf.child("atlas").attribute("file").as_string("");
 	background = conf.child("background").attribute("file").as_string("");
 
@@ -49,7 +51,7 @@ bool j1Gui::Awake(pugi::xml_node& conf)
 // Called before the first frame
 bool j1Gui::Start()
 {
-	
+	App->audio->LoadFx(buttonFX.GetString());
 	atlas = App->tex->Load(atlas_file_name.GetString());
 	App->input->GetMousePosition(mouseLastFrame.x, mouseLastFrame.y);
 
