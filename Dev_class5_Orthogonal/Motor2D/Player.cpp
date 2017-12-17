@@ -236,6 +236,7 @@ bool Player::PostUpdate()
 		{
 			App->sceneswitch->SwitchScene(App->introscene, App->scene);
 			App->gui->scoreNumber = 0;
+			App->gui->coins = 0;
 		}
 		else
 			App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);

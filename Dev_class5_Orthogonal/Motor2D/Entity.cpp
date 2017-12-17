@@ -48,10 +48,10 @@ fPoint Entity::SpeedBoundaries(fPoint originalvec)
 			originalvec.x = direction_x*maxSpeed.x;
 	}
 
-	//if (originalvec.y > maxSpeed.y)
-	//{
-	//	originalvec.y = maxSpeed.y;
-	//}
+	if (originalvec.y > maxSpeed.y)
+	{
+		originalvec.y = maxSpeed.y;
+	}
 	return originalvec;
 }
 

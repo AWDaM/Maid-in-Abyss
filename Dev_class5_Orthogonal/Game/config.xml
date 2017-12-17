@@ -54,7 +54,7 @@
       <gravity value="50"/>
       <jumpForce x="0" y="-26"/>
 
-      <maxSpeed x="360" y="600"/>
+      <maxSpeed x="360" y="30"/>
       <dashingSpeed x="600" y="0"/>
       <dashingColliderDifference value="0"/>
       <colOffset x="11" y="9"/>

@@ -155,8 +155,10 @@ public:
 	p2List<Window*> window_list;
 	bool dragging_window = false;
 	int currentFocus = -1;
+	LabelledImage* currentCoins = nullptr;
 	LabelledImage* currentScore = nullptr;
 	LabelledImage* timeLabel = nullptr;
+	int coins = 0;
 	int scoreNumber = 0;
 	UIClock* clock = nullptr;
 

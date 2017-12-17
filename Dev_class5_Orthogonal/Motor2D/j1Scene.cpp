@@ -127,7 +127,7 @@ bool j1Scene::Update(float dt)
 	else if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->SaveGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		App->map->debug = !App->map->debug;
 
 	else if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
