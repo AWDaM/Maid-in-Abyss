@@ -16,6 +16,7 @@
 #include "j1Pathfinding.h"
 #include "j1EntityController.h"
 #include "j1Gui.h"
+#include "LifeBar.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -71,7 +72,6 @@ bool j1Scene::Start()
 	to_end = false;
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
 	App->audio->PlayMusic(App->map->data.musicFile.GetString());
-	LOG("Boi: %s", map_names.start->data->GetString());
 
 	int w, h;
 	uchar* data = NULL;
@@ -108,13 +108,14 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-	if (transcurredTime.ReadSec() >= 1 && !pause)
+	/*if (transcurredTime.ReadSec() >= 1 && !pause && !App->sceneswitch->IsSwitching() && !App->scenechange->IsChanging())
 	{
 		currentTime += 1;
 		p2SString temp("Time: %i", currentTime);
+		LOG("IsChanging: %i", App->scenechange->IsChanging());
 		App->gui->timeLabel->ChangeText(&temp);
 		transcurredTime.Start();
-	}
+	}*/
 
 	return true;
 }
@@ -156,9 +157,8 @@ bool j1Scene::Update(float dt)
 	App->entitycontroller->Draw(dt);
 	App->gui->Draw(dt);
 
-	
 
-	
+
 	return true;
 }
 

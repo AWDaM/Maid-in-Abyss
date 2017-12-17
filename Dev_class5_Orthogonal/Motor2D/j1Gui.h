@@ -70,6 +70,7 @@ class Scrollbar;
 struct SDL_Rect;
 struct SDL_Texture;
 class Animation;
+class LifeBar;
 // ---------------------------------------------------
 class j1Gui : public j1Module
 {
@@ -102,6 +103,7 @@ public:
 	InheritedInteractive* AddInteractive(SDL_Rect& position, iPoint positionOffset, SDL_Rect& size,	 InteractiveType type, j1Module* callback, bool draggable = false);
 	InheritedLabel* AddLabel(SDL_Rect& position, iPoint positionOffset, p2SString fontPath, SDL_Color textColor, p2SString label, int size = 12, bool draggable = false);
 	InheritedImage* AddImage(SDL_Rect& position, iPoint positionOffset, SDL_Rect& section, bool draggable = false);
+	LifeBar* AddLifebar(SDL_Rect& position, iPoint positionOffset, SDL_Rect& section, bool draggable = false);
 
 	InteractiveImage* AddInteractiveImage(SDL_Rect& position, iPoint positionOffsetA, iPoint positionOffsetB, SDL_Rect image_section, InteractiveType type, j1Module* callback, bool draggable = false);
 	InteractiveLabel* AddInteractiveLabel(SDL_Rect& position, iPoint positionOffsetA, iPoint positionOffsetB, p2SString fontPath, SDL_Color textColor, p2SString label, int size, InteractiveType type, j1Module* callback, bool draggable = false);
@@ -129,6 +131,7 @@ public:
 	UIElement* Load_InteractiveImage_fromXML(pugi::xml_node node, j1Module* callback);
 	UIElement* Load_Scrollbar_fromXML(pugi::xml_node node);
 	UIElement* Load_LabelledImage_fromXML(pugi::xml_node node);
+	void Load_LifeBar_formXML(pugi::xml_node node, LifeBar* imageData);
 	Animation LoadPushbacks_fromXML(pugi::xml_node node);
 
 

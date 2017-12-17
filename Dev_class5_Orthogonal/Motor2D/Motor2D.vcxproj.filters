@@ -124,6 +124,9 @@
     <ClCompile Include="UIClock.cpp">
       <Filter>Desenvolupament  ========\GUI\Custom</Filter>
     </ClCompile>
+    <ClCompile Include="LifeBar.cpp">
+      <Filter>Desenvolupament  ========\GUI\Custom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Window.h">
@@ -268,6 +271,9 @@
       <Filter>Desenvolupament  ========\GUI\Custom</Filter>
     </ClInclude>
     <ClInclude Include="UIClock.h">
+      <Filter>Desenvolupament  ========\GUI\Custom</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeBar.h">
       <Filter>Desenvolupament  ========\GUI\Custom</Filter>
     </ClInclude>
   </ItemGroup>

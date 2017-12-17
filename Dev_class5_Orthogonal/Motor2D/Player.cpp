@@ -7,11 +7,15 @@
 #include "j1Audio.h"
 #include "j1Input.h"
 #include "j1SceneChange.h"
+#include "j1SceneSwitch.h"
 #include "j1Scene.h"
+#include "j1IntroScene.h"
 #include "j1EntityController.h"
+#include "LifeBar.h"
 
 Player::Player() : Entity(entityType::PLAYER)
 {
+	lives = 4;
 }
 
 
@@ -215,7 +219,6 @@ bool Player::Update(float dt)
 		PositionCollider();
 	}
 
-	LOG("Current animation Speed: %f", Current_Animation->speed);
 	/*LOG("CurrenFrame: %f", Current_Animation->GetCurrentFrameinFloat());
 	LOG("CurrentAnimation speed: %f", Current_Animation->speed);*/
 	return true;
@@ -223,10 +226,18 @@ bool Player::Update(float dt)
 
 bool Player::PostUpdate()
 {
-	if (!alive)
+	if (!alive && !App->scenechange->IsChanging() && !App->sceneswitch->IsSwitching())
 	{
+
+		lives -= 1;
+		LOG("lives %i", lives);
+		App->scene->playerLives = lives;
+		if (lives == 0)
+			App->sceneswitch->SwitchScene(App->introscene, App->scene);
+		else
 		App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);
-		LOG("CHANGING");
+
+
 	}
 
 	PositionCameraOnPlayer();
@@ -328,6 +339,7 @@ void Player::Restart()
 				}
 	isDying = false;
 	alive = true;
+
 
 }
 

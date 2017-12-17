@@ -22,6 +22,7 @@
 #include "InheritedLabel.h"
 #include "UIClock.h"
 #include "Scrollbar.h"
+#include "LifeBar.h"
 
 j1Gui::j1Gui() : j1Module()
 {
@@ -190,9 +191,16 @@ bool j1Gui::CleanUp()
 
 
 
-InheritedImage* j1Gui::AddImage(SDL_Rect& position, iPoint positionOffset, SDL_Rect & section, bool draggable)
+InheritedImage* j1Gui::AddImage(SDL_Rect& position, iPoint positionOffset, SDL_Rect& section, bool draggable)
 {
 	InheritedImage* ret = new InheritedImage(position, positionOffset, section, draggable);
+	elements.add(ret);
+	return ret;
+}
+
+LifeBar* j1Gui::AddLifebar(SDL_Rect& position, iPoint positionOffset, SDL_Rect& section, bool draggable)
+{
+	LifeBar* ret = new LifeBar(position, positionOffset, section, draggable);
 	elements.add(ret);
 	return ret;
 }
@@ -544,10 +552,30 @@ UIElement* j1Gui::Load_Image_fromXML(pugi::xml_node node)
 	iPoint relativePos = { node.child("relativePosition").attribute("x").as_int(),node.child("relativePosition").attribute("y").as_int() };
 	SDL_Rect image_section = { node.child("image_section").attribute("x").as_int(), node.child("image_section").attribute("y").as_int(), node.child("image_section").attribute("w").as_int(), node.child("image_section").attribute("h").as_int() };
 	bool draggable = node.child("draggable").attribute("value").as_bool();
-	Image* added = AddImage(position, relativePos, image_section, draggable);
-	if (!node.child("active").attribute("value").as_bool(true))
-		added->active = false;
-	return added;
+
+	if (node.child("lifebar").attribute("value").as_bool(false))
+	{
+		LifeBar* added = AddLifebar(position, relativePos, image_section, draggable);
+
+		Load_LifeBar_formXML(node, added);
+
+		if (!node.child("active").attribute("value").as_bool(true))
+			added->active = false;
+
+		App->scene->lifebar = added;
+
+		return added;
+	}
+	else
+	{
+		Image* added = AddImage(position, relativePos, image_section, draggable);
+
+		if (!node.child("active").attribute("value").as_bool(true))
+			added->active = false;
+
+
+		return added;
+	}
 }
 
 UIElement* j1Gui::Load_AlterantiveImage_fromXML(pugi::xml_node node)
@@ -654,6 +682,14 @@ UIElement * j1Gui::Load_LabelledImage_fromXML(pugi::xml_node node)
 	if (!node.child("active").attribute("value").as_bool(true))
 		ret->active = false;
 	return ret;
+}
+
+void j1Gui::Load_LifeBar_formXML(pugi::xml_node node, LifeBar* imageData)
+{
+	imageData->threeLivesImageSection = { node.child("threeLives").attribute("x").as_int(), node.child("threeLives").attribute("y").as_int(), node.child("threeLives").attribute("w").as_int(), node.child("threeLives").attribute("h").as_int() };
+	imageData->twoLivesImageSection = { node.child("twoLives").attribute("x").as_int(), node.child("twoLives").attribute("y").as_int(), node.child("twoLives").attribute("w").as_int(), node.child("twoLives").attribute("h").as_int() };
+	imageData->lastLifeImageSection = { node.child("lastLife").attribute("x").as_int(), node.child("lastLife").attribute("y").as_int(), node.child("lastLife").attribute("w").as_int(), node.child("lastLife").attribute("h").as_int() };
+
 }
 
 Animation j1Gui::LoadPushbacks_fromXML(pugi::xml_node node)

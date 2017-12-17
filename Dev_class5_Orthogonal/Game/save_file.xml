@@ -18,9 +18,15 @@
 	<mapchange />
 	<entitycontroller>
 		<player>
+<<<<<<< HEAD
 			<position x="213" y="1880" />
 			<speed x="0" y="0" />
 			<collider width="32" height="63" x="224" y="1889" />
+=======
+			<position x="587" y="1880" />
+			<speed x="0" y="0" />
+			<collider width="32" height="63" x="598" y="1889" />
+>>>>>>> 173d9e4b67802a53250478a6b507f762b299751a
 			<grounded value="true" />
 			<dashing value="false" />
 			<currentDashtime value="0" />
@@ -52,6 +58,6 @@
 	</entitycontroller>
 	<pathfinding />
 	<renderer>
-		<camera x="0" y="1280" />
+		<camera x="246" y="1280" />
 	</renderer>
 </game_state>
