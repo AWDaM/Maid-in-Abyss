@@ -151,6 +151,8 @@ public:
 
 	void CheckSavegame();
 	SDL_Texture* GetAtlas() const;
+
+public:
 	p2List<UIElement*> elements;
 	p2List<Window*> window_list;
 	bool dragging_window = false;
