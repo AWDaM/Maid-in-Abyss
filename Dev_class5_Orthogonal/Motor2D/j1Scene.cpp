@@ -96,9 +96,15 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-	if (transcurredTime.ReadSec() >= 1 && !pause && !App->sceneswitch->IsSwitching() && !App->scenechange->IsChanging()&&!App->gui->clock->TimeIsModified())
+	if (transcurredTime.ReadSec() >= 1 && !pause && !App->sceneswitch->IsSwitching() && !App->scenechange->IsChanging()&& !App->gui->clock->TimeIsModified())
 	{
 		currentTime += 1;
+		if (App->gui->scoreNumber > 0)
+		{
+			App->gui->scoreNumber -= 10;
+			p2SString temp("Score: %i", App->gui->scoreNumber);
+			App->gui->currentScore->ChangeText(&temp);
+		}
 		p2SString temp("Time: %i", currentTime);
 		LOG("IsChanging: %i", App->scenechange->IsChanging());
 		App->gui->timeLabel->ChangeText(&temp);
@@ -219,6 +225,10 @@ bool j1Scene::OnEvent(UIElement* element, int eventType)
 bool j1Scene::Load(pugi::xml_node& data)
 {
 	currentTime = data.child("time").attribute("value").as_int();
+	p2SString temp("Time: %i", currentTime);
+	LOG("IsChanging: %i", App->scenechange->IsChanging());
+	App->gui->timeLabel->ChangeText(&temp);
+
 	if (currentMap != data.child("currentMap").attribute("num").as_int())
 	{
 		LOG("Calling switch maps");

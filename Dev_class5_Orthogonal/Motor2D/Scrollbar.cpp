@@ -11,6 +11,8 @@ Scrollbar::Scrollbar()
 
 Scrollbar::Scrollbar(SDL_Rect & scroller_image, bool moves_vertically, int min, SDL_Rect & pos, iPoint Sliderrelativepos, SDL_Rect image_section, ScrollbarType type, bool draggable) : Image(pos,{0,0},image_section),UIElement(pos,draggable)
 {
+	this->Image_from_atlas = true;
+	this->UItype = SCROLLBAR;
 	this->moves_vertically = moves_vertically;
 	this->type = type;
 	if (moves_vertically)

@@ -191,14 +191,23 @@ bool j1Gui::CleanUp()
 
 bool j1Gui::Save(pugi::xml_node &config) const
 {
-	config.append_child("score").append_attribute("value") = currentScore;
-	return false;
+	config.append_child("score").append_attribute("value") = scoreNumber;
+	config.append_child("coins").append_attribute("value") = coins;
+	return true;
 }
 
 bool j1Gui::Load(pugi::xml_node &config)
 {
 	scoreNumber = config.child("score").attribute("value").as_int();
-	return false;
+	App->gui->scoreNumber -= 10;
+	p2SString temp("Score: %i", App->gui->scoreNumber);
+	App->gui->currentScore->ChangeText(&temp);
+
+	p2SString temo("Coins: %i", App->gui->coins);
+	App->gui->currentCoins->ChangeText(&temo);
+	coins = config.child("coins").attribute("value").as_int();
+
+	return true;
 }
 
 

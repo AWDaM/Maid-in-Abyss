@@ -436,7 +436,10 @@ bool j1App::SavegameNow() const
 
 	while(item != NULL && ret == true)
 	{
-		ret = item->data->Save(root.append_child(item->data->name.GetString()));
+		if (item->data->active)
+		{
+			ret = item->data->Save(root.append_child(item->data->name.GetString()));
+		}
 		item = item->next;
 	}
 

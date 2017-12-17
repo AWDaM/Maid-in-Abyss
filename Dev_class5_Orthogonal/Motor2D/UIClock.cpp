@@ -75,6 +75,7 @@ void UIClock::ResetAnimations()
 	fastening.Reset();
 	oncooldown.Reset();
 	current = &default;
+	current_time = NORMAL;
 }
 
 bool UIClock::CleanUp()
