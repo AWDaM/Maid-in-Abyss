@@ -25,11 +25,11 @@
   <audio>
     <music> 
       <folder>audio/music/</folder>
-      <musicVolumeModifier value="0.7" />
+      <musicVolumeModifier value="0.3" />
     </music>
    <sfx> 
       <folder>audio/fx/</folder>
-      <sfxVolumeModifier value="0.3" />
+      <sfxVolumeModifier value="1" />
     </sfx>
   </audio>
   
@@ -87,6 +87,7 @@
   </entitycontroller>
 
   <gui>
+    <buttonFX source="Buttonsfx.wav"/>
     <atlas file="gui/definitive atlas.png"/>
     <background file="gui/login_background.png"/>
   </gui>

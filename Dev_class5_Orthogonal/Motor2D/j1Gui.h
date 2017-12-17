@@ -158,6 +158,7 @@ public:
 	int coins = 0;
 	int scoreNumber = 0;
 	UIClock* clock = nullptr;
+	p2SString		buttonFX;
 
 
 private:
