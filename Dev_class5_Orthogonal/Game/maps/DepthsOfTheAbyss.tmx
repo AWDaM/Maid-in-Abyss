@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="64" tilewidth="32" tileheight="32" nextobjectid="123">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="320" height="64" tilewidth="32" tileheight="32" nextobjectid="141">
  <properties>
   <property name="BackgroundMusic" value="DepthsOfTheAbyssBGM.ogg"/>
  </properties>
  <tileset firstgid="1" name="BasicTileset" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="Metroidvania Tileset.png" width="256" height="256"/>
  </tileset>
- <layer name="Parallax" width="320" height="64">
+ <layer name="Parallax" width="320" height="64" visible="0">
   <properties>
    <property name="parallaxSpeed" type="float" value="0.7"/>
   </properties>
@@ -20493,7 +20493,7 @@
    <tile gid="49"/>
   </data>
  </layer>
- <layer name="Background" width="320" height="64">
+ <layer name="Background" width="320" height="64" visible="0">
   <properties>
    <property name="parallaxSpeed" type="float" value="1"/>
   </properties>
@@ -40980,7 +40980,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="MainFloor" width="320" height="64">
+ <layer name="MainFloor" width="320" height="64" visible="0">
   <properties>
    <property name="parallaxSpeed" type="float" value="1"/>
   </properties>
@@ -61467,7 +61467,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Navigation" width="320" height="64">
+ <layer name="Navigation" width="320" height="64" visible="0">
   <properties>
    <property name="Navigation" type="int" value="1"/>
   </properties>
@@ -77506,11 +77506,11 @@
    <tile gid="35"/>
    <tile gid="35"/>
    <tile gid="35"/>
-   <tile gid="35"/>
-   <tile gid="35"/>
-   <tile gid="35"/>
-   <tile gid="35"/>
-   <tile gid="35"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="35"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -82047,25 +82047,8 @@
   <object id="93" name="6" x="192" y="768" width="32" height="63"/>
   <object id="94" name="5" x="5440" y="1408" width="576" height="632"/>
   <object id="95" name="3" x="-20.6061" y="2047" width="5428.73" height="132"/>
-  <object id="106" name="9" x="1113" y="1611" width="18" height="18"/>
-  <object id="107" name="9" x="1173" y="1609" width="18" height="18"/>
-  <object id="108" name="9" x="1225" y="1613" width="18" height="18"/>
-  <object id="109" name="9" x="1831" y="1777" width="18" height="18"/>
-  <object id="110" name="9" x="2705" y="1551" width="18" height="18"/>
-  <object id="111" name="9" x="2769" y="1539" width="18" height="18"/>
-  <object id="112" name="9" x="2497" y="1601" width="18" height="18"/>
-  <object id="113" name="9" x="2001" y="1345" width="18" height="18"/>
-  <object id="114" name="9" x="2889" y="1047" width="18" height="18"/>
-  <object id="115" name="9" x="3055" y="737" width="18" height="18"/>
-  <object id="116" name="9" x="3467" y="1029" width="18" height="18"/>
-  <object id="117" name="9" x="3593" y="737" width="18" height="18"/>
-  <object id="118" name="9" x="3383" y="1459" width="18" height="18"/>
-  <object id="119" name="9" x="4295" y="843" width="18" height="18"/>
-  <object id="120" name="9" x="4805" y="781" width="18" height="18"/>
-  <object id="121" name="9" x="4639" y="1141" width="18" height="18"/>
-  <object id="122" name="9" x="5427" y="725" width="18" height="18"/>
  </objectgroup>
- <objectgroup name="Enemies">
+ <objectgroup name="Enemies" visible="0">
   <object id="96" name="7" x="3212.5" y="1730.83" width="32" height="32"/>
   <object id="97" name="7" x="3296" y="1150.67" width="32" height="32"/>
   <object id="98" name="7" x="4770" y="1384" width="32" height="32"/>
@@ -82075,5 +82058,22 @@
   <object id="102" name="8" x="2432" y="1056" width="32" height="32"/>
   <object id="103" name="8" x="3872" y="704" width="32" height="32"/>
   <object id="104" name="8" x="5248" y="672" width="32" height="32"/>
+  <object id="123" name="9" x="1093" y="1611" width="18" height="18"/>
+  <object id="124" name="9" x="1153" y="1609" width="18" height="18"/>
+  <object id="125" name="9" x="1205" y="1613" width="18" height="18"/>
+  <object id="127" name="9" x="1831" y="1789" width="18" height="18"/>
+  <object id="128" name="9" x="2001" y="1351" width="18" height="18"/>
+  <object id="129" name="9" x="2501" y="1609" width="18" height="18"/>
+  <object id="130" name="9" x="2715" y="1555" width="18" height="18"/>
+  <object id="131" name="9" x="2779" y="1553" width="18" height="18"/>
+  <object id="132" name="9" x="2887" y="1059" width="18" height="18"/>
+  <object id="133" name="9" x="3479" y="1039" width="18" height="18"/>
+  <object id="134" name="9" x="3389" y="1467" width="18" height="18"/>
+  <object id="135" name="9" x="3057" y="739" width="18" height="18"/>
+  <object id="136" name="9" x="3597" y="751" width="18" height="18"/>
+  <object id="137" name="9" x="4293" y="849" width="18" height="18"/>
+  <object id="138" name="9" x="4803" y="783" width="18" height="18"/>
+  <object id="139" name="9" x="5433" y="729" width="18" height="18"/>
+  <object id="140" name="9" x="4639" y="1155" width="18" height="18"/>
  </objectgroup>
 </map>
