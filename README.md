@@ -17,7 +17,7 @@ In the Intro screen, the player can start a new gameload a saved game(if possibl
 and the license. While playing, the player will have a clock that indicates the state of the ZA WARUDO hability
 a lifebar with the remaining lifes, and counters for the time the pickups(we have also added those) and the score.
 
-The score is calculated by the number of pickupsx100 - current timex10 - lost livesx50.
+The score is calculated by the number of pickups*100 - current time*10 - lost lives*50.
 
 ### Controls
 -Movement with arrow keys.
@@ -26,7 +26,7 @@ The score is calculated by the number of pickupsx100 - current timex10 - lost li
 
 -Dash with X (now can be canelled, yay :D)
 
--ZA WARUDO(Time Stopping) with Z. The player stops time during a certain amount of time. This ability has a 10 second cooldown.
+-ZA WARUDO(Time Stopping) with Z. The player stops time during a certain amount of time. This ability is available every 10 seconds.
 
 -Pause menu wit ESC
 
@@ -40,6 +40,14 @@ F8: View UI Logic
 F9: View collider logic.
 F10: Activate/Deactivate God Mode (infinite jump, cannot die when colliding with enemies).
 F11: Disable/Enable 30fps cap
+
+### Innovation
+For the second delivery, related to pathfinding and normalization of the movement we added a game mechanic,
+making it possible to stop time for the enemies during a few seconds and limiting that power to once every 10 seconds.
+
+For the third delivery, we added the entire loading of UI elements in an xml file, from which one can create individual elements
+and windows with their own elements attached. We also added a focus system to be able to focus on interactive 
+elements and making use of them with tabulation.
 
 ### Autors
 -Jaume Surís Valhondo
@@ -63,6 +71,8 @@ We do not own any of the sprites, tilesets, music or sfx presented in this game.
 	Downloaded from https://opengameart.org/content/metroidvania-tileset-v2
 
 -Music: 
+	-Main Theme: Touhou 10.5, Scarlet Perception Heaven~ Scarlet Weather Rhapsody Main Theme. Sky of Scarlet Perception: https://www.youtube.com/watch?v=0mYP2z1EJ6o
+		Team Shanghai Alice in collaboration with Twilight Frontier: https://en.touhouwiki.net/wiki/Scarlet_Weather_Rhapsody
 	-Track 1: Made in Abyss OST: 13. Those Everyday Feels: https://www.youtube.com/watch?v=SF_tj5g9SIo
 		Kevin Penkin: http://www.kpenkmusic.com/
 	-Track 2: Made in Abyss OST: 2. The First Layer: https://www.youtube.com/watch?v=NSmukdqyvjU

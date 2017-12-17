@@ -14,6 +14,7 @@
 #include "j1Gui.h"
 #include "UIClock.h"
 #include "LabelledImage.h"
+
 j1EntityController::j1EntityController()
 {
 	name.create("entitycontroller");
@@ -201,9 +202,6 @@ bool j1EntityController::Draw(float dt)
 
 bool j1EntityController::DebugDraw()
 {
-	if (App->scene->pause)
-		return true;
-
 	p2List_item<Entity*>* tmp = Entities.start;
 	SDL_Rect col;
 	SDL_Rect col2;
