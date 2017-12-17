@@ -46,6 +46,7 @@ enum InteractiveType
 	CLOSE_WINDOW,
 	EXIT_TO_MENU,
 	SAVE_GAME,
+	UNLOCKUI,
 };
 
 enum ScrollbarType
@@ -148,6 +149,7 @@ public:
 	void FocusOnNextElement(p2List_item<UIElement*>* item);
 
 	void AddScore(int score);
+	void UnlockUI();
 
 	void CheckSavegame();
 	SDL_Texture* GetAtlas() const;
@@ -164,7 +166,7 @@ public:
 	uint scoreNumber = 0;
 	UIClock* clock = nullptr;
 	p2SString		buttonFX;
-
+	bool UIunlocked = false;
 
 private:
 

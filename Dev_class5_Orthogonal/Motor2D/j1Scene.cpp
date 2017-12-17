@@ -209,7 +209,7 @@ bool j1Scene::OnEvent(UIElement* element, int eventType)
 	}
 
 	if (element->type == InteractiveType::CLOSE_WINDOW && eventType == EventTypes::LEFT_MOUSE_PRESSED)
-		pause = false, ClosePauseMenu();
+		pause = false, ClosePauseMenu(), App->gui->UIunlocked = !App->gui->UIunlocked;
 
 	if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == InteractiveType::EXIT_TO_MENU)
 	{
@@ -221,6 +221,12 @@ bool j1Scene::OnEvent(UIElement* element, int eventType)
 	{
 		App->SaveGame();
 	}
+
+	if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == InteractiveType::UNLOCKUI)
+	{
+		App->gui->UnlockUI();
+		App->gui->UIunlocked = !App->gui->UIunlocked;
+	}
 	return ret;
 }
 
@@ -230,6 +236,18 @@ bool j1Scene::Load(pugi::xml_node& data)
 	p2SString temp("Time: %i", currentTime);
 	LOG("IsChanging: %i", App->scenechange->IsChanging());
 	App->gui->timeLabel->ChangeText(&temp);
+
+	pugi::xml_node tmp = data.child("uipos");
+	App->gui->clock->position.x = tmp.child("uiclock").attribute("x").as_int();
+	App->gui->clock->position.y = tmp.child("uiclock").attribute("y").as_int();
+	App->gui->timeLabel->position.x = tmp.child("timer").attribute("x").as_int();
+	App->gui->timeLabel->position.y = tmp.child("timer").attribute("y").as_int();
+	App->gui->currentCoins->position.x = tmp.child("coins").attribute("x").as_int();
+	App->gui->currentCoins->position.y = tmp.child("coins").attribute("y").as_int();
+	App->gui->currentScore->position.x = tmp.child("score").attribute("x").as_int();
+	App->gui->currentScore->position.y = tmp.child("score").attribute("y").as_int();
+	lifebar->position.x = tmp.child("lifebar").attribute("x").as_int();
+	lifebar->position.y = tmp.child("lifebar").attribute("y").as_int();
 
 	if (currentMap != data.child("currentMap").attribute("num").as_int())
 	{
@@ -245,6 +263,19 @@ bool j1Scene::Save(pugi::xml_node& data) const
 {
 	data.append_child("currentMap").append_attribute("num") = currentMap;
 	data.append_child("time").append_attribute("value") = currentTime;
+
+	data.append_child("uipos");
+	data.child("uipos").append_child("uiclock").append_attribute("x") = App->gui->clock->position.x;
+	data.child("uipos").child("uiclock").append_attribute("y") = App->gui->clock->position.y;
+	data.child("uipos").append_child("lifebar").append_attribute("x") = lifebar->position.x;
+	data.child("uipos").child("lifebar").append_attribute("y") = lifebar->position.y;
+	data.child("uipos").append_child("timer").append_attribute("x") = App->gui->timeLabel->position.x;
+	data.child("uipos").child("timer").append_attribute("y") = App->gui->timeLabel->position.y;
+	data.child("uipos").append_child("coins").append_attribute("x") = App->gui->currentCoins->position.x;
+	data.child("uipos").child("coins").append_attribute("y") = App->gui->currentCoins->position.y;
+	data.child("uipos").append_child("score").append_attribute("x") = App->gui->currentScore->position.x;
+	data.child("uipos").child("score").append_attribute("y") = App->gui->currentScore->position.y;
+
 	return true;
 }
 

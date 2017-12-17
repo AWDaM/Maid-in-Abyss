@@ -306,7 +306,7 @@ XML but its value is an int so here's the list of types:
   <scene>
     <window>
       <collider x="100" y="100" w="476" h="469"/>
-      <draggable value="true"/>
+      <draggable value="false"/>
       <active value="false"/>
       <isPauseMenu value="true"/>
       <elements>
@@ -334,7 +334,7 @@ XML but its value is an int so here's the list of types:
         </interactiveimage>
 
         <interactivelabelledimage>
-          <pos x="120" y="200" w="261" h="64"/>
+          <pos x="111" y="246" w="261" h="64"/>
           <relativeposA x="0" y="0"/>
           <relativeposB x="20" y="15"/>
           <relativeposC x="0" y="0"/>
@@ -345,14 +345,14 @@ XML but its value is an int so here's the list of types:
           <label string="Exit to Menu"/>
           <type value="7"/>
           <size value="20"/>
-          <draggable value="true"/>
+          <draggable value="false"/>
           <hover x="263" y="304" w="261" h="64"/>
           <click x="526" y="304" w="261" h="64"/>
           <inactive x="0" y="380" w="261" h="64"/>
         </interactivelabelledimage>
 
           <interactivelabelledimage>
-            <pos x="120" y="50" w="261" h="64"/>
+            <pos x="111" y="108" w="261" h="64"/>
             <relativeposA x="0" y="0"/>
             <relativeposB x="20" y="15"/>
             <relativeposC x="0" y="0"/>
@@ -363,10 +363,28 @@ XML but its value is an int so here's the list of types:
             <label string="Save Game"/>
             <type value="8"/>
             <size value="20"/>
-            <draggable value="true"/>
+            <draggable value="false"/>
             <hover x="263" y="228" w="261" h="64"/>
             <click x="526" y="228" w="261" h="64"/>
             <inactive x="0" y="380" w="261" h="64"/>
+        </interactivelabelledimage>
+
+        <interactivelabelledimage>
+          <pos x="111" y="-25" w="261" h="64"/>
+          <relativeposA x="0" y="0"/>
+          <relativeposB x="20" y="15"/>
+          <relativeposC x="0" y="0"/>
+          <winRelativePos x="100" y="200"/>
+          <imagesection x="0" y="228" w="261" h="64"/>
+          <fontpath path="fonts/Old School Adventures.ttf"/>
+          <color r="255" g="255" b="255" a="0"/>
+          <label string="Unlock UI"/>
+          <type value="9"/>
+          <size value="20"/>
+          <draggable value="false"/>
+          <hover x="263" y="228" w="261" h="64"/>
+          <click x="526" y="228" w="261" h="64"/>
+          <inactive x="0" y="380" w="261" h="64"/>
         </interactivelabelledimage>
           
       </elements>
