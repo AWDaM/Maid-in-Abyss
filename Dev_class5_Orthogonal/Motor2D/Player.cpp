@@ -32,6 +32,7 @@ bool Player::Awake(pugi::xml_node & config)
 	deathFX = config.child("deathFX").attribute("source").as_string();
 	landFX = config.child("landFX").attribute("source").as_string();
 	dashFX = config.child("dashFX").attribute("source").as_string();
+	pickupFX = config.child("pickupFX").attribute("source").as_string();
 	timestopFX = config.child("timestopFX").attribute("source").as_string();
 
 	jumpForce.x = config.child("jumpForce").attribute("x").as_int();
@@ -69,6 +70,7 @@ bool Player::Start()
 	App->audio->LoadFx(landFX.GetString());
 	App->audio->LoadFx(dashFX.GetString());
 	App->audio->LoadFx(timestopFX.GetString());
+	App->audio->LoadFx(pickupFX.GetString());
 
 	alive = true;
 
