@@ -45,9 +45,12 @@ F11: Disable/Enable 30fps cap
 For the second delivery, related to pathfinding and normalization of the movement we added a game mechanic,
 making it possible to stop time for the enemies during a few seconds and limiting that power to once every 10 seconds.
 
+
 For the third delivery, we added the entire loading of UI elements in an xml file, from which one can create individual elements
 and windows with their own elements attached. We also added a focus system to be able to focus on interactive 
-elements and making use of them with tabulation.
+elements and making use of them with tabulation. Also, the Ingame UI can be unlocked and moved at will, and then locked again. 
+If the player saves and loads with a custom UI layout, the layout will remain the same. This button can be accesed through a pause
+menu, that also allows the player to save the game and exit to the main menu.
 
 ### Autors
 -Jaume Surís Valhondo
