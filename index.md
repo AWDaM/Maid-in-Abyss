@@ -12,10 +12,15 @@ Team and individual work
 
 ![](https://imgur.com/NRWagrE.png)
 
+The following lists are the part of the third delivery done by each of the team members.
+
 [Jaume Surís (right):](https://github.com/Farmak09)
 - Focus System
 - Interactive UI
 - Labels
+- Timer and score
+- Player lives
+- Pause menu
 
 [Lorién Portella (left):](https://github.com/Witiza)
 - Clock and Scrollbar classes
