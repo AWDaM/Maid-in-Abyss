@@ -10,8 +10,19 @@ This game has been made as the project requested in the game development subject
 
 ### Team and individual work
 
-![](https://imgur.com/NRWagrE.jpg)
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+![](https://imgur.com/NRWagrE.png)
+
+Jaume Surís (right)
+- Focus System
+- Interactive UI
+- Labels
+
+Lorién Portella (left)
+- Clock and Scrollbar classes
+- UIElements base class
+- Add elements functions
+- GUI elements loaded from XML
+- Pick up entity
 
 ```markdown
 Syntax highlighted code block
