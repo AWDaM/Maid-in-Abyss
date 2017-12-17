@@ -41,6 +41,14 @@ F9: View collider logic.
 F10: Activate/Deactivate God Mode (infinite jump, cannot die when colliding with enemies).
 F11: Disable/Enable 30fps cap
 
+### Innovation
+For the second delivery, related to pathfinding and normalization of the movement we added a (_),
+making it possible to stop time for the enemies during a few seconds and limiting that power to once every 10 seconds.
+
+For the third delivery, we added the entire loading of UI elements in an xml file, from which one can create individual elements
+and windows with their own elements attached. We also added a focus system to be able to focus on interactive 
+elements and making use of them with tabulation.
+
 ### Autors
 -Jaume Surís Valhondo
 
