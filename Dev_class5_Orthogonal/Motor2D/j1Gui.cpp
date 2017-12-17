@@ -681,6 +681,13 @@ UIElement * j1Gui::Load_LabelledImage_fromXML(pugi::xml_node node)
 	ret = AddLabelledImage(position, labeloffset, imageoffset, fontpath, color, label, size, imagesection, draggable);
 	if (!node.child("active").attribute("value").as_bool(true))
 		ret->active = false;
+
+	if (node.child("isScoreLabel").attribute("value").as_bool(false))
+		currentScore = ret;
+
+	else if (node.child("isTimeLabel").attribute("value").as_bool(false))
+		timeLabel = ret;
+
 	return ret;
 }
 
@@ -880,7 +887,7 @@ void j1Gui::CheckSavegame()
 		 p2List_item<UIElement*>* item = nullptr;
 		 for (item = elements.start; item; item = item->next)
 		 {
-			 if (item->data->hasFocus)
+			 if (item->data->hasFocus && !item->data->Unavalible)
 			 {
 				 item->data->hasFocus = false;
 				 FocusOnNextElement(item);
@@ -895,7 +902,7 @@ void j1Gui::CheckSavegame()
 	 p2List_item<UIElement*>* item = nullptr;
 	 for (item = elements.start; item; item = item->next)
 	 {
-		 if (!item->data->In_window && item->data->active && item->data->UItype != UIType::IMAGE && item->data->UItype != UIType::LABEL && item->data->UItype != UIType::LABELLED_IMAGE && item->data->UItype != UIType::NO_TYPE && item->data->UItype != UIType::UICLOCK)
+		 if (!item->data->In_window && !item->data->Unavalible && item->data->active && item->data->UItype != UIType::IMAGE && item->data->UItype != UIType::LABEL && item->data->UItype != UIType::LABELLED_IMAGE && item->data->UItype != UIType::NO_TYPE && item->data->UItype != UIType::UICLOCK)
 		 {
 			 item->data->hasFocus = true;
 			 break;
@@ -907,7 +914,7 @@ void j1Gui::CheckSavegame()
  {
 	 while (1 == 1)
 	 {
-		 if (item->next && (item->next->data->UItype == UIType::INTERACTIVE || item->next->data->UItype == UIType::INTERACTIVE_LABEL || item->next->data->UItype == UIType::INTERACTIVE_IMAGE || item->next->data->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
+		 if (item->next && !item->next->data->Unavalible && (item->next->data->UItype == UIType::INTERACTIVE || item->next->data->UItype == UIType::INTERACTIVE_LABEL || item->next->data->UItype == UIType::INTERACTIVE_IMAGE || item->next->data->UItype == UIType::INTERACTIVE_LABELLED_IMAGE))
 		 {
 			 item->next->data->hasFocus = true;
 			 break;

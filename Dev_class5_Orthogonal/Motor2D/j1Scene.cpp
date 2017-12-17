@@ -8,7 +8,7 @@
 #include "j1Window.h"
 #include "Window.h"
 #include "j1Map.h"
-#include "InheritedLabel.h"
+#include "LabelledImage.h"
 #include "j1Scene.h"
 #include "j1IntroScene.h"
 #include "j1SceneChange.h"
@@ -49,25 +49,12 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 // Called before the first frame
 bool j1Scene::Start()
-{	
+{
+
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 
 	config = App->LoadConfig(config_file);
-
-	SDL_Rect temp;
-	temp.x = 250;
-	temp.y = 5;
-	temp.w = 0;
-	temp.h = 0;
-
-	p2SString tmp("Score: %i",App->gui->scoreNumber);
-	App->gui->currentScore = App->gui->AddLabel(temp, { 0,0 }, "fonts/Old School Adventures.ttf", { 255,255,255,255 }, tmp.GetString());
-
-	temp.x = 550;
-	p2SString tmp2("Time: 0");
-	App->gui->timeLabel = App->gui->AddLabel(temp, { 0,0 }, "fonts/Old School Adventures.ttf", { 255,255,255,255 }, tmp2.GetString(), 24);
-
 
 	to_end = false;
 	bool ret = App->map->Load_map(map_names.start->data->GetString());
@@ -108,14 +95,14 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-	/*if (transcurredTime.ReadSec() >= 1 && !pause && !App->sceneswitch->IsSwitching() && !App->scenechange->IsChanging())
+	if (transcurredTime.ReadSec() >= 1 && !pause && !App->sceneswitch->IsSwitching() && !App->scenechange->IsChanging())
 	{
 		currentTime += 1;
 		p2SString temp("Time: %i", currentTime);
 		LOG("IsChanging: %i", App->scenechange->IsChanging());
 		App->gui->timeLabel->ChangeText(&temp);
 		transcurredTime.Start();
-	}*/
+	}
 
 	return true;
 }
@@ -194,7 +181,7 @@ bool j1Scene::PostUpdate()
 // Called before quitting
 bool j1Scene::CleanUp()
 {
-
+	currentTime = 0;
 	LOG("Freeing scene");
 
 	return true;

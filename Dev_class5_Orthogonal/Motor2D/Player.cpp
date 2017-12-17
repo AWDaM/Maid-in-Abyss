@@ -233,9 +233,12 @@ bool Player::PostUpdate()
 		LOG("lives %i", lives);
 		App->scene->playerLives = lives;
 		if (lives == 0)
+		{
 			App->sceneswitch->SwitchScene(App->introscene, App->scene);
+			App->gui->scoreNumber = 0;
+		}
 		else
-		App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);
+			App->scenechange->ChangeMap(App->scene->currentMap, App->scene->fade_time);
 
 
 	}

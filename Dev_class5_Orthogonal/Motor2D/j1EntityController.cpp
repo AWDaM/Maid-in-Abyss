@@ -11,7 +11,7 @@
 #include "j1Textures.h"
 #include "j1Gui.h"
 #include "UIClock.h"
-#include "InheritedLabel.h"
+#include "LabelledImage.h"
 j1EntityController::j1EntityController()
 {
 	name.create("entitycontroller");

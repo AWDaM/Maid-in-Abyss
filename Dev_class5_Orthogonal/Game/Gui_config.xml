@@ -357,18 +357,31 @@ XML but its value is an int so here's the list of types:
       <draggable value="false"/>
 
       <labelledimage>
-        <position x="" y="" w="" h=""/>
-        <labelrelativepos x="" y=""/>
-        <imageoffset x="" y=""/>
-        <fontpath sting=""/>
-        <color x="" y="" w="" h=""/>
-        <label sting=""/>
-        <size value=""/>
-        <imagesetcion x="" y="" w="" h=""/>
-        <draggable value=""/>
-        
+        <position x="900" y="0" w="207" h="45"/>
+        <labelrelativepos x="33" y="9"/>
+        <imageoffset x="0" y="0"/>
+        <fontpath string="fonts/Old School Adventures.ttf"/>
+        <color x="255" y="255" w="255" h="255"/>
+        <label sting="Score: 0"/>
+        <size value="16"/>
+        <imagesection x="808" y="0" w="207" h="45"/>
+        <draggable value="false"/>
+        <isScoreLabel value="true"/>
       </labelledimage>
-
+      
+      <labelledimage>
+        <position x="900" y="50" w="207" h="45"/>
+        <labelrelativepos x="33" y="9"/>
+        <imageoffset x="0" y="0"/>
+        <fontpath string="fonts/Old School Adventures.ttf"/>
+        <color x="255" y="255" w="255" h="255"/>
+        <label sting="Time: 0"/>
+        <size value="16"/>
+        <imagesection x="808" y="0" w="207" h="45"/>
+        <draggable value="false"/>
+        <isTimeLabel value="true"/>
+      </labelledimage>
+      
     </uiclock>
     <image>
       <position x="94" y="5" w="299" h="40"/>

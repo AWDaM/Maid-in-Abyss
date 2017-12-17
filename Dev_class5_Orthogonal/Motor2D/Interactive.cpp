@@ -5,6 +5,9 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "Window.h"
+#include "j1Sceneswitch.h"
+#include "j1Scene.h"
+#include "j1IntroScene.h"
 
 
 Interactive::Interactive()
@@ -125,10 +128,14 @@ bool Interactive::OnEvent()
 		window->active = false;
 		break;
 	case CONTINUE:
+		App->sceneswitch->SwitchScene(App->scene, App->introscene);
+		App->sceneswitch->switchingFromSaveGame = true;
 		break;
 	case NEWGAME:
+		App->sceneswitch->SwitchScene(App->scene, App->introscene);
 		break;
 	case OPEN_SETTINGS:
+		App->introscene->settings->active = true;
 		break;
 	case OPEN_CREDITS:
 		break;

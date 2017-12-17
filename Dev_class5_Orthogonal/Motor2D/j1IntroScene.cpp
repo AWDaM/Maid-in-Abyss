@@ -43,6 +43,8 @@ bool j1IntroScene::Start()
 
 	guiconfig = guiconfig.child("introscene");
 
+	App->audio->PlayMusic("MainTheme.ogg");
+
 	App->gui->Load_UIElements(guiconfig,this);
 	App->gui->Load_SceneWindows(guiconfig,this);
 	return true;
@@ -84,8 +86,7 @@ bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 	bool ret = true;
 	element->HandleAnimation(eventType);
 
-	if (eventType == EventTypes::PRESSED_ENTER)
-		ret = element->OnEvent();
+	
 
 	if (eventType == EventTypes::LEFT_MOUSE_PRESSED && element->type == QUIT)
 	{
@@ -108,6 +109,10 @@ bool j1IntroScene::OnEvent(UIElement * element, int eventType)
 		settings->active = true;
 	else if (element->type == InteractiveType::CLOSE_WINDOW && eventType == EventTypes::LEFT_MOUSE_PRESSED)
 		settings->active = false;
+
+	if (eventType == EventTypes::PRESSED_ENTER)
+		ret = element->OnEvent();
+
 	return ret;
 }
 
