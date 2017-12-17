@@ -203,7 +203,11 @@ bool j1Gui::Load(pugi::xml_node &config)
 	if (App->scene->active)
 	{
 		scoreNumber = config.child("score").attribute("value").as_int();
-		App->gui->scoreNumber -= 10;
+		if (scoreNumber < 0 || scoreNumber > 100000)
+		{
+			scoreNumber = 0;
+		}
+
 		p2SString temp("Score: %i", App->gui->scoreNumber);
 		App->gui->currentScore->ChangeText(&temp);
 
@@ -778,6 +782,9 @@ InteractiveType j1Gui::InteractiveType_from_int(int type)
 	case(8):
 		ret = SAVE_GAME;
 		break;
+	case(9):
+		ret = UNLOCKUI;
+		break;
 	default:
 		ret = DEFAULT;
 	};
@@ -963,4 +970,24 @@ void j1Gui::CheckSavegame()
  void j1Gui::AddScore(int score)
  {
 	 scoreNumber += score;
+ }
+
+ void j1Gui::UnlockUI()
+ {
+	 if (!UIunlocked)
+	 {
+		 for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
+		 {
+			 if(!item->data->In_window)
+			 item->data->draggable = true;
+		 }
+	 }
+
+	 else
+	 {
+		 for (p2List_item<UIElement*>* item = elements.start; item; item = item->next)
+		 {
+			 item->data->draggable = false;
+		 }
+	 }
  }

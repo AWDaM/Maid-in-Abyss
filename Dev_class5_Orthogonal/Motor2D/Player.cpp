@@ -230,6 +230,11 @@ bool Player::PostUpdate()
 	{
 
 		lives -= 1;
+		App->gui->scoreNumber -= 50;
+		if (App->gui->scoreNumber < 0 || App->gui->scoreNumber > 100000)
+		{
+			App->gui->scoreNumber = 0;
+		}
 		LOG("lives %i", lives);
 		App->scene->playerLives = lives;
 		if (lives == 0)
