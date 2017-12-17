@@ -1,8 +1,7 @@
 # A game development project
 
 ## made by Jaume Surís and Lorién Portella
- [editor on GitHub](https://github.com/AWDaM/GameDevelopmentAssignments/edit/master/index.md) 
- 
+
 The game is a  2D platformer where the player needs to reach the end of the levels by jumping, dashing, dodging enemies and... Stoping  time!
 
 This game has been made as the project requested in the game development subject, of the second year of university at the Videogame design and development of the UPC.
@@ -24,6 +23,7 @@ Team and individual work
 - Add elements functions
 - GUI elements loaded from XML
 - Pick up entity
+- Web page
 
 Main core subsystems
 -
@@ -48,23 +48,4 @@ Links
 - [Repository](https://github.com/AWDaM/Maid-in-Abyss)
 - [Last Release](https://github.com/AWDaM/Maid-in-Abyss/releases/tag/v3.0)
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
