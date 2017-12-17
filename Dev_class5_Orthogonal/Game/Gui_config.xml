@@ -375,16 +375,16 @@ XML but its value is an int so here's the list of types:
           <relativeposB x="20" y="15"/>
           <relativeposC x="0" y="0"/>
           <winRelativePos x="100" y="200"/>
-          <imagesection x="0" y="228" w="261" h="64"/>
+          <imagesection x="0" y="76" w="261" h="64"/>
           <fontpath path="fonts/Old School Adventures.ttf"/>
           <color r="255" g="255" b="255" a="0"/>
           <label string="Unlock UI"/>
           <type value="9"/>
           <size value="20"/>
           <draggable value="false"/>
-          <hover x="263" y="228" w="261" h="64"/>
-          <click x="526" y="228" w="261" h="64"/>
-          <inactive x="0" y="380" w="261" h="64"/>
+	<hover x="263" y="76" w="261" h="64"/>
+        <click x="526" y="76" w="261" h="64"/>
+        <inactive x="0" y="380" w="261" h="64"/> 
         </interactivelabelledimage>
           
       </elements>
