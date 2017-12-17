@@ -13,12 +13,12 @@ Team and individual work
 
 ![](https://imgur.com/NRWagrE.png)
 
-Jaume Surís (right)
+[Jaume Surís (right):](https://github.com/Farmak09)
 - Focus System
 - Interactive UI
 - Labels
 
-Lorién Portella (left)
+[Lorién Portella (left):](https://github.com/Witiza)
 - Clock and Scrollbar classes
 - UIElements base class
 - Add elements functions
@@ -41,6 +41,13 @@ Main core subsystems
 - Focus feature with tab as a method to iterate all the interactive
 - All the UIElements are added from gui_config.xml, more elements can be added by just changing values of the .xml (innovation)
 
+Links
+-
+
+- [The team](https://github.com/AWDaM)
+- [Repository](https://github.com/AWDaM/Maid-in-Abyss)
+- [Last Release](https://github.com/AWDaM/Maid-in-Abyss/releases/tag/v3.0)
+
 ```markdown
 Syntax highlighted code block
 
@@ -61,10 +68,3 @@ Syntax highlighted code block
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/AWDaM/GameDevelopmentAssignments/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
