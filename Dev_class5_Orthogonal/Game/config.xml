@@ -48,6 +48,7 @@
       <deathFX source="Death.wav"/>
       <landFX source="Land.wav"/>
       <dashFX source="Dash.wav"/>
+      <pickupFX source="Pickup.wav"/>
       <timestopFX source="TimeStop.wav"/>
       <accel x="1" y="1"/>
 
